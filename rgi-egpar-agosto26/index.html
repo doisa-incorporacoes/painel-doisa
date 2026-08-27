@@ -16290,7 +16290,8 @@ hr, [class*="__divider"], [class*="-divider"] {
 
   function listenKeys() {
     document.addEventListener('keydown', function (e) {
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      var t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
       switch (e.key) {
         case 'ArrowRight':
         case 'ArrowDown':
@@ -16315,7 +16316,7 @@ hr, [class*="__divider"], [class*="-divider"] {
         case 'Escape':
           if (document.fullscreenElement) document.exitFullscreen().catch(function () {}); break;
       }
-    });
+    }, true);
   }
 
   /* ─── Botões footer ──────────────────────────────────────────────── */
