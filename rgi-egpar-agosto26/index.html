@@ -11530,6 +11530,37 @@ hr, [class*="__divider"], [class*="-divider"] {
 .s-senior__cell:nth-child(2){animation-delay:.1s}.s-senior__cell:nth-child(3){animation-delay:.2s}.s-senior__cell:nth-child(4){animation-delay:.3s}
 .rgi-table-wrap{animation-delay:.15s}
 </style>
+<script>
+(function () {  // __ponte_rgi__
+  var pend = 0, ligado = false;
+  function pronto() {
+    return window.RGIShell && typeof window.RGIShell.goTo === 'function';
+  }
+  function editavel(t) {
+    return !t || t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable;
+  }
+  document.addEventListener('keydown', function (e) {
+    if (pronto()) return;
+    if (editavel(e.target)) return;
+    var d = 0;
+    switch (e.key) {
+      case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown': d = 1; break;
+      case 'ArrowLeft':  case 'ArrowUp':   case 'PageUp':             d = -1; break;
+      default: return;
+    }
+    e.preventDefault();
+    e.stopPropagation();
+    pend += d;
+  }, true);
+  function despejar() {
+    if (ligado || !pronto()) return;
+    ligado = true;
+    if (pend) { window.RGIShell.goTo(window.RGIShell.current + pend); pend = 0; }
+  }
+  var t = setInterval(function () { despejar(); if (ligado) clearInterval(t); }, 120);
+  window.addEventListener('load', despejar);
+})();
+</script>
 </head>
 <body>
     <div class="slide-shell">
