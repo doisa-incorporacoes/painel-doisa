@@ -11788,34 +11788,255 @@ hr, [class*="__divider"], [class*="-divider"] {
 </section>
 
 
+<section class="slide-section" data-slide="05">
+  <style>
+    .slide-section[data-slide="05"] .sr-panel{position:absolute;top:110px;left:56px;right:56px;bottom:54px;background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;border-radius:10px;display:flex;flex-direction:column;padding:22px 30px 20px;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif;overflow:hidden;}
+    .slide-section[data-slide="05"] .sr-proj-title{font-size:22px;font-weight:800;color:#1A3470;}
+    .slide-section[data-slide="05"] .sr-proj-title span{color:#7A8299;font-weight:600;}
+    .slide-section[data-slide="05"] .sr-divider{height:1px;background:rgba(45,79,158,0.12);margin:14px 0 20px;}
+    .slide-section[data-slide="05"] .mv08-funnel-label{background:#E97132;color:#FFFFFF;font-weight:800;font-size:12.5px;letter-spacing:1.1px;text-transform:uppercase;padding:7px 14px;border-radius:6px 6px 0 0;display:inline-block;margin-bottom:0;}
+    .slide-section[data-slide="05"] .mv08-funnel{display:flex;align-items:stretch;gap:0;margin:14px 0 26px;border:1px solid rgba(45,79,158,0.12);border-radius:0 8px 8px 8px;padding:20px 22px;background:#FBFAF7;}
+    .slide-section[data-slide="05"] .mv08-step{flex:1 1 0;display:flex;align-items:center;gap:16px;min-width:0;}
+    .slide-section[data-slide="05"] .mv08-step-num{font-family:'Arial Black',sans-serif !important;font-size:48px;font-weight:900;color:#1A3470;line-height:1;flex-shrink:0;}
+    .slide-section[data-slide="05"] .mv08-step-label{font-size:15px;font-weight:700;color:#1A1A1A;line-height:1.25;}
+    .slide-section[data-slide="05"] .mv08-arrow{width:32px;height:44px;align-self:center;flex-shrink:0;margin:0 14px;background:#E97132;clip-path:polygon(0 0, 55% 0, 100% 50%, 55% 100%, 0 100%, 38% 50%);}
+    .slide-section[data-slide="05"] .mv08-crit-label{background:#1A3470;color:#FFFFFF;font-weight:800;font-size:12.5px;letter-spacing:1.1px;text-transform:uppercase;padding:7px 14px;border-radius:6px 6px 0 0;display:inline-block;}
+    .slide-section[data-slide="05"] .mv08-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;flex:1;min-height:0;border:1px solid rgba(45,79,158,0.12);border-top:none;border-radius:0 0 8px 8px;padding:18px;background:#FBFAF7;}
+    .slide-section[data-slide="05"] .mv08-card{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);border-radius:8px;padding:14px 16px 16px;display:flex;flex-direction:column;box-shadow:0 4px 12px rgba(45,79,158,0.06);position:relative;}
+    .slide-section[data-slide="05"] .mv08-card::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:#E97132;border-radius:8px 8px 0 0;}
+    .slide-section[data-slide="05"] .mv08-card-tag{font-size:10.5px;font-weight:800;letter-spacing:1px;color:#E97132;text-transform:uppercase;margin:6px 0 8px;}
+    .slide-section[data-slide="05"] .mv08-card-title{font-size:16px;font-weight:800;color:#1A3470;line-height:1.2;margin-bottom:10px;}
+    .slide-section[data-slide="05"] .mv08-card-desc{font-size:12.5px;line-height:1.45;color:#5A6478;}
+    @media (max-width:1100px){
+      .slide-section[data-slide="05"] .sr-panel{overflow-y:auto;}
+      .slide-section[data-slide="05"] .mv08-funnel{flex-direction:column;gap:14px;}
+      .slide-section[data-slide="05"] .mv08-arrow{width:44px;height:32px;flex-shrink:0;align-self:center;transform:rotate(90deg);margin:0 auto;}
+      .slide-section[data-slide="05"] .mv08-cards{grid-template-columns:repeat(2,1fr);flex:none;}
+    }
+    @media (max-width:600px){
+      .slide-section[data-slide="05"] .mv08-cards{grid-template-columns:1fr;}
+    }
+  </style>
+  <div class="sr-panel">
+    <div class="sr-hdr">
+      <div class="sr-proj-title">Funil de análise <span>| e critérios para seleção</span></div>
+    </div>
+    <div class="sr-divider"></div>
+    <div>
+      <div class="mv08-funnel-label">Funil de Seleção</div>
+      <div class="mv08-funnel">
+        <div class="mv08-step">
+          <div class="mv08-step-num">4</div>
+          <div class="mv08-step-label">agências<br>mapeadas</div>
+        </div>
+        <div class="mv08-arrow"></div>
+        <div class="mv08-step">
+          <div class="mv08-step-num">3</div>
+          <div class="mv08-step-label">finalistas<br>para decisão</div>
+        </div>
+        <div class="mv08-arrow"></div>
+        <div class="mv08-step">
+          <div class="mv08-step-num">2</div>
+          <div class="mv08-step-label">recomendações<br>técnicas</div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1;min-height:0;display:flex;flex-direction:column;">
+      <div class="mv08-crit-label">Critérios de Seleção</div>
+      <div class="mv08-cards">
+        <div class="mv08-card">
+          <div class="mv08-card-tag">Critério 01</div>
+          <div class="mv08-card-title">Expertise imobiliária</div>
+          <div class="mv08-card-desc">Histórico em lançamentos, linguagem comercial, jornada do comprador e repertório em outras praças.</div>
+        </div>
+        <div class="mv08-card">
+          <div class="mv08-card-tag">Critério 02</div>
+          <div class="mv08-card-title">Capacidade técnica</div>
+          <div class="mv08-card-desc">Qualidade dos cases, senioridade, inteligência estratégica e estrutura de atendimento.</div>
+        </div>
+        <div class="mv08-card">
+          <div class="mv08-card-tag">Critério 03</div>
+          <div class="mv08-card-title">Escopo e aderência</div>
+          <div class="mv08-card-desc">O que está incluído, o que depende de terceiros e como sustenta a campanha após o lançamento.</div>
+        </div>
+        <div class="mv08-card">
+          <div class="mv08-card-tag">Critério 04</div>
+          <div class="mv08-card-title">Viabilidade financeira</div>
+          <div class="mv08-card-desc">Fee, variável, comissões e impacto na verba restante para execução da campanha.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <section class="slide-section" data-slide="06">
   <style>
-    .slide-section[data-slide="06"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;display:flex;flex-direction:row;gap:26px;}
-    .slide-section[data-slide="06"] .sr-proj-title{color:#1A3470;}
-    .slide-section[data-slide="06"] .sr-proj-title span{color:#7A8299;}
-    .slide-section[data-slide="06"] .sr-meta-line{color:#5A6478;}
-    .slide-section[data-slide="06"] .sr-meta-line b{color:#E97132;}
-    .slide-section[data-slide="06"] .sr-divider{background:rgba(45,79,158,0.12);}
-    .slide-section[data-slide="06"] .rd06-main{flex:1;min-width:0;display:flex;flex-direction:column;}
-    .slide-section[data-slide="06"] .rd06-side{width:300px;flex:0 0 300px;background:#0D1B2A;border-radius:6px;padding:18px 18px 16px 18px;overflow-y:auto;color:#FFFFFF;}
-    .slide-section[data-slide="06"] .rd06-side h3{margin:0 0 10px 0;color:#F5A623;font-size:14.5px;font-weight:800;text-transform:uppercase;letter-spacing:0.3px;}
-    .slide-section[data-slide="06"] .rd06-side p.rd06-intro{font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.5;margin:0 0 14px 0;}
-    .slide-section[data-slide="06"] .rd06-side p.rd06-label{font-size:12.5px;font-weight:800;color:#FFFFFF;margin:12px 0 4px 0;text-transform:uppercase;}
-    .slide-section[data-slide="06"] .rd06-side ul{margin:0 0 4px 0;padding:0;list-style:none;}
-    .slide-section[data-slide="06"] .rd06-side ul li{position:relative;padding-left:12px;margin-bottom:5px;font-size:12px;color:rgba(255,255,255,0.88);line-height:1.45;}
-    .slide-section[data-slide="06"] .rd06-side ul li::before{content:"•";color:#E97132;position:absolute;left:0;}
-    .slide-section[data-slide="06"] .rd06-flag{margin-top:14px;background:rgba(232,113,50,0.14);border-left:3px solid #E97132;padding:8px 10px;font-size:11.5px;color:#FCE8D8;line-height:1.45;margin-bottom:8px;}
-    .slide-section[data-slide="06"] .rd06-table-wrap{margin-top:14px;flex:1;overflow:auto;border-radius:6px;border:1px solid rgba(45,79,158,0.22);}
-    .slide-section[data-slide="06"] table.rd06-table{border-collapse:collapse;font-family:'Calibri','Segoe UI',sans-serif !important;font-size:12.5px;width:100%;min-width:960px;}
-    .slide-section[data-slide="06"] table.rd06-table thead tr{background:var(--brand-blue-deep);color:#FFFFFF;}
-    .slide-section[data-slide="06"] table.rd06-table thead th{padding:10px 9px;font-weight:700;text-align:center;color:#FFFFFF !important;border-right:1px solid rgba(255,255,255,0.16);white-space:nowrap;}
-    .slide-section[data-slide="06"] table.rd06-table tbody td{padding:7px 9px;text-align:right;color:#1A1A1A;font-variant-numeric:tabular-nums;white-space:nowrap;}
-    .slide-section[data-slide="06"] table.rd06-table tbody td:first-child{text-align:left;font-weight:600;white-space:normal;max-width:210px;}
-    .slide-section[data-slide="06"] table.rd06-table tbody tr:nth-child(even) td{background:rgba(45,79,158,0.03);}
-    .slide-section[data-slide="06"] table.rd06-table tbody tr.rgi-row-total td{background:rgba(45,79,158,0.20) !important;font-weight:800 !important;color:#1A1A1A !important;border-top:2px solid #1A3470 !important;}
+    .slide-section[data-slide="06"] .sr-panel{position:absolute;top:110px;left:56px;right:56px;bottom:54px;background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;border-radius:10px;display:flex;flex-direction:column;padding:22px 30px 20px;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif;overflow:hidden;}
+    .slide-section[data-slide="06"] .sr-proj-title{font-size:22px;font-weight:800;color:#1A3470;}
+    .slide-section[data-slide="06"] .sr-proj-title span{color:#7A8299;font-weight:600;}
+    .slide-section[data-slide="06"] .sr-divider{height:1px;background:rgba(45,79,158,0.12);margin:14px 0 18px;}
+    .slide-section[data-slide="06"] .rgi-table{width:100%;border-collapse:collapse;font-family:'Calibri','Segoe UI',sans-serif;table-layout:fixed;}
+    .slide-section[data-slide="06"] .rgi-table thead tr{background:#1A3470;}
+    .slide-section[data-slide="06"] .rgi-table thead th{color:#FFFFFF !important;text-align:center;font-weight:700;padding:9px 8px !important;font-size:13px !important;vertical-align:middle;}
+    .slide-section[data-slide="06"] .rgi-table thead th:first-child{text-align:left;}
+    .slide-section[data-slide="06"] .rgi-table tbody td{color:#1A1A1A !important;text-align:center;padding:10px 8px !important;font-size:13px !important;border-bottom:1px solid rgba(45,79,158,0.10);}
+    .slide-section[data-slide="06"] .rgi-table tbody td:first-child{text-align:left;font-weight:700;color:#1A3470 !important;}
+    .slide-section[data-slide="06"] .rgi-table tbody td.mv09-peso{font-weight:700;color:#E97132 !important;}
+    .slide-section[data-slide="06"] .rgi-table tbody tr:nth-child(even) td{background:rgba(45,79,158,0.03);}
+    .slide-section[data-slide="06"] .sr-dots{display:inline-flex;gap:4px;}
+    .slide-section[data-slide="06"] .sr-dot{width:12px;height:12px;border-radius:50%;border:1.6px solid #1A3470;display:inline-block;}
+    .slide-section[data-slide="06"] .sr-dot--on{background:#1A3470;}
+    .slide-section[data-slide="06"] .mv09-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px;flex-shrink:0;}
+    .slide-section[data-slide="06"] .mv09-score-card{background:#FFFFFF;border:1px solid rgba(45,79,158,0.16);border-radius:8px;padding:14px 18px;box-shadow:0 4px 12px rgba(45,79,158,0.06);}
+    .slide-section[data-slide="06"] .mv09-score-card.is-top{background:#F7EFDF;border-color:#E9C98A;box-shadow:0 6px 16px rgba(233,113,50,0.14);}
+    .slide-section[data-slide="06"] .mv09-score-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+    .slide-section[data-slide="06"] .mv09-score-name{font-size:16px;font-weight:700;color:#1A1A1A;}
+    .slide-section[data-slide="06"] .mv09-score-val{font-size:22px;font-weight:800;color:#1A3470;}
+    .slide-section[data-slide="06"] .mv09-score-tag{font-size:12.5px;font-weight:800;color:#1A3470;margin-bottom:3px;}
+    .slide-section[data-slide="06"] .mv09-score-desc{font-size:11.5px;color:#5A6478;line-height:1.35;}
     @media (max-width:1100px){
-      .slide-section[data-slide="06"] .sr-panel{flex-direction:column;}
-      .slide-section[data-slide="06"] .rd06-side{width:100%;flex:0 0 auto;}
+      .slide-section[data-slide="06"] .sr-panel{overflow-y:auto;overflow-x:auto;}
+      .slide-section[data-slide="06"] .rgi-table{table-layout:auto;min-width:640px;}
+      .slide-section[data-slide="06"] .mv09-scores{grid-template-columns:1fr;flex-shrink:0;}
+    }
+  </style>
+  <div class="sr-panel">
+    <div class="sr-hdr">
+      <div class="sr-proj-title">Matriz <span>| e leitura final</span></div>
+    </div>
+    <div class="sr-divider"></div>
+    <table class="rgi-table">
+      <colgroup>
+        <col style="width:26%"><col style="width:10%"><col><col><col>
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Critério</th>
+          <th>Peso</th>
+          <th>FAV</th>
+          <th>Tagawa</th>
+          <th>Art&amp;C</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Expertise imobiliária</td>
+          <td class="mv09-peso">30%</td>
+          <td><span class="sr-dots"><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span></span></td>
+          <td><span class="sr-dots"><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot"></span></span></td>
+          <td><span class="sr-dots"><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot"></span><span class="sr-dot"></span><span class="sr-dot"></span></span></td>
+        </tr>
+        <tr>
+          <td>Capacidade técnica</td>
+          <td class="mv09-peso">25%</td>
+          <td><span class="sr-dots"><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span></span></td>
+          <td><span class="sr-dots"><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span></span></td>
+          <td><span class="sr-dots"><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot"></span><span class="sr-dot"></span></span></td>
+        </tr>
+        <tr>
+          <td>Escopo e aderência</td>
+          <td class="mv09-peso">20%</td>
+          <td><span class="sr-dots"><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot"></span></span></td>
+          <td><span class="sr-dots"><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot"></span></span></td>
+          <td><span class="sr-dots"><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot"></span></span></td>
+        </tr>
+        <tr>
+          <td>Viabilidade financeira</td>
+          <td class="mv09-peso">25%</td>
+          <td><span class="sr-dots"><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot"></span><span class="sr-dot"></span><span class="sr-dot"></span></span></td>
+          <td><span class="sr-dots"><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span></span></td>
+          <td><span class="sr-dots"><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot sr-dot--on"></span><span class="sr-dot"></span><span class="sr-dot"></span></span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="mv09-scores">
+      <div class="mv09-score-card">
+        <div class="mv09-score-head"><span class="mv09-score-name">FAV</span><span class="mv09-score-val">4,00</span></div>
+        <div class="mv09-score-tag">Referência técnica</div>
+        <div class="mv09-score-desc">Maior robustez; custo pressiona execução.</div>
+      </div>
+      <div class="mv09-score-card is-top">
+        <div class="mv09-score-head"><span class="mv09-score-name">Tagawa</span><span class="mv09-score-val">4,50</span></div>
+        <div class="mv09-score-tag">Melhor equilíbrio</div>
+        <div class="mv09-score-desc">Expertise + escopo + valor compatível.</div>
+      </div>
+      <div class="mv09-score-card">
+        <div class="mv09-score-head"><span class="mv09-score-name">Art&amp;C</span><span class="mv09-score-val">3,00</span></div>
+        <div class="mv09-score-tag">Força regional</div>
+        <div class="mv09-score-desc">Domínio do mercado regional.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="slide-section" data-slide="07">
+  <style>
+    .slide-section[data-slide="07"] .sr-panel{position:absolute;top:110px;left:56px;right:56px;bottom:54px;background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;border-radius:10px;display:flex;flex-direction:column;padding:22px 30px 20px;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif;overflow:hidden;}
+    .slide-section[data-slide="07"] .sr-proj-title{font-size:20px;font-weight:800;color:#1A3470;line-height:1.3;max-width:980px;}
+    .slide-section[data-slide="07"] .sr-divider{height:1px;background:rgba(45,79,158,0.12);margin:16px 0 24px;}
+    .slide-section[data-slide="07"] .mv10-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;flex:1;min-height:0;}
+    .slide-section[data-slide="07"] .mv10-card{background:#FFFFFF;border:1px solid rgba(45,79,158,0.16);border-radius:10px;padding:22px 24px;display:flex;flex-direction:column;box-shadow:0 6px 18px rgba(45,79,158,0.08);position:relative;}
+    .slide-section[data-slide="07"] .mv10-card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:#E97132;border-radius:10px 10px 0 0;}
+    .slide-section[data-slide="07"] .mv10-card-title{font-size:19px;font-weight:800;color:#1A3470;margin:6px 0 14px;}
+    .slide-section[data-slide="07"] .mv10-card-desc{font-size:14px;line-height:1.5;color:#3A3A3A;flex:1;}
+    .slide-section[data-slide="07"] .mv10-card-trigger{margin-top:16px;padding-top:12px;border-top:1px solid rgba(45,79,158,0.12);font-size:13px;color:#5A6478;}
+    .slide-section[data-slide="07"] .mv10-card-trigger b{color:#1A3470;font-weight:800;}
+    @media (max-width:1100px){
+      .slide-section[data-slide="07"] .sr-panel{overflow-y:auto;}
+      .slide-section[data-slide="07"] .mv10-cards{grid-template-columns:1fr;flex:none;}
+    }
+  </style>
+  <div class="sr-panel">
+    <div class="sr-hdr">
+      <div class="sr-proj-title">Sugestão de proposta para alinhar performance comercial e eficiência no uso da verba</div>
+    </div>
+    <div class="sr-divider"></div>
+    <div class="mv10-cards">
+      <div class="mv10-card">
+        <div class="mv10-card-title">Success Fee Comercial</div>
+        <div class="mv10-card-desc">Pago quando a agência atinge as faixas de performance comercial definidas para o lançamento, calculadas sobre o VGV elegível vendido.</div>
+        <div class="mv10-card-trigger"><b>Gatilho:</b> performance comercial</div>
+      </div>
+      <div class="mv10-card">
+        <div class="mv10-card-title">Bônus de Eficiência</div>
+        <div class="mv10-card-desc">Pago apenas se houver performance comercial e economia sobre o orçamento do escopo de referência. A agência só participa da economia se primeiro gerar resultado.</div>
+        <div class="mv10-card-trigger"><b>Gatilho:</b> performance + economia</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="slide-section" data-slide="08">
+  <style>
+    .slide-section[data-slide="08"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;display:flex;flex-direction:row;gap:26px;}
+    .slide-section[data-slide="08"] .sr-proj-title{color:#1A3470;}
+    .slide-section[data-slide="08"] .sr-proj-title span{color:#7A8299;}
+    .slide-section[data-slide="08"] .sr-meta-line{color:#5A6478;}
+    .slide-section[data-slide="08"] .sr-meta-line b{color:#E97132;}
+    .slide-section[data-slide="08"] .sr-divider{background:rgba(45,79,158,0.12);}
+    .slide-section[data-slide="08"] .rd06-main{flex:1;min-width:0;display:flex;flex-direction:column;}
+    .slide-section[data-slide="08"] .rd06-side{width:300px;flex:0 0 300px;background:#0D1B2A;border-radius:6px;padding:18px 18px 16px 18px;overflow-y:auto;color:#FFFFFF;}
+    .slide-section[data-slide="08"] .rd06-side h3{margin:0 0 10px 0;color:#F5A623;font-size:14.5px;font-weight:800;text-transform:uppercase;letter-spacing:0.3px;}
+    .slide-section[data-slide="08"] .rd06-side p.rd06-intro{font-size:12.5px;color:rgba(255,255,255,0.75);line-height:1.5;margin:0 0 14px 0;}
+    .slide-section[data-slide="08"] .rd06-side p.rd06-label{font-size:12.5px;font-weight:800;color:#FFFFFF;margin:12px 0 4px 0;text-transform:uppercase;}
+    .slide-section[data-slide="08"] .rd06-side ul{margin:0 0 4px 0;padding:0;list-style:none;}
+    .slide-section[data-slide="08"] .rd06-side ul li{position:relative;padding-left:12px;margin-bottom:5px;font-size:12px;color:rgba(255,255,255,0.88);line-height:1.45;}
+    .slide-section[data-slide="08"] .rd06-side ul li::before{content:"•";color:#E97132;position:absolute;left:0;}
+    .slide-section[data-slide="08"] .rd06-flag{margin-top:14px;background:rgba(232,113,50,0.14);border-left:3px solid #E97132;padding:8px 10px;font-size:11.5px;color:#FCE8D8;line-height:1.45;margin-bottom:8px;}
+    .slide-section[data-slide="08"] .rd06-table-wrap{margin-top:14px;flex:1;overflow:auto;border-radius:6px;border:1px solid rgba(45,79,158,0.22);}
+    .slide-section[data-slide="08"] table.rd06-table{border-collapse:collapse;font-family:'Calibri','Segoe UI',sans-serif !important;font-size:12.5px;width:100%;min-width:960px;}
+    .slide-section[data-slide="08"] table.rd06-table thead tr{background:var(--brand-blue-deep);color:#FFFFFF;}
+    .slide-section[data-slide="08"] table.rd06-table thead th{padding:10px 9px;font-weight:700;text-align:center;color:#FFFFFF !important;border-right:1px solid rgba(255,255,255,0.16);white-space:nowrap;}
+    .slide-section[data-slide="08"] table.rd06-table tbody td{padding:7px 9px;text-align:right;color:#1A1A1A;font-variant-numeric:tabular-nums;white-space:nowrap;}
+    .slide-section[data-slide="08"] table.rd06-table tbody td:first-child{text-align:left;font-weight:600;white-space:normal;max-width:210px;}
+    .slide-section[data-slide="08"] table.rd06-table tbody tr:nth-child(even) td{background:rgba(45,79,158,0.03);}
+    .slide-section[data-slide="08"] table.rd06-table tbody tr.rgi-row-total td{background:rgba(45,79,158,0.20) !important;font-weight:800 !important;color:#1A1A1A !important;border-top:2px solid #1A3470 !important;}
+    @media (max-width:1100px){
+      .slide-section[data-slide="08"] .sr-panel{flex-direction:column;}
+      .slide-section[data-slide="08"] .rd06-side{width:100%;flex:0 0 auto;}
     }
   </style>
   <div class="sr-panel">
@@ -11872,35 +12093,35 @@ hr, [class*="__divider"], [class*="-divider"] {
 </section>
 
 
-<section class="slide-section" data-slide="07">
+<section class="slide-section" data-slide="09">
   <style>
 
-    .slide-section[data-slide="07"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;display:flex;flex-direction:column;}
-    .slide-section[data-slide="07"] .sr-title{margin:0 0 18px 0;color:#1A3470;font-size:22px;font-weight:800;}
-    .slide-section[data-slide="07"] .rd07-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;flex:1;min-height:0;}
-    .slide-section[data-slide="07"] .rd07-card{position:relative;background:#1A3470;border-radius:4px;padding:22px 18px 20px 18px;display:flex;flex-direction:column;overflow-y:visible;}
-    .slide-section[data-slide="07"] .rd07-card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:#E97132;border-radius:4px 4px 0 0;}
-    .slide-section[data-slide="07"] .rd07-num{color:#E97132;font-size:40px;font-weight:800;line-height:1;margin-bottom:6px;}
-    .slide-section[data-slide="07"] .rd07-cat{color:#FFFFFF;font-size:17.5px;font-weight:800;min-height:42px;border-bottom:2px solid rgba(255,255,255,0.35);padding-bottom:10px;margin-bottom:12px;}
-    .slide-section[data-slide="07"] .rd07-badge{background:#F5A623;color:#1A3470;font-weight:800;text-align:center;border-radius:3px;padding:9px 6px;margin-bottom:14px;font-size:13.5px;letter-spacing:0.2px;}
-    .slide-section[data-slide="07"] .rd07-label{color:#FFFFFF !important;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.3px;margin:0 0 4px 0;}
-    .slide-section[data-slide="07"] .rd07-block{margin-bottom:12px;}
-    .slide-section[data-slide="07"] .rd07-list{margin:0;padding:0;list-style:none;}
-    .slide-section[data-slide="07"] .rd07-list li{position:relative;padding-left:12px;margin-bottom:6px;color:rgba(255,255,255,0.90);font-size:13px;line-height:1.45;}
-    .slide-section[data-slide="07"] .rd07-list li::before{content:"•";color:#E97132;position:absolute;left:0;}
-    .slide-section[data-slide="07"] .rd07-prazo{color:#F5A623;font-weight:700;}
-    .slide-section[data-slide="07"] .rd07-para{color:rgba(255,255,255,0.90);font-size:13px;line-height:1.55;margin:0 0 10px 0;}
-    .slide-section[data-slide="07"] .rd07-footer{margin-top:18px;padding-top:14px;border-top:1px solid rgba(45,79,158,0.14);font-size:11px;color:#8A93A6;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+    .slide-section[data-slide="09"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;display:flex;flex-direction:column;}
+    .slide-section[data-slide="09"] .sr-title{margin:0 0 18px 0;color:#1A3470;font-size:22px;font-weight:800;}
+    .slide-section[data-slide="09"] .rd07-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:18px;flex:1;min-height:0;}
+    .slide-section[data-slide="09"] .rd07-card{position:relative;background:#1A3470;border-radius:4px;padding:22px 18px 20px 18px;display:flex;flex-direction:column;overflow-y:visible;}
+    .slide-section[data-slide="09"] .rd07-card::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:#E97132;border-radius:4px 4px 0 0;}
+    .slide-section[data-slide="09"] .rd07-num{color:#E97132;font-size:40px;font-weight:800;line-height:1;margin-bottom:6px;}
+    .slide-section[data-slide="09"] .rd07-cat{color:#FFFFFF;font-size:17.5px;font-weight:800;min-height:42px;border-bottom:2px solid rgba(255,255,255,0.35);padding-bottom:10px;margin-bottom:12px;}
+    .slide-section[data-slide="09"] .rd07-badge{background:#F5A623;color:#1A3470;font-weight:800;text-align:center;border-radius:3px;padding:9px 6px;margin-bottom:14px;font-size:13.5px;letter-spacing:0.2px;}
+    .slide-section[data-slide="09"] .rd07-label{color:#FFFFFF !important;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.3px;margin:0 0 4px 0;}
+    .slide-section[data-slide="09"] .rd07-block{margin-bottom:12px;}
+    .slide-section[data-slide="09"] .rd07-list{margin:0;padding:0;list-style:none;}
+    .slide-section[data-slide="09"] .rd07-list li{position:relative;padding-left:12px;margin-bottom:6px;color:rgba(255,255,255,0.90);font-size:13px;line-height:1.45;}
+    .slide-section[data-slide="09"] .rd07-list li::before{content:"•";color:#E97132;position:absolute;left:0;}
+    .slide-section[data-slide="09"] .rd07-prazo{color:#F5A623;font-weight:700;}
+    .slide-section[data-slide="09"] .rd07-para{color:rgba(255,255,255,0.90);font-size:13px;line-height:1.55;margin:0 0 10px 0;}
+    .slide-section[data-slide="09"] .rd07-footer{margin-top:18px;padding-top:14px;border-top:1px solid rgba(45,79,158,0.14);font-size:11px;color:#8A93A6;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}
     @media (max-width:1100px){
-      .slide-section[data-slide="07"] .sr-panel{overflow-y:auto;}
-      .slide-section[data-slide="07"] .rd07-cards{grid-template-columns:repeat(3,1fr);flex:none;align-items:start;}
-      .slide-section[data-slide="07"] .rd07-card{overflow-y:visible;}
+      .slide-section[data-slide="09"] .sr-panel{overflow-y:auto;}
+      .slide-section[data-slide="09"] .rd07-cards{grid-template-columns:repeat(3,1fr);flex:none;align-items:start;}
+      .slide-section[data-slide="09"] .rd07-card{overflow-y:visible;}
     }
     @media (max-width:900px){
-      .slide-section[data-slide="07"] .rd07-cards{grid-template-columns:repeat(2,1fr);}
+      .slide-section[data-slide="09"] .rd07-cards{grid-template-columns:repeat(2,1fr);}
     }
     @media (max-width:600px){
-      .slide-section[data-slide="07"] .rd07-cards{grid-template-columns:1fr;}
+      .slide-section[data-slide="09"] .rd07-cards{grid-template-columns:1fr;}
     }
 
   </style>
@@ -11964,26 +12185,26 @@ hr, [class*="__divider"], [class*="-divider"] {
 </section>
 
 
-<section class="slide-section" data-slide="08">
+<section class="slide-section" data-slide="10">
   <style>
-    .slide-section[data-slide="08"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;}
-    .slide-section[data-slide="08"] .sr-proj-title{color:#1A3470;}
-    .slide-section[data-slide="08"] .sr-proj-title span{color:#7A8299;}
-    .slide-section[data-slide="08"] .sr-meta-line{color:#5A6478;}
-    .slide-section[data-slide="08"] .sr-meta-line b{color:#E97132;}
-    .slide-section[data-slide="08"] .sr-divider{background:rgba(45,79,158,0.12);}
-    .slide-section[data-slide="08"] .rd08-table-wrap{margin-top:18px;overflow:auto;border-radius:6px;border:1px solid rgba(45,79,158,0.22);}
-    .slide-section[data-slide="08"] table.rd08-table{border-collapse:collapse;font-family:'Calibri','Segoe UI',sans-serif !important;font-size:11px;width:100%;min-width:1080px;}
-    .slide-section[data-slide="08"] table.rd08-table thead tr{background:var(--brand-blue-deep);color:#FFFFFF;}
-    .slide-section[data-slide="08"] table.rd08-table thead th{padding:9px 10px;font-weight:700;text-align:center;color:#FFFFFF !important;border-right:1px solid rgba(255,255,255,0.16);}
-    .slide-section[data-slide="08"] table.rd08-table tbody td{padding:6px 10px;text-align:center;color:#1A1A1A;font-variant-numeric:tabular-nums;}
-    .slide-section[data-slide="08"] table.rd08-table tbody td:first-child{font-weight:700;}
-    .slide-section[data-slide="08"] table.rd08-table tbody td:nth-child(2){text-align:left;}
-    .slide-section[data-slide="08"] table.rd08-table tbody tr:nth-child(even) td{background:rgba(45,79,158,0.03);}
-    .slide-section[data-slide="08"] table.rd08-table tbody tr.rgi-row-total td{background:rgba(45,79,158,0.20) !important;font-weight:800 !important;color:#1A1A1A !important;border-top:2px solid #1A3470 !important;}
-    .slide-section[data-slide="08"] .rd08-hl{display:inline-block;background:#FFE56B;color:#1A1A1A;font-weight:800;border-radius:3px;padding:2px 8px;}
-    .slide-section[data-slide="08"] .rd08-sub{margin:10px 0 0 0;font-size:12.5px;color:#5A6478;}
-    .slide-section[data-slide="08"] .rd08-sub b{color:#E97132;}
+    .slide-section[data-slide="10"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;}
+    .slide-section[data-slide="10"] .sr-proj-title{color:#1A3470;}
+    .slide-section[data-slide="10"] .sr-proj-title span{color:#7A8299;}
+    .slide-section[data-slide="10"] .sr-meta-line{color:#5A6478;}
+    .slide-section[data-slide="10"] .sr-meta-line b{color:#E97132;}
+    .slide-section[data-slide="10"] .sr-divider{background:rgba(45,79,158,0.12);}
+    .slide-section[data-slide="10"] .rd08-table-wrap{margin-top:18px;overflow:auto;border-radius:6px;border:1px solid rgba(45,79,158,0.22);}
+    .slide-section[data-slide="10"] table.rd08-table{border-collapse:collapse;font-family:'Calibri','Segoe UI',sans-serif !important;font-size:11px;width:100%;min-width:1080px;}
+    .slide-section[data-slide="10"] table.rd08-table thead tr{background:var(--brand-blue-deep);color:#FFFFFF;}
+    .slide-section[data-slide="10"] table.rd08-table thead th{padding:9px 10px;font-weight:700;text-align:center;color:#FFFFFF !important;border-right:1px solid rgba(255,255,255,0.16);}
+    .slide-section[data-slide="10"] table.rd08-table tbody td{padding:6px 10px;text-align:center;color:#1A1A1A;font-variant-numeric:tabular-nums;}
+    .slide-section[data-slide="10"] table.rd08-table tbody td:first-child{font-weight:700;}
+    .slide-section[data-slide="10"] table.rd08-table tbody td:nth-child(2){text-align:left;}
+    .slide-section[data-slide="10"] table.rd08-table tbody tr:nth-child(even) td{background:rgba(45,79,158,0.03);}
+    .slide-section[data-slide="10"] table.rd08-table tbody tr.rgi-row-total td{background:rgba(45,79,158,0.20) !important;font-weight:800 !important;color:#1A1A1A !important;border-top:2px solid #1A3470 !important;}
+    .slide-section[data-slide="10"] .rd08-hl{display:inline-block;background:#FFE56B;color:#1A1A1A;font-weight:800;border-radius:3px;padding:2px 8px;}
+    .slide-section[data-slide="10"] .rd08-sub{margin:10px 0 0 0;font-size:12.5px;color:#5A6478;}
+    .slide-section[data-slide="10"] .rd08-sub b{color:#E97132;}
   </style>
   <div class="sr-panel">
     <div class="sr-hdr">
@@ -12302,9 +12523,12 @@ hr, [class*="__divider"], [class*="-divider"] {
       const SECTION_MAP = {
         '03': { kicker: 'AREIA PRETA · STATUS POR FRENTE', section: '01' },
         '04': { kicker: 'AREIA PRETA · CRONOGRAMA E PRÓXIMAS ETAPAS', section: '01' },
-        '06': { kicker: 'AREIA PRETA · DESEMBOLSO', section: '01' },
-        '07': { kicker: 'HOME SERRA · STATUS POR FRENTE', section: '01' },
-        '08': { kicker: 'JOAQUIM FABRÍCIO · TERRENOS', section: '01' },
+        '05': { kicker: 'SELEÇÃO · AGÊNCIA DE MARKETING', section: '01' },
+        '06': { kicker: 'SELEÇÃO · AGÊNCIA DE MARKETING', section: '01' },
+        '07': { kicker: 'MODELO DE REMUNERAÇÃO · AGÊNCIA DE MARKETING', section: '01' },
+        '08': { kicker: 'AREIA PRETA · DESEMBOLSO', section: '01' },
+        '09': { kicker: 'HOME SERRA · STATUS POR FRENTE', section: '01' },
+        '10': { kicker: 'JOAQUIM FABRÍCIO · TERRENOS', section: '01' },
       };
 
       function frameHTML(kicker, section) {
