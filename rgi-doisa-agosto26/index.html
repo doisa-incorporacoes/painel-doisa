@@ -12504,21 +12504,93 @@ hr, [class*="__divider"], [class*="-divider"] {
 </section>
 <section class="slide-section" data-slide="19">
   <style>
-    .slide-section[data-slide="19"] .sr-panel{position:absolute;top:110px;left:56px;right:56px;bottom:54px;background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;border-radius:10px;display:flex;flex-direction:column;padding:22px 30px 20px;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif;overflow:hidden;}
-    .slide-section[data-slide="19"] .sr-proj-title{color:#1A3470;}
+    .slide-section[data-slide="19"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;display:flex;flex-direction:column;overflow:hidden;}
+    .slide-section[data-slide="19"] .sr-proj-title{margin:0 0 16px 0;color:#1A3470;}
     .slide-section[data-slide="19"] .sr-proj-title span{color:#7A8299;}
-    .slide-section[data-slide="19"] .sr-divider{height:1px;background:rgba(45,79,158,0.12);margin:14px 0 20px;}
-    .slide-section[data-slide="19"] .s-litoral__grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:20px;flex:1;min-height:0;}
-    .slide-section[data-slide="19"] .s-litoral__cell{position:relative;margin:0;min-height:0;border-radius:14px;overflow:hidden;box-shadow:0 12px 36px rgba(26,52,112,0.18);border:1px solid rgba(26,52,112,0.10);background:#0D1B2A;}
-    .slide-section[data-slide="19"] .s-litoral__cell img{width:100%;height:100%;object-fit:cover;display:block;}
-    .slide-section[data-slide="19"] .s-litoral__cell figcaption{position:absolute;bottom:0;left:0;right:0;padding:16px 20px 14px;background:linear-gradient(0deg, rgba(6,14,30,0.86) 0%, rgba(6,14,30,0.35) 65%, transparent 100%);font-size:16px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;color:#FFFFFF;}
-    @media (max-width:900px){
+    .slide-section[data-slide="19"] .ppc-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;flex-shrink:0;}
+    .slide-section[data-slide="19"] .ppc-kpi{background:#F6F8FC;border:1px solid rgba(45,79,158,0.14);border-left:4px solid #E97132;border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:7px;}
+    .slide-section[data-slide="19"] .ppc-kpi__icon{width:26px;height:26px;color:#E97132;}
+    .slide-section[data-slide="19"] .ppc-kpi__label{font-size:11px;font-weight:700;letter-spacing:0.4px;text-transform:uppercase;color:#7A8299;}
+    .slide-section[data-slide="19"] .ppc-kpi__value{font-size:25px;font-weight:800;color:#1A3470;letter-spacing:-0.3px;line-height:1.05;font-family:'Inter',system-ui,sans-serif;}
+    .slide-section[data-slide="19"] .ppc-kpi__sub{font-size:11.5px;color:#5A6478;line-height:1.35;}
+    .slide-section[data-slide="19"] .ppc-table-heading{font-size:13px;font-weight:800;letter-spacing:0.3px;text-transform:uppercase;color:#1A3470;margin:0 0 10px 0;flex-shrink:0;}
+    .slide-section[data-slide="19"] .ppc-table-wrap{overflow:auto;border-radius:8px;border:1px solid rgba(45,79,158,0.22);flex-shrink:0;}
+    .slide-section[data-slide="19"] .ppc-body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;gap:2px;}
+    .slide-section[data-slide="19"] table.ppc-table{border-collapse:collapse;font-family:'Inter',system-ui,sans-serif;font-size:13px;width:100%;}
+    .slide-section[data-slide="19"] table.ppc-table thead tr{background:#1A3470;color:#FFFFFF;}
+    .slide-section[data-slide="19"] table.ppc-table thead th{padding:11px 14px;font-weight:700;text-align:center;color:#FFFFFF;border-right:1px solid rgba(255,255,255,0.16);}
+    .slide-section[data-slide="19"] table.ppc-table tbody td{padding:10px 14px;text-align:center;color:#1A1A1A;font-variant-numeric:tabular-nums;}
+    .slide-section[data-slide="19"] table.ppc-table tbody td:nth-child(3){color:#7A8299;}
+    .slide-section[data-slide="19"] table.ppc-table tbody tr:nth-child(even) td{background:rgba(45,79,158,0.04);}
+    .slide-section[data-slide="19"] .ppc-note{margin-top:10px;font-size:11px;color:#7A8299;flex-shrink:0;}
+    @media (max-width:1100px){
       .slide-section[data-slide="19"] .sr-panel{overflow-y:auto;}
+      .slide-section[data-slide="19"] .ppc-body{justify-content:flex-start;}
+      .slide-section[data-slide="19"] .ppc-kpis{grid-template-columns:1fr;}
     }
     @media (max-width:600px){
-      .slide-section[data-slide="19"] .sr-panel{padding:18px 18px 16px;}
-      .slide-section[data-slide="19"] .s-litoral__grid{grid-template-columns:1fr;grid-template-rows:none;gap:14px;}
-      .slide-section[data-slide="19"] .s-litoral__cell{height:180px;flex-shrink:0;}
+      .slide-section[data-slide="19"] .ppc-table-wrap{overflow-x:auto;}
+      .slide-section[data-slide="19"] table.ppc-table{min-width:640px;}
+    }
+  </style>
+  <div class="sr-panel">
+    <div class="sr-proj-title">PROPOSTA &middot; TERRENO 02 <span>| Pipa Centro</span></div>
+    <div class="ppc-body">
+    <div class="ppc-kpis">
+      <div class="ppc-kpi">
+        <svg class="ppc-kpi__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>
+        <div class="ppc-kpi__label">Proposta permuta</div>
+        <div class="ppc-kpi__value">R$ 46.695.289,28</div>
+        <div class="ppc-kpi__sub">VGV total em permuta para o propriet&aacute;rio do Terreno 02</div>
+      </div>
+      <div class="ppc-kpi">
+        <svg class="ppc-kpi__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        <div class="ppc-kpi__label">&Aacute;rea do terreno</div>
+        <div class="ppc-kpi__value">31.435 m&sup2;</div>
+        <div class="ppc-kpi__sub">Terreno 02 &mdash; Pipa Centro</div>
+      </div>
+      <div class="ppc-kpi">
+        <svg class="ppc-kpi__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M17 5.5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        <div class="ppc-kpi__label">Pre&ccedil;o por m&sup2;</div>
+        <div class="ppc-kpi__value">R$ 1.747,50</div>
+        <div class="ppc-kpi__sub">De &aacute;rea &uacute;til do terreno (sem &aacute;rea de preserva&ccedil;&atilde;o de 15%)</div>
+      </div>
+    </div>
+    <div class="ppc-table-heading">Alternativa em dinheiro &mdash; valor presente por prazo e taxa</div>
+    <div class="ppc-table-wrap">
+      <table class="ppc-table">
+        <thead>
+          <tr><th>Prazo</th><th>Taxa a.a.</th><th>Refer&ecirc;ncia</th><th>Valor presente</th><th>Valor unit. terreno (&uacute;til)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>5 anos</td><td>14%</td><td>SELIC atual</td><td>R$ 24.252.070,03</td><td>R$ 907,65</td></tr>
+          <tr><td>5 anos</td><td>17%</td><td>&mdash;</td><td>R$ 21.298.242,20</td><td>R$ 797,10</td></tr>
+          <tr><td>6 anos</td><td>14%</td><td>SELIC atual</td><td>R$ 21.273.745,64</td><td>R$ 796,18</td></tr>
+          <tr><td>6 anos</td><td>17%</td><td>&mdash;</td><td>R$ 18.203.625,81</td><td>R$ 681,28</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="ppc-note">&Aacute;rea &uacute;til considerada: 26.719,75 m&sup2; (&aacute;rea do terreno menos 15% de preserva&ccedil;&atilde;o).</div>
+    </div>
+  </div>
+</section>
+<section class="slide-section" data-slide="20">
+  <style>
+    .slide-section[data-slide="20"] .sr-panel{position:absolute;top:110px;left:56px;right:56px;bottom:54px;background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;border-radius:10px;display:flex;flex-direction:column;padding:22px 30px 20px;box-sizing:border-box;font-family:'Inter',system-ui,sans-serif;overflow:hidden;}
+    .slide-section[data-slide="20"] .sr-proj-title{color:#1A3470;}
+    .slide-section[data-slide="20"] .sr-proj-title span{color:#7A8299;}
+    .slide-section[data-slide="20"] .sr-divider{height:1px;background:rgba(45,79,158,0.12);margin:14px 0 20px;}
+    .slide-section[data-slide="20"] .s-litoral__grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:20px;flex:1;min-height:0;}
+    .slide-section[data-slide="20"] .s-litoral__cell{position:relative;margin:0;min-height:0;border-radius:14px;overflow:hidden;box-shadow:0 12px 36px rgba(26,52,112,0.18);border:1px solid rgba(26,52,112,0.10);background:#0D1B2A;}
+    .slide-section[data-slide="20"] .s-litoral__cell img{width:100%;height:100%;object-fit:cover;display:block;}
+    .slide-section[data-slide="20"] .s-litoral__cell figcaption{position:absolute;bottom:0;left:0;right:0;padding:16px 20px 14px;background:linear-gradient(0deg, rgba(6,14,30,0.86) 0%, rgba(6,14,30,0.35) 65%, transparent 100%);font-size:16px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;color:#FFFFFF;}
+    @media (max-width:900px){
+      .slide-section[data-slide="20"] .sr-panel{overflow-y:auto;}
+    }
+    @media (max-width:600px){
+      .slide-section[data-slide="20"] .sr-panel{padding:18px 18px 16px;}
+      .slide-section[data-slide="20"] .s-litoral__grid{grid-template-columns:1fr;grid-template-rows:none;gap:14px;}
+      .slide-section[data-slide="20"] .s-litoral__cell{height:180px;flex-shrink:0;}
     }
   </style>
   <div class="sr-panel">
@@ -12546,17 +12618,17 @@ hr, [class*="__divider"], [class*="-divider"] {
     </div>
   </div>
 </section>
-<section class="slide-section" data-slide="20">
+<section class="slide-section" data-slide="21">
   <style>
-    .slide-section[data-slide="20"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;}
-    .slide-section[data-slide="20"] .sr-proj-title{color:#1A3470;}
-    .slide-section[data-slide="20"] .sr-proj-title span{color:#7A8299;}
-    .slide-section[data-slide="20"] .s-smg__hero{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-    .slide-section[data-slide="20"] .s-smg__hero .hero-render{width:auto;height:100%;max-width:100%;aspect-ratio:1400/1133;}
-    .slide-section[data-slide="20"] .s-smg__hero .hero-render img{object-fit:contain;}
+    .slide-section[data-slide="21"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;}
+    .slide-section[data-slide="21"] .sr-proj-title{color:#1A3470;}
+    .slide-section[data-slide="21"] .sr-proj-title span{color:#7A8299;}
+    .slide-section[data-slide="21"] .s-smg__hero{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+    .slide-section[data-slide="21"] .s-smg__hero .hero-render{width:auto;height:100%;max-width:100%;aspect-ratio:1400/1133;}
+    .slide-section[data-slide="21"] .s-smg__hero .hero-render img{object-fit:contain;}
     @media (max-width:600px){
-      .slide-section[data-slide="20"] .s-smg__hero{display:block;}
-      .slide-section[data-slide="20"] .s-smg__hero .hero-render{width:100%;height:auto;max-width:none;aspect-ratio:1400/1133;}
+      .slide-section[data-slide="21"] .s-smg__hero{display:block;}
+      .slide-section[data-slide="21"] .s-smg__hero .hero-render{width:100%;height:auto;max-width:none;aspect-ratio:1400/1133;}
     }
   </style>
 
@@ -12881,8 +12953,9 @@ hr, [class*="__divider"], [class*="-divider"] {
         '16': { kicker: 'AREIA PRETA · WELLNESS · 3º PAVIMENTO', section: '01' },
         '17': { kicker: 'PROSPECÇÃO · CAMPOS SALES', section: '01' },
         '18': { kicker: 'PROSPECÇÃO · PIPA CENTRO', section: '01' },
-        '19': { kicker: 'PROSPECÇÃO · ÁREAS LITORÂNEAS', section: '01' },
-        '20': { kicker: 'PROSPECÇÃO · SÃO MIGUEL DO GOSTOSO', section: '01' },
+        '19': { kicker: 'PROSPECÇÃO · PIPA CENTRO · PROPOSTA', section: '01' },
+        '20': { kicker: 'PROSPECÇÃO · ÁREAS LITORÂNEAS', section: '01' },
+        '21': { kicker: 'PROSPECÇÃO · SÃO MIGUEL DO GOSTOSO', section: '01' },
       };
 
       function frameHTML(kicker, section) {
