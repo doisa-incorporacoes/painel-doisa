@@ -12325,8 +12325,8 @@ hr, [class*="__divider"], [class*="-divider"] {
   <style>
     .slide-section[data-slide="13"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;display:flex;flex-direction:column;}
     .slide-section[data-slide="13"] .sr-title{margin:0 0 16px 0;color:#1A3470;font-size:22px;font-weight:800;}
-    .slide-section[data-slide="13"] .iu-wrap{flex:1;min-height:0;overflow-y:auto;display:flex;align-items:center;}
-    .slide-section[data-slide="13"] .iu-table{width:100%;border-collapse:collapse;font-size:14px;}
+    .slide-section[data-slide="13"] .iu-wrap{flex:1;min-height:0;overflow:auto;-webkit-overflow-scrolling:touch;display:flex;align-items:center;}
+    .slide-section[data-slide="13"] .iu-table{width:100%;min-width:520px;border-collapse:collapse;font-size:14px;}
     .slide-section[data-slide="13"] .iu-table thead th{background:#1A3470;color:#FFFFFF;font-size:11px;font-weight:700;letter-spacing:0.4px;text-transform:uppercase;padding:10px 16px;text-align:left;}
     .slide-section[data-slide="13"] .iu-table thead th.iu-pd,.slide-section[data-slide="13"] .iu-table thead th.iu-proj{text-align:right;width:190px;}
     .slide-section[data-slide="13"] .iu-table td{padding:8px 16px;border-bottom:1px solid rgba(26,52,112,0.10);}
@@ -12336,8 +12336,10 @@ hr, [class*="__divider"], [class*="-divider"] {
     .slide-section[data-slide="13"] .iu-table tr.iu-sub td{padding-top:5px;padding-bottom:5px;}
     .slide-section[data-slide="13"] .iu-table tr:not(.iu-sub) td.iu-lab{font-weight:700;color:#1A3470;}
     @media (max-width:600px){
-      .slide-section[data-slide="13"] .iu-table{font-size:11px;}
-      .slide-section[data-slide="13"] .iu-table td,.slide-section[data-slide="13"] .iu-table thead th{padding:6px 8px;}
+      .slide-section[data-slide="13"] .iu-wrap{align-items:flex-start;}
+      .slide-section[data-slide="13"] .iu-table{font-size:11px;min-width:460px;}
+      .slide-section[data-slide="13"] .iu-table td,.slide-section[data-slide="13"] .iu-table thead th{padding:6px 8px;white-space:nowrap;}
+      .slide-section[data-slide="13"] .iu-table td.iu-lab{white-space:normal;}
       .slide-section[data-slide="13"] .iu-table thead th.iu-pd,.slide-section[data-slide="13"] .iu-table thead th.iu-proj{width:auto;}
     }
   </style>
