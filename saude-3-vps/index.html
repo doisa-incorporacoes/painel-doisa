@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Saúde das 3 VPS — o que enche, o que sai, o que fica</title>
+<style>
+:root{
+  --bg:#080B12;
+  --card:rgba(255,255,255,.038);
+  --line:rgba(255,255,255,.085);
+  --tp:#F0F4FF; --ts:rgba(240,244,255,.52); --tm:rgba(240,244,255,.28);
+  --ac:#E87B1E; --acr:232,123,30;
+  --ok:#22C55E; --err:#EF4444; --warn:#F59E0B;
+  --fb:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --fm:'Roboto Mono',ui-monospace,Consolas,monospace;
+  --suave:cubic-bezier(.34,1.56,.64,1);
+  --eleg:cubic-bezier(.25,.46,.45,.94);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;background:var(--bg);color:var(--tp);font-family:var(--fb);
+  font-size:14px;-webkit-font-smoothing:antialiased;
+  font-feature-settings:'cv02','cv03','cv04','cv11';}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.021) 0 1px,transparent 1px 44px),
+             repeating-linear-gradient(90deg,rgba(255,255,255,.021) 0 1px,transparent 1px 44px);
+  -webkit-mask-image:radial-gradient(ellipse 78% 68% at 50% 34%,#000 30%,transparent 100%);
+  mask-image:radial-gradient(ellipse 78% 68% at 50% 34%,#000 30%,transparent 100%);}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.05;
+  mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");}
+#bgMark{position:fixed;right:-90px;bottom:-40px;width:640px;opacity:.028;z-index:0;
+  pointer-events:none;filter:grayscale(1) contrast(1.2);}
+.orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0;}
+.orb-1{width:620px;height:620px;top:-220px;left:-140px;
+  background:radial-gradient(circle,rgba(var(--acr),.16) 0%,transparent 70%);
+  animation:respira 16s ease-in-out infinite;}
+.orb-2{width:420px;height:420px;bottom:-140px;right:-120px;
+  background:radial-gradient(circle,rgba(120,140,180,.13) 0%,transparent 70%);
+  animation:respira 11s ease-in-out 3s infinite;}
+@keyframes respira{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+@keyframes sobe{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){.orb{animation:none!important}*{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+.wrap{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:0 24px 64px;}
+.uhdr{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  padding:20px 2px 16px;margin-bottom:22px;border-bottom:1px solid var(--line);}
+.uhdr-l{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.am-mark{height:26px;width:auto;display:block;opacity:.95;}
+.utitle{font-size:10.5px;font-weight:600;letter-spacing:1.6px;text-transform:uppercase;color:var(--tm);
+  padding-left:14px;border-left:1px solid var(--line);}
+.uclock{font-family:var(--fm);font-size:12.5px;color:var(--ts);letter-spacing:.4px;}
+.hero{margin:0 2px 24px;animation:sobe .7s var(--suave) both;}
+.hero h1{font-size:26px;font-weight:800;letter-spacing:-.4px;line-height:1.25;margin-bottom:10px;}
+.hero p{color:var(--ts);font-size:14.5px;line-height:1.7;max-width:76ch;margin-bottom:10px;}
+.hero b{color:var(--tp);font-weight:600;}
+.placar{display:grid;grid-template-columns:1fr;gap:14px;margin:0 2px 26px;}
+@media (min-width:760px){.placar{grid-template-columns:repeat(4,1fr);}}
+.pc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  box-shadow:0 8px 32px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.07);
+  animation:sobe .7s var(--suave) both;position:relative;overflow:hidden;}
+.pc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(var(--acr),.8),transparent);}
+.pc-l{font-size:9.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ts);margin-bottom:10px;}
+.pc-v{font-family:var(--fm);font-size:30px;font-weight:300;color:var(--ac);line-height:1;letter-spacing:-1px;}
+.pc-v span{font-size:13px;color:var(--ts);letter-spacing:0;}
+.pc-s{font-size:11px;color:var(--tm);margin-top:8px;line-height:1.5;}
+.secao-t{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--tm);
+  margin:34px 2px 14px;padding-top:20px;border-top:1px solid var(--line);}
+.maqs{display:grid;grid-template-columns:1fr;gap:16px;}
+@media (min-width:960px){.maqs{grid-template-columns:repeat(3,1fr);}}
+.maq{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  box-shadow:0 8px 32px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.07);
+  animation:sobe .6s var(--suave) both;}
+.maq-h{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;}
+.maq-h h2{font-size:18px;font-weight:800;letter-spacing:-.3px;}
+.maq-ip{font-family:var(--fm);font-size:10.5px;color:var(--tm);}
+.maq-v{font-size:13px;line-height:1.6;color:var(--ts);margin-bottom:14px;}
+.maq-n{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:16px;}
+.maq-n>div{background:rgba(255,255,255,.028);border:1px solid var(--line);border-radius:11px;
+  padding:9px 11px;display:flex;flex-direction:column;gap:3px;}
+.maq-n span{font-size:8.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--tm);}
+.maq-n b{font-family:var(--fm);font-size:16px;font-weight:400;color:var(--tp);}
+.maq-n em{font-style:normal;font-size:10px;color:var(--tm);}
+.comp{display:flex;height:14px;border-radius:7px;overflow:hidden;border:1px solid var(--line);
+  background:rgba(255,255,255,.05);}
+.comp i{display:block;height:100%;}
+.comp-leg{list-style:none;display:flex;flex-wrap:wrap;gap:5px 12px;margin-top:10px;}
+.comp-leg li{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--ts);}
+.comp-leg b{width:9px;height:9px;border-radius:3px;flex:none;}
+.comp-leg em{font-style:normal;font-family:var(--fm);color:var(--tm);}
+.mapa{list-style:none;margin-top:6px;}
+.mapa li{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:9px 0;
+  border-bottom:1px solid var(--line);}
+.mapa li:last-child{border-bottom:none;}
+.mapa b{font-size:12px;font-weight:600;color:var(--tp);}
+.mapa span{font-family:var(--fm);font-size:10px;color:var(--ac);text-align:right;}
+.mapa em{grid-column:1/-1;font-style:normal;font-size:11px;color:var(--tm);}
+.filtros{display:flex;gap:6px;margin:0 2px 20px;flex-wrap:wrap;}
+.ft{background:rgba(255,255,255,.035);border:1px solid var(--line);color:var(--ts);
+  font:600 12px/1 var(--fb);letter-spacing:.5px;padding:10px 16px;border-radius:20px;cursor:pointer;
+  transition:all .25s var(--eleg);}
+.ft:hover{background:rgba(255,255,255,.08);color:var(--tp);}
+.ft[aria-pressed="true"]{border-color:rgba(var(--acr),.6);background:rgba(var(--acr),.14);color:var(--tp);}
+.ft:focus-visible{outline:2px solid var(--ac);outline-offset:2px;}
+.grade{display:grid;grid-template-columns:1fr;gap:16px;}
+@media (min-width:820px){.grade{grid-template-columns:repeat(2,1fr);}}
+@media (min-width:1220px){.grade{grid-template-columns:repeat(3,1fr);}}
+.bloco{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  box-shadow:0 8px 32px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.07);
+  display:flex;flex-direction:column;gap:13px;position:relative;overflow:hidden;
+  transition:border-color .3s var(--eleg),transform .3s var(--suave);
+  animation:sobe .6s var(--suave) both;}
+.bloco:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.16);}
+.bloco::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.1);}
+.b-candidato::before{background:linear-gradient(90deg,transparent,rgba(var(--acr),.85),transparent);}
+.b-intocavel::before{background:linear-gradient(90deg,transparent,rgba(239,68,68,.8),transparent);}
+.b-sem-prova::before{background:linear-gradient(90deg,transparent,rgba(245,158,11,.8),transparent);}
+.bloco[hidden]{display:none;}
+.bl-h{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;}
+.bl-t h3{font-size:15px;font-weight:700;line-height:1.35;letter-spacing:-.2px;margin-bottom:7px;}
+.vd{display:inline-block;font-family:var(--fm);font-size:9px;letter-spacing:1.3px;text-transform:uppercase;
+  padding:3px 9px;border-radius:20px;border:1px solid var(--line);color:var(--tm);margin-right:4px;}
+.vd-candidato{border-color:rgba(var(--acr),.45);color:var(--ac);}
+.vd-intocavel{border-color:rgba(239,68,68,.5);color:#FF8B8B;background:rgba(239,68,68,.08);}
+.vd-sem-prova{border-color:rgba(245,158,11,.5);color:var(--warn);background:rgba(245,158,11,.08);}
+.vd-maq{border-color:rgba(255,255,255,.16);color:var(--ts);}
+.bl-n{text-align:right;white-space:nowrap;}
+.bl-gb{font-family:var(--fm);font-size:19px;font-weight:300;color:var(--tp);letter-spacing:-.5px;
+  white-space:nowrap;line-height:1.3;}
+/* Bloco que nao ocupa disco nao merece o mesmo peso tipografico de um numero:
+   como texto no slot do numero, ele quebrava em tres linhas e empurrava o titulo. */
+.bl-gb-txt{font-size:10px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;
+  color:var(--tm);white-space:normal;max-width:13ch;line-height:1.45;}
+.bl-f{font-size:13px;line-height:1.65;color:var(--ts);}
+.bl-m{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;}
+.bl-m>div{background:rgba(255,255,255,.028);border:1px solid var(--line);border-radius:11px;
+  padding:10px 12px;display:flex;flex-direction:column;gap:5px;}
+.bl-m span{font-size:9px;font-weight:700;letter-spacing:.9px;text-transform:uppercase;color:var(--tm);}
+.bl-m b{font-family:var(--fm);font-size:12.5px;font-weight:400;color:var(--tp);}
+.bl-d summary{cursor:pointer;font-size:11.5px;font-weight:600;letter-spacing:.4px;color:var(--ts);
+  padding:13px 0;min-height:44px;display:flex;align-items:center;
+  list-style:none;border-top:1px solid var(--line);transition:color .25s var(--eleg);}
+.bl-d summary::-webkit-details-marker{display:none}
+.bl-d summary::before{content:'+  ';font-family:var(--fm);color:var(--ac);}
+.bl-d[open] summary::before{content:'–  ';}
+.bl-d summary:hover{color:var(--tp);}
+.bl-d summary:focus-visible{outline:2px solid var(--ac);outline-offset:2px;}
+.det-t{font-size:9px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(--tm);
+  margin:12px 0 6px;}
+.det-p{font-size:12.5px;line-height:1.6;color:var(--ts);}
+.mk{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:13px;min-height:44px;
+  border-top:1px solid var(--line);cursor:pointer;font-size:12.5px;font-weight:600;color:var(--ts);
+  transition:color .25s var(--eleg);}
+.mk:hover{color:var(--tp);}
+.mk input{width:24px;height:24px;accent-color:var(--ac);cursor:pointer;flex:none;}
+.mk input:focus-visible{outline:2px solid var(--ac);outline-offset:2px;}
+.mk-off{cursor:default;color:#FF8B8B;font-family:var(--fm);font-size:10.5px;letter-spacing:.8px;
+  text-transform:uppercase;}
+.mk-off:hover{color:#FF8B8B;}
+.nota{margin:30px 2px 0;padding:18px 22px;border-radius:14px;border:1px solid var(--line);
+  background:rgba(255,255,255,.028);font-size:12.5px;line-height:1.75;color:var(--ts);}
+.nota b{color:var(--tp);}
+.foot{margin-top:26px;text-align:center;font-size:10.5px;color:var(--tm);font-family:var(--fm);letter-spacing:.8px;}
+</style>
+</head>
+<body>
+<div class="orb orb-1"></div><div class="orb orb-2"></div>
+<img id="bgMark" alt="" aria-hidden="true" src="data:image/png;base64,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">
+<div class="wrap">
+
+<header class="uhdr">
+  <div class="uhdr-l">
+    <img class="am-mark" alt="AM" src="data:image/png;base64,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">
+    <span class="utitle">Saúde das 3 VPS · decisão bloco a bloco</span>
+  </div>
+  <span class="uclock">05/09/2026 22:36</span>
+</header>
+
+<section class="hero">
+  <h1>Por que as três máquinas vivem no vermelho, e o que fazer com cada coisa</h1>
+  <p>Cada bloco abaixo diz quanto ocupa, o que é em português, quem escreve nele, há quanto tempo
+  ninguém toca, qual a prova de que está vivo ou morto e o que acontece se sair.
+  <b>Esta página não executa nada e não tem botão que execute.</b> Marque o que pode seguir; a
+  execução é uma etapa seguinte, e só começa depois desta decisão.</p>
+  <p><b>Duas coisas que a medição mudou em relação ao que se suspeitava.</b> A Dois A não está mal
+  por causa de disco cheio de resíduo: ela está engasgada, com 306 tarefas disparando por hora e um
+  serviço aposentado em julho que tenta subir e morre desde então. E das cinco pastas da Arvo tidas
+  como abandonadas, quatro estão vivas — duas foram lidas ontem, e leitura é justamente o sinal que
+  a régua antiga não enxergava.</p>
+</section>
+
+<section class="placar">
+  <div class="pc"><div class="pc-l">blocos para você decidir</div>
+    <div class="pc-v">14<span> de 17</span></div>
+    <div class="pc-s">os outros 3 já têm prova de que ficam</div></div>
+  <div class="pc"><div class="pc-l">desligar agora, sem apagar nada</div>
+    <div class="pc-v">2<span> blocos</span></div>
+    <div class="pc-s">coisa aposentada por decisão que ninguém desligou na máquina</div></div>
+  <div class="pc"><div class="pc-l">você marcou</div>
+    <div class="pc-v" id="nSel">0<span> blocos</span></div>
+    <div class="pc-s">de 14 que pedem decisão</div></div>
+  <div class="pc"><div class="pc-l">a escuta termina em</div>
+    <div class="pc-v">20<span>/09</span></div>
+    <div class="pc-s">nada é apagado antes disso</div></div>
+</section>
+
+<div class="secao-t">as três máquinas, e onde está o espaço de cada uma</div>
+<div class="maqs">
+<section class="maq" id="maq-doisa">
+  <div class="maq-h">
+    <h2>Dois A</h2>
+    <span class="maq-ip">2 processadores · 96 GB de disco</span>
+  </div>
+  <p class="maq-v">A pior das três, e o problema não é só disco. A máquina está engasgada de tanto serviço pequeno disparando ao mesmo tempo.</p>
+  <div class="maq-n">
+    <div><span>disco</span><b>90%</b><em>86 de 96 GB</em></div>
+    <div><span>memória</span><b>3.8 GB</b><em>de 7.8 GB</em></div>
+    <div><span>área de troca</span><b>3.4 GB</b><em>de 4 GB</em></div>
+    <div><span>espera por processador</span><b>95%</b><em>em aperto</em></div>
+    <div><span>tarefas agendadas</span><b>102</b><em>306 disparos por hora</em></div>
+    <div><span>mortes por falta de memória</span><b>3</b><em>nos últimos 30 dias</em></div>
+  </div>
+  <div class="comp" role="img" aria-label="composição do disco"><i style="width:31.395%;background:var(--ac)" title="Backup do PC: 27.0 GB"></i><i style="width:12.791%;background:var(--warn)" title="Backup da própria VPS: 11.0 GB"></i><i style="width:9.535%;background:rgba(239,68,68,.55)" title="Área de trabalho dos agentes: 8.2 GB"></i><i style="width:9.535%;background:rgba(239,68,68,.55)" title="Sistema: 8.2 GB"></i><i style="width:6.163%;background:var(--warn)" title="Imagens de contêiner: 5.3 GB"></i><i style="width:5.930%;background:var(--warn)" title="Secretária do Gustavo: 5.1 GB"></i><i style="width:4.302%;background:var(--warn)" title="Pastas de usuário: 3.7 GB"></i><i style="width:3.256%;background:rgba(239,68,68,.55)" title="Link permanente dos painéis: 2.8 GB"></i><i style="width:2.209%;background:var(--ac)" title="Programas de interface gráfica: 1.9 GB"></i><i style="width:2.209%;background:rgba(239,68,68,.55)" title="Cópia do vault: 1.9 GB"></i><i style="width:12.674%;background:rgba(255,255,255,.14)" title="Todo o resto: 10.9 GB"></i></div><ul class="comp-leg"><li><b style="background:var(--ac)"></b>Backup do PC <em>27.0 GB</em></li><li><b style="background:var(--warn)"></b>Backup da própria VPS <em>11.0 GB</em></li><li><b style="background:rgba(239,68,68,.55)"></b>Área de trabalho dos agentes <em>8.2 GB</em></li><li><b style="background:rgba(239,68,68,.55)"></b>Sistema <em>8.2 GB</em></li><li><b style="background:var(--warn)"></b>Imagens de contêiner <em>5.3 GB</em></li><li><b style="background:var(--warn)"></b>Secretária do Gustavo <em>5.1 GB</em></li><li><b style="background:var(--warn)"></b>Pastas de usuário <em>3.7 GB</em></li><li><b style="background:rgba(255,255,255,.14)"></b>Todo o resto <em>10.9 GB</em></li></ul>
+  <details class="bl-d maq-d">
+    <summary>o que roda nesta máquina e onde cada coisa escreve</summary>
+    <ul class="mapa"><li><b>espelho do backup do PC</b><span>diário</span><em>Backup do PC</em></li><li><b>leitor da secretária</b><span>sempre de pé</span><em>Secretária do Gustavo</em></li><li><b>Tandem</b><span>em laço de morte</span><em>nada; só queima processador</em></li><li><b>guardião de disco</b><span>diário</span><em>arquiva dado frio no OneDrive</em></li><li><b>sincronia do túnel</b><span>a cada 2 minutos</span><em>Link permanente dos painéis</em></li><li><b>102 tarefas agendadas</b><span>306 vezes por hora</span><em>espalhado</em></li></ul>
+  </details>
+</section>
+<section class="maq" id="maq-arvo">
+  <div class="maq-h">
+    <h2>Arvo</h2>
+    <span class="maq-ip">2 processadores · 96 GB de disco</span>
+  </div>
+  <p class="maq-v">Só disco. Memória e processador estão folgados, e o disco tem dono conhecido: a produção da CDG e os editais que ela serve.</p>
+  <div class="maq-n">
+    <div><span>disco</span><b>86%</b><em>82 de 96 GB</em></div>
+    <div><span>memória</span><b>1.9 GB</b><em>de 7.8 GB</em></div>
+    <div><span>área de troca</span><b>1.2 GB</b><em>de 4 GB</em></div>
+    <div><span>espera por processador</span><b>1%</b><em>em folga</em></div>
+    <div><span>tarefas agendadas</span><b>33</b><em>92 disparos por hora</em></div>
+    <div><span>mortes por falta de memória</span><b>0</b><em>nos últimos 30 dias</em></div>
+  </div>
+  <div class="comp" role="img" aria-label="composição do disco"><i style="width:23.171%;background:rgba(239,68,68,.55)" title="Produção da CDG: 19.0 GB"></i><i style="width:19.512%;background:var(--warn)" title="Editais servidos pelo painel: 16.0 GB"></i><i style="width:12.073%;background:rgba(239,68,68,.55)" title="Sistema: 9.9 GB"></i><i style="width:7.195%;background:var(--ac)" title="Arquivo morto da CDG: 5.9 GB"></i><i style="width:4.390%;background:var(--warn)" title="Backup local: 3.6 GB"></i><i style="width:4.146%;background:var(--warn)" title="Outros backups: 3.4 GB"></i><i style="width:3.293%;background:var(--warn)" title="Pastas de usuário: 2.7 GB"></i><i style="width:3.293%;background:rgba(239,68,68,.55)" title="Auditoria P3 da CDG: 2.7 GB"></i><i style="width:2.561%;background:rgba(239,68,68,.55)" title="Cópia do vault: 2.1 GB"></i><i style="width:2.439%;background:rgba(239,68,68,.55)" title="Ensaio da CDG em paralelo: 2.0 GB"></i><i style="width:1.829%;background:rgba(239,68,68,.55)" title="Bancada G13: 1.5 GB"></i><i style="width:1.829%;background:rgba(239,68,68,.55)" title="Área de trabalho dos agentes: 1.5 GB"></i><i style="width:1.341%;background:rgba(239,68,68,.55)" title="Ensaio de retorno: 1.1 GB"></i><i style="width:12.927%;background:rgba(255,255,255,.14)" title="Todo o resto: 10.6 GB"></i></div><ul class="comp-leg"><li><b style="background:rgba(239,68,68,.55)"></b>Produção da CDG <em>19.0 GB</em></li><li><b style="background:var(--warn)"></b>Editais servidos pelo painel <em>16.0 GB</em></li><li><b style="background:rgba(239,68,68,.55)"></b>Sistema <em>9.9 GB</em></li><li><b style="background:var(--ac)"></b>Arquivo morto da CDG <em>5.9 GB</em></li><li><b style="background:var(--warn)"></b>Backup local <em>3.6 GB</em></li><li><b style="background:var(--warn)"></b>Outros backups <em>3.4 GB</em></li><li><b style="background:rgba(255,255,255,.14)"></b>Todo o resto <em>10.6 GB</em></li></ul>
+  <details class="bl-d maq-d">
+    <summary>o que roda nesta máquina e onde cada coisa escreve</summary>
+    <ul class="mapa"><li><b>motor e agendador da CDG</b><span>contínuo</span><em>Produção da CDG</em></li><li><b>ingestão de editais</b><span>contínuo</span><em>Editais servidos pelo painel</em></li><li><b>política de limpeza</b><span>diária, às 5h</span><em>limpa só dentro de uma pasta</em></li><li><b>17 regras de rotação de registro</b><span>diárias</span><em>registros do sistema e da CDG</em></li><li><b>33 tarefas agendadas</b><span>92 vezes por hora</span><em>espalhado</em></li></ul>
+  </details>
+</section>
+<section class="maq" id="maq-duo">
+  <div class="maq-h">
+    <h2>DUO</h2>
+    <span class="maq-ip">2 processadores · 96 GB de disco</span>
+  </div>
+  <p class="maq-v">Saudável de disco e de memória. O risco dela é outro: não tem área de troca nenhuma, então num aperto o sistema mata processo em vez de segurar.</p>
+  <div class="maq-n">
+    <div><span>disco</span><b>42%</b><em>40 de 96 GB</em></div>
+    <div><span>memória</span><b>1.3 GB</b><em>de 7.8 GB</em></div>
+    <div><span>área de troca</span><b>não tem</b><em>sem folga nenhuma</em></div>
+    <div><span>espera por processador</span><b>1%</b><em>em folga</em></div>
+    <div><span>tarefas agendadas</span><b>12</b><em>140 disparos por hora</em></div>
+    <div><span>mortes por falta de memória</span><b>0</b><em>nos últimos 30 dias</em></div>
+  </div>
+  <div class="comp" role="img" aria-label="composição do disco"><i style="width:40.000%;background:rgba(239,68,68,.55)" title="Sistema e ferramentas: 16.0 GB"></i><i style="width:16.000%;background:var(--ac)" title="Cache de instalação: 6.4 GB"></i><i style="width:13.750%;background:rgba(239,68,68,.55)" title="Imagem do verificador de segurança: 5.5 GB"></i><i style="width:5.250%;background:var(--ac)" title="Cache de JavaScript: 2.1 GB"></i><i style="width:5.000%;background:rgba(239,68,68,.55)" title="Área de trabalho dos agentes: 2.0 GB"></i><i style="width:4.500%;background:rgba(239,68,68,.55)" title="Cópia do vault: 1.8 GB"></i><i style="width:4.000%;background:var(--warn)" title="Temporários: 1.6 GB"></i><i style="width:3.000%;background:var(--warn)" title="Compilador Go: 1.2 GB"></i><i style="width:2.500%;background:var(--warn)" title="Backup local: 1.0 GB"></i><i style="width:6.000%;background:rgba(255,255,255,.14)" title="Todo o resto: 2.4 GB"></i></div><ul class="comp-leg"><li><b style="background:rgba(239,68,68,.55)"></b>Sistema e ferramentas <em>16.0 GB</em></li><li><b style="background:var(--ac)"></b>Cache de instalação <em>6.4 GB</em></li><li><b style="background:rgba(239,68,68,.55)"></b>Imagem do verificador de segurança <em>5.5 GB</em></li><li><b style="background:var(--ac)"></b>Cache de JavaScript <em>2.1 GB</em></li><li><b style="background:rgba(239,68,68,.55)"></b>Área de trabalho dos agentes <em>2.0 GB</em></li><li><b style="background:rgba(239,68,68,.55)"></b>Cópia do vault <em>1.8 GB</em></li><li><b style="background:var(--warn)"></b>Temporários <em>1.6 GB</em></li><li><b style="background:rgba(255,255,255,.14)"></b>Todo o resto <em>2.4 GB</em></li></ul>
+  <details class="bl-d maq-d">
+    <summary>o que roda nesta máquina e onde cada coisa escreve</summary>
+    <ul class="mapa"><li><b>vigia de demanda</b><span>2 vezes por minuto</span><em>registros</em></li><li><b>Strix</b><span>a cada entrega</span><em>Imagem do verificador de segurança</em></li><li><b>12 tarefas agendadas</b><span>140 vezes por hora</span><em>espalhado</em></li><li><b>nenhuma regra de rotação própria</b><span>—</span><em>os registros da casa crescem sem freio</em></li></ul>
+  </details>
+</section></div>
+
+<div class="secao-t">bloco a bloco</div>
+<div class="filtros" role="group" aria-label="filtrar blocos">
+  <button class="ft" data-t="v" data-f="todos" aria-pressed="true">todos</button>
+  <button class="ft" data-t="v" data-f="desativar" aria-pressed="false">desligar</button>
+  <button class="ft" data-t="v" data-f="perguntar" aria-pressed="false">decidir</button>
+  <button class="ft" data-t="v" data-f="manter" aria-pressed="false">manter</button>
+  <button class="ft" data-t="m" data-f="doisa" aria-pressed="false">Dois A</button>
+  <button class="ft" data-t="m" data-f="arvo" aria-pressed="false">Arvo</button>
+  <button class="ft" data-t="m" data-f="duo" aria-pressed="false">DUO</button>
+  <button class="ft" data-t="s" data-f="marcados" aria-pressed="false">só os marcados</button>
+</div>
+
+<main class="grade" id="grade">
+<article class="bloco b-candidato" data-v="desativar" data-m="doisa">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>O Tandem, aposentado em julho, nunca parou de tentar subir</h3>
+      <span class="vd vd-candidato">desligar</span>
+      <span class="vd vd-maq">Dois A</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb bl-gb-txt">não ocupa disco</div></div>
+  </div>
+  <p class="bl-f">O Tandem era o navegador que os agentes usavam antes de a casa trocar para o MCP, em julho. A decisão foi tomada e escrita na regra, mas ninguém desligou o serviço na máquina. Ele tenta subir, falha em poucos segundos, e o sistema o levanta de novo, sem parar.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>o próprio sistema, que o reinicia em laço</b></div>
+    <div><span>risco de mexer</span><b>baixo</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">o contador de reinícios marcava 78.120 em 24 de julho e marca 189.682 agora: 111 mil tentativas em 43 dias</p>
+    <div class="det-t">como sabemos</div><p class="det-p">O contador subiu de 189.682 para 189.683 durante os 90 segundos em que ficamos olhando. Cada tentativa gasta cerca de 11 segundos de processador antes de morrer. E foi dentro dele que a máquina ficou sem memória hoje às 17h59 e matou um processo de 3,1 GB.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Nada para de funcionar, porque ele já não funciona. A máquina devolve o processador que hoje queima em tentativas fracassadas, e some a origem de uma das três mortes por falta de memória do mês.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim. Religar é um comando, e nada é apagado: o serviço só é parado, desabilitado e trancado.</p>
+    <div class="det-t">o ganho</div><p class="det-p">devolve processador à máquina mais engasgada das três</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="doisa-tandem"> Sim, pode seguir com este</label>
+</article>
+<article class="bloco b-candidato" data-v="desativar" data-m="doisa">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>Um verificador de saúde do Tandem que roda a cada 2 minutos só para dizer que está tudo desligado</h3>
+      <span class="vd vd-candidato">desligar</span>
+      <span class="vd vd-maq">Dois A</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb bl-gb-txt">não ocupa disco</div></div>
+  </div>
+  <p class="bl-f">Um script que confere se os navegadores do Tandem estão no ar. Como o Tandem foi aposentado, a resposta é sempre a mesma: todos desligados.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>a lista de tarefas agendadas do administrador</b></div>
+    <div><span>risco de mexer</span><b>baixo</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">roda desde abril; a última linha do registro, de agora há pouco, diz o de sempre</p>
+    <div class="det-t">como sabemos</div><p class="det-p">As três últimas linhas do arquivo de registro são gustavo desligado, luma desligado, judson desligado.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Ninguém perde informação: a única informação que ele produz é que algo aposentado continua aposentado.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim, é uma linha na lista de tarefas, guardada antes de sair.</p>
+    <div class="det-t">o ganho</div><p class="det-p">tira 30 disparos por hora da fila</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="doisa-tandem-health"> Sim, pode seguir com este</label>
+</article>
+<article class="bloco b-sem-prova" data-v="perguntar" data-m="doisa">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>102 tarefas agendadas disparando uma a cada 12 segundos, numa máquina de 2 processadores</h3>
+      <span class="vd vd-sem-prova">decidir</span>
+      <span class="vd vd-maq">Dois A</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb bl-gb-txt">não ocupa disco</div></div>
+  </div>
+  <p class="bl-f">Cada uma faz algo pequeno e útil. Somadas, são 306 disparos por hora. No instante em que medimos havia 24 processos de agendamento vivos ao mesmo tempo, de 319 processos no total.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>várias frentes, ao longo de meses, cada uma acrescentando a sua</b></div>
+    <div><span>risco de mexer</span><b>médio</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">acumulado; nenhuma foi revisada em conjunto</p>
+    <div class="det-t">como sabemos</div><p class="det-p">A máquina levou mais de 40 minutos para responder a uma contagem de disco que na Arvo e na DUO levou menos de dois. A medida de espera por processador ficou em 95% dos últimos 10 segundos.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Nada sai. O que se propõe é espaçar as mais frequentes e juntar as que fazem a mesma coisa, uma a uma, com o dono de cada uma sabendo.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim, a lista inteira é copiada antes de qualquer mudança.</p>
+    <div class="det-t">o ganho</div><p class="det-p">é a causa provável da lentidão</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="doisa-cron"> Sim, pode seguir com este</label>
+</article>
+<article class="bloco b-sem-prova" data-v="perguntar" data-m="doisa">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>O backup do seu PC mora dentro da VPS de produção e ocupa 27 GB</h3>
+      <span class="vd vd-sem-prova">decidir</span>
+      <span class="vd vd-maq">Dois A</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb">27 GB</div></div>
+  </div>
+  <p class="bl-f">O repositório de backup do computador do escritório foi criado dentro da VPS da Dois A em 25 de agosto. É o maior bloco isolado das três máquinas.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>um serviço diário que espelha o backup do PC</b></div>
+    <div><span>risco de mexer</span><b>alto</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">escrito hoje; está vivo e correto</p>
+    <div class="det-t">como sabemos</div><p class="det-p">O temporizador do espelho rodou hoje às 11h34. A pasta tem 27 GB de dados de backup.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Nada se perde, desde que o destino novo seja provado com uma restauração de verdade antes de a origem sair. Nunca pode existir uma janela sem cópia.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Só depois da prova de restauração. Enquanto ela não existir, nada se move.</p>
+    <div class="det-t">o ganho</div><p class="det-p">27 GB, quando o destino novo estiver provado</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="doisa-restic-pc"> Sim, pode seguir com este</label>
+</article>
+<article class="bloco b-sem-prova" data-v="perguntar" data-m="doisa">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>Uma segunda cópia de backup, local, com 11 GB</h3>
+      <span class="vd vd-sem-prova">decidir</span>
+      <span class="vd vd-maq">Dois A</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb">11 GB</div></div>
+  </div>
+  <p class="bl-f">O backup da própria VPS, guardado nela mesma. Backup guardado na mesma máquina protege contra engano, não contra a máquina morrer.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>a rotina de backup da própria máquina</b></div>
+    <div><span>risco de mexer</span><b>médio</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">escrito ontem</p>
+    <div class="det-t">como sabemos</div><p class="det-p">Data de escrita em 05/09.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Não se propõe tirar. Se propõe decidir por quantos dias ele guarda cópia, que hoje não está escrito em lugar nenhum.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim.</p>
+    <div class="det-t">o ganho</div><p class="det-p">depende da política de retenção</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="doisa-restic-local"> Sim, pode seguir com este</label>
+</article>
+<article class="bloco b-sem-prova" data-v="perguntar" data-m="doisa">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>4,3 GB de áudios da secretária, sem nenhuma regra de expurgo</h3>
+      <span class="vd vd-sem-prova">decidir</span>
+      <span class="vd vd-maq">Dois A</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb">4,3 GB</div></div>
+  </div>
+  <p class="bl-f">Os áudios que passam pela secretária do Gustavo ficam guardados na máquina. São 1.588 arquivos de julho, 3.125 de agosto e 12 de setembro.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>o serviço da secretária, ao vivo</b></div>
+    <div><span>risco de mexer</span><b>médio</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">escrito hoje; está vivo</p>
+    <div class="det-t">como sabemos</div><p class="det-p">Contagem por mês feita na própria máquina. Não existe nenhuma regra de rotação para secretária, hormigon ou waha.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Não se propõe apagar nada agora. Se propõe decidir por quantos meses o áudio fica, porque hoje a resposta é para sempre.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim.</p>
+    <div class="det-t">o ganho</div><p class="det-p">cresce cerca de 1,5 GB por mês</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="doisa-audios"> Sim, pode seguir com este</label>
+</article>
+<article class="bloco b-sem-prova" data-v="perguntar" data-m="doisa">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>O leitor da secretária está com 1 GB de memória, e sobe desde 5 de agosto</h3>
+      <span class="vd vd-sem-prova">decidir</span>
+      <span class="vd vd-maq">Dois A</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb">1 GB de memória</div></div>
+  </div>
+  <p class="bl-f">O processo que recebe as mensagens da secretária roda sem parar desde 5 de agosto e hoje ocupa 1 GB. Não há teto de memória configurado para ele.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>o serviço da secretária</b></div>
+    <div><span>risco de mexer</span><b>médio</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">de pé há 31 dias sem reiniciar</p>
+    <div class="det-t">como sabemos</div><p class="det-p">1.058.524 kB residentes, iniciado em 05/08 às 11h22.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Ele não sai. A proposta é pôr um teto de memória na unidade, para que um vazamento futuro seja contido nela em vez de derrubar terceiros.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim, o teto é uma linha e se remove.</p>
+    <div class="det-t">o ganho</div><p class="det-p">folga de memória</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="doisa-receiver-memoria"> Sim, pode seguir com este</label>
+</article>
+<article class="bloco b-sem-prova" data-v="perguntar" data-m="doisa">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>1,9 GB de programas de interface gráfica numa máquina sem tela</h3>
+      <span class="vd vd-sem-prova">decidir</span>
+      <span class="vd vd-maq">Dois A</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb">1,9 GB</div></div>
+  </div>
+  <p class="bl-f">Pacotes de ambiente gráfico instalados na VPS: navegador, tema, biblioteca de vídeo, servidor de impressão. Uma VPS de servidor não tem tela nem impressora.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>o gerenciador de pacotes, sozinho</b></div>
+    <div><span>risco de mexer</span><b>médio</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">o maior deles é de 08/07</p>
+    <div class="det-t">como sabemos</div><p class="det-p">Os arquivos estão lá, com 644 MB, 421 MB e outros. É preciso conferir antes se o navegador não é usado por algum agente para tirar foto de tela.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Se algum agente usa o navegador para gerar imagem, quebra. É exatamente por isso que este bloco vai como pergunta, e não como remoção.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim, reinstalar é um comando.</p>
+    <div class="det-t">o ganho</div><p class="det-p">até 1,9 GB</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="doisa-snapd"> Sim, pode seguir com este</label>
+</article>
+<article class="bloco b-sem-prova" data-v="perguntar" data-m="arvo">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>5,9 GB de arquivo morto da CDG, sem leitura nem escrita há mais de uma semana</h3>
+      <span class="vd vd-sem-prova">decidir</span>
+      <span class="vd vd-maq">Arvo</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb">5,9 GB</div></div>
+  </div>
+  <p class="bl-f">Cópias antigas de dados da CDG, guardadas antes de mudanças. O nome já diz o que a casa achava dela.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>ninguém desde 25 de agosto</b></div>
+    <div><span>risco de mexer</span><b>baixo</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">última escrita em 25/08, última leitura em 29/08</p>
+    <div class="det-t">como sabemos</div><p class="det-p">Censo do dia 06/09: 77 arquivos, escrita em 25/08, leitura em 29/08. É o único dos cinco candidatos da Arvo que não mostrou sinal de vida.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Nada que roda hoje depende dela. Ainda assim ela não vai direto para o lixo: vai para quarentena, e só sai de vez se ninguém reclamar em 30 dias.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim. Quarentena é mudar de lugar, não apagar.</p>
+    <div class="det-t">o ganho</div><p class="det-p">5,9 GB</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="arvo-arquivo-morto"> Sim, pode seguir com este</label>
+</article>
+<article class="bloco b-intocavel" data-v="manter" data-m="arvo">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>As outras quatro pastas tidas como abandonadas estão vivas, e duas foram tocadas ontem e hoje</h3>
+      <span class="vd vd-intocavel">manter</span>
+      <span class="vd vd-maq">Arvo</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb">7,3 GB</div></div>
+  </div>
+  <p class="bl-f">A suspeita de entrada era que cinco pastas da Arvo, somando 13,2 GB, estivessem mortas porque nenhuma tarefa agendada as cita. A medição desmentiu quatro delas.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>auditoria da CDG e ensaios ainda em curso</b></div>
+    <div><span>risco de mexer</span><b>alto se removido</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">o ensaio de retorno foi escrito hoje; a auditoria P3, ontem; o ensaio em paralelo e a bancada G13 não são escritos há semanas, mas foram lidos ontem</p>
+    <div class="det-t">como sabemos</div><p class="det-p">Censo do dia 06/09, com as três datas de cada pasta. A leitura é o sinal que a régua antiga não tinha: as duas últimas teriam sido apagadas por qualquer regra baseada só em data de escrita.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Não devem sair. Este bloco existe para registrar que a suspeita foi testada e caiu.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Não se aplica.</p>
+    <div class="det-t">o ganho</div><p class="det-p">nenhum: são para manter</p>
+  </details>
+  <div class="mk mk-off">não entra em decisão: fica</div>
+</article>
+<article class="bloco b-sem-prova" data-v="perguntar" data-m="arvo">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>16 GB de editais servidos pelo painel da CDG</h3>
+      <span class="vd vd-sem-prova">decidir</span>
+      <span class="vd vd-maq">Arvo</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb">16 GB</div></div>
+  </div>
+  <p class="bl-f">Os arquivos que o painel da CDG entrega aos usuários. Cresceram e são a segunda maior coisa da máquina.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>a produção da CDG, hoje mesmo</b></div>
+    <div><span>risco de mexer</span><b>alto</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">escrito hoje</p>
+    <div class="det-t">como sabemos</div><p class="det-p">Censo do dia 06/09: escrita e leitura em 06/09.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Não sai. Já existe uma rotina de evicção com manifesto na casa; a pergunta é qual o teto e por quanto tempo o edital antigo fica.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim, com o manifesto que a rotina já grava.</p>
+    <div class="det-t">o ganho</div><p class="det-p">depende do teto de retenção</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="arvo-editais"> Sim, pode seguir com este</label>
+</article>
+<article class="bloco b-sem-prova" data-v="perguntar" data-m="duo">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>A DUO não tem área de troca nenhuma</h3>
+      <span class="vd vd-sem-prova">decidir</span>
+      <span class="vd vd-maq">DUO</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb bl-gb-txt">não ocupa disco hoje</div></div>
+  </div>
+  <p class="bl-f">Área de troca é o espaço em disco que o sistema usa quando a memória aperta. Sem ela, o sistema não tem para onde empurrar nada: quando falta memória, ele mata um processo direto.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>ninguém; simplesmente não existe</b></div>
+    <div><span>risco de mexer</span><b>baixo</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">desde sempre nesta máquina</p>
+    <div class="det-t">como sabemos</div><p class="det-p">A leitura de área de troca devolve zero de zero. As outras duas têm 4 GB cada.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">O que se propõe é o contrário: criar. Custa 4 GB dos 57 livres.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim, remover a área de troca é um comando.</p>
+    <div class="det-t">o ganho</div><p class="det-p">folga para o sistema agir antes de matar processo</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="duo-sem-swap"> Sim, pode seguir com este</label>
+</article>
+<article class="bloco b-sem-prova" data-v="perguntar" data-m="duo">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>8,1 GB de cache de ferramenta na DUO, que se refaz sozinho</h3>
+      <span class="vd vd-sem-prova">decidir</span>
+      <span class="vd vd-maq">DUO</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb">8,1 GB</div></div>
+  </div>
+  <p class="bl-f">Sobras de download de bibliotecas: 4,5 GB do instalador de Python, 2,1 GB do de JavaScript, 1,3 GB do verificador de segurança e 461 MB do compilador Go. Cache existe para não baixar duas vezes; apagar só custa um download futuro.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>as próprias ferramentas, quando instalam algo</b></div>
+    <div><span>risco de mexer</span><b>baixo</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">o de Python foi escrito em 04/09, o de segurança em 05/09; o do compilador Go não é escrito desde fevereiro, mas foi lido em agosto</p>
+    <div class="det-t">como sabemos</div><p class="det-p">Censo do dia 06/09, com tamanho, contagem de arquivos e as três datas de cada um.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Nada quebra. A próxima instalação baixa de novo e demora um pouco mais, uma vez.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Não há o que reverter: cache se refaz.</p>
+    <div class="det-t">o ganho</div><p class="det-p">até 8,1 GB</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="duo-caches"> Sim, pode seguir com este</label>
+</article>
+<article class="bloco b-intocavel" data-v="manter" data-m="duo">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>5,5 GB da imagem do verificador de segurança, em uso</h3>
+      <span class="vd vd-intocavel">manter</span>
+      <span class="vd vd-maq">DUO</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb">5,5 GB</div></div>
+  </div>
+  <p class="bl-f">A imagem do Strix, o verificador de segurança que a casa instalou em 4 de setembro e usa em toda entrega.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>o sistema de contêineres</b></div>
+    <div><span>risco de mexer</span><b>alto se removido</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">instalada há quatro semanas, usada na semana passada</p>
+    <div class="det-t">como sabemos</div><p class="det-p">Uma única imagem, nenhum contêiner parado sobrando, nenhum volume órfão.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Perde-se a camada 2 de segurança da casa.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Não se aplica.</p>
+    <div class="det-t">o ganho</div><p class="det-p">nenhum: é para manter</p>
+  </details>
+  <div class="mk mk-off">não entra em decisão: fica</div>
+</article>
+<article class="bloco b-sem-prova" data-v="perguntar" data-m="todas">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>Nenhuma das três tem teto para o registro do sistema de contêineres</h3>
+      <span class="vd vd-sem-prova">decidir</span>
+      <span class="vd vd-maq">as três</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb bl-gb-txt">risco, não ocupação</div></div>
+  </div>
+  <p class="bl-f">Por padrão de fábrica, o registro de um contêiner cresce sem limite. Nenhuma das três máquinas tem esse teto configurado.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>qualquer contêiner que escreva registro</b></div>
+    <div><span>risco de mexer</span><b>médio</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">desde a instalação; nunca foi configurado</p>
+    <div class="det-t">como sabemos</div><p class="det-p">Nenhuma das três tem o arquivo de configuração que define o teto.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Nada sai. Se propõe pôr o teto, que é uma linha por máquina.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim.</p>
+    <div class="det-t">o ganho</div><p class="det-p">impede um crescimento sem fim</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="freio-docker"> Sim, pode seguir com este</label>
+</article>
+<article class="bloco b-intocavel" data-v="manter" data-m="todas">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>O registro do sistema, ao contrário do esperado, já tem teto nas três</h3>
+      <span class="vd vd-intocavel">manter</span>
+      <span class="vd vd-maq">as três</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb">448 MB na Arvo, 181 MB na DUO</div></div>
+  </div>
+  <p class="bl-f">A suspeita, vinda da pesquisa, era que o registro do sistema estivesse sem teto, como costuma vir de fábrica. Nas três máquinas ele está configurado: 1 GB no total, 100 MB por arquivo, 7 dias de retenção, com compressão.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>o próprio sistema</b></div>
+    <div><span>risco de mexer</span><b>baixo</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">configurado antes desta frente</p>
+    <div class="det-t">como sabemos</div><p class="det-p">O arquivo de configuração das três traz os mesmos quatro limites, e o uso medido está dentro deles.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Não se aplica. Este bloco existe para registrar uma suspeita que caiu.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Não se aplica.</p>
+    <div class="det-t">o ganho</div><p class="det-p">nenhum: já está certo</p>
+  </details>
+  <div class="mk mk-off">não entra em decisão: fica</div>
+</article>
+<article class="bloco b-sem-prova" data-v="perguntar" data-m="doisa">
+  <div class="bl-h">
+    <div class="bl-t">
+      <h3>Três serviços da casa escrevem registro sem nenhuma rotação</h3>
+      <span class="vd vd-sem-prova">decidir</span>
+      <span class="vd vd-maq">Dois A</span>
+    </div>
+    <div class="bl-n"><div class="bl-gb bl-gb-txt">risco, não ocupação</div></div>
+  </div>
+  <p class="bl-f">Secretária, hormigon e waha escrevem registro na Dois A e nenhum dos três tem regra de rotação. Registro sem rotação cresce até o disco acabar.</p>
+  <div class="bl-m">
+    <div><span>quem escreve nele</span><b>os próprios serviços</b></div>
+    <div><span>risco de mexer</span><b>baixo</b></div>
+  </div>
+  <details class="bl-d">
+    <summary>a prova, e o que acontece se sair</summary>
+    <div class="det-t">desde quando</div><p class="det-p">desde que foram instalados</p>
+    <div class="det-t">como sabemos</div><p class="det-p">A pasta de regras de rotação não tem nenhum arquivo para os três nomes.</p>
+    <div class="det-t">o que acontece se sair</div><p class="det-p">Nada sai. Se propõe criar as três regras.</p>
+    <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim.</p>
+    <div class="det-t">o ganho</div><p class="det-p">impede o próximo disco cheio</p>
+  </details>
+  <label class="mk"><input type="checkbox" class="cb" data-id="freio-logrotate-secretaria"> Sim, pode seguir com este</label>
+</article></main>
+
+<section class="nota">
+  <b>Por que nada é apagado hoje.</b> A régua desta frente tem cinco portões, e a remoção física só
+  acontece no último. O terceiro portão é uma escuta ligada nas três máquinas em
+  6 de setembro de 2026, que anota por catorze dias quem lê e quem escreve em cada pasta
+  — termina em 20 de setembro de 2026. O quarto é mais trinta dias de quarentena,
+  em que a pasta muda de lugar mas continua existindo. Ela existe porque pasta que ninguém escreve há meses ainda pode estar sendo lida todo dia, e apagar uma dessas quebra algo sem aviso.
+  <br><br>
+  <b>O que esta medição não consegue provar.</b> Não existe comando que devolva "nada depende disto".
+  O que está escrito em cada bloco é o que a medição achou: quem escreveu, quem leu, qual serviço
+  aponta para lá e o que o próprio sistema registra de data. Ausência de sinal é evidência fraca,
+  nunca atestado — e é por isso que nenhum bloco chega aqui como "apagar", só como "decidir".
+  <br><br>
+  <b>O que já mudou nas máquinas por causa desta frente.</b> Só uma coisa: a escuta do terceiro
+  portão foi instalada nas três, e ela só lê. Nada foi parado, apagado ou alterado. A escuta se
+  remove com um comando, e o comando está escrito dentro de cada máquina.
+</section>
+
+<footer class="foot">painel gerado em 05/09/2026 22:36 · 17 blocos · contrato f1f314c</footer>
+</div>
+
+<script>
+(function(){
+  var blocos = Array.prototype.slice.call(document.querySelectorAll('.bloco'));
+  var cbs = Array.prototype.slice.call(document.querySelectorAll('.cb'));
+  var nEl = document.getElementById('nSel');
+  var filtro = {t:'v', f:'todos'};
+
+  function recalcular(){
+    var n = 0;
+    cbs.forEach(function(cb){ if (cb.checked) n++; });
+    nEl.innerHTML = n + '<span> blocos</span>';
+    if (filtro.f === 'marcados') aplicar();
+  }
+
+  function aplicar(){
+    blocos.forEach(function(b){
+      var cb = b.querySelector('.cb');
+      var mostra;
+      if (filtro.f === 'todos') mostra = true;
+      else if (filtro.f === 'marcados') mostra = !!(cb && cb.checked);
+      else if (filtro.t === 'm') mostra = (b.dataset.m === filtro.f || b.dataset.m === 'todas');
+      else mostra = (b.dataset.v === filtro.f);
+      b.hidden = !mostra;
+    });
+  }
+
+  cbs.forEach(function(cb){ cb.addEventListener('change', recalcular); });
+
+  document.querySelectorAll('.ft').forEach(function(bt){
+    bt.addEventListener('click', function(){
+      filtro = {t: bt.dataset.t, f: bt.dataset.f};
+      document.querySelectorAll('.ft').forEach(function(o){
+        o.setAttribute('aria-pressed', String(o === bt));
+      });
+      aplicar();
+    });
+  });
+
+  recalcular();
+})();
+</script>
+</body>
+</html>
