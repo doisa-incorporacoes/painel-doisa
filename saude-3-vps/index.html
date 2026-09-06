@@ -161,6 +161,20 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opac
 .mk-off{cursor:default;color:#FF8B8B;font-family:var(--fm);font-size:10.5px;letter-spacing:.8px;
   text-transform:uppercase;}
 .mk-off:hover{color:#FF8B8B;}
+.saida{margin:26px 2px 0;padding:20px 22px;border-radius:16px;border:1px solid var(--line);
+  background:var(--card);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);}
+.saida h2{font-size:15px;font-weight:700;margin-bottom:8px;letter-spacing:-.2px;}
+.saida p{font-size:12.5px;line-height:1.65;color:var(--ts);margin-bottom:12px;max-width:76ch;}
+.saida textarea{width:100%;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:11px;
+  color:var(--tp);font:400 12px/1.6 var(--fm);padding:12px 14px;resize:vertical;}
+.saida-b{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap;}
+.bt{background:rgba(var(--acr),.16);border:1px solid rgba(var(--acr),.5);color:var(--tp);
+  font:600 12px/1 var(--fb);letter-spacing:.4px;padding:12px 18px;border-radius:10px;cursor:pointer;
+  min-height:44px;transition:all .25s var(--eleg);}
+.bt:hover{background:rgba(var(--acr),.26);}
+.bt:focus-visible{outline:2px solid var(--ac);outline-offset:2px;}
+.bt-2{background:rgba(255,255,255,.04);border-color:var(--line);color:var(--ts);}
+#avisoCopia{font-size:11.5px;color:#7FE0A0;}
 .nota{margin:30px 2px 0;padding:18px 22px;border-radius:14px;border:1px solid var(--line);
   background:rgba(255,255,255,.028);font-size:12.5px;line-height:1.75;color:var(--ts);}
 .nota b{color:var(--tp);}
@@ -177,7 +191,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opac
     <img class="am-mark" alt="AM" src="data:image/png;base64,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">
     <span class="utitle">Saúde das 3 VPS · decisão bloco a bloco</span>
   </div>
-  <span class="uclock">05/09/2026 22:39</span>
+  <span class="uclock">05/09/2026 23:15</span>
 </header>
 
 <section class="hero">
@@ -215,12 +229,12 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opac
     <h2>Dois A</h2>
     <span class="maq-ip">2 processadores · 96 GB de disco</span>
   </div>
-  <p class="maq-v">A pior das três, e o problema não é só disco. A máquina está engasgada de tanto serviço pequeno disparando ao mesmo tempo.</p>
+  <p class="maq-v">A pior das três, e o problema não é só disco. Em repouso a espera por processador fica em torno de 55%, com picos de 75%, numa máquina de dois núcleos — e a pressão de memória é zero, apesar de a área de troca estar quase cheia.</p>
   <div class="maq-n">
     <div><span>disco</span><b>90%</b><em>86 de 96 GB</em></div>
     <div><span>memória</span><b>3.8 GB</b><em>de 7.8 GB</em></div>
     <div><span>área de troca</span><b>3.4 GB</b><em>de 4 GB</em></div>
-    <div><span>espera por processador</span><b>95%</b><em>em aperto</em></div>
+    <div><span>espera por processador</span><b>55%</b><em>em aperto</em></div>
     <div><span>tarefas agendadas</span><b>102</b><em>306 disparos por hora</em></div>
     <div><span>mortes por falta de memória</span><b>3</b><em>nos últimos 30 dias</em></div>
   </div>
@@ -300,11 +314,11 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opac
   </div>
   <details class="bl-d">
     <summary>a prova, e o que acontece se sair</summary>
-    <div class="det-t">desde quando</div><p class="det-p">o contador de reinícios marcava 78.120 em 24 de julho e marca 189.682 agora: 111 mil tentativas em 43 dias</p>
-    <div class="det-t">como sabemos</div><p class="det-p">O contador subiu de 189.682 para 189.683 durante os 90 segundos em que ficamos olhando. Cada tentativa gasta cerca de 11 segundos de processador antes de morrer. E foi dentro dele que a máquina ficou sem memória hoje às 17h59 e matou um processo de 3,1 GB.</p>
+    <div class="det-t">desde quando</div><p class="det-p">o contador de reinícios marcava 78.120 em 24 de julho e passou de 189.756 para 189.761 em dois minutos de observação: 150 tentativas por hora, uma a cada 24 segundos</p>
+    <div class="det-t">como sabemos</div><p class="det-p">Na última hora foram 83 subidas, cada uma consumindo em média 14,6 segundos de processador antes de morrer — 1.213 segundos de processador por hora. Numa máquina de dois núcleos, que tem 7.200 segundos de processador por hora, isso é 17% da máquina inteira queimada continuamente por um serviço aposentado. E foi dentro dele que a máquina ficou sem memória em 05/09 às 17h59 e matou um processo de 3,1 GB.</p>
     <div class="det-t">o que acontece se sair</div><p class="det-p">Nada para de funcionar, porque ele já não funciona. A máquina devolve o processador que hoje queima em tentativas fracassadas, e some a origem de uma das três mortes por falta de memória do mês.</p>
     <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim. Religar é um comando, e nada é apagado: o serviço só é parado, desabilitado e trancado.</p>
-    <div class="det-t">o ganho</div><p class="det-p">devolve processador à máquina mais engasgada das três</p>
+    <div class="det-t">o ganho</div><p class="det-p">devolve 17% da máquina, medidos</p>
   </details>
   <label class="mk"><input type="checkbox" class="cb" data-id="doisa-tandem"> Sim, pode seguir com este</label>
 </article>
@@ -341,7 +355,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opac
     </div>
     <div class="bl-n"><div class="bl-gb bl-gb-txt">não ocupa disco</div></div>
   </div>
-  <p class="bl-f">Cada uma faz algo pequeno e útil. Somadas, são 306 disparos por hora. No instante em que medimos havia 24 processos de agendamento vivos ao mesmo tempo, de 319 processos no total.</p>
+  <p class="bl-f">Cada uma faz algo pequeno e útil. Somadas, são 306 disparos por hora numa máquina de dois núcleos — uma a cada 12 segundos. Junto com o laço do Tandem, é o que mantém a máquina ocupada sem produzir trabalho novo.</p>
   <div class="bl-m">
     <div><span>quem escreve nele</span><b>várias frentes, ao longo de meses, cada uma acrescentando a sua</b></div>
     <div><span>risco de mexer</span><b>médio</b></div>
@@ -349,10 +363,10 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opac
   <details class="bl-d">
     <summary>a prova, e o que acontece se sair</summary>
     <div class="det-t">desde quando</div><p class="det-p">acumulado; nenhuma foi revisada em conjunto</p>
-    <div class="det-t">como sabemos</div><p class="det-p">A máquina levou mais de 40 minutos para responder a uma contagem de disco que na Arvo e na DUO levou menos de dois. A medida de espera por processador ficou em 95% dos últimos 10 segundos.</p>
+    <div class="det-t">como sabemos</div><p class="det-p">A conta sai da própria lista de tarefas: 102 linhas que somam 306 disparos por hora. No instante da medição havia 24 processos de agendamento vivos ao mesmo tempo, de 319 no total. Em repouso, a espera por processador da máquina oscila entre 20% e 75%, enquanto na Arvo e na DUO fica em 1%.</p>
     <div class="det-t">o que acontece se sair</div><p class="det-p">Nada sai. O que se propõe é espaçar as mais frequentes e juntar as que fazem a mesma coisa, uma a uma, com o dono de cada uma sabendo.</p>
     <div class="det-t">dá para voltar atrás?</div><p class="det-p">Sim, a lista inteira é copiada antes de qualquer mudança.</p>
-    <div class="det-t">o ganho</div><p class="det-p">é a causa provável da lentidão</p>
+    <div class="det-t">o ganho</div><p class="det-p">é a segunda causa da lentidão, depois do Tandem</p>
   </details>
   <label class="mk"><input type="checkbox" class="cb" data-id="doisa-cron"> Sim, pode seguir com este</label>
 </article>
@@ -693,6 +707,18 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opac
   <label class="mk"><input type="checkbox" class="cb" data-id="freio-logrotate-secretaria"> Sim, pode seguir com este</label>
 </article></main>
 
+<section class="saida" id="saida" hidden>
+  <h2>A sua decisão, pronta para copiar</h2>
+  <p>O que está marcado acima aparece aqui. Copie e me mande, ou deixe marcado e me avise — a
+  marcação fica guardada neste navegador e sobrevive a fechar a aba.</p>
+  <textarea id="txtSaida" readonly rows="8" aria-label="lista das decisões marcadas"></textarea>
+  <div class="saida-b">
+    <button class="bt" id="btCopiar">copiar a lista</button>
+    <button class="bt bt-2" id="btLimpar">desmarcar tudo</button>
+    <span id="avisoCopia" role="status"></span>
+  </div>
+</section>
+
 <section class="nota">
   <b>Por que nada é apagado hoje.</b> A régua desta frente tem cinco portões, e a remoção física só
   acontece no último. O terceiro portão é uma escuta ligada nas três máquinas em
@@ -710,7 +736,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opac
   remove com um comando, e o comando está escrito dentro de cada máquina.
 </section>
 
-<footer class="foot">painel gerado em 05/09/2026 22:39 · 17 blocos · contrato f1f314c</footer>
+<footer class="foot">painel gerado em 05/09/2026 23:15 · 17 blocos · contrato f1f314c</footer>
 </div>
 
 <script>
@@ -718,12 +744,40 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opac
   var blocos = Array.prototype.slice.call(document.querySelectorAll('.bloco'));
   var cbs = Array.prototype.slice.call(document.querySelectorAll('.cb'));
   var nEl = document.getElementById('nSel');
+  var saida = document.getElementById('saida');
+  var txt = document.getElementById('txtSaida');
+  var aviso = document.getElementById('avisoCopia');
   var filtro = {t:'v', f:'todos'};
+  var CHAVE = 'saude-3-vps.decisao';
+
+  // A decisao e a razao de a pagina existir; sem isto um F5 apagava tudo e nao
+  // havia como o que foi marcado chegar a quem executa.
+  function guardar(){
+    try {
+      var m = cbs.filter(function(cb){ return cb.checked; }).map(function(cb){ return cb.dataset.id; });
+      localStorage.setItem(CHAVE, JSON.stringify(m));
+    } catch (e) { /* navegador sem armazenamento: a lista de copiar continua valendo */ }
+  }
+
+  function restaurar(){
+    try {
+      var m = JSON.parse(localStorage.getItem(CHAVE) || '[]');
+      cbs.forEach(function(cb){ cb.checked = m.indexOf(cb.dataset.id) !== -1; });
+    } catch (e) { /* idem */ }
+  }
 
   function recalcular(){
-    var n = 0;
-    cbs.forEach(function(cb){ if (cb.checked) n++; });
+    var marcados = cbs.filter(function(cb){ return cb.checked; });
+    var n = marcados.length;
     nEl.innerHTML = n + '<span> ' + (n === 1 ? 'bloco' : 'blocos') + '</span>';
+    saida.hidden = (n === 0);
+    txt.value = marcados.map(function(cb){
+      var art = cb.closest('.bloco');
+      return '[x] ' + art.querySelector('h3').textContent.trim()
+           + '  (' + art.dataset.m + ', ' + art.dataset.v + ')';
+    }).join('\n');
+    txt.rows = Math.min(14, Math.max(4, n + 1));
+    guardar();
     if (filtro.f === 'marcados') aplicar();
   }
 
@@ -751,6 +805,20 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opac
     });
   });
 
+  document.getElementById('btCopiar').addEventListener('click', function(){
+    txt.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    aviso.textContent = ok ? 'copiado' : 'selecionei o texto: copie com Ctrl+C';
+    setTimeout(function(){ aviso.textContent = ''; }, 4000);
+  });
+
+  document.getElementById('btLimpar').addEventListener('click', function(){
+    cbs.forEach(function(cb){ cb.checked = false; });
+    recalcular();
+  });
+
+  restaurar();
   recalcular();
 })();
 </script>
