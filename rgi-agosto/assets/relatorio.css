@@ -1,0 +1,127 @@
+/* relatorio.css — extensão do am-deck.css para um RELATÓRIO navegável por
+   acordeão (não um deck de slides). Herda toda a pele do Padrão AM (paleta,
+   grade, ruído, orbes, varredura, vidro, tipografia) e troca só a mecânica de
+   navegação: página rolável normal, sidebar fixa com índice das 13 partes,
+   cada parte um acordeão que abre/fecha, com as 10 óticas em sub-acordeão. */
+
+/* am-deck.css trava overflow:hidden pro modo slide de tela cheia — aqui o
+   documento rola normalmente. */
+html,body{overflow-y:auto;overflow-x:hidden;height:auto;}
+.shell{height:auto;min-height:100vh;}
+.sidebar{height:100vh;}
+.content{position:static;height:auto;overflow:visible;padding:40px 56px 140px;max-width:1200px;
+  /* achado R13 (09/09/2026): sem min-width:0 o item de grid 1fr não encolhe
+     abaixo da largura intrínseca do conteúdo — a tabela de cobertura (várias
+     colunas) forçava .content a 473px mesmo em viewport de 390px, cortando
+     chips e botões fixos na borda direita. */
+  min-width:0;}
+
+/* mesmo achado: tabela larga rola dentro de si mesma em vez de esticar o
+   layout inteiro — am-deck.css usa overflow:hidden no .table-wrap, que
+   cortava dado em vez de deixar rolar. */
+.table-wrap{overflow-x:auto;}
+
+/* ═══ CAPA E RESUMO (topo da página, sempre visível, sem acordeão) ═══ */
+.capa-relatorio{padding:34px 0 26px;border-bottom:1px solid var(--line);margin-bottom:28px}
+.capa-kicker{font-family:var(--fm);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--ac);font-weight:700;display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.capa-kicker::before{content:'';width:30px;height:2px;background:var(--ac)}
+.capa-title{font-size:38px;font-weight:800;line-height:1.15;letter-spacing:-1px;max-width:22ch;color:var(--tp)}
+.capa-title b{background:linear-gradient(103deg,#EDF1F8 0%,var(--ac) 38%,#8A93A6 62%,#E4E9F2 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.capa-sub{font-size:14.5px;color:var(--ts);margin-top:16px;max-width:80ch;line-height:1.7}
+.capa-meta{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap}
+
+/* ═══ ÍNDICE LATERAL — cada item abre a parte correspondente ═══ */
+.nav-sec[data-veredito]{position:relative}
+.nav-sec .v-dot{width:7px;height:7px;border-radius:50%;flex:0 0 auto;margin-left:6px}
+.nav-sec[data-veredito="limpa"] .v-dot{background:var(--ok)}
+.nav-sec[data-veredito="remendo"] .v-dot{background:var(--warn)}
+.nav-sec[data-veredito="quebrou"] .v-dot{background:var(--err)}
+.nav-sec[data-veredito="investigada"] .v-dot{background:var(--ac-apoio)}
+.nav-sec[data-veredito="meta"] .v-dot{background:var(--ac)}
+
+/* ═══ SEÇÃO GERAL (não-acordeão: síntese, cobertura, metodologia) ═══ */
+.bloco{margin-bottom:34px}
+.bloco-head{margin-bottom:14px}
+.bloco-head .num{font-family:var(--fm);font-size:18px;font-weight:700;color:var(--ac)}
+.bloco-head .tt{font-size:21px;font-weight:800;color:var(--tp);letter-spacing:-.3px;margin-left:10px}
+.bloco-lead{font-size:13.5px;color:var(--ts);max-width:90ch;line-height:1.7;margin-bottom:16px}
+
+/* ═══ ACORDEÃO DE PARTE (as 13 partes da família /rgi) ═══ */
+.parte{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  margin-bottom:12px;overflow:hidden;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  box-shadow:0 8px 32px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.06);
+  scroll-margin-top:24px;}
+.parte::before{content:'';display:block;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(var(--acr),.7),transparent)}
+.parte-head{display:flex;align-items:center;gap:14px;padding:18px 22px;cursor:pointer;user-select:none}
+.parte-head:hover{background:rgba(255,255,255,.03)}
+.parte-num{font-family:var(--fm);color:var(--ac-apoio);font-size:14px;font-weight:700;min-width:24px}
+.parte-titulo{font-size:15.5px;font-weight:800;color:var(--tp);flex:1;letter-spacing:-.2px}
+.parte-sub{font-size:11px;color:var(--tm);margin-top:2px;font-weight:500}
+.parte-chevron{color:var(--ac);font-size:14px;font-weight:700;transition:transform .2s var(--eleg);flex:0 0 auto}
+.parte.aberta .parte-chevron{transform:rotate(90deg)}
+.parte-body{display:none;padding:4px 22px 26px;border-top:1px solid var(--line)}
+.parte.aberta .parte-body{display:block}
+.parte-body h4.sec-h{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ac-apoio);margin:22px 0 10px}
+.parte-body h4.sec-h:first-child{margin-top:18px}
+.parte-body p{font-size:12.5px;line-height:1.7;color:var(--ts);margin-bottom:10px}
+.parte-body p b, .parte-body li b, .parte-body td b{color:var(--tp)}
+.parte-body ul{margin:0 0 12px 0}
+.parte-body li{font-size:12.5px;line-height:1.7;color:var(--ts);margin-bottom:6px;padding-left:16px;position:relative}
+.parte-body li::before{content:'—';position:absolute;left:0;color:var(--ac-apoio);font-weight:700}
+.parte-body code{font-family:var(--fm);font-size:11.5px;color:var(--ac);background:rgba(var(--acr),.1);
+  padding:1px 5px;border-radius:4px}
+
+/* ═══ SUB-ACORDEÃO DAS 10 ÓTICAS ═══ */
+.oticas{display:flex;flex-direction:column;gap:6px;margin:6px 0 8px}
+.otica{border:1px solid var(--line);border-radius:11px;overflow:hidden;background:rgba(255,255,255,.02)}
+.otica-head{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;user-select:none}
+.otica-head:hover{background:rgba(255,255,255,.035)}
+.otica-n{font-family:var(--fm);font-size:11px;font-weight:700;color:var(--ac-apoio);min-width:16px}
+.otica-t{font-size:12px;font-weight:700;color:var(--ts);flex:1}
+.otica.aberta .otica-t{color:var(--tp)}
+.otica-chevron{color:var(--ac-apoio);font-size:11px;transition:transform .18s var(--eleg)}
+.otica.aberta .otica-chevron{transform:rotate(90deg);color:var(--ac)}
+.otica-body{display:none;padding:0 14px 13px 40px}
+.otica.aberta .otica-body{display:block}
+.otica-body p{font-size:12px;line-height:1.65;color:var(--ts);margin:0}
+
+/* ═══ VEREDITO — selo no fim de cada parte ═══ */
+.veredito-box{margin-top:16px;padding:14px 18px;border-radius:12px;border:1px solid var(--line-ac);
+  background:rgba(var(--acr),.06);display:flex;align-items:flex-start;gap:12px}
+.veredito-box .vb-pill{flex:0 0 auto;margin-top:1px}
+.veredito-box p{font-size:12.5px;line-height:1.65;color:var(--ts);margin:0}
+.veredito-box p b{color:var(--tp)}
+
+/* ═══ DIVERGÊNCIA DE AUDITOR ═══ */
+.divergencia{border:1px dashed var(--err);background:rgba(239,68,68,.06);border-radius:10px;
+  padding:10px 14px;margin:10px 0;font-size:11.5px;color:var(--ts)}
+.divergencia b{color:var(--err)}
+
+/* ═══ CONTROLES DA PÁGINA (abrir/fechar tudo) ═══ */
+.page-controls{position:fixed;bottom:18px;right:24px;z-index:900;display:flex;align-items:center;gap:9px;
+  background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:14px;padding:8px 14px;
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.page-controls button{font-family:inherit;cursor:pointer;padding:6px 12px;border-radius:9px;
+  border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--tp);font-size:11px;font-weight:700;
+  transition:background .14s,border-color .14s,color .14s}
+@media (hover:hover) and (pointer:fine){
+  .page-controls button:hover{background:rgba(var(--acr),.16);border-color:var(--line-ac);color:var(--ac)}
+}
+.back-to-top{position:fixed;bottom:18px;left:calc(var(--sidebar-w) + 24px);z-index:900;
+  width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:rgba(255,255,255,.05);
+  color:var(--ac);cursor:pointer;backdrop-filter:blur(20px);font-size:16px;font-weight:700;
+  opacity:0;pointer-events:none;transition:opacity .2s}
+.back-to-top.visivel{opacity:1;pointer-events:auto}
+
+@media(max-width:820px){
+  .shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  .content{padding:26px 18px 120px}
+  .capa-title{font-size:27px}
+  .back-to-top{left:16px}
+  .page-controls{left:16px;right:16px;justify-content:center}
+}
