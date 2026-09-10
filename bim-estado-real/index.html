@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIM na Dois A: o estado real · Álvaro Marcolino</title>
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   am-deck.css — tema dos decks do padrão VISUAL AM (Álvaro Marcolino)
+   Origem da pele: painel de tokens unificado (css_novo.txt, 269 linhas +
+   preview-am-unificado-v1.html), traduzida de painel para deck em
+   05/09/2026. SOMENTE DARK (decisão S2) — não existe variante clara;
+   problema de legibilidade em projeção se resolve com MAIS contraste
+   dentro do dark, nunca clareando o fundo.
+   A logo AM (230x119, sha256 e837032b...) é a única marca do padrão:
+   cabeçalho E marca d'água saem do MESMO arquivo. A logo Dois A não
+   entra em material AM.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root{
+  /* paleta REAL do painel de tokens — não alterar sem aprovação */
+  --bg:#070A11;
+  --card:rgba(255,255,255,.038);
+  --card-alto:rgba(255,255,255,.058);
+  --line:rgba(255,255,255,.085);
+  --line-ac:rgba(199,206,219,.34);
+  --tp:#F0F4FF;                       /* texto principal */
+  --ts:rgba(240,244,255,.62);         /* secundário — .52 no painel; .62 aqui por projeção */
+  --tm:rgba(240,244,255,.34);         /* mudo — .28 no painel; .34 aqui por projeção */
+  /* Acento PRATA FRIO (decisão do Álvaro, 05/09/2026): a marca dele é cinza
+     metálico, não laranja. O laranja do painel de tokens saiu do deck (revisão 05/09).
+     Como o prata fica perto do texto em luminância, a hierarquia se faz por
+     brilho e peso, não por matiz: número de destaque ganha text-shadow. */
+  --ac:#C7CEDB; --acr:199,206,219;
+  --ac-apoio:#8A93A6;                 /* aço fosco, para o segundo plano */
+  --ok:#22C55E; --err:#EF4444; --warn:#F59E0B;
+  --fb:'Inter',-apple-system,BlinkMacSystemFont,Arial,sans-serif;
+  --fm:'Roboto Mono',ui-monospace,Consolas,monospace;
+  --suave:cubic-bezier(.34,1.56,.64,1);
+  --eleg:cubic-bezier(.25,.46,.45,.94);
+  --sidebar-w:284px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--tp);font-family:var(--fb);
+  font-size:14px;-webkit-font-smoothing:antialiased;overflow:hidden;
+  font-feature-settings:'cv02','cv03','cv04','cv11';}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+
+/* ═══ CAMADAS DE FUNDO — grade, ruído, orbes, varredura, marca d'água ═══
+   É isto que separa "pele trocada" do corpo do padrão (lição 21/08). */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:repeating-linear-gradient(0deg,rgba(255,255,255,.021) 0 1px,transparent 1px 44px),
+             repeating-linear-gradient(90deg,rgba(255,255,255,.021) 0 1px,transparent 1px 44px);
+  -webkit-mask-image:radial-gradient(ellipse 78% 68% at 50% 34%,#000 30%,transparent 100%);
+  mask-image:radial-gradient(ellipse 78% 68% at 50% 34%,#000 30%,transparent 100%);}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opacity:.05;
+  mix-blend-mode:soft-light;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23g)'/%3E%3C/svg%3E");}
+.orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:0;}
+.orb-1{width:620px;height:620px;top:-220px;left:-140px;
+  background:radial-gradient(circle,rgba(var(--acr),.16) 0%,transparent 70%);
+  animation:am-respira 16s ease-in-out infinite;}
+.orb-2{width:420px;height:420px;bottom:-140px;right:-120px;
+  background:radial-gradient(circle,rgba(120,140,180,.13) 0%,transparent 70%);
+  animation:am-respira 11s ease-in-out 3s infinite;}
+.light-sweep{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:1;pointer-events:none;overflow:hidden;}
+.light-sweep::before{content:'';position:absolute;top:-50%;left:-60%;width:46%;height:220%;
+  background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.04) 45%,rgba(255,255,255,.08) 50%,rgba(255,255,255,.04) 55%,transparent 100%);
+  transform:rotate(8deg);animation:am-sweep 17s ease-in-out infinite;}
+.bg-mark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:420px;max-width:60vw;
+  z-index:0;pointer-events:none;animation:am-mark-breathe 9s ease-in-out infinite;}
+.bg-mark img{width:100%;height:auto;display:block;filter:grayscale(1) brightness(1.5);}
+
+@keyframes am-respira{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+@keyframes am-sweep{0%,62%{left:-60%;opacity:0}70%{opacity:1}86%{left:130%;opacity:1}92%,100%{left:130%;opacity:0}}
+@keyframes am-mark-breathe{0%,100%{opacity:.14}50%{opacity:.2}}
+@keyframes am-mark-glow{0%,100%{filter:drop-shadow(0 0 8px rgba(255,255,255,.12))}50%{filter:drop-shadow(0 0 18px rgba(255,255,255,.35))}}
+
+/* ═══ SHELL — sidebar de vidro + palco ═══ */
+.shell{position:relative;z-index:3;display:grid;grid-template-columns:var(--sidebar-w) 1fr;height:100vh}
+.sidebar{position:sticky;top:0;height:100vh;overflow-y:auto;scrollbar-width:thin;
+  background:rgba(255,255,255,.028);border-right:1px solid var(--line);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  padding:24px 0 16px;}
+.sb-head{padding:0 22px 18px;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.sb-head::after{content:'';position:absolute;right:-30px;top:-30px;width:120px;height:120px;opacity:.5;
+  background:radial-gradient(circle,rgba(var(--acr),.28),transparent 65%)}
+.am-mark{height:44px;width:auto;display:block;animation:am-mark-glow 5s ease-in-out infinite;}
+.sb-sub{font-size:9.5px;font-weight:600;letter-spacing:1.8px;text-transform:uppercase;color:var(--tm);margin-top:10px}
+.study-id{padding:14px 22px;font-size:10.5px;color:var(--ts);border-bottom:1px solid var(--line);line-height:1.6}
+.study-id b{color:var(--tp)}
+
+.nav{padding:10px 12px}
+.nav-sec{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;cursor:pointer;
+  border-left:2px solid transparent;transition:background .16s ease-out}
+.nav-sec .n{font-family:var(--fm);font-size:10.5px;font-weight:700;color:var(--ac-apoio);min-width:20px}
+.nav-sec .t{font-size:12.5px;font-weight:500;color:var(--ts);line-height:1.25;flex:1}
+@media (hover:hover) and (pointer:fine){
+  .nav-sec:hover{background:rgba(255,255,255,.05)}
+  .nav-sec:hover .t{color:var(--tp)}
+}
+.nav-sec.active{background:rgba(var(--acr),.1);border-left-color:var(--ac)}
+.nav-sec.active .t{font-weight:700;color:var(--tp)}
+.sb-foot{padding:14px 22px 4px;font-family:var(--fm);font-size:9px;color:var(--tm);
+  border-top:1px solid var(--line);margin-top:8px;letter-spacing:.6px}
+
+/* ═══ PALCO ═══ */
+.content{position:relative;height:100vh;overflow:hidden}
+section.sec{
+  position:absolute;inset:0;padding:52px 68px;display:flex;flex-direction:column;
+  justify-content:safe center;overflow-y:auto;
+  opacity:0;visibility:hidden;
+  /* `visibility` na lista NÃO é enfeite — tirar mata o fade de saída
+     (razão completa: PADRAO-AM.md, seção da cascata). */
+  transition:opacity .14s linear, visibility .14s;pointer-events:none;
+}
+section.sec.active{opacity:1;visibility:visible;pointer-events:auto;z-index:2}
+.slide-body{max-width:1120px;margin:0 auto;width:100%}
+
+/* ═══ CASCATA DE ENTRADA — contrato herdado da /apresentacao ═══
+   Anima na PRIMEIRA visita; revisita entra pronta (am-deck.js, reanimate).
+   A regra abaixo NUNCA leva !important: o rebobinar depende de o estilo
+   inline vencer. Classe de erro mais cara do padrão original.            */
+.cascade-item{opacity:0;animation:am-up .5s var(--suave) forwards}
+.cascade-item[data-delay="1"]{animation-delay:.06s}
+.cascade-item[data-delay="2"]{animation-delay:.12s}
+.cascade-item[data-delay="3"]{animation-delay:.18s}
+.cascade-item[data-delay="4"]{animation-delay:.24s}
+.cascade-item[data-delay="5"]{animation-delay:.30s}
+.cascade-item[data-delay="6"]{animation-delay:.36s}
+@keyframes am-up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+/* Movimento reduzido não é movimento zero. */
+@media(prefers-reduced-motion:reduce){
+  .cascade-item{animation:am-fade .16s linear forwards}
+  @keyframes am-fade{from{opacity:0}to{opacity:1}}
+  .orb,.light-sweep::before,.bg-mark,.am-mark{animation:none!important}
+}
+
+/* ═══ CAPA ═══ */
+.sec.capa{align-items:flex-start}
+.cap-kicker{font-family:var(--fm);font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--ac);font-weight:700;display:flex;align-items:center;gap:12px}
+.cap-kicker::before{content:'';width:30px;height:2px;background:var(--ac)}
+.cap-logo{height:84px;width:auto;display:block;margin-bottom:26px;
+  animation:am-mark-glow 5s ease-in-out infinite;}
+.cap-title{font-size:52px;font-weight:800;line-height:1.1;letter-spacing:-1.2px;max-width:20ch;
+  margin-top:18px;color:var(--tp)}
+/* Metálico de verdade em texto grande é gradiente, não brilho: o glow difuso
+   borra a letra em corpo 52 e o título perde nitidez em projeção. */
+.cap-title b{background:linear-gradient(103deg,#EDF1F8 0%,var(--ac) 38%,#8A93A6 62%,#E4E9F2 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  -webkit-text-fill-color:transparent}
+.cap-sub{font-size:15.5px;color:var(--ts);margin-top:18px;max-width:56ch;line-height:1.65}
+.cap-meta{margin-top:30px;display:flex;gap:10px;flex-wrap:wrap}
+
+/* ═══ TÍTULO DE SEÇÃO ═══ */
+.sec-title{display:flex;align-items:baseline;gap:12px;margin-bottom:8px}
+.sec-title .num{font-family:var(--fm);font-size:20px;font-weight:700;color:var(--ac)}
+.sec-title .tt{font-size:24px;font-weight:800;color:var(--tp);letter-spacing:-.4px}
+.sec-lead{font-size:14px;color:var(--ts);max-width:78ch;margin-bottom:20px;line-height:1.65}
+.sec-lead b{color:var(--tp)}
+
+/* ═══ CHIPS ═══ */
+.chip{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:20px;
+  font:700 10px/1 var(--fb);letter-spacing:.9px;text-transform:uppercase;
+  border:1px solid var(--line);background:rgba(255,255,255,.05);color:var(--ts);white-space:nowrap}
+.chip.ac{border-color:var(--line-ac);background:rgba(var(--acr),.14);color:var(--ac)}
+.chip.ok{border-color:rgba(34,197,94,.4);background:rgba(34,197,94,.12);color:var(--ok)}
+
+/* ═══ KPI (vidro, borda inferior acesa — .kt do painel) ═══ */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:20px}
+.kpi{position:relative;text-align:center;padding:20px 16px;border-radius:14px;
+  background:var(--card);border:1px solid var(--line);border-bottom:2px solid rgba(var(--acr),.45);
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  box-shadow:0 8px 32px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.07);
+  transition:transform .3s var(--suave),background .3s var(--eleg)}
+.kpi:hover{transform:translateY(-3px);background:var(--card-alto)}
+.kpi .k-label{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ts);font-weight:700}
+.kpi .k-value{font-family:var(--fm);font-size:30px;font-weight:300;color:var(--tp);margin-top:9px;letter-spacing:-.5px}
+/* Número em destaque: com acento prata, matiz não separa mais do texto branco,
+   então a hierarquia vem do brilho metálico. */
+.kpi .k-value b{color:var(--ac);font-weight:400;
+  text-shadow:0 0 14px rgba(var(--acr),.55),0 0 30px rgba(var(--acr),.22)}
+.kpi .k-unit{font-size:13px;color:var(--ts);font-weight:600;margin-left:2px}
+.kpi .k-sub{font-size:10px;color:var(--tm);margin-top:7px;text-transform:uppercase;letter-spacing:.7px}
+
+/* ═══ CARTÃO DE VIDRO ═══ */
+.card{position:relative;overflow:hidden;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  box-shadow:0 8px 32px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.07);
+  transition:border-color .3s var(--eleg)}
+.card:hover{border-color:var(--line-ac)}
+.card h4{font-size:12px;color:var(--ac-apoio);text-transform:uppercase;letter-spacing:.08em;margin-bottom:9px}
+.card p{font-size:12.5px;line-height:1.65;color:var(--ts)}
+.card p b{color:var(--tp)}
+.card ul{font-size:12.5px;line-height:1.65;color:var(--ts)}
+.card li{margin-bottom:7px;padding-left:16px;position:relative}
+.card li::before{content:'—';position:absolute;left:0;color:var(--ac-apoio);font-weight:700}
+.card li b{color:var(--tp)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:16px 16px 0 0;
+  background:linear-gradient(90deg,transparent,rgba(var(--acr),.7),transparent)}
+.two-col{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start}
+@media(max-width:900px){.two-col{grid-template-columns:1fr}}
+
+/* ═══ TABELA ═══ */
+.table-wrap{border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:18px;
+  background:var(--card);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead th{background:rgba(var(--acr),.12);color:var(--ac-apoio);font-weight:700;font-size:10px;
+  text-transform:uppercase;letter-spacing:.06em;padding:11px 14px;text-align:center;
+  border-bottom:1px solid var(--line-ac)}
+tbody tr:nth-child(even){background:rgba(255,255,255,.025)}
+tbody td{padding:10px 14px;border-top:1px solid var(--line);text-align:center;color:var(--ts)}
+tbody td:first-child{font-weight:700;color:var(--tp);text-align:left}
+td.num{font-family:var(--fm);font-variant-numeric:tabular-nums}
+.pill{display:inline-block;font-size:9px;font-weight:800;text-transform:uppercase;border-radius:999px;padding:3px 10px}
+.pill.ok{background:rgba(34,197,94,.14);color:var(--ok)}
+.pill.warn{background:rgba(245,158,11,.14);color:var(--warn)}
+.pill.crit{background:rgba(239,68,68,.14);color:var(--err)}
+.pill.ac{background:rgba(var(--acr),.16);color:var(--ac)}
+
+/* ═══ CALLOUT ═══ */
+.callout{position:relative;border-radius:14px;padding:15px 18px;margin:12px 0;
+  border:1px solid var(--line-ac);border-left:3px solid var(--ac);background:rgba(var(--acr),.07)}
+.callout .ct{font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--ac-apoio);margin-bottom:5px}
+.callout p{font-size:12.5px;line-height:1.65;color:var(--ts)}
+.callout p b{color:var(--tp)}
+
+/* ═══ ETAPAS ═══ */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:8px 0 18px}
+.step{position:relative;background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:18px 18px 16px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.step .s-n{width:27px;height:27px;border-radius:50%;background:rgba(var(--acr),.16);color:var(--ac);
+  border:1px solid var(--line-ac);font-family:var(--fm);font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.step .s-t{font-size:13px;font-weight:800;color:var(--tp);margin-bottom:5px}
+.step .s-d{font-size:11.5px;color:var(--ts);line-height:1.55}
+.step.done{border-color:rgba(34,197,94,.35)}
+.step.done .s-n{background:rgba(34,197,94,.14);color:var(--ok);border-color:rgba(34,197,94,.4)}
+
+/* ═══ GRÁFICOS (ECharts auto-hospedado) ═══ */
+.chart-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:10px 0 18px}
+.chart-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px 8px;
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.chart-card .cc-title{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ac)}
+.chart-card .cc-note{font-size:10.5px;color:var(--tm);margin-bottom:6px}
+.chart-card .cc-canvas{width:100%;height:240px}
+@media(max-width:900px){.chart-grid{grid-template-columns:1fr}}
+
+/* ═══ IMAGENS / PRINTS ═══ */
+.img-inset{border-radius:14px;overflow:hidden;border:1px solid var(--line);margin:10px 0 6px;
+  box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.img-inset img{display:block;width:100%;height:auto}
+.img-cap{padding:9px 16px;background:rgba(255,255,255,.03);border-top:1px solid var(--line);
+  font-size:10.5px;color:var(--tm)}
+.img-cap b{color:var(--ts)}
+/* Grade de prints. A célula é um item de grade que se estica: sem isto, a
+   legenda da última linha cai fora da tela em monitor de altura comum (achado
+   da leitura como destinatário, 05/09). `align-content:start` + altura máxima
+   por imagem mantêm as quatro células na mesma caixa e o texto sempre visível. */
+.img-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:10px 0 18px;
+  align-content:start;}
+.img-grid > *{display:flex;flex-direction:column;min-width:0}
+.img-grid .img-inset{margin:0}
+.img-grid .img-inset img{max-height:34vh;object-fit:cover;object-position:top}
+.img-grid .img-cap{margin-top:0;border-radius:0 0 14px 14px}
+.img-ph{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;border-radius:14px;
+  background:repeating-linear-gradient(135deg,rgba(255,255,255,.03),rgba(255,255,255,.03) 10px,rgba(255,255,255,.06) 10px,rgba(255,255,255,.06) 20px);
+  border:1px dashed var(--line);color:var(--tm);font-size:12px;font-weight:600;text-align:center;padding:20px}
+@media(max-width:900px){.img-grid{grid-template-columns:1fr}}
+
+/* ═══ DIAGRAMA CSS (fluxo horizontal simples) ═══ */
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:10px 0 18px}
+.flow-node{flex:1 1 150px;background:var(--card);border:1px solid var(--line);border-radius:13px;
+  padding:14px 15px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.flow-node .f-t{font-size:12px;font-weight:800;color:var(--tp);margin-bottom:4px}
+.flow-node .f-d{font-size:10.5px;color:var(--ts);line-height:1.5}
+.flow-arrow{flex:0 0 34px;display:flex;align-items:center;justify-content:center;
+  color:var(--ac);font-size:17px;font-weight:700}
+@media(max-width:900px){.flow{flex-direction:column}.flow-arrow{transform:rotate(90deg);flex-basis:24px}}
+
+/* ═══ PREÇO ═══ */
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin:10px 0 18px}
+.price-card{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line-ac);
+  border-radius:16px;padding:22px;backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  box-shadow:0 8px 32px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.07)}
+.price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,rgba(var(--acr),.8),transparent)}
+.price-card .p-name{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ts)}
+.price-card .p-value{font-family:var(--fm);font-size:26px;font-weight:400;color:var(--ac);margin:10px 0 4px}
+.price-card .p-cond{font-size:11.5px;color:var(--ts);line-height:1.6}
+
+/* ═══ ENCERRAMENTO ═══ */
+.sec.fecho .cap-title{font-size:40px}
+.fecho-mark{height:64px;width:auto;display:block;margin-bottom:24px;opacity:.9;
+  animation:am-mark-glow 5s ease-in-out infinite;}
+
+/* ═══ ACESSO — link e credencial dentro do slide ═══
+   Bloco de demonstração: quem recebe o deck consegue entrar no sistema pela
+   própria tela. Todo slide que traz credencial leva a tarja `.acesso-aviso`;
+   é o que separa "material comercial" de "documento pessoal". */
+.acesso{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin:14px 0 6px;
+  padding:14px 18px;border-radius:14px;background:var(--card);
+  border:1px solid var(--line);border-left:3px solid var(--ac);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.acesso .a-rot{font:700 9.5px/1 var(--fb);letter-spacing:1.2px;text-transform:uppercase;
+  color:var(--ac-apoio)}
+.acesso .a-link{font:400 12px/1.5 var(--fm);color:var(--tp);word-break:break-all}
+.acesso .a-cred{font:400 12px/1 var(--fm);color:var(--tp);background:rgba(var(--acr),.12);
+  border:1px solid var(--line-ac);border-radius:8px;padding:5px 11px}
+.acesso a{color:var(--ac);text-decoration:none;border-bottom:1px solid var(--line-ac)}
+.acesso a:hover{border-bottom-color:var(--ac)}
+.acesso-aviso{display:block;margin-top:8px;font:600 9.5px/1.5 var(--fb);letter-spacing:.6px;
+  text-transform:uppercase;color:var(--tm)}
+
+/* ═══ ASSINATURA DE RODAPÉ ═══ */
+.sec-sign{position:absolute;left:68px;right:68px;bottom:18px;display:flex;align-items:center;gap:10px;
+  font-family:var(--fm);font-size:9px;color:var(--tm);letter-spacing:.1em;text-transform:uppercase}
+.sec-sign::before{content:'';flex:0 0 26px;height:2px;background:var(--ac)}
+
+/* ═══ NAVEGAÇÃO FLUTUANTE (vidro) ═══ */
+.deck-nav{position:fixed;bottom:18px;right:24px;z-index:900;display:flex;align-items:center;gap:9px;
+  background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:14px;padding:7px 12px;
+  backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.deck-nav button{font-family:inherit;cursor:pointer;width:30px;height:30px;border-radius:9px;
+  border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--tp);font-size:14px;font-weight:700;
+  transition:background .14s ease-out,border-color .14s ease-out,color .14s ease-out,transform .14s ease-out}
+.deck-nav button:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){
+  .deck-nav button:hover{background:rgba(var(--acr),.16);border-color:var(--line-ac);color:var(--ac)}
+}
+.deck-nav button:disabled{opacity:.3;cursor:default}
+.deck-nav button:disabled:hover{background:rgba(255,255,255,.04);color:var(--tp);border-color:var(--line)}
+#slidePos{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--ts);min-width:58px;text-align:center}
+.deck-nav .hint{font-size:9.5px;color:var(--tm);font-weight:600;border-left:1px solid var(--line);padding-left:10px}
+
+/* ═══ RESPONSIVO ═══ */
+@media(max-width:820px){
+  .shell{grid-template-columns:1fr}
+  .sidebar{display:none}
+  section.sec{padding:30px 22px 84px;justify-content:flex-start;overflow-y:auto}
+  .sec-sign{display:none}
+  .bg-mark{width:300px}
+  .cap-title{font-size:32px}
+  .cap-sub{font-size:13.5px}
+  .cap-logo{height:60px}
+  .deck-nav{bottom:12px;right:12px;left:12px;justify-content:center}
+  .deck-nav .hint{display:none}
+  /* achado no R13 do relatório BIM: tabela larga cortava colunas em vez de rolar — a
+     largura fixa de 100% do table-wrap não sobra espaço pra "Situação" em telas estreitas */
+  .table-wrap{overflow-x:auto}
+  .table-wrap table{min-width:640px}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ══ CAMADAS DE FUNDO — o corpo do padrão AM, nunca só a paleta ══ -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="light-sweep" aria-hidden="true"></div>
+<div class="bg-mark" aria-hidden="true"><img id="bgMarkImg" alt=""></div>
+
+<div class="shell">
+
+  <!-- ══ BARRA LATERAL — a marca AM é UMA só; o bgMarkImg herda dela via JS ══ -->
+  <aside class="sidebar">
+    <div class="sb-head">
+      <img class="am-mark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOYAAAB3CAYAAAAXUDxdAAASoUlEQVR4nO2dC6xmVXXH/+veGccp5SlhxEcB8dEoUumUtCghailWCZEQVCQ1aLQVm0oUREChMbQUqbUlRKmpNZSKSghGDE5qCVUixbSKdKAUGA2ZQu1Ih/KYDo/hzr3zb/adtYd9z5zvvPZ57H3O/iWXb7jfPefbZ31777X22mutLRgxJI8GcBiA50TkFkQASfPyMm33ywEcDGAffXsRwE4ATwB4CMAvAGwWEfP7hELyMJXbkQAOUfktAFilMvxfAI+rDB8Ske0IDMGIofZy5TsicgoCgeSxAE4AcByAVwN4KYCDPG75LID/BnAfgH8GcIOImI435kn3bQCOAXAUgEMB7A9gdcNbPgVgK4AHAPwAwE0isqnlZidIfpkrGVSrkDyT5PUkt7A/dpDcSPJSkvvG3CtInkbyOpIP9yi/RZL3krwidvkFgwrVFbDh5p7bcA7JTeyfBf0xA9PFTApXkTQmXfBwt/zMwGDmu3S/2y5YVPlleZTkV0japUVnjNKUJXk5gAudXy0BmDevIrKqBxP1LwEcr7/amWNe7VSzabuudbaqKbpWfw4EcICaZuZ1TeZ68zy79N9VTTcrA8vdAD4hIrciIHLkl4eR1ZP6uk3X2k/r+tHIbx9dWx6kMtwvRxaLOXKtw38AODcW30UQqKbIm/EM13X0mR8g+UjO55m23EPycyTfunLZW+v+60leTPIOktta0AgWYxqe2bpA6j/fGTPM1AXVml8g+WaP+79KNfAtJB9je5jv/Kx2pTFCSF6gAsuacXu+6JY/7w9JPpH5jGdI3qAOik4guT/JyzJrVmvmlZl7eX/zIMnXdtXeguc4JWegbFf5HdfxZ5uJbvMM2ZSR/bufd93eqNEvtYzPtfA5R2hndrndZ1b3aMsq1SjbW1iLfbenNu9L8v7MZ99G8k19fH6O/K6q2HfKCGppEAQk31dBcMY02taix9d0/q8jEFSD55nUZbgDeVuXEwzJKzOffQPC6kNbGspvRx/yi46KArWd7+wG939hZh0UTIfKouspuxZt6sW8quU2IeOl/jYChbu3tx7xNG+9LbPoIfnOmp3u0Qb7aFbod5F8CSJATTQfbm5xLWnltzEi+V3aYGJzB+j3MGV0vVd3XXVCxXtf7pjBH0dkkDyk4ca8leWdnp9/vnPPP0KEcPdknJVLVfndiylivGE1BWb/9q4aGif68Cx1ENlnL9pSyqPR4CT5eb3eeD8RM9ztxW3K/Zgazrql7sA0vLDgvhfp33wJI4HkSc6ArDvz39pw6+pajASSr3G8t3VN3H/FVDB7hTWFk+1suQ4ckifr+3+AkaFOLLt3WMX8d//m2hoBEYZzMEK4cqtsoaIMZ/a30WFMrBqDMSuo5ZjSGfc1pt6JGDFO56o7859e4d7bx75lwN1RWFUHpssHMGbUqWEF0wR73RWZ+37LmCyYABouWIfl9WnJPY381mMCcHeIn5VLZRlizDQUSh5PZMy8N2BCOJqzjkl2x4x7zQ0RvTMkZu3tyGah4rJgI8ZK5kF9eTsmTM1oFyvv03LuM4cJwufT06r0RRsh9EGMDQ1yrhO4XcY095ocNPi+aoQLfUMbRzq5LU5afjkPWsWMKBPUEZgwJuCigewuG7rdoWASqBv0wRX+jagheU3OA97eMHjbHdi9ZFaMKITPOyFgbHB3Xm4dnsFYUBvdjVzZ5gRuuwOtDvYaTB1dL9WR3/lDtzkkTHC+yqWKIyjaMMUVaCUA+9AL2U1sXSe5D12X6zFx1LNaZ29uy9BtDg0N4Kg6MLeMyUGxkGdKOaZY473N4Z4uHJwY16rWx6TX5zOyacpw5dp79Yi2U3Cy7JXtkUlabUJyaOyW4xM1BuZXBukUcWSkVLE+4rXUcmrD5EagkLyRzVl0Aw6mjCky5XSsMh4eur2hocEqVSe2OPuclsywnWSxKOtD3dZNB6W997v7f8rwyClWNVNuQ7c1gv32MkypzbhwtkIWKsZrmix5Hzb393SjqQxx0tDtDVRrVh2YezKZogifMgWSAKzTQr3QwsU3llz2MX2119Tl8KkEYhchIt/WgspVZPmeHpoUFSKyQ8+ScYttZ7FyjWti05qddNc7Fa971DMaKDdQe2qQ/Iwj+7yZf08tpKHbGiLG41qxv8VjpZng8pyH+G7NWjNN9jQrTwBToEIBacNjQ7czVFRJlBHccYBVnA9ux6h88pLHtskgBxFFkBRcJKvkACoPjCmSYRx76CSPyhmUt9e8x4aGA3OPwLp7wig3zAutj6HbGSokX1CydRKPhaYbtNnMkcNq3uPF9CcV7n3enE0DsyElJURt/34BQsYMwEzDTYe4p0VzuA4pg2JlMnARYXesATFHaVQYmC8OfbskW43NuJsvaHgvm/Nmz5Ssy34mwKHhtWNiw9ANiJyvVfibzg/F9T1iLqvhfuZ5z22eFQ7izwDwRM+YLONFQ7czZCpozNeGrDHzDpf9hOc9by7Z5EXJBvChU49sEZEqk2NTGU+F/yt535w2HiaZGaSVAF89A7Epz7ShtcdAhdOsozgsKMA6yGFrTKfSt2nbc/rvS3zvKyJm2+PuhtrSOjRe2eUp0ZFQVrTs6Z7aESv/XkV+wQ1MAO/NmERPicgXWrr3pxtcM58xz/4a0+a+kvdX9dSOWLmnivyCGpiaxrXa+dUaD0/sXoiI8So+7hHYbuz/N2LaPFTyflpjFvPT6AYmgPdn/t9oy6tb/ow/087TZJG9LK/JHAyTzwMl74fWp2JZCtitvLAizTKHw1r+uKPPqnsIjGVP5AsmSoUtk7RdUgDJA0ucPy8LbXbLlvB7UkQu7eizrm1ocs3bmc0U/cI0sc6dWcuBtT22JUZmBbnMBSc/kudltFJn2tL5TN/zTsZTqLdZRv6sPNcDh25jJPKbpTGPDnlvbPvAaUxVuQgTpGRgJlO2hJKBeVQQpqwe4rlfxjRqa3ukiN/XV7tXWhfT3nNbbM9YSF7ZAgrcE3NBRf5okS3XrNzR42ff71F6xCZgn4WJoc89aymQTNkSqkRODaoxSZ6sRbYWnZnib3tswoW6b9pkX3OVXvcnHbQrZlLkT8kas+j9zD5+EIelLm9hDNCGpieEuZgJZjKUyCJpzAIq1Dw+ZFCNSfJYk7GRmSm+OkBTTMCBL1diWhRZGGFtkAeGiJRZFMOuMU01guxUMWBbtmsTfLZQfhMToUQOQzcveGbIbdG1OAbRmJra8vrMr2/CcOQetVBTe3yxpbZEjYgM3YSgqTBxPWv+I0PlpAFYr5162b0uA3+j6g1e1dDdb5/jcBEpC/KOHscXsJeshv4eQ0dLrxYlS682KYq9a0wtNrQ+88WaEvIh1GNpugdnr5tKcLsZmGm/shm7KuQN968xtYr62zKaZp2IbMXAtLRAWqvnVYwWtS5MSt5eJI1Zabtk2Vwtkl+vGtOU9wBwovMrMyh/EsKgVP5JX5vmaxq+ifGzswU5TRKZPWkPJ8sZB8oeifBScnzSwjiRk6aTS7bdIPYVLu2+15in6mxrZ4efisiDCAQRMUW/fughF5sS9nWMm8FjrCOmaJ+3f61J8hpHq9j41Dcj3CPTfPY0R73Jbk71ShrT6wyTUo3ZG05HX9CfTQiUvOCHBozWQ5uTeDBcx4qMsjKqvZokJK9UR8+SE34XcsrUR1owL07DeEnbJc1ZE5IZmz2jMviTc0k+6Gj4plyPEVJ0SNPQbYs4iH2xV42pJULWZGaE8xA+53oeRGSe93SME3vAagoyaA/Xouwe5zCfHfr6c8SlGXw05ijXmkVr8KHbFnGVPPamMUmerWVD7GeZWeGziIdPt5C4+i6Mj6ZWRAKYVc9qaQjvnd0iie4AWKPhs+uABnwLI6KokNnQbYs8wGCxc42pRbbWOWd/rI5MW1ou8izaZQIqTiU5pk35pDGbM+y63BxZl1mfRRvY7Vl+xGrZ72EkkLwtaczW15jde2VJvtUcWacz61ILychDc47HOsB6296iuXhj8som6jPcck7LQtpZYCFmbTljrdmU2zECSG5IGrM5RR2kM41J8g0AfjUT5WOSkGOnjUil40m+BvGTNGZ35St7Ocp6WWNiJJB82F0PNKTs4NLgIXld0pitB7F3t8YkeYRTNsSur27EePg9z+uNFfF6kichbsIo4x8nc0Pub+1JNMbIIHmvh7a0mvYRRAzJq5PGjCRWVj2Ob3RmU6Mtv4/x8eEW9rDWkTwf8TLqfNOOebrM1G1brdpaN+49z8TIEJE7APyohVtdjHiZWUwqUUxZdU8RWWh7YP5OxhP7QxGJ2mQr4B36utNjvbUfyS9FrjFTMa6WsdZsKwOTpDk6HU74neH9GCki8hiAf2whwP1DiJuU9tW+LPdtU2O+NzN7mpKUP8OIEZHf1fjZJjJcUk07r1XpY2Omphyhv691508VmXoPTJKfV83hht/Frgmq8lcNtYYN6jesJ/l2jCeI3dQOTsymLMBgLdqA5DNO6J15vR8ToqjGao0tlEcRESQ/U/A8y17FRLO6sq2cKE3yCmeE20Toj2JafLgFR8jBJL+McWjMlBLmV4l9dVtlQ1yiKRvSQakNmxDeRGNaosg+IXlZwfOkE6VLKOkHR3lpTJLnOWVD7Gj/JKbJr2c80k2LMG1EHBRtEdk+kajHvFve0seU/VTmuIMnRWTsRwMUHZ322Ra+lFcYbYTwKTK30hqzgApW0VLjgUnyfQAOcjaaTcf6U0wYETElSH7hud40131KU+dixX+NNG6eqyK/phrzCu1E9gTmx0XEbJtMHRsR1NZxgKGStGJzyrZDmgUYkDwZwKGZvbgvNmriyBCRjS2dTH1Q4NUOisyxWRvoieIEgKWSIxQqJwtboitJ2TUktzTwzuZ56IxlEhzmmMFMO11OGbp9oVPynZ9cW2OSPBbAyzNrqL9pveXx8xZ9dZ1jTTy1nww0KsiasnmWwZjKdPZZWsTKcv8mQrxGO4wNv3tORGLOK+wEEdmkXlofR4j9okIsFm0cf7NIge3F7NOq88cc6ArgdToobZTPN6peP1Ev7b+10FHXGNMYYZH2KptjMpNaDWL/e321Aes7RcRUW0/MQERM4MFTeYKvyaGmpElAgk7On/Y92vOu17bSwNTAWrfIlhmcN3k0bkr4OkNsMvbrAjoD5eCC99JWSjFly5tD6mjMv8v53bsrXjtpROQ2AH/hYdLO6Y89A+VqDM/+BWF57aQtjZeyihe76gxMt2yI4ftltUsSz6MOsqZBA+6hTOY7+AjJy4eSrx6ONF9gnqeBWUxZneVqxbhMcd+cdJ4zyq5LrERETgTwXx5yWXJeLyR56UAyPl5f3QHqkgIMCqig0PapqjGtyTqnncIU2dpa4brE3l/KrwD4H0/NaQfDJSSvGkDI73Tak0camH6UO3+0iptdrNpO4VuNfOq8pKXyj2aS/CjJ69Evp3rscSbKOaCKxsxWuntARDZXuHliBiKyS/eDlzyzUGx00HtI9pnH+YqS96NI9h4Kkqu8NKYW2VrTYhXyhKKT25s8BDLvvBov369p7SWTjtcZJD9Y4c+S88eviv3aumVDHi65YaImJvbYM9g9GwBt2DDwuS2jOTm7C0x5zyrym5tVBS2nbMjHOmnphBGRH6tZ63t6luuIeYdOqj4aeS80edu0tYxmaUsTQSp6ZXNJRbb6LzfRQhnMPG5tsY2b3VPcCoixgHUI52Na7s3VmCTPzglSNgHZiY4Qke0iYqrL/af+yscx5F7/2/pl273oxvmXAA6v+Odpu8SP/DWmObsxMyvOioZPdADJW1TubhHttthQ96h5Jym6KskX4Vfwee+DuEieoW+6nWGw8K+pQvICto/7nRqz+VqS6wvacJaar9QJoippIi8JaSyR33JFkBUrUS3Y/FJ1Rhgz91kRSftSA6AZPXdqfSWbnN5VBbon9WdRN7jd7BFrUlcNwjd95pc6aOMo0FjjomXKkois2rPGJHmcDkpoBzBfxD9039REHiKyRUTM4PzzTOGzLjhA15CvzEnpqlvIOqV9+a3B51doTJJ3ATgmM0OusSfcJgaPFvmXTE6sjf4JDkmpR2U1f54tk9+cUzbkGHtmo/5ckgZlOJXeReQ3APwWgLszUT+J+A4VeqqoWBvJF9l/bNKF5w6z90XyyL4bnKgOyaNN3VmGSzpYqASSNxTI7/RlJ4MOxuV6lom4MBlAOQEh1gPb5lZLFnu6Wd62zkxvb2IlJC82y0j9Dq0M007IWDDHt5G8kuSDHAYzOO8k+fGhZTEGUn2QkULyJACnATBrUxNU8Mstf4RJ+L4PwA8A3CgiIVXxi540MKe3N3oCAOPsOwzAOi2sdYBuc9jts13qOTSb3Vv1FDNTFmWjVrBIx2KgW/4fd6yCf88HqowAAAAASUVORK5CYII=" alt="AM">
+      <div class="sb-sub">ÁLVARO MARCOLINO</div>
+    </div>
+    <div class="study-id">
+      <b>BIM — estado real</b><br>
+      Dois A Incorporações<br>
+      <b>Preparado por</b> Álvaro Marcolino<br>
+      09/09/2026
+    </div>
+    <nav class="nav" id="nav"><!-- gerado por am-deck.js a partir dos data-nav --></nav>
+    <div class="sb-foot">CONFIDENCIAL · ÁLVARO MARCOLINO</div>
+  </aside>
+
+  <!-- ══ PALCO — cole os blocos de blocos/*.html aqui dentro ══ -->
+  <main class="content" id="content">
+
+<!-- CAPA -->
+<section class="sec capa">
+  <div class="slide-body">
+    <img class="cap-logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOYAAAB3CAYAAAAXUDxdAAASoUlEQVR4nO2dC6xmVXXH/+veGccp5SlhxEcB8dEoUumUtCghailWCZEQVCQ1aLQVm0oUREChMbQUqbUlRKmpNZSKSghGDE5qCVUixbSKdKAUGA2ZQu1Ih/KYDo/hzr3zb/adtYd9z5zvvPZ57H3O/iWXb7jfPefbZ31777X22mutLRgxJI8GcBiA50TkFkQASfPyMm33ywEcDGAffXsRwE4ATwB4CMAvAGwWEfP7hELyMJXbkQAOUfktAFilMvxfAI+rDB8Ske0IDMGIofZy5TsicgoCgeSxAE4AcByAVwN4KYCDPG75LID/BnAfgH8GcIOImI435kn3bQCOAXAUgEMB7A9gdcNbPgVgK4AHAPwAwE0isqnlZidIfpkrGVSrkDyT5PUkt7A/dpDcSPJSkvvG3CtInkbyOpIP9yi/RZL3krwidvkFgwrVFbDh5p7bcA7JTeyfBf0xA9PFTApXkTQmXfBwt/zMwGDmu3S/2y5YVPlleZTkV0japUVnjNKUJXk5gAudXy0BmDevIrKqBxP1LwEcr7/amWNe7VSzabuudbaqKbpWfw4EcICaZuZ1TeZ68zy79N9VTTcrA8vdAD4hIrciIHLkl4eR1ZP6uk3X2k/r+tHIbx9dWx6kMtwvRxaLOXKtw38AODcW30UQqKbIm/EM13X0mR8g+UjO55m23EPycyTfunLZW+v+60leTPIOktta0AgWYxqe2bpA6j/fGTPM1AXVml8g+WaP+79KNfAtJB9je5jv/Kx2pTFCSF6gAsuacXu+6JY/7w9JPpH5jGdI3qAOik4guT/JyzJrVmvmlZl7eX/zIMnXdtXeguc4JWegbFf5HdfxZ5uJbvMM2ZSR/bufd93eqNEvtYzPtfA5R2hndrndZ1b3aMsq1SjbW1iLfbenNu9L8v7MZ99G8k19fH6O/K6q2HfKCGppEAQk31dBcMY02taix9d0/q8jEFSD55nUZbgDeVuXEwzJKzOffQPC6kNbGspvRx/yi46KArWd7+wG939hZh0UTIfKouspuxZt6sW8quU2IeOl/jYChbu3tx7xNG+9LbPoIfnOmp3u0Qb7aFbod5F8CSJATTQfbm5xLWnltzEi+V3aYGJzB+j3MGV0vVd3XXVCxXtf7pjBH0dkkDyk4ca8leWdnp9/vnPPP0KEcPdknJVLVfndiylivGE1BWb/9q4aGif68Cx1ENlnL9pSyqPR4CT5eb3eeD8RM9ztxW3K/Zgazrql7sA0vLDgvhfp33wJI4HkSc6ArDvz39pw6+pajASSr3G8t3VN3H/FVDB7hTWFk+1suQ4ckifr+3+AkaFOLLt3WMX8d//m2hoBEYZzMEK4cqtsoaIMZ/a30WFMrBqDMSuo5ZjSGfc1pt6JGDFO56o7859e4d7bx75lwN1RWFUHpssHMGbUqWEF0wR73RWZ+37LmCyYABouWIfl9WnJPY381mMCcHeIn5VLZRlizDQUSh5PZMy8N2BCOJqzjkl2x4x7zQ0RvTMkZu3tyGah4rJgI8ZK5kF9eTsmTM1oFyvv03LuM4cJwufT06r0RRsh9EGMDQ1yrhO4XcY095ocNPi+aoQLfUMbRzq5LU5afjkPWsWMKBPUEZgwJuCigewuG7rdoWASqBv0wRX+jagheU3OA97eMHjbHdi9ZFaMKITPOyFgbHB3Xm4dnsFYUBvdjVzZ5gRuuwOtDvYaTB1dL9WR3/lDtzkkTHC+yqWKIyjaMMUVaCUA+9AL2U1sXSe5D12X6zFx1LNaZ29uy9BtDg0N4Kg6MLeMyUGxkGdKOaZY473N4Z4uHJwY16rWx6TX5zOyacpw5dp79Yi2U3Cy7JXtkUlabUJyaOyW4xM1BuZXBukUcWSkVLE+4rXUcmrD5EagkLyRzVl0Aw6mjCky5XSsMh4eur2hocEqVSe2OPuclsywnWSxKOtD3dZNB6W997v7f8rwyClWNVNuQ7c1gv32MkypzbhwtkIWKsZrmix5Hzb393SjqQxx0tDtDVRrVh2YezKZogifMgWSAKzTQr3QwsU3llz2MX2119Tl8KkEYhchIt/WgspVZPmeHpoUFSKyQ8+ScYttZ7FyjWti05qddNc7Fa971DMaKDdQe2qQ/Iwj+7yZf08tpKHbGiLG41qxv8VjpZng8pyH+G7NWjNN9jQrTwBToEIBacNjQ7czVFRJlBHccYBVnA9ux6h88pLHtskgBxFFkBRcJKvkACoPjCmSYRx76CSPyhmUt9e8x4aGA3OPwLp7wig3zAutj6HbGSokX1CydRKPhaYbtNnMkcNq3uPF9CcV7n3enE0DsyElJURt/34BQsYMwEzDTYe4p0VzuA4pg2JlMnARYXesATFHaVQYmC8OfbskW43NuJsvaHgvm/Nmz5Ssy34mwKHhtWNiw9ANiJyvVfibzg/F9T1iLqvhfuZ5z22eFQ7izwDwRM+YLONFQ7czZCpozNeGrDHzDpf9hOc9by7Z5EXJBvChU49sEZEqk2NTGU+F/yt535w2HiaZGaSVAF89A7Epz7ShtcdAhdOsozgsKMA6yGFrTKfSt2nbc/rvS3zvKyJm2+PuhtrSOjRe2eUp0ZFQVrTs6Z7aESv/XkV+wQ1MAO/NmERPicgXWrr3pxtcM58xz/4a0+a+kvdX9dSOWLmnivyCGpiaxrXa+dUaD0/sXoiI8So+7hHYbuz/N2LaPFTyflpjFvPT6AYmgPdn/t9oy6tb/ow/087TZJG9LK/JHAyTzwMl74fWp2JZCtitvLAizTKHw1r+uKPPqnsIjGVP5AsmSoUtk7RdUgDJA0ucPy8LbXbLlvB7UkQu7eizrm1ocs3bmc0U/cI0sc6dWcuBtT22JUZmBbnMBSc/kudltFJn2tL5TN/zTsZTqLdZRv6sPNcDh25jJPKbpTGPDnlvbPvAaUxVuQgTpGRgJlO2hJKBeVQQpqwe4rlfxjRqa3ukiN/XV7tXWhfT3nNbbM9YSF7ZAgrcE3NBRf5okS3XrNzR42ff71F6xCZgn4WJoc89aymQTNkSqkRODaoxSZ6sRbYWnZnib3tswoW6b9pkX3OVXvcnHbQrZlLkT8kas+j9zD5+EIelLm9hDNCGpieEuZgJZjKUyCJpzAIq1Dw+ZFCNSfJYk7GRmSm+OkBTTMCBL1diWhRZGGFtkAeGiJRZFMOuMU01guxUMWBbtmsTfLZQfhMToUQOQzcveGbIbdG1OAbRmJra8vrMr2/CcOQetVBTe3yxpbZEjYgM3YSgqTBxPWv+I0PlpAFYr5162b0uA3+j6g1e1dDdb5/jcBEpC/KOHscXsJeshv4eQ0dLrxYlS682KYq9a0wtNrQ+88WaEvIh1GNpugdnr5tKcLsZmGm/shm7KuQN968xtYr62zKaZp2IbMXAtLRAWqvnVYwWtS5MSt5eJI1Zabtk2Vwtkl+vGtOU9wBwovMrMyh/EsKgVP5JX5vmaxq+ifGzswU5TRKZPWkPJ8sZB8oeifBScnzSwjiRk6aTS7bdIPYVLu2+15in6mxrZ4efisiDCAQRMUW/fughF5sS9nWMm8FjrCOmaJ+3f61J8hpHq9j41Dcj3CPTfPY0R73Jbk71ShrT6wyTUo3ZG05HX9CfTQiUvOCHBozWQ5uTeDBcx4qMsjKqvZokJK9UR8+SE34XcsrUR1owL07DeEnbJc1ZE5IZmz2jMviTc0k+6Gj4plyPEVJ0SNPQbYs4iH2xV42pJULWZGaE8xA+53oeRGSe93SME3vAagoyaA/Xouwe5zCfHfr6c8SlGXw05ijXmkVr8KHbFnGVPPamMUmerWVD7GeZWeGziIdPt5C4+i6Mj6ZWRAKYVc9qaQjvnd0iie4AWKPhs+uABnwLI6KokNnQbYs8wGCxc42pRbbWOWd/rI5MW1ou8izaZQIqTiU5pk35pDGbM+y63BxZl1mfRRvY7Vl+xGrZ72EkkLwtaczW15jde2VJvtUcWacz61ILychDc47HOsB6296iuXhj8som6jPcck7LQtpZYCFmbTljrdmU2zECSG5IGrM5RR2kM41J8g0AfjUT5WOSkGOnjUil40m+BvGTNGZ35St7Ocp6WWNiJJB82F0PNKTs4NLgIXld0pitB7F3t8YkeYRTNsSur27EePg9z+uNFfF6kichbsIo4x8nc0Pub+1JNMbIIHmvh7a0mvYRRAzJq5PGjCRWVj2Ob3RmU6Mtv4/x8eEW9rDWkTwf8TLqfNOOebrM1G1brdpaN+49z8TIEJE7APyohVtdjHiZWUwqUUxZdU8RWWh7YP5OxhP7QxGJ2mQr4B36utNjvbUfyS9FrjFTMa6WsdZsKwOTpDk6HU74neH9GCki8hiAf2whwP1DiJuU9tW+LPdtU2O+NzN7mpKUP8OIEZHf1fjZJjJcUk07r1XpY2Omphyhv691508VmXoPTJKfV83hht/Frgmq8lcNtYYN6jesJ/l2jCeI3dQOTsymLMBgLdqA5DNO6J15vR8ToqjGao0tlEcRESQ/U/A8y17FRLO6sq2cKE3yCmeE20Toj2JafLgFR8jBJL+McWjMlBLmV4l9dVtlQ1yiKRvSQakNmxDeRGNaosg+IXlZwfOkE6VLKOkHR3lpTJLnOWVD7Gj/JKbJr2c80k2LMG1EHBRtEdk+kajHvFve0seU/VTmuIMnRWTsRwMUHZ322Ra+lFcYbYTwKTK30hqzgApW0VLjgUnyfQAOcjaaTcf6U0wYETElSH7hud40131KU+dixX+NNG6eqyK/phrzCu1E9gTmx0XEbJtMHRsR1NZxgKGStGJzyrZDmgUYkDwZwKGZvbgvNmriyBCRjS2dTH1Q4NUOisyxWRvoieIEgKWSIxQqJwtboitJ2TUktzTwzuZ56IxlEhzmmMFMO11OGbp9oVPynZ9cW2OSPBbAyzNrqL9pveXx8xZ9dZ1jTTy1nww0KsiasnmWwZjKdPZZWsTKcv8mQrxGO4wNv3tORGLOK+wEEdmkXlofR4j9okIsFm0cf7NIge3F7NOq88cc6ArgdToobZTPN6peP1Ev7b+10FHXGNMYYZH2KptjMpNaDWL/e321Aes7RcRUW0/MQERM4MFTeYKvyaGmpElAgk7On/Y92vOu17bSwNTAWrfIlhmcN3k0bkr4OkNsMvbrAjoD5eCC99JWSjFly5tD6mjMv8v53bsrXjtpROQ2AH/hYdLO6Y89A+VqDM/+BWF57aQtjZeyihe76gxMt2yI4ftltUsSz6MOsqZBA+6hTOY7+AjJy4eSrx6ONF9gnqeBWUxZneVqxbhMcd+cdJ4zyq5LrERETgTwXx5yWXJeLyR56UAyPl5f3QHqkgIMCqig0PapqjGtyTqnncIU2dpa4brE3l/KrwD4H0/NaQfDJSSvGkDI73Tak0camH6UO3+0iptdrNpO4VuNfOq8pKXyj2aS/CjJ69Evp3rscSbKOaCKxsxWuntARDZXuHliBiKyS/eDlzyzUGx00HtI9pnH+YqS96NI9h4Kkqu8NKYW2VrTYhXyhKKT25s8BDLvvBov369p7SWTjtcZJD9Y4c+S88eviv3aumVDHi65YaImJvbYM9g9GwBt2DDwuS2jOTm7C0x5zyrym5tVBS2nbMjHOmnphBGRH6tZ63t6luuIeYdOqj4aeS80edu0tYxmaUsTQSp6ZXNJRbb6LzfRQhnMPG5tsY2b3VPcCoixgHUI52Na7s3VmCTPzglSNgHZiY4Qke0iYqrL/af+yscx5F7/2/pl273oxvmXAA6v+Odpu8SP/DWmObsxMyvOioZPdADJW1TubhHttthQ96h5Jym6KskX4Vfwee+DuEieoW+6nWGw8K+pQvICto/7nRqz+VqS6wvacJaar9QJoippIi8JaSyR33JFkBUrUS3Y/FJ1Rhgz91kRSftSA6AZPXdqfSWbnN5VBbon9WdRN7jd7BFrUlcNwjd95pc6aOMo0FjjomXKkois2rPGJHmcDkpoBzBfxD9039REHiKyRUTM4PzzTOGzLjhA15CvzEnpqlvIOqV9+a3B51doTJJ3ATgmM0OusSfcJgaPFvmXTE6sjf4JDkmpR2U1f54tk9+cUzbkGHtmo/5ckgZlOJXeReQ3APwWgLszUT+J+A4VeqqoWBvJF9l/bNKF5w6z90XyyL4bnKgOyaNN3VmGSzpYqASSNxTI7/RlJ4MOxuV6lom4MBlAOQEh1gPb5lZLFnu6Wd62zkxvb2IlJC82y0j9Dq0M007IWDDHt5G8kuSDHAYzOO8k+fGhZTEGUn2QkULyJACnATBrUxNU8Mstf4RJ+L4PwA8A3CgiIVXxi540MKe3N3oCAOPsOwzAOi2sdYBuc9jts13qOTSb3Vv1FDNTFmWjVrBIx2KgW/4fd6yCf88HqowAAAAASUVORK5CYII=" alt="Álvaro Marcolino">
+    <div class="cap-kicker cascade-item" data-delay="1">AUDITORIA BIM · DOIS A INCORPORAÇÕES</div>
+    <h1 class="cap-title cascade-item" data-delay="2">BIM na Dois A: o retrato completo, <b>consultoria por consultoria</b></h1>
+    <p class="cap-sub cascade-item" data-delay="3">Relatório final da frente que trouxe de volta o trabalho de BIM disperso em duas
+    branches, releu um por um os 1.093 documentos do acervo e comparou o que três consultorias entregaram em cinco anos
+    contra o que um fluxo de implantação correto precisa ter — com plano de ação amarrado ao cronograma que a empresa já tem.</p>
+    <div class="cap-meta cascade-item" data-delay="4">
+      <span class="chip ac">FRENTE BIM-ESTADO-REAL</span>
+      <span class="chip">09/09/2026</span>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 01 — EM TRÊS FRASES -->
+<section class="sec" data-num="01" data-nav="Resumo em 3 frases">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">01</span><span class="tt">O que esta frente fez, em três frases</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">Esta frente juntou de novo, num único lugar, o trabalho de BIM que a
+        Dois A vinha fazendo havia anos e que tinha ficado preso numa cópia separada do repositório. Reabriu, um por um, os
+        1.093 documentos do acervo de BIM e julgou se cada um foi <b>bem entregue</b> ou não — não só se ele existe. Depois
+        comparou esse retrato com o que um fluxo de implantação correto deveria ter, e escreveu um plano de ação ligado direto
+        às seis tarefas que já estão no cronograma da empresa, sem inventar calendário novo.</p>
+        <p class="sec-lead cascade-item" data-delay="2">BIM é a sigla para <i>Building Information Modeling</i> — modelagem da
+        informação da construção. O próximo slide explica o que isso significa, devagar.</p>
+      </div>
+      <div class="card cascade-item" data-delay="3">
+        <h4>EM NÚMEROS</h4>
+        <ul>
+          <li><b>1.093</b> documentos do acervo relidos por inteiro.</li>
+          <li><b>25</b> lotes de auditoria, conferidos hash a hash.</li>
+          <li><b>3</b> consultorias de implantação julgadas — Vistta|S, Falconi e PHD Engenharia.</li>
+          <li><b>6</b> tarefas do cronograma do NuPE amarradas ao plano de ação.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 02 — O QUE É BIM -->
+<section class="sec" data-num="02" data-nav="O que é BIM">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">02</span><span class="tt">O que é BIM, em linguagem simples</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">BIM (<i>Building Information Modeling</i>, modelagem da informação da
+        construção) é uma forma de projetar um empreendimento em que cada parte do desenho — parede, viga, tubulação — carrega
+        informação junto, não só a linha desenhada. Um projeto tradicional em CAD (desenho auxiliado por computador, o formato
+        mais antigo) é um conjunto de plantas soltas: uma para a estrutura, outra para a elétrica, outra para a hidráulica, sem
+        elas conversarem entre si de forma automática. Num modelo BIM bem feito, essas partes vivem dentro do mesmo arquivo — ou
+        de arquivos que se conversam por um formato comum chamado IFC — e um erro, como a viga que passa exatamente onde
+        deveria passar um cano, aparece antes da obra começar, não durante.</p>
+        <p class="sec-lead cascade-item" data-delay="2">Por que isso importa: cada vez que uma incompatibilidade escapa do
+        papel para o canteiro, ela vira retrabalho, atraso ou custo extra — e é exatamente esse tipo de erro que o BIM existe
+        para prevenir, antes de a primeira parede ser levantada. Este relatório mede se a Dois A tem, de fato, esse sistema
+        funcionando, ou só o rótulo "BIM" espalhado em contratos.</p>
+      </div>
+      <div class="card cascade-item" data-delay="3">
+        <h4>TERMOS QUE VÃO APARECER</h4>
+        <ul>
+          <li><b>BEP</b> — Plano de Execução BIM: o documento que diz como o processo roda no dia a dia.</li>
+          <li><b>CDE</b> — Ambiente Comum de Dados: o lugar único onde os arquivos vivem e mudam de status.</li>
+          <li><b>IFC</b> — o formato de arquivo neutro que deixa times diferentes lerem o mesmo modelo.</li>
+          <li><b>Mandate</b> — o documento mais alto da hierarquia: define a política de BIM da empresa.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 03 — AS TRÊS FRENTES -->
+<section class="sec" data-num="03" data-nav="As três frentes">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">03</span><span class="tt">As três frentes desta sessão</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">O trabalho desta frente rodou em três blocos, nesta ordem — cada um
+    depende do anterior estar fechado.</p>
+    <div class="steps">
+      <div class="step done cascade-item" data-delay="2">
+        <div class="s-n">1</div><div class="s-t">Trazer o trabalho de volta</div>
+        <div class="s-d">A sessão anterior (08-09/09) tinha ficado presa numa cópia separada do repositório
+        (worktree-retomada-bim), com 44 commits que o repositório principal não tinha. Sem esse merge, a skill /bim não
+        funcionava e o material só abria por caminho completo de arquivo. Três números de registro que colidiam com outra
+        frente paralela foram renumerados, com todas as citações corrigidas.</div>
+      </div>
+      <div class="step done cascade-item" data-delay="3">
+        <div class="s-n">2</div><div class="s-t">Auditar a qualidade de verdade</div>
+        <div class="s-d">Os 1.093 documentos do acervo foram relidos um por um, com um critério novo de quatro veredictos —
+        não só a pergunta antiga de "existe ou não existe". Levou a maior parte do tempo da frente: 25 lotes, cada um
+        conferido hash a hash contra o arquivo original.</div>
+      </div>
+      <div class="step done cascade-item" data-delay="4">
+        <div class="s-n">3</div><div class="s-t">Traçar o plano de ação</div>
+        <div class="s-d">O que falta construir foi amarrado direto às seis tarefas já datadas no cronograma do NuPE (1.4.4 a
+        1.4.9), sem inventar calendário novo nem escrever nenhum artefato de BIM — a frente aponta o buraco e mede o
+        tamanho dele, não o preenche.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 04 — COMO FOI FEITA A AUDITORIA -->
+<section class="sec" data-num="04" data-nav="Como foi a auditoria">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">04</span><span class="tt">Como a auditoria releu 1.093 documentos, um por um</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">A sessão anterior tinha aplicado uma régua de presença e ausência — 21
+    itens, quatro respostas possíveis: existe, não existe, existe errado, foi prometido e não veio. Ficou só na metade da
+    pergunta: nunca mediu se o que estava lá era <b>bom</b>. Esta frente reabriu cada um dos 1.093 documentos de novo, de
+    verdade — não relendo o resumo de ontem — em 25 lotes, cada um conferido hash a hash contra o arquivo original. Hash é
+    uma impressão digital do arquivo: se um único byte muda, o hash muda junto — é assim que a auditoria provou que nenhum
+    documento sumiu nem foi duplicado no caminho.</p>
+    <div class="kpi-grid">
+      <div class="kpi cascade-item" data-delay="2">
+        <div class="k-label">DOCUMENTOS RELIDOS</div>
+        <div class="k-value">1.093</div>
+        <div class="k-sub">acervo completo de BIM</div>
+      </div>
+      <div class="kpi cascade-item" data-delay="3">
+        <div class="k-label">LOTES DE AUDITORIA</div>
+        <div class="k-value">25</div>
+        <div class="k-sub">conferidos hash a hash</div>
+      </div>
+      <div class="kpi cascade-item" data-delay="4">
+        <div class="k-label">DOCUMENTOS PERDIDOS</div>
+        <div class="k-value">0</div>
+        <div class="k-sub">zero faltando, zero sobrando</div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 05 — O CRITÉRIO DE JULGAMENTO -->
+<section class="sec" data-num="05" data-nav="Critério de julgamento">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">05</span><span class="tt">O critério novo: quatro veredictos, quatro culpados possíveis</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">Para cada documento, a auditoria aplicou dois julgamentos separados.
+        O primeiro é sobre <b>qualidade</b>: o documento foi bem entregue, entregue abaixo do padrão, não entregue — uma
+        falha real — ou não julgável, quando as 514 fontes de pesquisa fechadas em 08/09/2026 não cobrem aquele tipo
+        específico de documento, como um roteiro comercial de consultoria.</p>
+        <p class="sec-lead cascade-item" data-delay="2">O segundo é sobre <b>responsabilidade</b>: quando algo falhou, de
+        quem foi a falha — da consultoria que entregou, da Dois A como contratante, dividida entre as duas, ou hipótese,
+        quando o acervo mostra o fato mas não permite concluir quem exatamente falhou.</p>
+      </div>
+      <div class="card cascade-item" data-delay="3">
+        <h4>OS QUATRO VEREDICTOS DE QUALIDADE</h4>
+        <ul>
+          <li><b>Bem entregue</b> — cumpre o que a pesquisa de mercado descreve como boa prática.</li>
+          <li><b>Abaixo do padrão</b> — existe, mas incompleto ou raso.</li>
+          <li><b>Não entregue / falha</b> — prometido e nunca veio.</li>
+          <li><b>Não julgável</b> — fora do que as 514 fontes cobrem.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 06 — O QUE MUDOU EM RELAÇÃO À RÉGUA ANTERIOR -->
+<section class="sec" data-num="06" data-nav="O que mudou na régua">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">06</span><span class="tt">Por que isso é diferente do que a régua anterior fazia</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">A régua da sessão de 08-09/09 já tinha achado 221 casos de "existe e
+        está certo" — o quarto veredicto dela, o único positivo. Mas esses 221 nunca viraram inventário, e ninguém tinha
+        perguntado se esse material era, de fato, bom. Esta frente cruzou essas ocorrências com o critério de qualidade
+        novo. O script de extração recuperou 210 das 221 — os 11 que faltam não foram reconciliados manualmente; os 18
+        sem correspondência direta por código de item foram resolvidos manualmente, lendo o bloco de auditoria completo do
+        hash.</p>
+        <p class="sec-lead cascade-item" data-delay="2">Resultado: <b>157</b> seguem valendo como estão, <b>23</b> precisam
+        de ajuste, e <b>30</b> acabaram rebaixados a lixo — material que a régua original tinha aplicado por engano a
+        documento de referência de terceiro, não a entrega real da Dois A.</p>
+      </div>
+      <div class="card cascade-item" data-delay="3">
+        <h4>ANTES × DEPOIS</h4>
+        <ul>
+          <li><b>Régua original</b> — mediu só presença/ausência: existe, não existe, existe errado, prometido e não veio.</li>
+          <li><b>Auditoria nova</b> — releu cada documento de novo e perguntou, além disso, se o que existe é <b>bom</b>, e
+          de quem é a culpa quando não é.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 07 — ACHADO 1: MANDATE NUNCA ANEXADO -->
+<section class="sec" data-num="07" data-nav="Achado — Mandate solto">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">07</span><span class="tt">O achado mais forte: o Mandate existe, mas nunca foi anexado</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">Pelo menos 13 Termos de Referência — o documento que define o que se
+        contrata de cada projetista, como o de Impermeabilização, Estrutura ou Instalações Elétricas — trazem a mesma
+        cláusula: "Entregáveis em plataforma BIM, conforme BIM mandate anexo a este termo". O Mandate existe de verdade, em
+        duas pastas diferentes do acervo. Mas em nenhum dos 13 Termos ele de fato acompanha o arquivo entregue ao
+        projetista.</p>
+        <p class="sec-lead cascade-item" data-delay="2">Não é ausência de documento. É ausência de <b>vínculo</b> — a
+        promessa escrita e o arquivo que ela promete moram em lugares diferentes do acervo, e ninguém nunca ligou os dois.</p>
+        <div class="callout cascade-item" data-delay="3">
+          <div class="ct">PROVA CONCRETA</div>
+          <p>Em 07/08/2023, o próprio consultor da Falconi escreveu ao Diretor de Engenharia da Dois A: "o BIM Mandate ainda
+          não iniciamos" — perguntando quem poderia puxar isso. O acervo não registra resposta.</p>
+        </div>
+      </div>
+      <div class="card cascade-item" data-delay="4">
+        <h4>OS NÚMEROS DESSE ACHADO</h4>
+        <ul>
+          <li><b>13</b> Termos de Referência prometem o anexo.</li>
+          <li><b>4</b> pastas diferentes do acervo citam a cláusula.</li>
+          <li><b>2</b> pastas onde o Mandate de fato existe.</li>
+          <li><b>0</b> vezes em que o anexo aparece junto do termo assinado.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 08 — ACHADO 2: COMITÊ BIM VAZIO -->
+<section class="sec" data-num="08" data-nav="Achado — Comitê vazio">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">08</span><span class="tt">O segundo achado: o mesmo quadro vazio, quatro vezes</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">Um segundo padrão se repete de forma quase idêntica em anos
+        diferentes. O Mandate tem uma tabela chamada "Comitê BIM" — seis cargos definidos, com duas colunas para preencher:
+        quem ocupa o cargo, e o contato dessa pessoa. Duas revisões do Mandate da era Falconi (2023) e duas revisões da era
+        PHD (2024-2025) — quatro documentos, dois anos de intervalo, três consultorias diferentes — chegam com a mesma
+        tabela: cargos definidos, colunas de responsável e contato em branco.</p>
+        <p class="sec-lead cascade-item" data-delay="2">A própria Dois A é quem escreve esse quadro — não é a consultoria
+        que o deixa vazio. A auditoria confirmou isso de novo na revisão mais recente: 452 parágrafos, 70 tabelas, e a
+        mesma tabela de nomeação permanece inteiramente vazia.</p>
+      </div>
+      <div class="card cascade-item" data-delay="3">
+        <h4>O QUADRO QUE NUNCA FOI PREENCHIDO</h4>
+        <ul>
+          <li>Gerente BIM — <b>vazio</b></li>
+          <li>BIM Manager — <b>vazio</b></li>
+          <li>Coordenador BIM — <b>vazio</b></li>
+          <li>Planejador BIM — <b>vazio</b></li>
+          <li>Consultor BIM Terceirizado — <b>vazio</b></li>
+          <li>Analista BIM — <b>vazio</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 09 — AS TRÊS CONSULTORIAS EM NÚMEROS -->
+<section class="sec" data-num="09" data-nav="As consultorias em números">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">09</span><span class="tt">As três consultorias, lado a lado</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">Cada consultoria foi julgada sobre o conjunto de documentos que o
+    acervo identifica como produto direto dela — contrato, propostas, diagnósticos e as revisões de Mandate/BEP produzidas
+    no período de cada uma.</p>
+    <div class="table-wrap cascade-item" data-delay="2">
+      <table>
+        <thead><tr><th>Consultoria</th><th>Período</th><th>Valor</th><th>Itens julgados</th><th>Situação</th></tr></thead>
+        <tbody>
+          <tr><td>Vistta|S</td><td class="num">2021</td><td class="num">R$ 16.500,00</td><td class="num">13 — 3 bem / 6 abaixo / 4 falha / 0 n.j.</td><td><span class="pill warn">MAIS FRÁGIL</span></td></tr>
+          <tr><td>Falconi</td><td class="num">2023–2024</td><td class="num">12× R$ 20.750,29–34.583,81</td><td class="num">41 — 23 bem / 3 abaixo / 14 falha / 1 n.j.</td><td><span class="pill ac">MAIOR VOLUME</span></td></tr>
+          <tr><td>PHD Engenharia</td><td class="num">2024–2025</td><td class="num">R$ 16.625,00/mês</td><td class="num">29 — 13 bem / 12 abaixo / 2 falha / 2 n.j.</td><td><span class="pill ok">MELHOR PROPORÇÃO</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="sec-lead cascade-item" data-delay="3">"n.j." = não julgável. A PHD é a única em que "abaixo do padrão" supera
+    "não entregue/falha" — o padrão de falha dela é entrega incompleta, não ausência.</p>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 10 — VISTTA|S -->
+<section class="sec" data-num="10" data-nav="Vistta|S">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">10</span><span class="tt">Vistta|S — o diagnóstico que ninguém tocou depois</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">A Vistta|S propôs à Dois A, em 13/05/2021, o "Clinic Day" —
+        alinhamento estratégico e diagnóstico organizacional para BIM, com mapeamento de 20 áreas da empresa. Quinze dias
+        depois, uma versão "Final" renegociou o valor de R$ 16.800,00 para R$ 16.500,00, em duas parcelas. O escopo era só
+        diagnóstico — sem promessa de implantação, treinamento ou acompanhamento de projeto-piloto.</p>
+        <p class="sec-lead cascade-item" data-delay="2">O diagnóstico em si é o item mais sólido de toda a Vistta|S: mede a
+        maturidade organizacional em 20 de 100 pontos, com o pior escore no critério "Informação" (0 de 15) — exatamente o
+        tipo de buraco que a auditoria desta frente encontra quatro anos depois no resto do acervo. O ponto fraco não é a
+        medição, é a nomeação de responsabilidade: a proposta comercial reserva uma linha em branco para "Consultores
+        Estratégicos" sem nome impresso, e não nomeia nenhum time do lado Dois A.</p>
+        <p class="sec-lead cascade-item" data-delay="3">A falha é de contratação: a Vistta|S nomeou a fragilidade do "BIM
+        Champion" com precisão, em agosto de 2021, e nada no acervo mostra correção até a contratação da Falconi, dois anos
+        depois.</p>
+      </div>
+      <div class="card cascade-item" data-delay="4">
+        <h4>O QUE FICOU CLARO</h4>
+        <ul>
+          <li>Maturidade organizacional: <b>20/100</b>.</li>
+          <li>Critério "Informação": <b>0/15</b>, o pior de todos.</li>
+          <li>"BIM Champion" avaliado em <b>1 de 5</b>.</li>
+          <li>Proposta renegociada de R$ 16.800 para R$ 16.500 em 15 dias.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 11 — FALCONI -->
+<section class="sec" data-num="11" data-nav="Falconi">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">11</span><span class="tt">Falconi — o contrato mais robusto, o Mandate que travou</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">A Falconi assinou, em 26/01/2023, um contrato de 57 páginas para
+        consultoria e implantação de BIM — com um Anexo II de 35 páginas incorporado formalmente por cláusula, trazendo uma
+        metodologia completa em 4 pilares e um cronograma de 12 meses, com pagamento em 12 parcelas de R$ 20.750,29 a
+        R$ 34.583,81.</p>
+        <p class="sec-lead cascade-item" data-delay="2">Uma ata de 31/03/2023 registra a Falconi e a equipe Dois A
+        combinando preencher o Mandate por disciplina até junho e outro lote até setembro daquele ano — prazo que não se
+        cumpriu (achado detalhado no slide 07). O próprio diagnóstico da Falconi, entregue em abril de 2023, saiu
+        incompleto no escopo que ele mesmo definiu: de 4 dimensões prometidas, duas trazem o carimbo "Complementar", e uma
+        delas está literalmente vazia, com "xxx" no lugar do conteúdo.</p>
+        <p class="sec-lead cascade-item" data-delay="3">A falha é compartilhada: "a Dois A é autora do quadro de nomeação e
+        não o preencheu, em duas revisões" — mas também "a Falconi diagnosticou a ausência, e o próprio diagnóstico da
+        Falconi saiu incompleto em 2 de 4 dimensões, sem que a Dois A cobrasse o fechamento".</p>
+      </div>
+      <div class="card cascade-item" data-delay="4">
+        <h4>NÚMEROS DA FALCONI</h4>
+        <ul>
+          <li><b>41</b> itens julgados, <b>23</b> bem entregues.</li>
+          <li>Parcelas de <b>R$ 20.750,29</b> a <b>R$ 34.583,81</b>.</li>
+          <li><b>2 de 4</b> dimensões do diagnóstico ficaram "xxx".</li>
+          <li>Consultor nomeado: Lucas Andrade Batista, presidente da CBIM-MG.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 12 — PHD ENGENHARIA -->
+<section class="sec" data-num="12" data-nav="PHD Engenharia">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">12</span><span class="tt">PHD Engenharia — a entrega mais forte, com o mesmo vazio repetido</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">O diagnóstico da PHD, de dezembro de 2024, é a peça de maior
+        qualidade técnica de toda a auditoria: traz capturas de tela reais de ferramentas em operação, um relatório de
+        qualidade de modelos com 36 itens verificados por disciplina, e um percentual geral de <b>83,1%</b> de aderência
+        aos requisitos do BEP — com um painel de quantitativos rodando de verdade sobre dois projetos-piloto.</p>
+        <p class="sec-lead cascade-item" data-delay="2">O mesmo documento traz, na última página, uma anotação manuscrita
+        da própria Dois A: "consultorias de implantação anterior, sem prestação de conta/relatórios" — prova direta e
+        contemporânea de que a empresa já sabia do vácuo de handover entre consultorias antes mesmo de contratar esta
+        terceira.</p>
+        <p class="sec-lead cascade-item" data-delay="3">O BEP mais recente corrigiu a tabela de contatos, com a BIM
+        Manager e o Coordenador BIM nomeados por nome e cargo. Mas o Mandate revisado pela PHD repete, quase palavra por
+        palavra, a mesma "Tabela do Comitê BIM" vazia do slide 08 — em duas revisões seguidas.</p>
+      </div>
+      <div class="card cascade-item" data-delay="4">
+        <h4>NÚMEROS DA PHD</h4>
+        <ul>
+          <li>Aderência geral ao BEP: <b>83,1%</b>.</li>
+          <li>ARQUITETURA <b>84,84%</b> · ESTRUTURA <b>30,17%</b>.</li>
+          <li><b>29</b> itens julgados, <b>13</b> bem entregues.</li>
+          <li>R$ 16.625,00/mês, 365 dias, ~20h/semana de assessoria.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 13 — ECOBONFIM -->
+<section class="sec" data-num="13" data-nav="EcoBonfim">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">13</span><span class="tt">EcoBonfim — BIM por fornecedor, nunca por política da empresa</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">O empreendimento EcoBonfim não teve consultoria de implantação
+        própria — nenhuma das três (Vistta|S, Falconi, PHD) o cita. Ele mostra, em vez disso, o padrão mais claro de todo
+        o acervo: BIM entrou quando entrou por exigência de um fornecedor específico, não por decisão da Dois A.</p>
+        <p class="sec-lead cascade-item" data-delay="2">Em 04/04/2022, a Dois A assinou com a CF Serviços um contrato de
+        R$ 80.000,00 para o projeto de arquitetura do EcoBonfim — exigindo entrega em formato IFC como primeira opção
+        citada, a exigência de interoperabilidade mais forte de todo o lote analisado. No mesmo trimestre, a AREA
+        Engenharia propôs "plataforma BIM" com entrega em .ifc só para o empreendimento Potengi, e "plataforma CAD" para o
+        EcoBonfim e para o Pipa — o mesmo fornecedor, tratamento distinto por empreendimento, no mesmo dia.</p>
+      </div>
+      <div class="card cascade-item" data-delay="3">
+        <h4>O CONTRASTE</h4>
+        <ul>
+          <li>Contrato de arquitetura (2022): exige <b>IFC</b> em primeiro lugar.</li>
+          <li>Processo de alvará municipal: roda com <b>DWG desatualizado</b>.</li>
+          <li>Mesmo empreendimento, mesmo período — dois padrões diferentes.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout cascade-item" data-delay="4">
+      <div class="ct">A FALHA É DA DOIS A</div>
+      <p>Nenhum documento do acervo mostra a empresa exigindo, de forma consistente entre fornecedores do mesmo
+      empreendimento, o mesmo padrão de entrega que já sabia pedir a pelo menos um deles.</p>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 14 — PADRÃO QUE SE REPETE -->
+<section class="sec" data-num="14" data-nav="O padrão que se repete">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">14</span><span class="tt">As quatro falhas que se repetem nas três consultorias</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">Quatro falhas se repetem, quase idênticas, nas três contratações —
+        com três empresas diferentes, em anos diferentes. É a evidência mais forte de que a causa não é a qualidade de
+        nenhuma consultoria isolada: a auditoria confirma item a item que as três eram tecnicamente competentes.</p>
+        <p class="sec-lead cascade-item" data-delay="2">As três morreram do mesmo jeito — sem que a Dois A nomeasse, por
+        escrito e com autoridade real, quem do próprio lado sustentaria o processo depois que o contrato da consultoria
+        terminasse.</p>
+      </div>
+      <div class="card cascade-item" data-delay="3">
+        <h4>AS QUATRO REPETIÇÕES</h4>
+        <ul>
+          <li>Nenhuma exigiu um BEP com critério de aceite amarrado a cada entrega — o item falha em <b>94,7%</b> dos 95
+          documentos que o tocam.</li>
+          <li>Nenhuma teve um gestor de BIM nomeado com autoridade formal e contínua.</li>
+          <li>A Dois A nunca cobrou prestação de contas de handover entre uma consultoria e a próxima.</li>
+          <li>BIM entrava por fornecedor e por contrato, nunca por decisão organizacional amarrada ao portfólio.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 15 — INVENTÁRIO EM NÚMEROS -->
+<section class="sec" data-num="15" data-nav="Inventário em números">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">15</span><span class="tt">O inventário: o que sobrou depois de julgar tudo de novo</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">A sessão anterior já tinha achado 221 casos de "existe e está certo" —
+    o quarto veredicto dela, nunca antes inventariado. O script de extração recuperou 210 desses 221, por diferença de
+    formatação de texto entre fichas; os 11 que faltam não foram reconciliados manualmente. A auditoria nova cruzou os 210
+    com o critério de qualidade e chegou a este retrato.</p>
+    <div class="kpi-grid">
+      <div class="kpi cascade-item" data-delay="2">
+        <div class="k-label">APROVEITÁVEL COMO ESTÁ</div>
+        <div class="k-value"><b>157</b></div>
+        <div class="k-sub">confirmado bem entregue</div>
+      </div>
+      <div class="kpi cascade-item" data-delay="3">
+        <div class="k-label">PRECISA DE AJUSTE</div>
+        <div class="k-value">23</div>
+        <div class="k-sub">existe, mas incompleto</div>
+      </div>
+      <div class="kpi cascade-item" data-delay="4">
+        <div class="k-label">VIROU LIXO</div>
+        <div class="k-value">30</div>
+        <div class="k-sub">rebaixado ou aplicado errado</div>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 16 — O QUE JÁ É BOM -->
+<section class="sec" data-num="16" data-nav="O que já é bom">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">16</span><span class="tt">O que já funciona e pode ser reaproveitado direto</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">Alguns exemplos concretos, de dentro dos 157 itens: cinco Termos
+        de Referência de Engenharia carimbam elaboração, conferência e aprovação com nome completo e registro profissional
+        da responsável técnica. O ACC Docs — a plataforma da Autodesk que a Dois A usa para gerir arquivos — funciona de
+        fato como Ambiente Comum de Dados em doze documentos, com perfis de acesso diferenciados e fluxo de pendências com
+        responsável e prazo. Uma convenção de nomenclatura mestre está em uso em catorze documentos, replicada nos três
+        empreendimentos.</p>
+        <p class="sec-lead cascade-item" data-delay="2">O item mais numeroso do inventário — dezoito casos — é requisito
+        normativo convertido em critério verificável: o critério de temperatura do concreto (65ºC), amarrado à norma
+        técnica e a formulário de controle real, se repete em quatro versões do Manual de Boas Práticas de Fundações.</p>
+      </div>
+      <div class="card cascade-item" data-delay="3">
+        <h4>OS 157, POR CATEGORIA</h4>
+        <ul>
+          <li><b>A</b> — Papéis e responsabilidade nomeada: 30 itens.</li>
+          <li><b>B</b> — Protocolo de troca de informação e ponto de aprovação: 67 itens.</li>
+          <li><b>C</b> — Nomenclatura e formato de entrega: 24 itens.</li>
+          <li><b>D</b> — Critério de aceite e nível de informação: 35 itens.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 17 — AJUSTE E LIXO -->
+<section class="sec" data-num="17" data-nav="Ajuste e descarte">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">17</span><span class="tt">O que precisa de ajuste, e o que não vale mais nada</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">Dos 23 itens que precisam de ajuste, o mais crítico é o BEP do
+        empreendimento Areia Preta, que segue marcado "Em Revisão" mais de dois anos depois do início do projeto-piloto —
+        atraso crônico no documento mais citado do lote. Outros exemplos: um Termo de Referência que carimba quem fez,
+        visou e aprovou, mas só por iniciais, não por nome completo; um plano de ação que nomeia responsável sem nenhum
+        instrumento formal — ata, contrato, aprovação de diretoria — amarrando essa nomeação.</p>
+        <p class="sec-lead cascade-item" data-delay="2">Dos 30 itens que viraram lixo, a maioria é material de referência
+        de terceiro que a régua original aplicou por engano ao processo da Dois A — não erro do acervo em si, erro de
+        classificação.</p>
+      </div>
+      <div class="card cascade-item" data-delay="3">
+        <h4>EXEMPLOS DE "LIXO" — MAL CLASSIFICADOS</h4>
+        <ul>
+          <li>Um template de BIM Mandate genérico de fornecedor, nunca personalizado à Dois A.</li>
+          <li>Um manual de modelagem de organização militar federal, sem relação com a empresa.</li>
+          <li>Catorze itens vindos de sete pranchas recebidas por WeTransfer, sem vínculo declarado com a Dois A.</li>
+          <li>Um plano de execução BIM completo, mas de exercício acadêmico de empresa fictícia.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 18 — O MAPA EM 6 BLOCOS -->
+<section class="sec" data-num="18" data-nav="Mapa do fluxo ideal">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">18</span><span class="tt">O mapa do fluxo ideal: seis blocos, em ordem</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">Este mapa não julga a Dois A — é o desenho do que uma implantação de
+    BIM correta precisa ter, derivado das 514 fontes de pesquisa fechadas em 08/09/2026. A ordem dos seis blocos não foi
+    inventada: três referências de mercado independentes (o Guia 3 do BIM Fórum Brasil, a norma britânica PAS 1192-2 e um
+    estudo acadêmico de 2019) organizam o mesmo material na mesma sequência lógica — cada bloco depende do anterior estar
+    resolvido.</p>
+    <div class="flow">
+      <div class="flow-node cascade-item" data-delay="2"><div class="f-t">1. Fundação organizacional</div><div class="f-d">papéis, mandato, plano</div></div>
+      <div class="flow-arrow cascade-item" data-delay="2">→</div>
+      <div class="flow-node cascade-item" data-delay="3"><div class="f-t">2. Requisito de informação</div><div class="f-d">em cascata, do negócio ao projeto</div></div>
+      <div class="flow-arrow cascade-item" data-delay="3">→</div>
+      <div class="flow-node cascade-item" data-delay="4"><div class="f-t">3. Protocolo e CDE</div><div class="f-d">execução do dia a dia</div></div>
+      <div class="flow-arrow cascade-item" data-delay="4">→</div>
+      <div class="flow-node cascade-item" data-delay="5"><div class="f-t">4. Nomenclatura</div><div class="f-d">e formato de entrega</div></div>
+      <div class="flow-arrow cascade-item" data-delay="5">→</div>
+      <div class="flow-node cascade-item" data-delay="6"><div class="f-t">5. Critério de aceite</div><div class="f-d">nível de informação por marco</div></div>
+      <div class="flow-arrow cascade-item" data-delay="6">→</div>
+      <div class="flow-node cascade-item" data-delay="6"><div class="f-t">6. Handover</div><div class="f-d">gestão de ativos pós-obra</div></div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 19 — BLOCOS 1 A 3 -->
+<section class="sec" data-num="19" data-nav="Fundação, requisito, protocolo">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">19</span><span class="tt">Blocos 1 a 3 — o que cada um resolve</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">Os três primeiros blocos existem antes de qualquer obra começar — são a
+    base que o resto do fluxo depende.</p>
+    <div class="two-col">
+      <div class="card cascade-item" data-delay="2">
+        <h4>1 · FUNDAÇÃO ORGANIZACIONAL</h4>
+        <p>Resolve <b>quem manda</b> antes de decidir como o processo roda. Sem papel nomeado com autoridade real, e sem
+        plano de implantação da própria organização, não existe quem force o resto do fluxo a acontecer. É o bloco zero —
+        nenhum outro depende de nada, e todos os outros dependem dele.</p>
+      </div>
+      <div class="card cascade-item" data-delay="3">
+        <h4>2 · REQUISITO DE INFORMAÇÃO EM CASCATA</h4>
+        <p>Resolve a pergunta "o que a empresa precisa saber do prédio depois de pronto, e como isso vira pedido concreto
+        para quem projeta". Sem essa cascata, o plano de execução e o ambiente de dados do bloco 3 recebem uma lista de
+        entregável desconectada do uso real que a empresa vai fazer da informação.</p>
+      </div>
+    </div>
+    <div class="card cascade-item" data-delay="4" style="margin-top:14px">
+      <h4>3 · PROTOCOLO DE EXECUÇÃO E AMBIENTE COMUM DE DADOS</h4>
+      <p>Resolve como o requisito do bloco 2 vira processo do dia a dia — quem entrega o quê, com que critério de aceite, e
+      por qual portão o arquivo passa de rascunho a publicado. Depende de um Information Manager nomeado no bloco 1 para
+      operar esse portão.</p>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 20 — BLOCOS 4 A 6 -->
+<section class="sec" data-num="20" data-nav="Nomenclatura, aceite, handover">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">20</span><span class="tt">Blocos 4 a 6 — o que cada um resolve</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">Os três blocos finais fecham o ciclo — do arquivo identificável até o
+    que sobra depois que a obra termina.</p>
+    <div class="two-col">
+      <div class="card cascade-item" data-delay="2">
+        <h4>4 · NOMENCLATURA E FORMATO DE ENTREGA</h4>
+        <p>Resolve como o ambiente de dados identifica um arquivo por autor, data e conteúdo, sem depender de quem está
+        com ele hoje. Sem essa convenção, o portão de aprovação do bloco 3 não tem sobre o que decidir de forma
+        confiável.</p>
+      </div>
+      <div class="card cascade-item" data-delay="3">
+        <h4>5 · CRITÉRIO DE ACEITE E NÍVEL DE INFORMAÇÃO</h4>
+        <p>Resolve quando um entregável está pronto para avançar de fase — nível de detalhe por marco, checagem de
+        qualidade antes de virar número de orçamento, norma de desempenho convertida em ação verificável em vez de citada
+        solta.</p>
+      </div>
+    </div>
+    <div class="card cascade-item" data-delay="4" style="margin-top:14px">
+      <h4>6 · GESTÃO DE ATIVOS PÓS-OBRA E HANDOVER</h4>
+      <p>Resolve o que o dono do ativo recebe para operar de fato — modelo como construído, manual de uso, alguém que
+      representava o operador desde o início — em vez de um pacote de arquivo que sobrou no fim da obra. Duas das suas
+      peças nascem como decisão no bloco 1, não como tarefa de fim de obra: pensar handover só no fim é o padrão de
+      fracasso que a pesquisa de mercado documenta como "lixo digital caro".</p>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 21 — O PLANO DE AÇÃO: INTRO -->
+<section class="sec" data-num="21" data-nav="O plano de ação">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">21</span><span class="tt">O plano de ação: seis tarefas já no cronograma</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">O dono do calendário é o cronograma do NuPE, não esta frente. Este
+    plano não inventa data nem orçamento — mapeia o que falta construir contra o que já está provado no acervo, tarefa
+    por tarefa. Cada uma das seis páginas seguintes segue o mesmo formato: o que a Dois A já tem hoje, o que falta
+    construir, e o risco concreto de repetir o mesmo erro pela quarta ou quinta vez.</p>
+    <div class="steps">
+      <div class="step cascade-item" data-delay="2"><div class="s-n">1.4.4</div><div class="s-t">Ver contratos de consultoria</div><div class="s-d">28/09 a 09/10/2026</div></div>
+      <div class="step cascade-item" data-delay="2"><div class="s-n">1.4.5</div><div class="s-t">Rever contratos com projetistas</div><div class="s-d">13/10 a 26/10/2026</div></div>
+      <div class="step cascade-item" data-delay="3"><div class="s-n">1.4.6</div><div class="s-t">Estruturação de documentação técnica</div><div class="s-d">27/10 a 25/11/2026</div></div>
+      <div class="step cascade-item" data-delay="3"><div class="s-n">1.4.7</div><div class="s-t">Premissas para projetistas (TRs e Mandate)</div><div class="s-d">26/11 a 31/12/2026</div></div>
+      <div class="step cascade-item" data-delay="4"><div class="s-n">1.4.8</div><div class="s-t">Criação de premissas do modelo</div><div class="s-d">01/01 a 04/02/2027</div></div>
+      <div class="step cascade-item" data-delay="4"><div class="s-n">1.4.9</div><div class="s-t">Compatibilização integrada ao modelo</div><div class="s-d">05/02 a 11/03/2027</div></div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 22 — 1.4.4 -->
+<section class="sec" data-num="22" data-nav="1.4.4 — Contratos consultoria">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">22</span><span class="tt">1.4.4 — Ver contratos de consultoria</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">Três contratos de consultoria de implantação já foram assinados e
+    encerrados — Vistta|S, Falconi e PHD, todos auditados por inteiro nos slides 10 a 12, com hash, cláusula e veredito de
+    qualidade item a item. O contrato da PHD já tem uma cláusula que faltava nos outros dois: obriga a Dois A a indicar
+    formalmente um gestor do contrato — mas a peça comercial não nomeia a pessoa, e o acervo não mostra que esse gestor
+    foi de fato indicado.</p>
+    <div class="two-col">
+      <div class="card cascade-item" data-delay="2">
+        <h4>O QUE FALTA CONSTRUIR</h4>
+        <ul>
+          <li>Information Manager nomeado, com autoridade formal de aprovar passagem de fase, antes de qualquer contrato novo.</li>
+          <li>Instrumento formal de transição entre uma consultoria e a próxima — handover contratual, não técnico.</li>
+          <li>Cláusula de prestação de contas de saída, que nenhuma das três teve.</li>
+        </ul>
+      </div>
+      <div class="callout cascade-item" data-delay="3">
+        <div class="ct">RISCO DE REPETIR</div>
+        <p>A própria PHD registrou à mão, em dezembro de 2024: "consultorias de implantação anterior, sem prestação de
+        conta/relatórios" — a terceira consultoria descobrindo por conta própria o vácuo que a segunda já tinha herdado da
+        primeira. Contratar uma quarta consultoria sem essas duas peças assina a mesma lacuna pela quarta vez.</p>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 23 — 1.4.5 -->
+<section class="sec" data-num="23" data-nav="1.4.5 — Contratos projetistas">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">23</span><span class="tt">1.4.5 — Rever contratos padrão com os projetistas</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">A cláusula "Entregáveis em plataforma BIM, conforme BIM mandate anexo
+    a este termo" já aparece em pelo menos 13 Termos de Referência de disciplinas diferentes, e uma Carta Convite lista o
+    Mandate como anexo obrigatório de todo convite a projetista. A cláusula-modelo já existe e já está em uso recorrente —
+    não é preciso inventar cláusula nova, é preciso consertar o que ela referencia.</p>
+    <div class="two-col">
+      <div class="card cascade-item" data-delay="2">
+        <h4>O QUE FALTA CONSTRUIR</h4>
+        <ul>
+          <li>Vínculo real entre a cláusula que promete o anexo e o arquivo que de fato acompanha o termo assinado.</li>
+          <li>Decisão por escrito sobre quais disciplinas são obrigadas a entregar em BIM — hoje 10 das 12 disciplinas do
+          lote têm a cláusula; Topografia e Paisagismo ficaram de fora, sem justificativa registrada.</li>
+        </ul>
+      </div>
+      <div class="callout cascade-item" data-delay="3">
+        <div class="ct">RISCO DE REPETIR</div>
+        <p>O contrato de arquitetura do EcoBonfim (2022) exigia entrega em IFC como formato citado em primeiro lugar — e ao
+        mesmo tempo omitia da cláusula de composição contratual o próprio anexo que citava no corpo do texto. Revisar
+        contrato padrão sem checar, cláusula a cláusula, se todo anexo citado está de fato incorporado repete esse erro
+        específico.</p>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 24 — 1.4.6 -->
+<section class="sec" data-num="24" data-nav="1.4.6 — Documentação técnica">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">24</span><span class="tt">1.4.6 — Estruturação de documentação técnica</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">O ACC Docs já funciona de fato como Ambiente Comum de Dados: doze
+    documentos confirmam perfis de acesso diferenciados, fluxo de pendências com responsável e prazo, revisões com status
+    e notificação automática. Sete Manuais de Boas Práticas por disciplina confirmam a mesma progressão de estados —
+    Obsoleto, Em Correção, Em Validação. Uma convenção de nomenclatura mestre já existe e está em uso em catorze
+    documentos, replicada nos três empreendimentos.</p>
+    <div class="two-col">
+      <div class="card cascade-item" data-delay="2">
+        <h4>O QUE FALTA CONSTRUIR</h4>
+        <ul>
+          <li>Fechar os campos que a própria Dois A escreveu como espaço reservado e nunca preencheu — o campo de
+          Ambiente Comum de Dados do BEP genérico ainda traz o texto literal "plataforma XXXXX".</li>
+          <li>Uma revisão seguinte ainda diz "DESCREVER A NOMENCLATURA PADRÃO" — nunca escrita.</li>
+          <li>Mais quatro casos do mesmo padrão em Termos de Referência e Manuais de Boas Práticas.</li>
+        </ul>
+      </div>
+      <div class="callout cascade-item" data-delay="3">
+        <div class="ct">RISCO DE REPETIR</div>
+        <p>O achado mais grave é de proveniência: um template anônimo de terceiro virou, sem alterar o texto, o manual de
+        2014 de outra incorporadora, que por sua vez virou, também sem alterar trechos inteiros, o Manual de Boas Práticas
+        da própria Dois A, datado de 2024-2026 — sem nenhum crédito de origem. Estruturar documentação sem auditar a
+        proveniência de cada manual reaproveitado herda esse risco jurídico direto para dentro da estrutura nova.</p>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 25 — 1.4.7 -->
+<section class="sec" data-num="25" data-nav="1.4.7 — Premissas projetistas">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">25</span><span class="tt">1.4.7 — Criação de premissas para os projetistas (revisão das TRs e do Mandate)</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">O Mandate já existe fisicamente em duas famílias completas, com
+    seções tecnicamente sólidas — critério de aceite desenvolvido por extenso e nível de detalhamento por família e etapa,
+    ambos julgados bem entregues. O BEP mais recente, da era PHD, já resolveu a tabela de contatos: dez linhas de
+    responsáveis reais, com telefone e e-mail, incluindo a BIM Manager e o Coordenador BIM nomeados por cargo e nome.</p>
+    <div class="two-col">
+      <div class="card cascade-item" data-delay="2">
+        <h4>O QUE FALTA CONSTRUIR</h4>
+        <ul>
+          <li>Fechar a tabela do Comitê BIM com responsável e contato — vazia em quatro revisões documentadas (slide 08).</li>
+          <li>Amarrar critério de aceite explícito por marco de entrega no BEP — hoje o texto fala em "verificação de
+          qualidade" de forma genérica.</li>
+          <li>Decidir por escrito se Topografia e Paisagismo entram na exigência BIM.</li>
+        </ul>
+      </div>
+      <div class="callout cascade-item" data-delay="3">
+        <div class="ct">RISCO DE REPETIR</div>
+        <p>"A Dois A revisou e reeditou o próprio documento, inclusive corrigindo erros de digitação, sem nunca preencher
+        o quadro de responsáveis que ela mesma criou" — revisar o Mandate de novo sem fechar esse quadro é reproduzir o
+        mesmo defeito pela quinta revisão consecutiva.</p>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 26 — 1.4.8 -->
+<section class="sec" data-num="26" data-nav="1.4.8 — Premissas do modelo">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">26</span><span class="tt">1.4.8 — Criação de premissas do modelo</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">O nível de desenvolvimento — o quanto de detalhe um modelo deve ter em
+    cada fase — já está declarado por marco em nove documentos. A verificação de qualidade de modelo antes de extrair
+    quantitativo tem prova concreta de funcionamento real: o diagnóstico da PHD de dezembro de 2024 (slide 12) trouxe um
+    relatório de qualidade com 36 itens verificados, aderência de 83,1% ao BEP, rodando de verdade sobre dois
+    projetos-piloto.</p>
+    <div class="two-col">
+      <div class="card cascade-item" data-delay="2">
+        <h4>O QUE FALTA CONSTRUIR</h4>
+        <ul>
+          <li>Declarar o nível de informação por marco de forma sistemática, não só em documentos avulsos.</li>
+          <li>Decidir, com justificativa registrada, o critério de calibração do nível exigido por tipo de entrega — hoje
+          existe só de forma implícita, espalhado por documento.</li>
+        </ul>
+      </div>
+      <div class="callout cascade-item" data-delay="3">
+        <div class="ct">RISCO DE REPETIR</div>
+        <p>O ferramental de verificação já existiu e operou de fato em dezembro de 2024 — não é promessa nunca cumprida. O
+        risco aqui não é repetir ausência, é deixar essa capacidade morrer de novo sem prestação de contas, como já
+        aconteceu com o legado da Vistta|S e da Falconi.</p>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 27 — 1.4.9 -->
+<section class="sec" data-num="27" data-nav="1.4.9 — Compatibilização">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">27</span><span class="tt">1.4.9 — Integração do relatório de compatibilização dentro do modelo BIM</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">Só a pesquisa da frente de compatibilização de projetos está
+    contratada até aqui — o agente que a executaria é um segundo contrato, depois de um gate de aprovação. Do lado
+    técnico, o acervo já mostra a mecânica de portão que essa integração vai precisar reaproveitar: pastas de estado
+    funcionando em sete Manuais de Boas Práticas, e um histórico de revisão-resposta rastreável entre versões em oito
+    documentos — pedido numa revisão, implementado na seguinte, com comentário nominal.</p>
+    <div class="two-col">
+      <div class="card cascade-item" data-delay="2">
+        <h4>O QUE FALTA CONSTRUIR</h4>
+        <ul>
+          <li>Ligar o relatório de compatibilização entre disciplinas ao mesmo portão de aprovação que já existe no ACC
+          Docs para outras decisões de avanço.</li>
+          <li>Resolver o caso já registrado de revisão real que nunca vira decisão formal — anotação manuscrita em
+          fluxograma impresso, ou comentário em PDF que nunca vira versão aprovada.</li>
+        </ul>
+      </div>
+      <div class="callout cascade-item" data-delay="3">
+        <div class="ct">RISCO DE REPETIR</div>
+        <p>Um Manual de Boas Práticas de Vedações está na pasta "Em Validação" — estado avançado do fluxo — mas o próprio
+        texto registra uma pendência normativa nunca resolvida. Integrar compatibilização sem amarrar bloqueio de avanço a
+        pendência aberta reproduz esse buraco entre disciplinas de projeto, não só dentro de um manual.</p>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 28 — SEGURANÇA: O QUE FOI FEITO -->
+<section class="sec" data-num="28" data-nav="Segurança — o que foi feito">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">28</span><span class="tt">Segurança: duas camadas de verificação sobre o material desta frente</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">Toda a pasta de BIM passou por duas camadas de verificação de
+    segurança antes deste relatório fechar. A primeira, mais rasa e automática — quatro ferramentas que varrem código e
+    arquivos atrás de falha conhecida e segredo exposto — saiu limpa: zero achado alto ou crítico, zero segredo em toda a
+    pasta. A segunda camada, mais profunda — uma ferramenta que tenta de fato explorar uma falha, não só apontar — rodou
+    em modo rápido e achou quatro problemas de severidade média, nenhum alto ou crítico.</p>
+    <div class="card cascade-item" data-delay="2">
+      <h4>OS QUATRO ACHADOS (SEVERIDADE MÉDIA)</h4>
+      <ul>
+        <li><b>vuln-0001</b> — o painel novo expõe dado interno (nome, valor, endereço) se publicado sem senha. Mitigado:
+        por decisão do contrato, esse painel nunca vai a link público.</li>
+        <li><b>vuln-0002</b> — falha de injeção de código no painel novo. <b>Corrigida na hora</b>, nos dois geradores
+        desta frente.</li>
+        <li><b>vuln-0003 e vuln-0004</b> — a mesma falha no gerador antigo, de 08/09/2026, preservado como material
+        histórico. Não corrigida, por decisão de não alterar material já preservado — ver slide 31.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 29 — SEGURANÇA: O QUE FICOU PENDENTE -->
+<section class="sec" data-num="29" data-nav="Segurança — pendências">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">29</span><span class="tt">Por que a camada mais profunda não terminou de rodar</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">A verificação mais funda não chegou ao fim. A primeira tentativa
+        parou sem gerar os arquivos finais de relatório — pela regra da casa, rodada sem relatório completo não conta
+        como provada, mesmo a tela mostrando "zero vulnerabilidades". A segunda tentativa, retomando a mesma sessão,
+        bateu no limite de uso da assinatura usada para rodar a ferramenta — um limite externo do provedor, não algo que
+        se resolve mexendo no código, com o reset previsto para poucas horas depois.</p>
+      </div>
+      <div class="card cascade-item" data-delay="2">
+        <h4>NÚMEROS DA TENTATIVA</h4>
+        <ul>
+          <li><b>181</b> requisições enviadas ao modelo.</li>
+          <li><b>11 milhões</b> de tokens de entrada consumidos.</li>
+          <li>Reset da assinatura previsto para <b>~2h36</b> depois do erro.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout cascade-item" data-delay="3">
+      <div class="ct">FECHADO POR DECISÃO DO ÁLVARO</div>
+      <p>Às 18h33 de 09/09/2026, decisão explícita de não rodar a segunda camada mais funda. O item de segurança fecha com
+      a camada 1 completa e a camada 2 em modo rápido completa e limpa — o modo profundo fica registrado como não
+      executado por decisão, não por falha técnica sem solução.</p>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 30 — DECISÃO 1: OS 38 PDFs -->
+<section class="sec" data-num="30" data-nav="Decisão — 38 PDFs">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">30</span><span class="tt">Decisão 1 — os 38 PDFs que ficaram fora do commit</span></div>
+    <p class="sec-lead cascade-item" data-delay="1">O dossiê de compatibilização reuniu 75 documentos do acervo — padrão
+    de entrega, checklist, matriz de responsabilidade e escopo contratual real de projetista — para servir de referência à
+    futura frente de compatibilização de projetos. Trinta e sete arquivos entraram no repositório normalmente. Os outros
+    38, todos PDF, com 86 MB ao todo — entre eles os três contratos assinados reais (Falconi, IDC/PPCI Potengi) — ficaram
+    fisicamente copiados no worktree desta frente, mas fora do commit, porque a regra da casa que bane qualquer arquivo
+    PDF do repositório bloqueou a inclusão em silêncio.</p>
+    <div class="two-col">
+      <div class="card cascade-item" data-delay="2">
+        <h4>TRÊS CAMINHOS — DECISÃO SUA</h4>
+        <ul>
+          <li>Abrir uma exceção pontual à regra e forçar o commit desses 38.</li>
+          <li>Manter a regra e mover os PDFs para um lugar que sobrevive ao worktree — por exemplo a biblioteca
+          sincronizada, numa subpasta nova.</li>
+          <li>Aceitar que só o índice com hash e caminho original serve de prova, sem cópia local do PDF.</li>
+        </ul>
+      </div>
+      <div class="callout cascade-item" data-delay="3">
+        <div class="ct">O RELÓGIO CORRE</div>
+        <p>Nenhum dos 38 some do disco enquanto este worktree existir — mas o worktree é descartável depois do merge. A
+        lista completa está em compatibilizacao/dossies/acervo-bim/INDICE.md.</p>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 31 — DECISÃO 2 E 3: SEGURANÇA PENDENTE -->
+<section class="sec" data-num="31" data-nav="Decisão — segurança pendente">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">31</span><span class="tt">Decisões 2 e 3 — o que ficou pendente em segurança</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">Duas vulnerabilidades ficaram no gerador antigo do painel de
+        08/09/2026 — não no que esta frente construiu. São do mesmo tipo que foi corrigido no painel novo: um caminho de
+        arquivo com aspa ou colchete no nome poderia injetar código no painel gerado. O arquivo antigo está preservado
+        como histórico datado, e mexer nele contradiria a instrução do próprio contrato de não alterar material
+        preservado.</p>
+        <p class="sec-lead cascade-item" data-delay="2">A vulnerabilidade mais alta encontrada (ainda assim média) é sobre
+        publicação, não sobre execução de código: se o painel novo algum dia for publicado num link acessível sem senha,
+        qualquer pessoa poderia baixar o dado embutido e ver nome de pessoa, valor de contrato e caminho do SharePoint.</p>
+      </div>
+      <div class="card cascade-item" data-delay="3">
+        <h4>AS DUAS DECISÕES</h4>
+        <ul>
+          <li><b>Decisão 2</b> — corrigir o gerador antigo só se essa frente de 08/09 for reaberta ou reaproveitada algum
+          dia.</li>
+          <li><b>Decisão 3</b> — mitigação já decidida no contrato: este painel nunca vai a link permanente, fica só local
+          ou por canal interno. Só reforçando aqui para não escapar.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 32 — CRONOGRAMA DO NUPE, RESOLVIDO -->
+<section class="sec" data-num="32" data-nav="Cronograma — já resolvido">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">32</span><span class="tt">Uma dúvida que fechou sozinha: o cronograma do NuPE</span></div>
+    <div class="two-col">
+      <div>
+        <p class="sec-lead cascade-item" data-delay="1">Havia uma pergunta em aberto desde a semana anterior: as nove
+        tarefas de BIM já datadas no cronograma do NuPE deveriam ser harmonizadas com esta frente, ou tratadas à parte? A
+        resposta veio do próprio desenho do contrato desta frente: o NuPE é o dono do calendário, não uma frente paralela.
+        O plano de ação (slides 21 a 27) foi escrito amarrado direto às seis tarefas futuras, 1.4.4 a 1.4.9.</p>
+      </div>
+      <div class="card cascade-item" data-delay="2">
+        <h4>STATUS</h4>
+        <p><span class="pill ok">RESOLVIDO</span></p>
+        <p style="margin-top:10px">Não sobrou decisão aqui — só a confirmação de que a dúvida antiga fechou.</p>
+      </div>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 33 — ONDE ESTÁ CADA COISA -->
+<section class="sec" data-num="33" data-nav="Onde está cada coisa">
+  <div class="slide-body">
+    <div class="sec-title cascade-item"><span class="num">33</span><span class="tt">Onde encontrar cada documento, para quando você quiser o detalhe</span></div>
+    <div class="table-wrap cascade-item" data-delay="1">
+      <table>
+        <thead><tr><th>Material</th><th>Caminho</th></tr></thead>
+        <tbody>
+          <tr><td>Relatório final (texto corrido)</td><td class="num">inbox/2026-09-09-relatorio-bim-estado-real.md</td></tr>
+          <tr><td>Diagnóstico consultoria por consultoria</td><td class="num">bim/DIAGNOSTICO-AUDITADO-bim-estado-real.md</td></tr>
+          <tr><td>Inventário do que existe e funciona</td><td class="num">bim/auditoria/INVENTARIO-existe-e-funciona.md</td></tr>
+          <tr><td>Mapa do fluxo ideal de implantação</td><td class="num">bim/MAPA-MACRO-fluxo-implantacao-bim.md</td></tr>
+          <tr><td>Plano de ação contra o NuPE</td><td class="num">bim/PLANO-DE-ACAO-bim-estado-real.md</td></tr>
+          <tr><td>Registro de lacunas da pesquisa</td><td class="num">bim/auditoria/REGISTRO-DE-LACUNAS.md</td></tr>
+          <tr><td>As 25 fichas de auditoria, lote a lote</td><td class="num">bim/auditoria/fichas/</td></tr>
+          <tr><td>Documento longo de leitura corrida</td><td class="num">bim/painel-v2/documento.html</td></tr>
+          <tr><td>Painel, porta de entrada</td><td class="num">bim/painel-v2/painel.html</td></tr>
+          <tr><td>Dossiê de compatibilização</td><td class="num">compatibilizacao/dossies/acervo-bim/</td></tr>
+          <tr><td>Registro de segurança na VPS DUO</td><td class="num">Clients/DUO/REGISTRO-2026-09-09-seguranca-bim-estado-real.md</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+<!-- 34 — ENCERRAMENTO -->
+<section class="sec fecho" data-num="34" data-nav="Fecho">
+  <div class="slide-body">
+    <img class="fecho-mark" src="data:image/png;base64,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" alt="Álvaro Marcolino">
+    <h1 class="cap-title cascade-item" data-delay="1">O buraco está medido. O próximo passo é preencher, não medir de novo.</h1>
+    <p class="cap-sub cascade-item" data-delay="2">As seis tarefas do cronograma do NuPE, de 1.4.4 a 1.4.9, já têm ponto de
+    partida e risco mapeado. O que falta agora é decisão sobre os três itens em aberto — slides 30 e 31 — e a execução.</p>
+    <div class="cap-meta cascade-item" data-delay="3">
+      <span class="chip ac">ÁLVARO MARCOLINO · 09/09/2026</span>
+    </div>
+  </div>
+  <div class="sec-sign">ÁLVARO MARCOLINO</div>
+</section>
+
+
+  </main>
+</div>
+
+<!-- ══ NAVEGAÇÃO ══ -->
+<div class="deck-nav">
+  <button id="btnPrev" title="Anterior">&#8249;</button>
+  <span id="slidePos">1 / 1</span>
+  <button id="btnNext" title="Próximo">&#8250;</button>
+  <button id="btnFull" title="Tela cheia">&#9974;</button>
+  <span class="hint">← → navega · F tela cheia</span>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   am-deck.js — motor de navegação dos decks do padrão VISUAL AM
+   Versão: 1.0.0 (05/09/2026). Zero dependência. Zero marca no código.
+
+   CONTRATO DA CASCATA (herdado da /apresentacao via /apresentacao-brisa):
+   ao entrar num slide pela PRIMEIRA vez, todo .cascade-item dele tem a
+   animação rebobinada pela WAAPI (cancel + play) e revela em escada.
+   Revisita entra pronta — quem volta para retomar um número já leu
+   aquilo, e revelar de novo só faz esperar. Se a regra .cascade-item do
+   CSS levar !important, o estilo inline perde e a cascata congela nos
+   dois caminhos. Nunca pôr.
+
+   MARCA D'ÁGUA: #bgMarkImg recebe o src da .am-mark do cabeçalho — a
+   marca do padrão AM é UMA só, e os dois slots saem do mesmo arquivo
+   (mecânica do painel de tokens, lição de 21/08).
+   ═══════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+
+  var DECK_VERSION = '1.0.0';
+  var secs = [], navItems = [], cur = 0;
+
+  function wireMark() {
+    var m = document.querySelector('.am-mark');
+    var f = document.getElementById('bgMarkImg');
+    if (m && f && m.src) f.src = m.src;
+  }
+
+  function reanimate(sec) {
+    if (!sec) return;
+    var items = sec.querySelectorAll('.cascade-item'), i, el;
+
+    if (sec.dataset.visto) {
+      for (i = 0; i < items.length; i++) {
+        items[i].style.animation = 'none';
+        items[i].style.opacity = '1';   /* sem isto o .cascade-item fica no opacity:0 do CSS */
+      }
+      return;
+    }
+    sec.dataset.visto = '1';
+
+    for (i = 0; i < items.length; i++) {
+      el = items[i];
+      el.style.opacity = '';
+      if (el.getAnimations) {
+        var anims = el.getAnimations();
+        for (var j = 0; j < anims.length; j++) { anims[j].cancel(); anims[j].play(); }
+      } else {
+        el.style.animation = 'none';
+        void el.offsetHeight;
+        el.style.animation = '';
+      }
+    }
+  }
+
+  /* Índice da sidebar gerado dos próprios slides: data-nav (rótulo) e
+     data-num (número exibido). Slide sem data-nav fica fora do índice. */
+  function buildNav() {
+    var nav = document.getElementById('nav');
+    if (!nav) return;
+    nav.innerHTML = '';
+    secs.forEach(function (s, i) {
+      var label = s.dataset.nav;
+      if (!label) { navItems.push(null); return; }
+      var item = document.createElement('div');
+      item.className = 'nav-sec';
+      item.innerHTML = '<div class="n">' + (s.dataset.num || '') + '</div><div class="t"></div>';
+      item.querySelector('.t').textContent = label;
+      item.addEventListener('click', function () { show(i); });
+      nav.appendChild(item);
+      navItems.push(item);
+    });
+  }
+
+  function show(i) {
+    if (i < 0 || i >= secs.length) return;
+    secs[cur].classList.remove('active');
+    cur = i;
+    secs[cur].classList.add('active');
+    reanimate(secs[cur]);
+
+    for (var k = 0; k < navItems.length; k++) {
+      if (!navItems[k]) continue;
+      navItems[k].classList.toggle('active', k === cur);
+    }
+    var active = navItems[cur];
+    if (active && active.scrollIntoView) active.scrollIntoView({ block: 'nearest' });
+
+    var pos = document.getElementById('slidePos');
+    if (pos) pos.textContent = (cur + 1) + ' / ' + secs.length;
+
+    var prev = document.getElementById('btnPrev');
+    var next = document.getElementById('btnNext');
+    if (prev) prev.disabled = (cur === 0);
+    if (next) next.disabled = (cur === secs.length - 1);
+
+    if (history.replaceState) history.replaceState(null, '', '#' + (cur + 1));
+  }
+
+  function wireButtons() {
+    var prev = document.getElementById('btnPrev');
+    var next = document.getElementById('btnNext');
+    var full = document.getElementById('btnFull');
+    if (prev) prev.addEventListener('click', function () { show(cur - 1); });
+    if (next) next.addEventListener('click', function () { show(cur + 1); });
+    if (full) full.addEventListener('click', function () {
+      if (document.fullscreenElement) document.exitFullscreen();
+      else document.documentElement.requestFullscreen();
+    });
+  }
+
+  function wireKeys() {
+    document.addEventListener('keydown', function (e) {
+      /* Sem esta guarda, Ctrl+F abre a busca do navegador E joga o deck em tela
+         cheia ao mesmo tempo; o mesmo vale para Ctrl+Seta e afins. */
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); show(cur + 1); }
+      else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(cur - 1); }
+      else if (e.key === 'Home') { e.preventDefault(); show(0); }
+      else if (e.key === 'End') { e.preventDefault(); show(secs.length - 1); }
+      else if (e.key === 'f' || e.key === 'F') {
+        if (document.fullscreenElement) document.exitFullscreen();
+        else document.documentElement.requestFullscreen();
+      }
+    });
+  }
+
+  function init() {
+    wireMark();
+    secs = Array.prototype.slice.call(document.querySelectorAll('section.sec'));
+    if (!secs.length) return;
+    buildNav();
+    wireButtons();
+    wireKeys();
+
+    var start = 0;
+    var hash = parseInt((location.hash || '').replace('#', ''), 10);
+    if (hash >= 1 && hash <= secs.length) start = hash - 1;
+
+    secs.forEach(function (s) { s.classList.remove('active'); });
+    cur = start;
+    secs[cur].classList.add('active');
+    show(cur);
+
+    /* Colar `...#7` na barra de endereço da MESMA aba muda só o hash e não
+       recarrega a página, então sem este ouvinte o deck ignorava o link. */
+    window.addEventListener('hashchange', function () {
+      var n = parseInt((location.hash || '').replace('#', ''), 10);
+      if (n >= 1 && n <= secs.length && n - 1 !== cur) show(n - 1);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+
+  window.amDeck = {
+    version: DECK_VERSION,
+    go: function (n) { show(n); },
+    next: function () { show(cur + 1); },
+    prev: function () { show(cur - 1); },
+    current: function () { return cur; },
+    count: function () { return secs.length; },
+    reanimate: reanimate
+  };
+})();
+
+</script>
+<!-- ECharts auto-hospedado: incluir SÓ se o deck tiver gráfico
+-->
+</body>
+</html>
