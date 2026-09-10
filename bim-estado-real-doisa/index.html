@@ -63,13 +63,14 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:2;opac
 .light-sweep::before{content:'';position:absolute;top:-50%;left:-60%;width:46%;height:220%;
   background:linear-gradient(100deg,transparent 0%,rgba(255,255,255,.04) 45%,rgba(255,255,255,.08) 50%,rgba(255,255,255,.04) 55%,transparent 100%);
   transform:rotate(8deg);animation:am-sweep 17s ease-in-out infinite;}
-.bg-mark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);width:420px;max-width:60vw;
+.bg-mark{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:min(320px,42vw);height:min(210px,22vh);
   z-index:0;pointer-events:none;animation:am-mark-breathe 9s ease-in-out infinite;}
-.bg-mark img{width:100%;height:auto;display:block;filter:grayscale(1) brightness(1.5);}
+.bg-mark img{width:100%;height:100%;object-fit:contain;display:block;filter:grayscale(1) brightness(1.5);}
 
 @keyframes am-respira{0%,100%{opacity:.55;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
 @keyframes am-sweep{0%,62%{left:-60%;opacity:0}70%{opacity:1}86%{left:130%;opacity:1}92%,100%{left:130%;opacity:0}}
-@keyframes am-mark-breathe{0%,100%{opacity:.14}50%{opacity:.2}}
+@keyframes am-mark-breathe{0%,100%{opacity:.05}50%{opacity:.075}}
 @keyframes am-mark-glow{0%,100%{filter:drop-shadow(0 0 8px rgba(255,255,255,.12))}50%{filter:drop-shadow(0 0 18px rgba(255,255,255,.35))}}
 
 /* ═══ SHELL — sidebar de vidro + palco ═══ */
@@ -338,7 +339,7 @@ td.num{font-family:var(--fm);font-variant-numeric:tabular-nums}
   .sidebar{display:none}
   section.sec{padding:30px 22px 84px;justify-content:flex-start;overflow-y:auto}
   .sec-sign{display:none}
-  .bg-mark{width:300px}
+  .bg-mark{width:min(220px,55vw);height:min(150px,18vh)}
   .cap-title{font-size:32px}
   .cap-sub{font-size:13.5px}
   .cap-logo{height:60px}
