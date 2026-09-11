@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Programa BIM — Modelagem Interna</title>
+<style>
+:root{
+  --bg:#FFFFFF; --bg-1:#F5F7FB;
+  --border:rgba(45,79,158,.18); --border-a:rgba(233,113,50,.35);
+  --primary:#E97132; --brand:#2D4F9E; --brand-deep:#1A3470;
+  --txt:#1A1A1A; --mut:#3A3A3A; --dim:#7A8299;
+  --ok:#1E7A34; --ok-bg:rgba(46,139,69,.10);
+  --warn:#8B6800; --warn-bg:rgba(224,160,40,.10);
+  --crit:#9B2915; --crit-bg:rgba(192,57,43,.10);
+  --saida:cubic-bezier(.16,1,.3,1);
+  --card-bg:rgba(255,255,255,.93);
+  --font-corpo:'Calibri','Segoe UI',system-ui,sans-serif;
+  --font-titulo:'Arial Black','Arial',sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--font-corpo);font-size:13px}
+header{padding:16px 22px 14px;border-bottom:1px solid var(--border)}
+.eyebrow{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:800;
+         letter-spacing:2.5px;text-transform:uppercase;color:var(--brand-deep)}
+.eyebrow::before{content:"";width:28px;height:2px;background:var(--primary);flex:none}
+h1{margin:9px 0 4px;font-family:var(--font-titulo);font-size:20px;font-weight:900;
+   letter-spacing:-.4px;color:var(--brand)}
+h1 em{font-style:normal;color:var(--primary)}
+.meta{font-size:11.5px;color:var(--dim)}
+.numeros{display:flex;gap:12px;flex-wrap:wrap;padding:16px 22px 2px;isolation:isolate}
+.card{flex:0 0 auto;min-width:134px;background:var(--card-bg);border:1px solid var(--border);
+      border-left:4px solid var(--primary);border-radius:8px;padding:14px 16px 10px;
+      box-shadow:0 2px 8px rgba(45,79,158,.06);position:relative;
+      transition:transform .38s var(--saida),box-shadow .38s var(--saida)}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 38px rgba(26,52,112,.16)}
+.card b{display:block;font-family:var(--font-titulo);font-size:20px;line-height:1.05;
+        letter-spacing:-.4px;color:var(--brand-deep)}
+.card span{display:block;margin-top:6px;font-size:10px;font-weight:700;
+           letter-spacing:.10em;text-transform:uppercase;color:var(--dim)}
+.vigiar{margin:14px 22px 0;padding:12px 16px 10px;border-radius:8px;font-size:12px;
+        color:var(--warn);background:var(--warn-bg);border:1px solid rgba(224,160,40,.32);
+        border-left:4px solid var(--warn)}
+.vigiar .rot{font-weight:700;letter-spacing:.10em;text-transform:uppercase;
+             margin-right:5px;display:block;margin-bottom:6px;color:var(--warn)}
+.vigiar ul{margin:0;padding-left:18px;list-style:none}
+.vigiar li{margin-top:8px;line-height:1.35;padding-left:0}
+.vigiar li b{font-weight:700;color:var(--txt)}
+.vigiar li span{display:block;color:var(--mut);font-size:11px;margin-top:2px}
+.vigiar li em{font-style:normal;color:var(--warn);font-weight:700}
+.quadro{margin:20px 22px 34px;border:1px solid var(--border);border-radius:8px;
+        overflow:clip;background:#FFFFFF;box-shadow:0 2px 8px rgba(45,79,158,.06)}
+.faixa{background:#FFFFFF;color:var(--brand-deep);font-family:var(--font-titulo);
+       font-size:22px;font-weight:900;letter-spacing:.02em;text-align:center;
+       padding:15px 16px 13px;border-bottom:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;padding:10px 16px;background:var(--bg-1);color:var(--brand-deep);
+   font-family:var(--font-titulo);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+   border-bottom:1px solid var(--border)}
+td{padding:10px 16px;border-bottom:1px solid var(--border);color:var(--txt);vertical-align:top}
+tr:last-child td{border-bottom:none}
+.chip{display:inline-block;padding:3px 10px;border-radius:999px;font-size:10.5px;font-weight:700;
+      letter-spacing:.03em;text-transform:uppercase}
+.chip-ok{color:var(--ok);background:var(--ok-bg)}
+.chip-warn{color:var(--warn);background:var(--warn-bg)}
+.chip-info{color:var(--brand-deep);background:var(--bg-1)}
+.diag{padding:14px 22px 26px;font-size:11px;color:var(--dim)}
+.diag b{color:var(--mut);font-weight:700}
+@media(max-width:640px){
+  h1{font-size:17px}
+  header,.vigiar,.diag{padding-left:14px;padding-right:14px}
+  .numeros{gap:8px;padding:14px 14px 2px}
+  .card{min-width:112px;padding:11px 12px 9px}
+  .card b{font-size:17px}
+  .quadro{margin-left:14px;margin-right:14px}
+  .card:hover{transform:none}
+  .faixa{font-size:18px;padding:12px 12px 11px}
+  th,td{padding:8px 10px;font-size:11.5px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Dois A · Programa BIM</div>
+  <h1>Programa BIM · <em>Modelagem Interna</em></h1>
+  <div class="meta">Piloto: Tibau do Sul · gerado em
+    <span id="gerado_em">11/09/2026 11:31 BRT</span> · uso interno</div>
+</header>
+
+<div class="numeros">
+  <div class="card"><b>9</b><span>documentos da realidade</span></div>
+  <div class="card"><b>4</b><span>gates abertos</span></div>
+  <div class="card"><b>3</b><span>documentos suspensos</span></div>
+  <div class="card"><b>18</b><span>documentos-alvo preservados</span></div>
+</div>
+
+<div class="vigiar">
+  <span class="rot">Os quatro pontos de parada</span>
+  <ul>
+    <li><b>G1 — Posto de trabalho</b><span>Especificação escrita (máquina, licença, Revit). Compra é decisão do Álvaro — não executada por esta frente. <em>Status: aguardando compra.</em></span></li>
+<li><b>G2 — Cláusula de aceite condicionado</b><span>Minuta com os 3 elementos aprovados em 11/09. Não vale como cláusula real sem revisão jurídica e GO explícito do Álvaro. <em>Status: aguardando GO.</em></span></li>
+<li><b>G3 — Cronograma de Tibau do Sul</b><span>cronograma-nupe/config.py é de outra frente — dependência registrada, nada escrito lá por esta frente. <em>Status: frente alheia.</em></span></li>
+<li><b>G4 — Publicação do painel</b><span>Só vai ao ar depois do R13 completo, 1920×1080 e 390×844, com print por tela e print na falha. <em>Status: condicionado ao R13.</em></span></li>
+  </ul>
+</div>
+
+<div class="quadro">
+  <div class="faixa">Documentos da operação real</div>
+  <table>
+    <thead><tr><th>Documento</th><th>Deriva de</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Governança do CDE na operação real</td><td>C4</td><td><span class="chip chip-ok">Pronto para validação</span></td></tr>
+<tr><td>Nomenclatura na operação real</td><td>C5</td><td><span class="chip chip-ok">Pronto para validação</span></td></tr>
+<tr><td>Matriz de LOD/LOIN na operação real</td><td>C6</td><td><span class="chip chip-ok">Pronto para validação</span></td></tr>
+<tr><td>BEP na operação real</td><td>A3</td><td><span class="chip chip-ok">Pronto para validação</span></td></tr>
+<tr><td>Minuta de cláusula de aceite condicionado (gate G2)</td><td>B1</td><td><span class="chip chip-ok">Pronto para validação</span></td></tr>
+<tr><td>Protocolo de Integração do Relatório de Compatibilização</td><td>escrito do zero</td><td><span class="chip chip-ok">Pronto para validação</span></td></tr>
+<tr><td>Matriz RACI da operação real</td><td>C2</td><td><span class="chip chip-ok">Pronto para validação</span></td></tr>
+<tr><td>Especificação do posto de trabalho da Helyssa (gate G1)</td><td>novo</td><td><span class="chip chip-ok">Pronto para validação</span></td></tr>
+<tr><td>Registro do piloto Tibau do Sul (gate G3)</td><td>novo</td><td><span class="chip chip-ok">Pronto para validação</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="quadro">
+  <div class="faixa">Documentos suspensos</div>
+  <table>
+    <thead><tr><th>Documento</th><th>Dependências</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>BIM Mandate: Incorporações</td><td>C2, C6, B1</td><td><span class="chip chip-warn">Suspenso (bim-modelagem-interna, 2026-09-11)</span></td></tr>
+<tr><td>BIM Mandate: Infraestrutura</td><td>C2, C6, B1</td><td><span class="chip chip-warn">Suspenso (bim-modelagem-interna, 2026-09-11)</span></td></tr>
+<tr><td>Checklist de Avaliação de Capacidade BIM de Fornecedores</td><td>A4, B1</td><td><span class="chip chip-warn">Suspenso (bim-modelagem-interna, 2026-09-11)</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="diag"><b>Fonte:</b> MANIFESTO_DE_ENTREGAVEIS.csv, bim/programa-modelagem-interna/. Uso
+  interno — Analista BIM, BIM Manager, Coordenador BIM. Painel sem dependência de CDN; tema e
+  estrutura reproduzem cronograma-nupe/painel.py (decisão do Álvaro, 11/09/2026).</div>
+</body>
+</html>
