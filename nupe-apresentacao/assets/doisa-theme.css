@@ -1,0 +1,5066 @@
+/* ═══════════════════════════════════════════════════════════════════
+   doisa-theme.css — Override Dois A 1TS (Workshop de Resultados)
+   Carregado APÓS shell.css e fonts.css.
+   Inverte a paleta dark → light Dois A (paletado pptx-base 26/04/2026).
+   ─────────────────────────────────────────────────────────────────── */
+
+/* ── 1. Token Overrides ───────────────────────────────────────────── */
+:root {
+  /* Conteúdo: BG branco */
+  --bg-0: #FFFFFF;
+  --bg-1: #F5F7FB;
+  --bg-2: #E8ECF5;
+
+  /* Laranja Dois A (alinhado ao deck base) */
+  --primary:        #E97132;
+  --primary-soft:   rgba(233,113,50,0.10);
+  --primary-glow:   rgba(233,113,50,0.16);
+  --primary-bar:    #DB812E;
+  --primary-extra:  #F6821F;
+
+  /* Azul de marca */
+  --brand-blue:        #2D4F9E;
+  --brand-blue-deep:   #1A3470;
+  --brand-blue-mid:    #3A549E;
+  --brand-blue-soft:   rgba(45,79,158,0.06);
+  --brand-blue-ghost:  rgba(45,79,158,0.18);
+
+  /* Texto sobre branco */
+  --ink:   #1A1A1A;
+  --ink-2: #3A3A3A;
+  --ink-3: #7A8299;
+
+  /* Status (mantidos, mas ajustados pra branco) */
+  --ok:     #2E8B45;
+  --warn:   #E0A028;
+  --target: #2D4F9E;
+
+  /* Glass leve */
+  --glass-bg:          rgba(45,79,158,0.04);
+  --glass-border:      rgba(45,79,158,0.18);
+  --glass-border-soft: rgba(122,130,153,0.18);
+
+  /* Sombras leves */
+  --shadow-glass: 0 4px 14px rgba(45,79,158,0.06),
+                  0 1px 0 rgba(45,79,158,0.04);
+  --shadow-hover: 0 12px 28px rgba(45,79,158,0.12),
+                  0 0 28px rgba(233,113,50,0.05);
+}
+
+/* ── 2. Tipografia Dois A ─────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@700;800&display=swap');
+
+html, body, *, *::before, *::after {
+  font-family: 'Calibri', 'Segoe UI', 'Arial', sans-serif !important;
+}
+
+/* Display / títulos: Arial Black */
+.capa-wordmark, .capa-brand, .slide-h1, .slide-section h1, .slide-section h2,
+.s02__manifesto, .s03__title, .s04__title, .s05__title, .s06__title,
+.s07__title, .s08__title, .s09__title, .s10__title, .s11__title,
+.s12__title, .s13__title, .s14__title,
+[class*="__title"], [class*="-title"], [class*="-headline"],
+.doisa-frame__title, .doisa-frame__title-h1 {
+  font-family: 'Arial Black', 'Arial Bold', 'Arial', sans-serif !important;
+  font-weight: 900 !important;
+}
+
+/* Acentos especiais (Barlow) */
+.barlow, .doisa-meta {
+  font-family: 'Barlow', 'Arial Black', sans-serif !important;
+  font-weight: 700;
+}
+
+/* ── 3. Body / canvas ─────────────────────────────────────────────── */
+html, body { color: var(--ink) !important; }
+body {
+  background: #FFFFFF !important;
+  background-attachment: scroll !important;
+}
+body::before { display: none !important; }
+body::after { display: none !important; }
+
+/* Slide canvas branco — padding extra pra abrir espaço pro frame */
+.slide-section {
+  background: #FFFFFF !important;
+  color: var(--ink) !important;
+}
+.slide-section:not([data-capa="true"]) {
+  padding-top: 110px !important;
+  padding-bottom: 60px !important;
+  overflow: hidden !important;
+}
+.slide-section::before { display: none !important; }
+.slide-section::after { display: none !important; }
+
+/* Slide 10 (controle de obra) — section num menor pra dar espaço */
+.slide-section:nth-of-type(10) { padding-top: 100px !important; padding-bottom: 36px !important; }
+.slide-section:nth-of-type(10) .doisa-frame__section-num { font-size: 56px !important; top: 36px !important; }
+.slide-section:nth-of-type(10) .slide-h1 { font-size: 28px !important; line-height: 1.1 !important; margin-bottom: 4px !important; }
+.slide-section:nth-of-type(10) .slide-sub { font-size: 14px !important; margin-bottom: 12px !important; }
+.slide-section:nth-of-type(10) .mockup-dashboard {
+  transform: scale(0.66);
+  transform-origin: top center;
+  margin-bottom: -34%;
+}
+/* Slide 4 (Viabil + Agilean) — pequeno overflow, scale leve no slide-inner */
+.slide-section:nth-of-type(4) .slide-inner { transform: scale(0.94); transform-origin: top left; width: 106.4%; }
+
+/* Section number ATRÁS do conteúdo */
+.doisa-frame__section-num { z-index: 1 !important; }
+.slide-inner { position: relative; z-index: 4; }
+
+/* Forçar todos os textos de h1/eyebrow a serem visíveis (mesmo se hardcoded white) */
+.slide-section:not([data-capa="true"]) .slide-eyebrow,
+.slide-section:not([data-capa="true"]) [class*="__eyebrow"] {
+  color: var(--primary) !important;
+}
+.slide-section:not([data-capa="true"]) h1,
+.slide-section:not([data-capa="true"]) h2,
+.slide-section:not([data-capa="true"]) [class*="__title"],
+.slide-section:not([data-capa="true"]) [class*="__h1"],
+.slide-section:not([data-capa="true"]) [class*="-h1"] {
+  color: var(--brand-blue) !important;
+}
+.slide-section:not([data-capa="true"]) p,
+.slide-section:not([data-capa="true"]) li,
+.slide-section:not([data-capa="true"]) span,
+.slide-section:not([data-capa="true"]) div { color: inherit; }
+.slide-section:not([data-capa="true"]) strong { color: var(--primary); }
+
+/* ── PRESERVAR mockups dark (texto branco interno) ──────────────── */
+[class*="viabil"], [class*="viabil"] *,
+[class*="agilean"], [class*="agilean"] *,
+[class*="luma"], [class*="luma"] *,
+[class*="aurora"], [class*="aurora"] *,
+[class*="recstudio"], [class*="recstudio"] *,
+[class*="ata-modal"], [class*="ata-modal"] *,
+[class*="docscroll"], [class*="docscroll"] *,
+[class*="mockup-cams"], [class*="mockup-cams"] *,
+[class*="mockup-stream"], [class*="mockup-stream"] *,
+[class*="s04-mockup"], [class*="s04-mockup"] *,
+[class*="s05-mockup"], [class*="s05-mockup"] *,
+[class*="s07-mockup"], [class*="s07-mockup"] *,
+[class*="s08v7"], [class*="s08v7"] *,
+[class*="s10-"], [class*="s10-"] *,
+[class*="s11-"], [class*="s11-"] *,
+[class*="s12-"], [class*="s12-"] *,
+[class*="curve-"], [class*="curve-"] *,
+[class*="-modal__"], [class*="-modal__"] *,
+[class*="-modal"][class*="dark"], [class*="-modal"][class*="dark"] * {
+  color: rgba(255,255,255,0.92) !important;
+}
+[class*="viabil"] [class*="__title"], [class*="agilean"] [class*="__title"],
+[class*="-modal"] [class*="__title"], [class*="-modal"] h1, [class*="-modal"] h2 {
+  color: #FFFFFF !important;
+}
+/* mockups com bg dark precisam manter o BG */
+[class*="viabil-modal"], [class*="agilean-modal"], [class*="luma-modal"],
+[class*="aurora-modal"], [class*="ata-modal"], [class*="docscroll"],
+[class*="recstudio"], [class*="mockup-cams"], [class*="mockup-stream"],
+[class*="s04-mockup"], [class*="s05-mockup"], [class*="s07-mockup"],
+[class*="s08v7"] {
+  background-color: #0A1A35 !important;
+  border: 1px solid rgba(45,79,158,0.40) !important;
+}
+/* Excel mockup do slide 8 mantém BG branco (já era) */
+.xls, .xls *, [class*="xls__"] {
+  color: #1A1A1A !important;
+}
+.xls { background: #FFFFFF !important; }
+
+/* Imagem Luma e cards de imagem (slide 5) — preservar */
+[class*="luma__thumb"], [class*="-thumb"] img { filter: none !important; }
+
+/* ── 4. Sidebar / Progress (mantém UX live, esconde no print) ─────── */
+.sidebar {
+  background: #F5F7FB !important;
+  color: var(--ink) !important;
+  border-right: 1px solid var(--glass-border) !important;
+}
+.sidebar * { color: var(--ink-2) !important; }
+.sidebar__item-num { color: var(--ink-3) !important; }
+.sidebar__item.active,
+.sidebar__item.is-active,
+.sidebar__item[data-active="true"] {
+  background: var(--brand-blue) !important;
+  color: #FFFFFF !important;
+}
+.sidebar__item.active *,
+.sidebar__item.is-active *,
+.sidebar__item[data-active="true"] * { color: #FFFFFF !important; }
+
+.progress-bar { background: rgba(45,79,158,0.10) !important; }
+.progress-bar__fill, .progress-bar > * { background: var(--primary) !important; }
+
+@media print {
+  .sidebar, .progress-bar, .nav-controls, .sidebar-toggle { display: none !important; }
+  .main { transform: none !important; margin-left: 0 !important; width: 100% !important; }
+}
+
+/* ── 5. Cards e glass — versão clara ──────────────────────────────── */
+[class*="card"], [class*="__card"],
+[class*="-tile"], [class*="__tile"],
+.glass, .s02-icon__circle, .s03-tile,
+[class*="__panel"], [class*="-panel"],
+[class*="__box"], [class*="-box"] {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Default: card claro com borda navy fina */
+.s02-icon__circle, .s03-tile,
+[class*="__card"]:not([class*="--dark"]):not([class*="recstudio"]),
+[class*="-tile"]:not([class*="--dark"]) {
+  background: #FFFFFF !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--shadow-glass) !important;
+}
+
+/* Ícones SVG → navy */
+.s02-icon__svg, .s03-tile__icon,
+[class*="__svg"]:not([class*="recstudio"]):not([class*="luma"]),
+[class*="-icon__icon"], [class*="-tile__icon"] {
+  color: var(--brand-blue) !important;
+}
+
+/* Texto auxiliar */
+[class*="__label"], [class*="-label"],
+[class*="__sub"], [class*="-sub"],
+[class*="__desc"], [class*="-desc"],
+[class*="__caption"], [class*="-caption"] {
+  color: var(--ink-2) !important;
+}
+
+/* ── 6. DOIS A SHELL — cantos, logo, section number, footer ───────── */
+.doisa-frame {
+  position: absolute; inset: 0;
+  pointer-events: none; z-index: 5;
+  overflow: hidden;
+}
+
+/* Cantos topo-esquerdo (azul vertical + laranja horizontal) */
+.doisa-frame__corner-tl {
+  position: absolute; top: 0; left: 0;
+  width: 280px; height: 56px;
+  pointer-events: none;
+}
+.doisa-frame__corner-tl::before {
+  content: ''; position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 56px;
+  background: var(--brand-blue);
+}
+.doisa-frame__corner-tl::after {
+  content: ''; position: absolute;
+  top: 0; left: 0;
+  width: 280px; height: 3px;
+  background: var(--brand-blue);
+}
+/* Linha laranja inferior do canto TL */
+.doisa-frame__corner-tl-orange {
+  position: absolute; top: 12px; left: 14px;
+  width: 240px; height: 2px;
+  background: var(--primary);
+  pointer-events: none;
+}
+
+/* Cantos topo-direito (espelhado) */
+.doisa-frame__corner-tr {
+  position: absolute; top: 0; right: 0;
+  width: 280px; height: 56px;
+  pointer-events: none;
+}
+.doisa-frame__corner-tr::before {
+  content: ''; position: absolute;
+  top: 0; right: 0;
+  width: 3px; height: 56px;
+  background: var(--brand-blue);
+}
+.doisa-frame__corner-tr::after {
+  content: ''; position: absolute;
+  top: 0; right: 0;
+  width: 280px; height: 3px;
+  background: var(--brand-blue);
+}
+.doisa-frame__corner-tr-orange {
+  position: absolute; top: 12px; right: 14px;
+  width: 240px; height: 2px;
+  background: var(--primary);
+  pointer-events: none;
+}
+
+/* Logo Dois A topo-direito */
+.doisa-frame__logo {
+  position: absolute;
+  top: 24px; right: 56px;
+  font-family: 'Arial Black', sans-serif !important;
+  font-size: 28px; font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--brand-blue-deep);
+  display: inline-flex; align-items: center;
+  z-index: 10;
+}
+.doisa-frame__logo-text {
+  color: var(--brand-blue-deep);
+}
+.doisa-frame__logo-a {
+  display: inline-block;
+  background: var(--primary-bar);
+  color: #FFFFFF;
+  padding: 0 9px;
+  margin-left: 1px;
+  font-style: italic;
+  line-height: 1;
+}
+
+/* Section number gigante (outline ghost) */
+.doisa-frame__section-num {
+  position: absolute;
+  top: 6px; left: 56px;
+  font-family: 'Arial Black', sans-serif !important;
+  font-size: 92px; font-weight: 900;
+  color: var(--brand-blue-ghost);
+  letter-spacing: -4px;
+  line-height: 1;
+  z-index: 2;
+}
+
+/* Kicker (caps spaced cinza) */
+.doisa-frame__kicker {
+  position: absolute;
+  top: 56px; left: 174px;
+  font-family: 'Calibri', sans-serif !important;
+  font-size: 14px; font-weight: 700;
+  color: var(--ink-3);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  z-index: 3;
+}
+
+/* Linha azul fina logo abaixo do header */
+.doisa-frame__sep {
+  position: absolute;
+  top: 96px; left: 56px; right: 56px;
+  height: 1px;
+  background: var(--glass-border);
+  z-index: 2;
+}
+
+/* Linha laranja inferior */
+.doisa-frame__footer-line {
+  position: absolute;
+  bottom: 32px; left: 56px; right: 56px;
+  height: 2px;
+  background: var(--primary);
+  z-index: 2;
+}
+
+/* Footer text "DOIS A | Confidencial & Proprietary" */
+.doisa-frame__footer-text {
+  position: absolute;
+  bottom: 12px; left: 0; right: 0;
+  text-align: center;
+  font-family: 'Calibri', sans-serif !important;
+  font-size: 12px;
+  color: var(--ink-3);
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+
+/* Quando frame está em slide com section number, kicker desce um pouco */
+.doisa-frame--with-section .doisa-frame__kicker { top: 56px; left: 200px; }
+
+/* Quando NÃO tem section number (intro slides 2/3), kicker fica no topo */
+.doisa-frame:not(.doisa-frame--with-section) .doisa-frame__kicker {
+  top: 36px; left: 56px;
+}
+.doisa-frame:not(.doisa-frame--with-section) .doisa-frame__sep {
+  top: 80px;
+}
+
+/* ── 7. CAPA / ENCERRAMENTO (navy + barra laranja vertical) ──────── */
+.slide-section[data-capa="true"] {
+  background: var(--brand-blue-deep) !important;
+  color: #FFFFFF !important;
+}
+.slide-section[data-capa="true"] * { color: #FFFFFF; }
+.slide-section[data-capa="true"] .doisa-frame { display: none !important; }
+
+/* Barra vertical laranja na direita */
+.doisa-capa-bar {
+  position: absolute;
+  top: 0; right: 0;
+  width: 90px; height: 100%;
+  background: var(--primary-bar);
+  z-index: 1;
+}
+.doisa-capa-bar__inner-box { display: none !important; }
+
+/* Logo grande na capa */
+.doisa-capa-logo {
+  position: absolute;
+  top: 70px; left: 90px;
+  font-family: 'Arial Black', sans-serif !important;
+  font-size: 56px; font-weight: 900;
+  color: #FFFFFF; letter-spacing: -2px;
+  display: inline-flex; align-items: center;
+  z-index: 10;
+}
+.doisa-capa-logo-text { color: #FFFFFF; }
+.doisa-capa-logo-a {
+  display: inline-block;
+  background: var(--primary-bar);
+  color: #FFFFFF; padding: 0 16px; margin-left: 4px;
+  font-style: italic; line-height: 1;
+}
+
+.doisa-capa-logo-line {
+  position: absolute;
+  top: 158px; left: 90px;
+  width: 600px; height: 4px;
+  background: var(--primary-bar);
+  z-index: 10;
+}
+
+/* Override capa-fullscreen (texto quente/branco em navy) */
+.slide-section[data-capa="true"] .capa-fullscreen { padding: 220px 90px 90px 90px !important; text-align: left !important; justify-content: flex-start !important; }
+.slide-section[data-capa="true"] .capa-inner { max-width: none; text-align: left; margin: 0; }
+.slide-section[data-capa="true"] .capa-eyebrow {
+  font-family: 'Calibri', sans-serif !important;
+  font-size: 16px; font-weight: 700; letter-spacing: 4px;
+  color: var(--primary) !important; margin-bottom: 12px;
+}
+.slide-section[data-capa="true"] .capa-wordmark {
+  font-family: 'Arial Black', sans-serif !important;
+  color: #FFFFFF !important;
+  text-shadow: none !important;
+  font-size: 64px; line-height: 1.05; letter-spacing: -1.5px;
+}
+.slide-section[data-capa="true"] .capa-divider {
+  background: var(--primary-bar) !important;
+  width: 600px !important; height: 4px !important;
+  margin: 24px 0 !important;
+}
+.slide-section[data-capa="true"] .capa-h1 {
+  color: rgba(255,255,255,0.85) !important;
+  font-size: 22px;
+}
+.slide-section[data-capa="true"] .capa-brand {
+  color: #FFFFFF !important;
+  text-shadow: none !important;
+  font-family: 'Arial Black', sans-serif !important;
+  font-size: 32px;
+}
+.slide-section[data-capa="true"] .capa-chip {
+  background: var(--brand-blue-mid) !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+  color: #FFFFFF !important;
+}
+.slide-section[data-capa="true"] .capa-footer {
+  color: rgba(255,255,255,0.6) !important;
+  font-family: 'Calibri', sans-serif !important;
+}
+/* Esconde orbits da capa antiga */
+.slide-section[data-capa="true"] .capa-orbit,
+.slide-section[data-capa="true"] .bracket-tr,
+.slide-section[data-capa="true"] .bracket-bl { display: none !important; }
+.slide-section[data-capa="true"] .capa-fullscreen::after { display: none !important; }
+
+/* Box de credito na capa (responsável + projeto) */
+.doisa-capa-credit-box {
+  position: absolute;
+  bottom: 140px; left: 90px;
+  width: 600px;
+  background: var(--brand-blue-mid);
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 20px 28px;
+  z-index: 5;
+  font-family: 'Calibri', sans-serif !important;
+  font-size: 16px; color: #FFFFFF;
+}
+.doisa-capa-credit-box strong { font-weight: 700; }
+
+/* ── 8. Headlines redefinidos ──────────────────────────────────── */
+.slide-h1, [class*="__title"]:not([class*="recstudio"]) {
+  color: var(--brand-blue) !important;
+  text-shadow: none !important;
+}
+.slide-eyebrow {
+  color: var(--ink-3) !important;
+  font-family: 'Calibri', sans-serif !important;
+  letter-spacing: 4px;
+}
+.slide-sub {
+  color: var(--ink-2) !important;
+  font-family: 'Calibri', sans-serif !important;
+}
+
+/* ── 9. Listas, divisores, orange kept as-is ───────────────────── */
+.slide-section strong { color: var(--brand-blue); }
+.s02__manifesto strong { color: var(--primary) !important; }
+hr, [class*="__divider"], [class*="-divider"] {
+  background: var(--brand-blue-ghost) !important;
+  border-color: var(--brand-blue-ghost) !important;
+}
+
+/* ── 11. Feedback Álvaro 26/04 noite ─────────────────────────────── */
+
+/* — slide 02: neon pulse atrás dos círculos — */
+.s02-icon__circle { position: relative; isolation: isolate; }
+.s02-icon__circle::before {
+  content: ''; position: absolute; inset: -18px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(233,113,50,0.45) 0%, rgba(233,113,50,0.15) 40%, transparent 70%);
+  filter: blur(10px); z-index: -1;
+  animation: s02NeonPulse 2.6s ease-in-out infinite;
+}
+.s02-icon:nth-child(2) .s02-icon__circle::before { animation-delay: 0.8s; background: radial-gradient(circle, rgba(45,79,158,0.45) 0%, rgba(45,79,158,0.15) 40%, transparent 70%); }
+.s02-icon:nth-child(3) .s02-icon__circle::before { animation-delay: 1.6s; }
+@keyframes s02NeonPulse {
+  0%, 100% { transform: scale(1); opacity: 0.55; }
+  50% { transform: scale(1.18); opacity: 1; }
+}
+
+/* — slide 03: fundo branco + cards azuis com text/ícone laranja — */
+.slide-section.s03,
+.slide-section[data-slide="03"] {
+  background: #FFFFFF !important;
+}
+.slide-section.s03 .s03__wrap,
+.slide-section[data-slide="03"] .s03__wrap,
+.slide-section.s03 .s03__col,
+.slide-section.s03 .s03__col--left,
+.slide-section.s03 .s03__col--right {
+  background: #FFFFFF !important;
+  background-image: none !important;
+}
+.slide-section.s03 .s03__divider-vertical { background: var(--brand-blue) !important; opacity: 0.3 !important; }
+.slide-section.s03 .s03__label { color: var(--brand-blue) !important; }
+.slide-section.s03 .s03__title { color: var(--brand-blue-deep) !important; }
+.slide-section.s03 .s03-tile,
+.slide-section.s03 .s03__col--left .s03-tile,
+.slide-section.s03 .s03__col--right .s03-tile {
+  background: var(--brand-blue) !important;
+  background-image: none !important;
+  border: 1.5px solid var(--brand-blue-deep) !important;
+  color: var(--primary) !important;
+  box-shadow: 0 4px 14px rgba(45,79,158,0.22) !important;
+}
+.slide-section.s03 .s03-tile__icon,
+.slide-section.s03 .s03__col--right .s03-tile__icon {
+  color: var(--primary) !important;
+  stroke: var(--primary) !important;
+}
+.slide-section.s03 .s03-tile__label { color: var(--primary) !important; font-weight: 700 !important; }
+.slide-section.s03 .s03-tile__desc,
+.slide-section.s03 .s03__col--right .s03-tile__desc { color: rgba(255,255,255,0.92) !important; }
+.slide-section.s03 .s03__legend { color: var(--ink-2) !important; }
+.slide-section.s03 .s03__legend strong { color: var(--primary) !important; }
+
+/* — slide 04: animações mais rápidas (IA é rápida) — */
+.slide-section[data-slide="04"] .s04v7-app { animation-duration: 0.4s !important; }
+.slide-section[data-slide="04"] .s04v7-row,
+.slide-section[data-slide="04"] .s04v7-eap__row { animation-duration: 0.3s !important; }
+.slide-section[data-slide="04"] .s04v7-cursor { animation-duration: 1.2s !important; }
+.slide-section[data-slide="04"] [style*="--d:0.7s"] { --d: 0.45s !important; }
+.slide-section[data-slide="04"] [style*="--d:0.3s"] { --d: 0.15s !important; }
+.slide-section[data-slide="04"] .s04v5-step { animation-duration: 0.35s !important; }
+.slide-section[data-slide="04"] .s04v5-step:nth-child(1) { animation-delay: 0.1s !important; }
+.slide-section[data-slide="04"] .s04v5-step:nth-child(2) { animation-delay: 0.3s !important; }
+.slide-section[data-slide="04"] .s04v5-step:nth-child(3) { animation-delay: 0.5s !important; }
+.slide-section[data-slide="04"] .s04v5-step:nth-child(4) { animation-delay: 0.7s !important; }
+
+/* — slide 06: cards textos legíveis — */
+.slide-section[data-slide="06"] .s06v7-stage,
+.slide-section[data-slide="06"] .s06v7-stage--featured {
+  background: #FFFFFF !important;
+  background-image: none !important;
+  border: 1.5px solid rgba(45,79,158,0.25) !important;
+  box-shadow: 0 6px 18px rgba(45,79,158,0.12) !important;
+  color: var(--ink) !important;
+}
+.s06v7-panel {
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(45,79,158,0.25) !important;
+  color: var(--ink) !important;
+  box-shadow: 0 4px 12px rgba(45,79,158,0.10) !important;
+}
+.s06v7-panel__head {
+  background: var(--brand-blue) !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+.s06v7-panel__row { background: rgba(45,79,158,0.12) !important; }
+.s06v7-panel__task {
+  background: rgba(232,123,30,0.10) !important;
+  border-left: 3px solid var(--primary) !important;
+  color: var(--ink) !important;
+}
+.s06v7-panel__task span { color: var(--ink) !important; font-weight: 600 !important; }
+.s06v7-stage__icon { color: var(--brand-blue) !important; }
+.s06v7-stage__icon svg { stroke: var(--brand-blue) !important; }
+.s06v7-stage__label { color: var(--brand-blue-deep) !important; font-weight: 700 !important; }
+.s06v7-stage__sub { color: var(--ink-2) !important; }
+.s06v7-stage--featured .s06v7-stage__label { color: var(--primary) !important; }
+.s06v7-plane svg { color: var(--primary) !important; fill: var(--primary) !important; }
+.s06v7-wave { background: var(--primary) !important; }
+.s06v7-bot-lines span { background: var(--primary) !important; }
+
+/* — slide 08: pulse no "IA observando" + mensagens com fade-in — */
+.s08v7-chat__dot {
+  background: var(--primary) !important;
+  animation: s08DotPulse 1.2s ease-in-out infinite;
+  box-shadow: 0 0 0 0 rgba(232,123,30,0.7);
+}
+@keyframes s08DotPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232,123,30,0.7); transform: scale(1); }
+  50% { box-shadow: 0 0 0 8px rgba(232,123,30,0); transform: scale(1.18); }
+}
+.s08v7-chat__head {
+  animation: s08HeadGlow 2s ease-in-out infinite;
+}
+@keyframes s08HeadGlow {
+  0%, 100% { text-shadow: 0 0 0 transparent; }
+  50% { text-shadow: 0 0 8px rgba(232,123,30,0.45); }
+}
+.s08v7-chat__bubble {
+  opacity: 0; transform: translateY(8px);
+  animation: s08BubbleIn 0.4s ease-out forwards;
+  animation-delay: var(--d, 0.6s);
+}
+@keyframes s08BubbleIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* — slide 09: textos brancos nos círculos memória viva — */
+.mem-sat__bubble span,
+.mem-sat__bubble--inner span,
+.mem-sat__bubble--outer span {
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+.mem-sat__bubble {
+  background: var(--brand-blue) !important;
+  border-color: var(--brand-blue-deep) !important;
+}
+.mem-sat__bubble--inner { background: var(--primary) !important; border-color: var(--primary-bar) !important; }
+.mem-sat__bubble--outer { background: var(--brand-blue) !important; }
+.mem-orbit__core {
+  background: var(--brand-blue-deep) !important;
+  border-color: var(--primary) !important;
+}
+.mem-orbit__core-label { color: #FFFFFF !important; }
+
+/* — slide 12: textos maiores + "hoje 12 inovações ativas" não atrás da linha — */
+.slide-section[data-slide="12"] .curve-label {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  fill: var(--ink-2) !important;
+}
+.slide-section[data-slide="12"] .curve-label--now {
+  fill: var(--primary) !important;
+  font-weight: 800 !important;
+  font-size: 15px !important;
+}
+.slide-section[data-slide="12"] .curve-label--future { fill: var(--brand-blue) !important; font-weight: 700 !important; }
+.slide-section[data-slide="12"] .curve-counter {
+  font-size: 17px !important;
+  color: var(--ink-2) !important;
+}
+.slide-section[data-slide="12"] .curve-counter__num { color: var(--primary) !important; font-weight: 800 !important; }
+.slide-section[data-slide="12"] .curve-pillar__title { font-size: 16px !important; color: var(--brand-blue-deep) !important; font-weight: 700 !important; }
+.slide-section[data-slide="12"] .curve-pillar__desc { font-size: 13px !important; color: var(--ink-2) !important; }
+
+/* slide 12 · label "hoje · 12 inovações ativas" — sair de cima da linha */
+.slide-section[data-slide="12"] .curve-label--now {
+  /* sobe pra y=52 (era 78) — fica acima da linha do grid em y=80 */
+  transform: translateY(-26px) !important;
+  paint-order: stroke fill !important;
+  stroke: #FFFFFF !important;
+  stroke-width: 4px !important;
+  stroke-linejoin: round !important;
+  fill: var(--primary) !important;
+}
+.slide-section[data-slide="12"] .curve-label--future {
+  paint-order: stroke fill !important;
+  stroke: #FFFFFF !important;
+  stroke-width: 3.5px !important;
+  stroke-linejoin: round !important;
+}
+
+/* ── 12. Slide 05 · sequência Luma (refeita 26/04 noite) ──────────── */
+.slide-section[data-slide="05"] .lumachat--seq {
+  width: 100% !important;
+  max-width: 540px !important;
+  background: #FFFFFF !important;
+  border: 1px solid var(--brand-blue-ghost) !important;
+  box-shadow: 0 14px 36px rgba(26,52,112,0.18), 0 0 24px rgba(233,113,50,0.10) !important;
+}
+.slide-section[data-slide="05"] .lumachat--seq .lumachat__bar {
+  background: var(--brand-blue-deep) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.10) !important;
+}
+.slide-section[data-slide="05"] .lumachat--seq .lumachat__title { color: #FFFFFF !important; }
+.slide-section[data-slide="05"] .lumachat--seq .lumachat__user { color: rgba(255,255,255,0.74) !important; }
+.slide-section[data-slide="05"] .lumachat--seq .lumachat__avatar {
+  background: radial-gradient(circle at 35% 30%, #FFB06B, var(--primary) 70%) !important;
+  color: var(--brand-blue-deep) !important;
+}
+.slide-section[data-slide="05"] .lumachat--seq .lumachat__body {
+  padding: 16px 16px 18px !important;
+  min-height: 360px !important;
+  gap: 10px !important;
+}
+.slide-section[data-slide="05"] .lumachat__msg--user,
+.slide-section[data-slide="05"] .lumachat__msg--user p {
+  background: rgba(233,113,50,0.12) !important;
+  border-color: rgba(233,113,50,0.42) !important;
+  color: var(--ink) !important;
+}
+.slide-section[data-slide="05"] .lumachat__msg--user { border: 1px solid rgba(233,113,50,0.42) !important; }
+.slide-section[data-slide="05"] .lumachat__msg--user p { background: transparent !important; border: 0 !important; }
+.slide-section[data-slide="05"] .lumachat__msg--ai,
+.slide-section[data-slide="05"] .lumachat__msg--ai p {
+  color: var(--ink) !important;
+}
+.slide-section[data-slide="05"] .lumachat__msg--ai p { background: transparent !important; }
+.slide-section[data-slide="05"] .lumachat__msg--ai {
+  background: rgba(45,79,158,0.06) !important;
+  border: 1px solid var(--brand-blue-ghost) !important;
+}
+.slide-section[data-slide="05"] .lumaseq--alert,
+.slide-section[data-slide="05"] .lumaseq--alert p {
+  background: rgba(224,160,40,0.10) !important;
+  color: var(--ink) !important;
+}
+.slide-section[data-slide="05"] .lumaseq--alert { border: 1px solid rgba(224,160,40,0.55) !important; }
+.slide-section[data-slide="05"] .lumaseq--alert p { background: transparent !important; }
+.slide-section[data-slide="05"] .lumaseq--alert strong,
+.slide-section[data-slide="05"] .lumaseq--alert p strong { color: #B8741A !important; background: transparent !important; }
+
+/* gerando imagem — bolha do agente com pontos animados + label */
+.slide-section[data-slide="05"] .lumaseq--gen {
+  align-self: flex-start;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  padding: 10px 14px !important;
+  border-radius: 14px !important;
+  background: rgba(45,79,158,0.06) !important;
+  border: 1px solid var(--brand-blue-ghost) !important;
+  color: var(--brand-blue-deep) !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: .02em !important;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: lumaseqIn 0.5s ease-out var(--d,0s) both, lumaseqOutGen 0.4s ease-in 3.2s forwards;
+}
+.slide-section[data-slide="05"] .lumaseq--gen .lumachat__thinking { animation: none !important; height: auto !important; padding: 0 !important; }
+.slide-section[data-slide="05"] .lumaseq--gen .lumachat__thinking span {
+  background: var(--primary) !important;
+}
+.slide-section[data-slide="05"] .lumaseq__genlabel { color: var(--ink-2) !important; }
+
+/* imagem entregue */
+.slide-section[data-slide="05"] .lumaseq--img {
+  position: relative;
+  align-self: stretch;
+  border-radius: 12px;
+  overflow: hidden;
+  opacity: 0;
+  transform: scale(0.94);
+  animation: lumaseqImgIn 0.7s cubic-bezier(.22,.94,.34,1.04) var(--d,0s) both;
+  box-shadow: 0 10px 24px rgba(26,52,112,0.18);
+  border: 1px solid var(--brand-blue-ghost);
+}
+.slide-section[data-slide="05"] .lumaseq--img img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+/* alerta entra depois da imagem */
+.slide-section[data-slide="05"] .lumaseq--alert {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: lumaseqIn 0.55s ease-out var(--d,0s) both;
+}
+.slide-section[data-slide="05"] .lumachat__msg.lumaseq--user {
+  animation: lumaseqIn 0.55s ease-out var(--d,0s) both;
+}
+
+@keyframes lumaseqIn { to { opacity: 1; transform: translateY(0); } }
+@keyframes lumaseqImgIn { to { opacity: 1; transform: scale(1); } }
+@keyframes lumaseqOutGen {
+  to { opacity: 0; transform: translateY(-4px) scale(0.96); height: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0; border: 0; }
+}
+
+/* tagline maior pra equilibrar coluna esquerda sem os blocos antigos */
+.slide-section[data-slide="05"] .s05v5-tagline {
+  font-size: 17px !important;
+  line-height: 1.45 !important;
+  color: var(--ink) !important;
+  max-width: 360px !important;
+  margin-top: 18px !important;
+}
+.slide-section[data-slide="05"] .s05v5-name {
+  color: var(--brand-blue-deep) !important;
+  letter-spacing: .28em !important;
+  font-weight: 800 !important;
+}
+
+/* ── 10. Print page setup ────────────────────────────────────────── */
+@page {
+  size: 1280px 720px;
+  margin: 0;
+}
+@media print {
+  html, body { background: #FFFFFF !important; overflow: visible !important; height: auto !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .sidebar, .progress-bar, .nav-controls, .sidebar-toggle, .toolbar, .slide-counter { display: none !important; }
+  .main { margin-left: 0 !important; width: 1280px !important; height: auto !important; overflow: visible !important; transform: none !important; }
+  .slide-track { flex-direction: column !important; height: auto !important; width: 1280px !important; transform: none !important; }
+  .slide-section {
+    width: 1280px !important;
+    height: 720px !important;
+    min-height: 720px !important;
+    flex-shrink: 0 !important;
+    page-break-after: always;
+    break-after: page;
+    display: flex !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+  .slide-section:last-child { page-break-after: auto; break-after: auto; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   v11 · WORKSHOP DE RESULTADOS 1T 2026 — adições 26/04/2026
+   ─────────────────────────────────────────────────────────────────── */
+
+/* ── V11.1 SEM SIDEBAR (decisão Álvaro 26/04 noite) ─────────────── */
+.sidebar, .progress-bar, .nav-controls, .sidebar-toggle, .toolbar,
+.slide-counter, .next-hint { display: none !important; }
+.main { margin-left: 0 !important; width: 100% !important; }
+
+/* ── V11.2 Capa Workshop · INFO CARD "INCORPORAÇÕES" ─────────────── */
+.capa-info-card {
+  background: rgba(58,84,158,0.55);
+  border: 1px solid rgba(255,255,255,0.22);
+  padding: 22px 32px;
+  margin: 28px 0 0;
+  width: fit-content;
+  min-width: 580px;
+  max-width: 720px;
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 1.5px;
+  color: #FFFFFF !important;
+  position: relative;
+  z-index: 6;
+  animation: slideUp 0.85s cubic-bezier(0.22,1,0.36,1) 0.55s both;
+}
+
+/* Capa Workshop · CRÉDITO (texto plano, sem caixa bordada) */
+.capa-credit-text {
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+  font-size: 14px;
+  color: rgba(255,255,255,0.78) !important;
+  margin-top: 56px;
+  position: relative;
+  z-index: 6;
+  line-height: 1.6;
+  animation: slideUp 0.85s cubic-bezier(0.22,1,0.36,1) 0.75s both;
+}
+.capa-credit-text strong { color: #FFFFFF !important; font-weight: 700; }
+
+/* Capa Workshop · BLOCOS GEOMÉTRICOS (direita) */
+.capa-geo {
+  position: absolute;
+  top: 0; right: 0;
+  width: 320px; height: 100%;
+  z-index: 2; pointer-events: none;
+}
+.capa-geo__bar {
+  position: absolute;
+  top: 0; right: 0;
+  width: 90px; height: 100%;
+  background: var(--primary-bar);
+  animation: slideInRight 1s cubic-bezier(0.22,1,0.36,1) 0.15s both;
+}
+.capa-geo__block-1 {
+  position: absolute;
+  top: 36%; right: 60px;
+  width: 200px; height: 36%;
+  background: rgba(184,196,219,0.28);
+  z-index: 3;
+  animation: slideUp 1s cubic-bezier(0.22,1,0.36,1) 0.45s both;
+}
+.capa-geo__block-2 {
+  position: absolute;
+  top: 28%; right: 110px;
+  width: 80px; height: 24%;
+  background: var(--brand-blue-mid);
+  z-index: 4;
+  animation: slideUp 1s cubic-bezier(0.22,1,0.36,1) 0.65s both;
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Capa Workshop · placeholder retângulo inferior */
+.capa-bottom-placeholder {
+  position: absolute;
+  bottom: 56px; left: 90px;
+  width: 360px; height: 64px;
+  background: rgba(184,196,219,0.14);
+  border: 1px solid rgba(255,255,255,0.10);
+  z-index: 4;
+  animation: slideUp 1s cubic-bezier(0.22,1,0.36,1) 0.95s both;
+}
+
+/* Esconder a barra direita antiga na nova capa Workshop (substituida por .capa-geo) */
+.slide-section[data-capa="true"][data-slide="01"] .doisa-capa-bar { display: none !important; }
+/* Hide credit-box bordered (não usado na nova capa) */
+.slide-section[data-capa="true"][data-slide="01"] .doisa-capa-credit-box { display: none !important; }
+
+/* ── V11.3 CHAPTER DIVIDER (slides 2, 29, 30, 31) ────────────────── */
+.ch-divider-section { padding: 0 !important; background: #FFFFFF !important; }
+.ch-divider-section::before, .ch-divider-section::after { display: none !important; }
+.ch-divider-section .doisa-frame { display: none !important; }
+
+.ch-divider {
+  position: relative;
+  width: 100%; height: 100%;
+  background: #FFFFFF !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 90px;
+  overflow: hidden;
+}
+.ch-divider *,
+.ch-divider-section .ch-divider > * { background: transparent !important; }
+.ch-divider .ch-divider__logo-tr-a { background: var(--primary-bar) !important; color: #FFFFFF !important; }
+.ch-divider__big-num {
+  position: absolute;
+  top: 28px; left: 36px;
+  font-family: 'Arial Black', 'Arial', sans-serif !important;
+  font-size: 240px;
+  font-weight: 900;
+  color: transparent !important;
+  -webkit-text-fill-color: transparent !important;
+  -webkit-text-stroke: 3px var(--primary);
+  letter-spacing: -10px;
+  line-height: 1;
+  z-index: 1;
+  user-select: none;
+  animation: slideUp 1.1s cubic-bezier(0.22,1,0.36,1) 0.1s both;
+}
+.ch-divider .ch-divider__bracket-tr {
+  position: absolute;
+  top: 24px; right: 24px;
+  width: 80px; height: 80px;
+  border-top: 4px solid var(--primary) !important;
+  border-right: 4px solid var(--primary) !important;
+  border-left: none !important;
+  border-bottom: none !important;
+  z-index: 2;
+  animation: slideUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.05s both;
+}
+.ch-divider .ch-divider__bracket-bl {
+  position: absolute;
+  bottom: 24px; left: 24px;
+  width: 80px; height: 80px;
+  border-bottom: 4px solid var(--primary) !important;
+  border-left: 4px solid var(--primary) !important;
+  border-top: none !important;
+  border-right: none !important;
+  z-index: 2;
+  animation: slideUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.05s both;
+}
+.ch-divider__logo-tr {
+  position: absolute;
+  top: 36px; right: 80px;
+  font-family: 'Arial Black', 'Arial', sans-serif !important;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--brand-blue-deep);
+  letter-spacing: -1px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  animation: slideUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+}
+.ch-divider__logo-tr-a {
+  display: inline-block;
+  background: var(--primary-bar);
+  color: #FFFFFF;
+  padding: 0 10px;
+  margin-left: 4px;
+  font-style: italic;
+  line-height: 1;
+}
+.ch-divider__inner {
+  position: relative;
+  z-index: 5;
+  margin-top: 90px;
+  max-width: 1100px;
+}
+.slide-section.ch-divider-section .ch-divider .ch-divider__eyebrow {
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  color: var(--brand-blue-deep) !important;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  border-bottom: 2px solid rgba(45,79,158,0.22);
+  padding-bottom: 14px;
+  display: inline-block;
+  animation: slideUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.35s both;
+}
+.ch-divider__title {
+  font-family: 'Arial Black', 'Arial', sans-serif !important;
+  font-size: 68px;
+  font-weight: 900;
+  color: var(--brand-blue-deep);
+  line-height: 1.05;
+  letter-spacing: -1px;
+  margin: 0 0 24px;
+  text-decoration: underline;
+  text-decoration-color: var(--primary);
+  text-decoration-thickness: 6px;
+  text-underline-offset: 14px;
+  text-decoration-skip-ink: none;
+  display: inline-block;
+  animation: slideUp 1s cubic-bezier(0.22,1,0.36,1) 0.5s both;
+}
+.ch-divider__footer {
+  position: absolute;
+  bottom: 36px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+  font-size: 12px;
+  color: var(--ink-3);
+  letter-spacing: 0.5px;
+  z-index: 5;
+  border-top: 1px solid rgba(45,79,158,0.12);
+  padding-top: 8px;
+  width: 80%;
+  text-align: center;
+}
+
+/* ── V11.4 RGI TABLE (slides 8, 9, 14, 15) ───────────────────────── */
+.rgi-slide {
+  background: #FFFFFF !important;
+  padding: 56px 72px 36px !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+}
+.rgi-slide__header {
+  margin-bottom: 14px;
+}
+.rgi-slide__eyebrow {
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: var(--brand-blue-deep);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.rgi-slide__sub {
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--ink-2);
+  margin-bottom: 0;
+}
+.rgi-slide__doisa-mark {
+  position: absolute;
+  top: 28px; right: 36px;
+  font-family: 'Arial Black', 'Arial', sans-serif !important;
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--brand-blue-deep);
+  letter-spacing: -1px;
+  display: inline-flex;
+  align-items: center;
+  z-index: 6;
+}
+.rgi-slide__doisa-mark-a {
+  display: inline-block;
+  background: var(--primary-bar);
+  color: #FFFFFF;
+  padding: 0 8px;
+  margin-left: 3px;
+  font-style: italic;
+  line-height: 1;
+}
+.rgi-slide__doisa-sub {
+  position: absolute;
+  top: 60px; right: 36px;
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: var(--ink-3);
+  z-index: 6;
+}
+.rgi-slide__footer {
+  position: absolute;
+  bottom: 14px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+  font-size: 11px;
+  color: var(--ink-3);
+  letter-spacing: 0.4px;
+  z-index: 6;
+  border-top: 1px solid rgba(45,79,158,0.10);
+  padding-top: 6px;
+  width: 70%;
+  text-align: center;
+}
+
+.rgi-table-wrap {
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(45,79,158,0.22);
+  background: #FFFFFF;
+  box-shadow: 0 4px 18px rgba(45,79,158,0.06);
+}
+.rgi-table-title {
+  background: var(--brand-blue-deep);
+  color: #FFFFFF;
+  padding: 9px 18px;
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+.rgi-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+  font-size: 11px;
+  background: #FFFFFF;
+}
+.rgi-table thead tr {
+  background: var(--brand-blue-deep);
+  color: #FFFFFF;
+}
+.rgi-table thead th {
+  padding: 9px 10px;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.3px;
+  text-align: center;
+  color: #FFFFFF !important;
+  border-right: 1px solid rgba(255,255,255,0.16);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.rgi-table thead th:last-child { border-right: none; }
+.rgi-table thead th .unit {
+  display: block;
+  font-size: 9px;
+  font-weight: 400;
+  opacity: 0.85;
+  margin-top: 2px;
+  font-style: italic;
+}
+.rgi-table tbody td {
+  padding: 5px 10px;
+  border-bottom: 1px solid rgba(45,79,158,0.10);
+  border-right: 1px solid rgba(45,79,158,0.06);
+  text-align: right;
+  color: var(--ink) !important;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  font-size: 11px;
+}
+.rgi-table tbody td:first-child {
+  text-align: left;
+  font-weight: 600;
+  color: var(--ink) !important;
+}
+.rgi-table tbody td:last-child { border-right: none; }
+.rgi-table tbody tr:nth-child(even) td { background: rgba(45,79,158,0.03); }
+.rgi-table tbody tr:hover td { background: rgba(233,113,50,0.05); }
+
+/* Última linha (abr/26 atual) — destaque amarelo */
+.rgi-table tbody tr.rgi-row-current td {
+  background: #FFE56B !important;
+  font-weight: 700 !important;
+  color: #1A1A1A !important;
+  border-top: 1.5px solid var(--brand-blue-deep) !important;
+}
+
+/* Linha de seção/subtotal (cashflow) */
+.rgi-table tbody tr.rgi-row-section td {
+  background: rgba(45,79,158,0.10) !important;
+  font-weight: 700 !important;
+  color: var(--brand-blue-deep) !important;
+  border-top: 1px solid rgba(45,79,158,0.22) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  font-size: 10.5px;
+}
+
+/* Deltas (coluna Diferença) */
+.rgi-delta-pos { color: #1F8A3D !important; font-weight: 600; }
+.rgi-delta-neg { color: #C0392B !important; font-weight: 600; }
+.rgi-delta-zero { color: var(--ink-3) !important; font-weight: 400; }
+
+/* Variante compacta para cashflow (mais linhas) */
+.rgi-table--compact tbody td { padding: 3.5px 9px; font-size: 10.5px; }
+.rgi-table--compact thead th { padding: 7px 9px; font-size: 10px; }
+
+/* Nota de rodapé da tabela */
+.rgi-table-note {
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--ink-3) !important;
+  font-style: italic;
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+}
+.rgi-table-note::before { content: '⚠ '; color: var(--primary); font-style: normal; font-weight: 700; }
+
+/* Chip "Cashflow LINK" */
+.rgi-cashflow-chip {
+  display: inline-block;
+  background: var(--primary);
+  color: #FFFFFF !important;
+  padding: 4px 16px;
+  border-radius: 99px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 12px;
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+}
+
+/* Layout 2-painel (slides 9, 15) */
+.rgi-2panel {
+  display: grid;
+  grid-template-columns: 1fr 1.45fr;
+  gap: 18px;
+  align-items: start;
+}
+.rgi-panel-label {
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin-bottom: 6px;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   V11 PACOTE 2 - Slides 3-7 (Parte 1 Workshop)
+   ════════════════════════════════════════════════════════════════════ */
+
+/* --- Slide 3 - Fase de desenvolvimento imobiliario --- */
+.s-fase {
+  background: #FFFFFF !important;
+  padding: 56px 72px 36px !important;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+}
+.s-fase__eyebrow {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--brand-blue-deep);
+  margin: 0 0 8px 0;
+}
+.s-fase__title {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--brand-blue-deep);
+  margin: 0 0 8px 0;
+  text-align: center;
+}
+.s-fase__sub {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 15px;
+  color: var(--ink-3);
+  margin: 0 0 22px 0;
+  text-align: center;
+}
+.s-fase__hub {
+  display: inline-block;
+  background: var(--brand-blue-deep);
+  color: #FFFFFF;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  padding: 14px 36px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 20px rgba(45,79,158,0.18);
+}
+.s-fase__hub-line {
+  width: 2px;
+  height: 22px;
+  background: rgba(45,79,158,0.30);
+  margin-bottom: 14px;
+}
+.s-fase__grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 1140px;
+}
+.fase-col {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(45,79,158,0.18);
+  border-radius: 10px;
+  background: #FFFFFF;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(45,79,158,0.06);
+}
+.fase-col__head {
+  padding: 12px 14px;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 1.25;
+}
+.fase-col--blue .fase-col__head { background: #4A90D9; }
+.fase-col--navy .fase-col__head { background: var(--brand-blue-deep); }
+.fase-col--gray .fase-col__head { background: #8A93A6; }
+.fase-col__body {
+  padding: 14px 14px 16px 14px;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 12.5px;
+  color: var(--ink);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.fase-col__line { display: flex; align-items: center; gap: 6px; }
+.fase-col__line .pin {
+  display: inline-block;
+  width: 9px; height: 9px;
+  background: var(--brand-blue-deep);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  margin-right: 4px;
+}
+.fase-col__check {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary);
+  margin-right: 4px;
+  line-height: 1;
+}
+.fase-col__sub {
+  margin-left: 22px;
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+.s-fase__legend {
+  display: flex;
+  gap: 28px;
+  margin-top: 18px;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 11.5px;
+  color: var(--ink-2);
+}
+.s-fase__legend-item { display: flex; align-items: center; gap: 8px; }
+.s-fase__legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+.s-fase__legend-dot--blue { background: #4A90D9; }
+.s-fase__legend-dot--navy { background: var(--brand-blue-deep); }
+.s-fase__legend-dot--gray { background: #8A93A6; }
+
+/* --- Slide 4 - SERRA - Ficha Tecnica --- */
+.s-serra-ft {
+  background: #FFFFFF !important;
+  padding: 56px 72px 40px !important;
+  display: flex !important;
+  flex-direction: column;
+}
+.s-serra-ft__head { margin-bottom: 18px; }
+.s-serra-ft__eyebrow {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 6px 0;
+}
+.s-serra-ft__title {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--brand-blue-deep);
+  margin: 0 0 4px 0;
+}
+.s-serra-ft__sub {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 15px;
+  color: var(--ink-3);
+  margin: 0;
+}
+.s-serra-ft__body {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  gap: 24px;
+  flex: 1;
+  align-items: stretch;
+  min-height: 0;
+}
+.s-serra-ft__plan {
+  border: 1px solid rgba(45,79,158,0.18);
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(45,79,158,0.04);
+  box-shadow: 0 4px 16px rgba(45,79,158,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.s-serra-ft__plan img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.s-serra-ft__chips {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-self: center;
+}
+.serra-chip {
+  background: #FFFFFF;
+  border: 1px solid rgba(45,79,158,0.18);
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+  padding: 14px 18px;
+  box-shadow: 0 3px 10px rgba(45,79,158,0.05);
+}
+.serra-chip__label {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--brand-blue-deep);
+  margin: 0 0 4px 0;
+}
+.serra-chip__value {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+.serra-chip__value--big {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--brand-blue-deep);
+}
+
+/* --- Slide 5 - SERRA - Estudo de Massa Ruan --- */
+.s-serra-massa {
+  background: #FFFFFF !important;
+  padding: 48px 72px 36px !important;
+  display: flex !important;
+  flex-direction: column;
+}
+.s-serra-massa__head { margin-bottom: 16px; display: flex; justify-content: space-between; align-items: flex-end; }
+.s-serra-massa__title {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--brand-blue-deep);
+  margin: 0;
+}
+.s-serra-massa__title small {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+.s-serra-massa__source {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 12px;
+  color: var(--ink-3);
+  font-style: italic;
+}
+.s-serra-massa__grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+}
+.s-serra-massa__cell {
+  border: 1px solid rgba(45,79,158,0.18);
+  border-radius: 8px;
+  overflow: hidden;
+  background: rgba(45,79,158,0.04);
+}
+.s-serra-massa__cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* --- Slide 6 - Senior Living - galeria --- */
+.s-senior {
+  background: #FFFFFF !important;
+  padding: 48px 72px 36px !important;
+  display: flex !important;
+  flex-direction: column;
+}
+.s-senior__head { margin-bottom: 16px; }
+.s-senior__eyebrow {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 4px 0;
+}
+.s-senior__title {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--brand-blue-deep);
+  margin: 0;
+}
+.s-senior__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  flex: 1;
+  min-height: 0;
+}
+.s-senior__cell {
+  border-radius: 6px;
+  overflow: hidden;
+  background: rgba(45,79,158,0.04);
+}
+.s-senior__cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.s-senior__cell--big { grid-row: span 2; }
+
+/* --- Slide 7 - JdP - capa de secao --- */
+.s-jdp-capa {
+  padding: 0 !important;
+  background: var(--brand-blue-deep) !important;
+  position: relative;
+  overflow: hidden;
+  display: flex !important;
+}
+.s-jdp-capa__bg {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 56%;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.92);
+}
+.s-jdp-capa__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, rgba(26,52,112,0.55) 35%, rgba(26,52,112,0) 70%);
+}
+.s-jdp-capa__content {
+  position: relative;
+  z-index: 2;
+  padding: 90px 72px;
+  width: 56%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #FFFFFF;
+}
+.s-jdp-capa__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 22px;
+}
+.s-jdp-capa__brand span:first-child {
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 2px;
+  color: #FFFFFF;
+}
+.s-jdp-capa__brand .a-mark {
+  background: var(--primary);
+  color: #FFFFFF;
+  padding: 2px 8px;
+  font-style: italic;
+  font-weight: 800;
+  font-size: 16px;
+  border-radius: 3px;
+}
+.s-jdp-capa__eyebrow {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 14px 0;
+}
+.s-jdp-capa .s-jdp-capa__title {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 64px;
+  font-weight: 800;
+  line-height: 1.05;
+  margin: 0 0 18px 0;
+  color: #FFFFFF !important;
+  letter-spacing: -1px;
+}
+.s-jdp-capa .s-jdp-capa__title small {
+  display: block;
+  font-size: 22px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.78) !important;
+  margin-top: 8px;
+  letter-spacing: 0;
+}
+.s-jdp-capa__bar {
+  width: 80px;
+  height: 4px;
+  background: var(--primary);
+  margin-bottom: 18px;
+}
+.s-jdp-capa__meta {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 18px;
+  color: rgba(255,255,255,0.92);
+  font-style: italic;
+  max-width: 540px;
+}
+.s-jdp-capa__meta strong { color: #FFFFFF; font-style: normal; }
+
+/* ════════════════════════════════════════════════════════════════════
+   V11 PACOTE 3 - Slides 8 e 9 (tabelas RGI JdP)
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Title tag inline (ex: "Obra em R$ 125 milhoes") */
+.rgi-slide__title-tag {
+  display: inline-block;
+  margin-left: 12px;
+  padding: 3px 12px;
+  background: var(--primary);
+  color: #FFFFFF !important;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 99px;
+  vertical-align: middle;
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+}
+
+/* Footnote logo abaixo da tabela */
+.rgi-slide__footnote {
+  font-family: 'Calibri', 'Segoe UI', sans-serif;
+  font-size: 11px;
+  color: var(--ink-3);
+  margin: 8px 0 0 0;
+  font-style: italic;
+}
+
+/* Variante ultra-compacta (cashflow 21 linhas) */
+.rgi-table.rgi-table--ultra thead th {
+  font-size: 10px !important;
+  padding: 6px 8px !important;
+}
+.rgi-table.rgi-table--ultra tbody td {
+  padding: 2px 8px !important;
+  font-size: 9.5px !important;
+  line-height: 1.3 !important;
+}
+.rgi-table.rgi-table--ultra tbody tr.rgi-row-section td {
+  padding: 3px 8px !important;
+  font-size: 10px !important;
+}
+
+/* Compact override - reduzir padding cabecalho da rgi-table--compact */
+.rgi-table.rgi-table--compact thead th {
+  padding: 6px 8px !important;
+  font-size: 10px !important;
+  line-height: 1.2;
+}
+.rgi-table.rgi-table--compact thead th small {
+  display: block;
+  font-size: 8.5px;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-top: 1px;
+}
+.rgi-table.rgi-table--compact tbody td {
+  padding: 1.5px 8px !important;
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+}
+
+/* Forcar fundo branco na rgi-slide independente de --capa */
+.slide-section.rgi-slide {
+  background: #FFFFFF !important;
+}
+.slide-section.rgi-slide .rgi-slide__head {
+  margin-bottom: 14px;
+}
+.slide-section.rgi-slide .rgi-slide__title {
+  font-size: 24px !important;
+  margin: 4px 0 0 0;
+  color: var(--brand-blue-deep) !important;
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+  font-weight: 800;
+}
+.slide-section.rgi-slide .rgi-slide__eyebrow {
+  font-size: 11px !important;
+  color: var(--primary) !important;
+  letter-spacing: 4px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0;
+  font-family: 'Calibri', 'Segoe UI', sans-serif !important;
+}
+.slide-section.rgi-slide .rgi-2panel {
+  flex: 1;
+  min-height: 0;
+}
+.slide-section.rgi-slide .rgi-table-wrap {
+  background: #FFFFFF;
+}
+
+/* ═══════════════════════════════════════════════════
+   PACOTE 4 · Slides 10-15 (curva, panorâmica, Pipa)
+   ═══════════════════════════════════════════════════ */
+
+/* ── Slide 10 · Curva de obra JdP ───────────────── */
+.s-curva,
+.s-curva-extra {
+  background: #FFFFFF !important;
+  padding: 110px 72px 60px !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+.s-curva__head,
+.s-curva-extra__head { margin-bottom: 12px; }
+.s-curva__eyebrow,
+.s-curva-extra__eyebrow {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 11px !important;
+  color: var(--primary) !important;
+  letter-spacing: 4px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0 0 4px 0;
+}
+.s-curva__title,
+.s-curva-extra__title {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 26px;
+  color: var(--brand-blue-deep);
+  font-weight: 800;
+  margin: 0 0 4px 0;
+}
+.s-curva__sub,
+.s-curva-extra__sub {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 13px;
+  color: var(--ink-2);
+  font-style: italic;
+  margin: 0;
+}
+.s-curva__img-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 12px;
+  background: #FAFBFC;
+  border-radius: 10px;
+  border: 1px solid rgba(45,79,158,0.08);
+  overflow: hidden;
+  padding: 14px;
+  min-height: 0;
+}
+.s-curva__img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.s-curva__hoje-chip {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  background: var(--primary);
+  color: #FFFFFF;
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(233,113,50,0.35);
+}
+
+/* ── Slide 11 · Curva + complementares ──────────── */
+.s-curva-extra__grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: 18px;
+  flex: 1;
+  min-height: 0;
+  margin-top: 12px;
+}
+.s-curva-extra__cell {
+  background: #FAFBFC;
+  border-radius: 10px;
+  border: 1px solid rgba(45,79,158,0.08);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.s-curva-extra__cell img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.s-curva-extra__col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+}
+.s-curva-extra__col .s-curva-extra__cell {
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Slide 12 · Panorâmica edge-to-edge ─────────── */
+.s-pano {
+  background: #000 !important;
+  padding: 0 !important;
+  position: relative;
+  overflow: hidden !important;
+}
+.s-pano { background: #0A1428 !important; }
+.s-pano__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.s-pano__caption {
+  position: absolute;
+  bottom: 22px;
+  left: 26px;
+  z-index: 5;
+  background: rgba(13,29,77,0.85);
+  color: #FFFFFF;
+  padding: 9px 18px;
+  border-radius: 99px;
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 12px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  font-weight: 700;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.s-pano__doisa-mark {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  font-family: 'Arial Black','Arial',sans-serif;
+  font-size: 22px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: -1px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+}
+.s-pano__doisa-mark .a-mark {
+  background: var(--primary);
+  color: #FFFFFF;
+  padding: 0 6px;
+  margin-left: 2px;
+  border-radius: 3px;
+}
+
+/* ── Slide 13 · Reserva Pipa capa (mesma estrutura JdP) ───
+   Reusa .s-jdp-capa, só troca a imagem via attr inline */
+
+
+/* ═══════════════════════════════════════════════════════════════
+   Pacote 5b · Logo oficial DOISA — fundo transparente
+   - .brand-logo (original) usado em slides de fundo claro/branco
+   - .brand-logo--on-dark usa SRC trocado para versão branca
+     (DOIS branco + "a" branca em quadrado laranja)
+   ═══════════════════════════════════════════════════════════════ */
+
+.brand-logo {
+  display: block;
+  width: auto;
+  max-width: none;
+  height: auto;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* Header top-right (frame em slides claros) — logo original azul + laranja */
+.doisa-frame__logo {
+  font-size: 0 !important;
+  letter-spacing: 0 !important;
+  background: transparent !important;
+  height: auto !important;
+}
+.doisa-frame__logo .brand-logo {
+  height: 88px;
+}
+
+/* Capa Workshop (slide 01) e Encerramento (slide 15) — fundo navy, logo BRANCO */
+.doisa-capa-logo {
+  font-size: 0 !important;
+  letter-spacing: 0 !important;
+}
+.doisa-capa-logo .brand-logo {
+  height: 84px;
+}
+
+/* Slide 02 ch-divider — fundo branco com 01 laranja → logo ORIGINAL azul */
+.ch-divider__logo-tr {
+  font-size: 0 !important;
+  letter-spacing: 0 !important;
+}
+.ch-divider__logo-tr .brand-logo {
+  height: 80px;
+}
+
+/* Slide 07 / 13 — JdP / Pipa capas (overlay sobre foto navy) — logo BRANCO */
+.s-jdp-capa__brand {
+  margin-bottom: 30px !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+.s-jdp-capa__brand .brand-logo {
+  height: 70px;
+}
+
+/* Slide 12 panorâmica (foto edge-to-edge) — logo BRANCO com sombra */
+.s-pano__doisa-mark {
+  font-size: 0 !important;
+  letter-spacing: 0 !important;
+  text-shadow: none !important;
+  background: transparent !important;
+}
+.s-pano__doisa-mark .brand-logo {
+  height: 56px;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+}
+
+/* RGI slides (slides 8/9/14/15) — caso .rgi-slide__doisa-mark seja usado */
+.rgi-slide__doisa-mark .brand-logo {
+  height: 40px;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Pacote 6A · Slide 03 fontes maiores + Slide 06 grid quad
+   - Apresentação será projetada → legibilidade > densidade
+   - Slide 06: remove watermark image11 → 2×2 com 4 fotos reais
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Slide 03 · Fase desenvolvimento — heads maiores e mais marcantes
+   FIX 6A2: html/body color: var(--ink) !important sobrescreve o branco
+            sem !important. Forçar #FFFFFF !important nos heads + hub. */
+.s-fase__hub {
+  font-size: 22px !important;
+  padding: 16px 44px !important;
+  letter-spacing: 0.6px !important;
+  color: #FFFFFF !important;
+}
+.fase-col__head,
+.fase-col--blue .fase-col__head,
+.fase-col--navy .fase-col__head,
+.fase-col--gray .fase-col__head {
+  font-size: 17px !important;
+  padding: 16px 14px !important;
+  letter-spacing: 0.4px !important;
+  line-height: 1.2 !important;
+  color: #FFFFFF !important;
+}
+.fase-col__body {
+  font-size: 14px !important;
+  padding: 16px 14px 18px 14px !important;
+  gap: 8px !important;
+}
+.fase-col__sub {
+  font-size: 13.5px !important;
+}
+.s-fase__legend-item {
+  font-size: 14px !important;
+}
+
+/* Slide 06 · Sênior Living — célula logo oficial substitui watermark caseiro
+   Mantém grid 5-células original; cell--logo centraliza a logo azul/laranja
+   sobre fundo claro com leve borda navy. */
+.s-senior__cell--logo {
+  background: #F5F7FB !important;
+  border: 1px solid rgba(45,79,158,0.18);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+}
+.s-senior__cell--logo .brand-logo {
+  width: auto !important;
+  height: auto !important;
+  max-width: 70%;
+  max-height: 60%;
+  object-fit: contain;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Pacote 6B · Polish RGI tables — slides 8, 9, 14, 15
+   Referência: RGI-EGPAR-marco26.html slide 24 (proporções/peso visual)
+   - Header navy mais marcante (bar + thead taller, fontes maiores)
+   - Body fontes 11px → 11.5-12px (legibilidade na projeção)
+   - Polish: zebra +visível, sombra mais suave, linha destaque +marcante
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Bar de título "Jardins do Potengi — Comparativo de Viabilidades" */
+.rgi-table-title {
+  padding: 13px 22px !important;
+  font-size: 15px !important;
+  letter-spacing: 0.7px !important;
+  text-transform: uppercase !important;
+  border-bottom: 2px solid rgba(255,255,255,0.20) !important;
+  font-weight: 800 !important;
+}
+
+/* Wrap centralizado com sombra mais polida */
+.rgi-table-wrap {
+  margin: 0 auto !important;
+  box-shadow: 0 8px 24px rgba(45,79,158,0.12) !important;
+  border: 1px solid rgba(45,79,158,0.30) !important;
+  border-radius: 8px !important;
+}
+
+/* Header das colunas — navy MAIS marcante */
+.rgi-table.rgi-table--compact thead th {
+  padding: 7px 10px !important;
+  font-size: 11.5px !important;
+  line-height: 1.15 !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.4px !important;
+  text-transform: uppercase !important;
+  background: var(--brand-blue-deep) !important;
+  border-bottom: 2px solid rgba(255,255,255,0.18) !important;
+}
+.rgi-table.rgi-table--compact thead th small {
+  font-size: 9px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  margin-top: 1px !important;
+  opacity: 0.92 !important;
+}
+
+/* Body — densidade equilibrada com legibilidade no projetor */
+.rgi-table.rgi-table--compact tbody td {
+  padding: 1.5px 10px !important;
+  font-size: 11px !important;
+  line-height: 1.12 !important;
+}
+
+/* Zebra mais visível */
+.rgi-table tbody tr:nth-child(even) td {
+  background: rgba(45,79,158,0.055) !important;
+}
+
+/* Linha destaque (rgi-row-current = abr/26) — mais peso visual */
+.rgi-table tbody tr.rgi-row-current td {
+  font-size: 11.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.2px !important;
+  border-top: 2px solid var(--brand-blue-deep) !important;
+  padding: 3px 10px !important;
+}
+
+/* Linha de seção (cashflow agrupador) — letterspacing maior */
+.rgi-table tbody tr.rgi-row-section td {
+  font-size: 11px !important;
+  letter-spacing: 0.5px !important;
+  font-weight: 800 !important;
+}
+
+/* Primeira coluna (label) com mais peso */
+.rgi-table.rgi-table--compact tbody td:first-child {
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+
+/* Nota de rodapé "Observação:" mais legível */
+.rgi-table-note {
+  font-size: 12px !important;
+  margin-top: 12px !important;
+}
+
+
+/* Crédito da capa: nome + data — peers visuais do "Incorporações" */
+.capa-credit-text {
+  margin-top: 44px !important;
+}
+.capa-credit-text .capa-credit-name {
+  font-size: 26px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.4px !important;
+  color: #FFFFFF !important;
+  line-height: 1.25 !important;
+}
+.capa-credit-text .capa-credit-name strong {
+  font-weight: 700 !important;
+  color: rgba(255,255,255,0.85) !important;
+}
+.capa-credit-text .capa-credit-date {
+  font-size: 26px !important;
+  font-weight: 600 !important;
+  opacity: 0.92 !important;
+  letter-spacing: 0.4px !important;
+  color: #FFFFFF !important;
+  line-height: 1.25 !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PACOTE 6C · Slide 11 · Indicator card (substitui image24.png)
+   ═══════════════════════════════════════════════════════════════ */
+.indicator-card {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F5F8FF 100%);
+  border: 1px solid rgba(45,79,158,0.18);
+  border-radius: 12px;
+  padding: 28px 28px 22px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 24px rgba(45,79,158,0.10);
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+}
+.indicator-card__eyebrow {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin: 0 0 6px 0;
+}
+.indicator-card__date {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 30px;
+  font-weight: 800;
+  color: var(--brand-blue-deep);
+  margin: 0 0 12px 0;
+  letter-spacing: 0.5px;
+  line-height: 1;
+}
+.indicator-card__bar {
+  height: 4px;
+  width: 56px;
+  background: var(--primary);
+  border-radius: 2px;
+  margin: 0 0 18px 0;
+}
+.indicator-card__rows {
+  list-style: none;
+  margin: 0 0 14px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+.indicator-card__rows li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 0;
+  border-bottom: 1px solid rgba(45,79,158,0.10);
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+}
+.indicator-card__rows li:last-child {
+  border-bottom: none;
+}
+.indicator-card__label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.3px;
+}
+.indicator-card__value {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--brand-blue-deep);
+  font-variant-numeric: tabular-nums;
+}
+.indicator-card__row--current {
+  background: rgba(232,123,30,0.08);
+  border-radius: 6px;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  border-bottom: none !important;
+  margin-top: 4px;
+}
+.indicator-card__row--current .indicator-card__label {
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-size: 13px;
+}
+.indicator-card__row--current .indicator-card__value {
+  color: var(--primary);
+  font-size: 16px;
+  font-weight: 800;
+}
+.indicator-card__note {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  margin: auto 0 0 0;
+  font-size: 11px;
+  color: var(--ink-3);
+  font-style: italic;
+  letter-spacing: 0.2px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PACOTE 6D · Slide 4 · Home Serra · centralizar + faixas azuis
+   ═══════════════════════════════════════════════════════════════ */
+.s-serra-ft {
+  position: relative;
+  overflow: hidden;
+}
+/* Faixas azuis decorativas — esquerda e direita do slide */
+.slide-section.s-serra-ft::before,
+.slide-section.s-serra-ft::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 38px !important; bottom: 38px !important;
+  width: 6px !important;
+  height: auto !important;
+  border-radius: 3px !important;
+  background: linear-gradient(180deg, var(--brand-blue-deep) 0%, rgba(45,79,158,0.35) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+.slide-section.s-serra-ft::before { left: 28px !important; right: auto !important; }
+.slide-section.s-serra-ft::after  { right: 28px !important; left: auto !important; }
+/* Head centralizado com strips horizontais flanqueando eyebrow */
+.s-serra-ft__head {
+  text-align: center !important;
+  margin-bottom: 22px !important;
+  padding-top: 4px;
+  position: relative;
+  z-index: 2;
+}
+.s-serra-ft__eyebrow {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  font-size: 13px !important;
+  letter-spacing: 5px !important;
+  color: var(--primary) !important;
+}
+.s-serra-ft__eyebrow::before,
+.s-serra-ft__eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--brand-blue-deep) 50%, transparent 100%);
+}
+.s-serra-ft__title {
+  font-size: 46px !important;
+  letter-spacing: 0.5px;
+  margin: 6px 0 6px 0 !important;
+}
+.s-serra-ft__sub {
+  font-size: 16px !important;
+  font-style: italic;
+  letter-spacing: 0.4px;
+  color: var(--ink-2) !important;
+}
+.s-serra-ft__body {
+  position: relative;
+  z-index: 2;
+  padding: 0 32px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PACOTE 6E · Slide 5 · Estudo de Massa · título dinâmico
+   ═══════════════════════════════════════════════════════════════ */
+.s-serra-massa__head {
+  margin-bottom: 22px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center !important;
+}
+.s-serra-massa__title-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.s-serra-massa__eyebrow {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 4.5px !important;
+  text-transform: uppercase !important;
+  color: var(--primary) !important;
+  margin: 0 0 6px 0 !important;
+}
+.s-serra-massa__title {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 40px !important;
+  font-weight: 800 !important;
+  color: var(--brand-blue-deep) !important;
+  margin: 0 !important;
+  letter-spacing: 0.3px !important;
+  line-height: 1 !important;
+}
+.s-serra-massa__title em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--primary);
+  margin: 0 6px;
+}
+.s-serra-massa__bar {
+  display: block;
+  margin: 10px auto 0 auto;
+  width: 88px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, var(--primary) 100%);
+  border-radius: 2px;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PACOTE 6G · Transições suaves (slides 1, 2, 3, 7, 13)
+   ═══════════════════════════════════════════════════════════════ */
+
+@keyframes pkg6gFadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pkg6gFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Slide 1 capa — desacelerar entrada existente (1.4s vs 0.85s) */
+.capa-eyebrow,
+.capa-wordmark {
+  animation: pkg6gFadeUp 1.2s cubic-bezier(0.22,1,0.36,1) 0.25s both !important;
+}
+.capa-info-card {
+  animation: pkg6gFadeUp 1.4s cubic-bezier(0.22,1,0.36,1) 0.65s both !important;
+}
+.capa-credit-text {
+  animation: pkg6gFadeUp 1.4s cubic-bezier(0.22,1,0.36,1) 1.05s both !important;
+}
+
+/* Slide 2 ch-divider — entrada agora definida no <style> do HTML (chRevealLeft/chTitleWipe, 12/06).
+   Regra antiga pkg6gFadeIn !important REMOVIDA: o !important impedia o reanimate() do shell.js
+   de rebobinar a animação ao entrar no slide, deixando-a estática após o 1º load. */
+
+/* Slide 3 fase — fluxograma sendo construído (5 colunas em sequência) */
+.s-fase .fase-col {
+  animation: pkg6gFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both;
+  opacity: 0;
+}
+.s-fase .fase-col:nth-child(1) { animation-delay: 0.30s; }
+.s-fase .fase-col:nth-child(2) { animation-delay: 0.55s; }
+.s-fase .fase-col:nth-child(3) { animation-delay: 0.80s; }
+.s-fase .fase-col:nth-child(4) { animation-delay: 1.05s; }
+.s-fase .fase-col:nth-child(5) { animation-delay: 1.30s; }
+.s-fase__hub {
+  animation: pkg6gFadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 1.55s both;
+}
+
+/* Slide 7 jdp-capa — entrada dinâmica */
+.s-jdp-capa[data-slide="07v11"] .s-jdp-capa__brand,
+.s-jdp-capa[data-slide="07v11"] .s-jdp-capa__eyebrow,
+.s-jdp-capa[data-slide="07v11"] .s-jdp-capa__title,
+.s-jdp-capa[data-slide="07v11"] .s-jdp-capa__bar,
+.s-jdp-capa[data-slide="07v11"] .s-jdp-capa__meta,
+.s-jdp-capa[data-slide="13v11"] .s-jdp-capa__brand,
+.s-jdp-capa[data-slide="13v11"] .s-jdp-capa__eyebrow,
+.s-jdp-capa[data-slide="13v11"] .s-jdp-capa__title,
+.s-jdp-capa[data-slide="13v11"] .s-jdp-capa__bar,
+.s-jdp-capa[data-slide="13v11"] .s-jdp-capa__meta {
+  animation: pkg6gFadeUp 1.1s cubic-bezier(0.22,1,0.36,1) both;
+  opacity: 0;
+}
+.s-jdp-capa .s-jdp-capa__brand   { animation-delay: 0.20s !important; }
+.s-jdp-capa .s-jdp-capa__eyebrow { animation-delay: 0.45s !important; }
+.s-jdp-capa .s-jdp-capa__title   { animation-delay: 0.65s !important; }
+.s-jdp-capa .s-jdp-capa__bar     { animation-delay: 0.95s !important; }
+.s-jdp-capa .s-jdp-capa__meta    { animation-delay: 1.15s !important; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PACOTE 6.5 — refino visual + transições por gatilho
+   - Slide 6 Sênior Living padrão Home Serra
+   - RGI tables (8, 9, 14, 15) centralização + fontes + título branco
+   - Slides 10/11 padrão Home Serra
+   - Slide 3 reorder: hub primeiro, depois cards
+   - Cascade-item: animações refire em shell.goTo
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 6.5C · Slide 6 Sênior Living · padrão Home Serra ─────────── */
+.slide-section.s-senior {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 110px 96px 60px !important;
+}
+.slide-section.s-senior::before,
+.slide-section.s-senior::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 38px !important; bottom: 38px !important;
+  width: 6px !important;
+  height: auto !important;
+  border-radius: 3px !important;
+  background: linear-gradient(180deg, var(--brand-blue-deep) 0%, rgba(45,79,158,0.35) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+.slide-section.s-senior::before { left: 28px !important; right: auto !important; }
+.slide-section.s-senior::after  { right: 28px !important; left: auto !important; }
+.s-senior__head {
+  text-align: center !important;
+  margin-bottom: 22px !important;
+  padding-top: 4px;
+  position: relative;
+  z-index: 2;
+}
+.s-senior__eyebrow {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  font-size: 13px !important;
+  letter-spacing: 5px !important;
+  color: var(--primary) !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  margin: 0 0 8px 0 !important;
+}
+.s-senior__eyebrow::before,
+.s-senior__eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--brand-blue-deep) 50%, transparent 100%);
+}
+.s-senior__title {
+  font-size: 46px !important;
+  letter-spacing: 0.5px !important;
+  margin: 6px 0 0 0 !important;
+  color: var(--brand-blue-deep) !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+}
+.s-senior__grid {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── 6.5D · RGI tables (8, 9, 14, 15) · centralizar + fontes + título branco ── */
+/* Título "Jardins do Potengi — Comparativo de Viabilidades" / "Reserva Pipa..." sempre branco */
+.rgi-table-wrap .rgi-table-title,
+.slide-section .rgi-table-title {
+  color: #FFFFFF !important;
+  font-size: 16px !important;
+}
+
+/* Centralizar TODAS as células (incluindo a primeira) */
+.rgi-table tbody td,
+.rgi-table tbody td:first-child {
+  text-align: center !important;
+}
+
+/* Fontes maiores no header das colunas (cabe em wrap 411px) */
+.rgi-table.rgi-table--compact thead th {
+  font-size: 12px !important;
+  padding: 6px 10px !important;
+  line-height: 1.15 !important;
+}
+.rgi-table.rgi-table--compact thead th small {
+  font-size: 9.5px !important;
+}
+
+/* Body — fontes ligeiramente maiores que o original 11px, mas tight */
+.rgi-table.rgi-table--compact tbody td {
+  font-size: 11.5px !important;
+  padding: 1px 10px !important;
+  line-height: 1.10 !important;
+}
+
+/* Linha destaque (abr/26) — peso visual sem inflar altura */
+.rgi-table tbody tr.rgi-row-current td {
+  font-size: 12px !important;
+  padding: 2.5px 10px !important;
+}
+
+/* Linha de seção (cashflow agrupador) */
+.rgi-table tbody tr.rgi-row-section td {
+  font-size: 11.5px !important;
+}
+
+/* Variante ULTRA (cashflow 21 linhas slide 9 — manter compactez mas legível) */
+.rgi-table.rgi-table--ultra thead th {
+  font-size: 11.5px !important;
+  padding: 7px 8px !important;
+  text-align: center !important;
+}
+.rgi-table.rgi-table--ultra tbody td {
+  font-size: 11px !important;
+  padding: 2.5px 8px !important;
+  text-align: center !important;
+}
+.rgi-table.rgi-table--ultra tbody tr.rgi-row-section td {
+  font-size: 11.5px !important;
+  padding: 3.5px 8px !important;
+}
+
+/* Eyebrow + título do slide RGI (acima da tabela) — fontes maiores */
+.slide-section.rgi-slide .rgi-slide__title {
+  font-size: 28px !important;
+}
+.slide-section.rgi-slide .rgi-slide__eyebrow {
+  font-size: 12px !important;
+}
+
+/* ── 6.5E · Slides 10/11 · padrão Home Serra · eyebrow strips + título grande + bar ── */
+.s-curva__head,
+.s-curva-extra__head {
+  text-align: center !important;
+  margin-bottom: 18px !important;
+  position: relative;
+  z-index: 2;
+}
+.s-curva__eyebrow,
+.s-curva-extra__eyebrow {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: 12.5px !important;
+  letter-spacing: 4.5px !important;
+  color: var(--primary) !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  margin: 0 0 6px 0 !important;
+}
+.s-curva__eyebrow::before,
+.s-curva-extra__eyebrow::before,
+.s-curva__eyebrow::after,
+.s-curva-extra__eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--brand-blue-deep) 50%, transparent 100%);
+}
+.s-curva__title,
+.s-curva-extra__title {
+  font-size: 36px !important;
+  font-weight: 800 !important;
+  color: var(--brand-blue-deep) !important;
+  margin: 4px 0 0 0 !important;
+  letter-spacing: 0.4px !important;
+  line-height: 1 !important;
+}
+.s-curva__title::after,
+.s-curva-extra__title::after {
+  content: '';
+  display: block;
+  width: 88px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, var(--primary) 100%);
+  border-radius: 2px;
+  margin: 10px auto 0 auto;
+}
+.s-curva__sub,
+.s-curva-extra__sub {
+  font-size: 14px !important;
+  margin: 12px 0 0 0 !important;
+  font-style: italic;
+  color: var(--ink-2) !important;
+}
+
+/* ── Slide 3 fluxograma · montagem em sequência · SEM !important (deixa o
+   reanimate() do shell.js rebobinar a cada entrada — conserta o re-disparo). ── */
+/* Cabeçalho do slide entra primeiro */
+.s-fase__eyebrow { animation: pkg6gFadeUp 0.6s cubic-bezier(0.22,1,0.36,1) 0.05s both; opacity: 0; }
+.s-fase__title   { animation: pkg6gFadeUp 0.6s cubic-bezier(0.22,1,0.36,1) 0.15s both; opacity: 0; }
+.s-fase__sub     { animation: pkg6gFadeUp 0.6s cubic-bezier(0.22,1,0.36,1) 0.25s both; opacity: 0; }
+/* Fluxograma: hub → linha → conectores → 5 colunas (esq→dir) → legenda */
+.s-fase__hub        { animation: pkg6gFadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.45s both; }
+.s-fase__hub-line   { animation: chGrowDown 0.4s cubic-bezier(0.22,1,0.36,1) 0.68s both; opacity: 0; transform-origin: top center; }
+.s-fase__connectors { animation: pkg6gFadeIn 0.5s cubic-bezier(0.22,1,0.36,1) 0.80s both; opacity: 0; }
+.s-fase .fase-col:nth-child(1) { animation-delay: 0.95s; }
+.s-fase .fase-col:nth-child(2) { animation-delay: 1.15s; }
+.s-fase .fase-col:nth-child(3) { animation-delay: 1.35s; }
+.s-fase .fase-col:nth-child(4) { animation-delay: 1.55s; }
+.s-fase .fase-col:nth-child(5) { animation-delay: 1.75s; }
+.s-fase__legend {
+  animation: pkg6gFadeIn 0.7s cubic-bezier(0.22,1,0.36,1) 2.00s both;
+  opacity: 0;
+}
+@keyframes chGrowDown { from { opacity: 0; transform: scaleY(0); } to { opacity: 1; transform: scaleY(1); } }
+
+/* ── 6.5F · Cascade-item bridge · refire em shell.goTo ──────────
+   shell.js reanimate() limpa el.style.animation em todo .cascade-item.
+   Adicionando a classe nos elementos animados, as animações
+   declarativas reexecutam toda vez que se navega para o slide.
+   ──────────────────────────────────────────────────────────── */
+.cascade-item { will-change: opacity, transform; }
+
+
+
+/* ════════════════════════════════════════════════════════════════
+   PACOTES 7-9A — Slides 16-38 (V11) · Parte 1 final
+   Integrado 2026-04-27 
+   ════════════════════════════════════════════════════════════════ */
+
+/* ═══════════════════════════════════════════════════════════════
+   PACOTE 7A — Slides 16-22 (V11) · Parte 1
+   Slide 16  · DOCA · ACM Caixa de Escada (vídeo + 2 fotos)
+   Slide 17  · Jardins do Potengi · Avanço de Obra (3 imagens)
+   Slide 18  · Obra · panorâmica (image35.jpeg)
+   Slide 19  · Obra · panorâmica (image36.jpeg)
+   Slide 20  · Obra · panorâmica (image37.png)
+   Slide 21  · DOCA · Concreto especial para piso (2 fotos + chips)
+   Slide 22  · DOCA · Piso — Aplicação (3 imagens)
+   Reaproveita keyframes pkg6gFadeUp / pkg6gFadeIn já no theme.
+   ═══════════════════════════════════════════════════════════════ */
+
+
+/* ── Helper compartilhado · cascade delays escalonados ───────── */
+.slide-section.s-doca-acm .cascade-item,
+.slide-section.s-jdp-avanco .cascade-item,
+.slide-section.s-pano .cascade-item,
+.slide-section.s-doca-piso .cascade-item,
+.slide-section.s-doca-exec .cascade-item {
+  animation: pkg6gFadeUp 0.85s cubic-bezier(0.22,1,0.36,1) both;
+  opacity: 0;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SLIDE 16 · DOCA · ACM Caixa de Escada
+   Faixas verticais navy (técnico Home Serra style)
+   ═══════════════════════════════════════════════════════════════ */
+.slide-section.s-doca-acm {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 110px 96px 60px !important;
+}
+.slide-section.s-doca-acm::before,
+.slide-section.s-doca-acm::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 38px !important; bottom: 38px !important;
+  width: 6px !important;
+  height: auto !important;
+  border-radius: 3px !important;
+  background: linear-gradient(180deg, var(--brand-blue-deep) 0%, rgba(45,79,158,0.35) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+.slide-section.s-doca-acm::before { left: 28px !important; right: auto !important; }
+.slide-section.s-doca-acm::after  { right: 28px !important; left: auto !important; }
+
+.s-doca-acm__head {
+  text-align: center !important;
+  margin-bottom: 26px;
+  position: relative;
+  z-index: 2;
+}
+.s-doca-acm__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  font-size: 12.5px;
+  letter-spacing: 4.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--brand-blue-deep);
+  margin: 0 0 8px 0;
+}
+.s-doca-acm__eyebrow::before,
+.s-doca-acm__eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--brand-blue-deep) 50%, transparent 100%);
+}
+.s-doca-acm__title {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--brand-blue-deep);
+  margin: 4px 0 0 0;
+  line-height: 1;
+}
+.s-doca-acm__title::after {
+  content: '';
+  display: block;
+  width: 88px;
+  height: 4px;
+  margin: 12px auto 0;
+  background: linear-gradient(90deg, var(--brand-blue-deep), var(--primary));
+  border-radius: 2px;
+}
+
+.s-doca-acm__layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: 32px;
+  align-items: stretch;
+}
+
+.s-doca-acm__video-wrap { display: flex; flex-direction: column; gap: 12px; }
+.video-card {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 18px 48px rgba(26,52,112,0.20);
+  border: 1px solid rgba(26,52,112,0.20);
+  background: #000;
+}
+.video-card__media { width: 100%; height: 100%; display: block; max-height: 480px; object-fit: cover; }
+.s-doca-acm__video-caption {
+  align-self: center;
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(26,52,112,0.08);
+  color: var(--brand-blue-deep);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.s-doca-acm__side {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  justify-content: space-between;
+}
+.s-doca-acm__images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.s-doca-acm__img { margin: 0; }
+.s-doca-acm__img img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(26,52,112,0.18);
+  border: 1px solid rgba(26,52,112,0.10);
+  display: block;
+}
+.s-doca-acm__action {
+  font-size: 15px;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.4;
+}
+.s-doca-acm__action strong {
+  color: var(--brand-blue-deep);
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.s-doca-acm__benefits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.s-doca-acm__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--brand-blue-deep);
+  color: #FFFFFF;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  box-shadow: 0 8px 20px rgba(26,52,112,0.22);
+}
+.s-doca-acm__chip-num {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+/* Cascade timing — slide 16 */
+.s-doca-acm__head             { animation-delay: 0.20s !important; }
+.s-doca-acm__video-wrap       { animation-delay: 0.40s !important; }
+.s-doca-acm__images > .s-doca-acm__img:nth-child(1) { animation-delay: 0.55s !important; }
+.s-doca-acm__images > .s-doca-acm__img:nth-child(2) { animation-delay: 0.70s !important; }
+.s-doca-acm__action           { animation-delay: 0.85s !important; }
+.s-doca-acm__benefits         { animation-delay: 1.00s !important; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SLIDE 17 · Jardins do Potengi · Avanço de Obra
+   Grid 3 colunas · captions discretos
+   ═══════════════════════════════════════════════════════════════ */
+.slide-section.s-jdp-avanco {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 110px 96px 60px !important;
+}
+.s-jdp-avanco__head {
+  text-align: center !important;
+  margin-bottom: 28px;
+}
+.s-jdp-avanco__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  font-size: 12.5px;
+  letter-spacing: 4.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--brand-blue-deep);
+  margin: 0 0 8px 0;
+}
+.s-jdp-avanco__eyebrow::before,
+.s-jdp-avanco__eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--brand-blue-deep) 50%, transparent 100%);
+}
+.s-jdp-avanco__title {
+  font-size: 42px;
+  font-weight: 800;
+  color: var(--brand-blue-deep);
+  margin: 4px 0 0 0;
+  line-height: 1;
+}
+.s-jdp-avanco__title::after {
+  content: '';
+  display: block;
+  width: 88px;
+  height: 4px;
+  margin: 12px auto 0;
+  background: linear-gradient(90deg, var(--brand-blue-deep), var(--primary));
+  border-radius: 2px;
+}
+.s-jdp-avanco__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.s-jdp-avanco__cell { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.s-jdp-avanco__cell img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(26,52,112,0.18);
+  border: 1px solid rgba(26,52,112,0.10);
+  display: block;
+}
+.s-jdp-avanco__cell figcaption {
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--brand-blue-deep);
+  font-weight: 700;
+  text-align: center;
+  opacity: 0.78;
+}
+
+.s-jdp-avanco__head                           { animation-delay: 0.20s !important; }
+.s-jdp-avanco__grid > .s-jdp-avanco__cell:nth-child(1) { animation-delay: 0.45s !important; }
+.s-jdp-avanco__grid > .s-jdp-avanco__cell:nth-child(2) { animation-delay: 0.65s !important; }
+.s-jdp-avanco__grid > .s-jdp-avanco__cell:nth-child(3) { animation-delay: 0.85s !important; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SLIDES 18 / 19 / 20 · Panorâmica edge-to-edge
+   ═══════════════════════════════════════════════════════════════ */
+.slide-section.s-pano {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  background: #0A0F1C;
+}
+.s-pano__media {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.s-pano__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: 0;
+  border-radius: 0;
+}
+.s-pano__caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 28px;
+  text-align: center;
+  z-index: 2;
+  pointer-events: none;
+}
+.s-pano__pill {
+  display: inline-block;
+  padding: 10px 22px;
+  background: rgba(26,52,112,0.92);
+  color: #FFFFFF;
+  border-radius: 999px;
+  font-size: 12.5px;
+  letter-spacing: 3.2px;
+  text-transform: uppercase;
+  font-weight: 700;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.32);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.slide-section.s-pano .s-pano__media   { animation-delay: 0.20s !important; }
+.slide-section.s-pano .s-pano__caption { animation-delay: 0.55s !important; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SLIDE 21 · DOCA · Concreto especial para piso
+   Faixas verticais navy + 2 imagens + chips de specs
+   ═══════════════════════════════════════════════════════════════ */
+.slide-section.s-doca-piso {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 110px 96px 60px !important;
+}
+.slide-section.s-doca-piso::before,
+.slide-section.s-doca-piso::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 38px !important; bottom: 38px !important;
+  width: 6px !important;
+  height: auto !important;
+  border-radius: 3px !important;
+  background: linear-gradient(180deg, var(--brand-blue-deep) 0%, rgba(45,79,158,0.35) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+.slide-section.s-doca-piso::before { left: 28px !important; right: auto !important; }
+.slide-section.s-doca-piso::after  { right: 28px !important; left: auto !important; }
+
+.s-doca-piso__head {
+  text-align: center !important;
+  margin-bottom: 26px;
+  position: relative;
+  z-index: 2;
+}
+.s-doca-piso__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  font-size: 12.5px;
+  letter-spacing: 4.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--brand-blue-deep);
+  margin: 0 0 8px 0;
+}
+.s-doca-piso__eyebrow::before,
+.s-doca-piso__eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--brand-blue-deep) 50%, transparent 100%);
+}
+.s-doca-piso__title {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--brand-blue-deep);
+  margin: 4px 0 0 0;
+  line-height: 1;
+}
+.s-doca-piso__title::after {
+  content: '';
+  display: block;
+  width: 88px;
+  height: 4px;
+  margin: 12px auto 0;
+  background: linear-gradient(90deg, var(--brand-blue-deep), var(--primary));
+  border-radius: 2px;
+}
+
+.s-doca-piso__layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+.s-doca-piso__images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.s-doca-piso__img { margin: 0; }
+.s-doca-piso__img img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(26,52,112,0.18);
+  border: 1px solid rgba(26,52,112,0.10);
+  display: block;
+}
+
+.s-doca-piso__specs {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.s-doca-piso__spec {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 18px 22px;
+  border-radius: 14px;
+  background: rgba(26,52,112,0.05);
+  border: 1px solid rgba(26,52,112,0.18);
+  border-left: 4px solid var(--primary);
+}
+.s-doca-piso__spec-num {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--brand-blue-deep);
+  letter-spacing: 0.4px;
+  line-height: 1.05;
+}
+.s-doca-piso__spec-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: 0.3px;
+}
+
+.s-doca-piso__head                                      { animation-delay: 0.20s !important; }
+.s-doca-piso__images > .s-doca-piso__img:nth-child(1)   { animation-delay: 0.40s !important; }
+.s-doca-piso__images > .s-doca-piso__img:nth-child(2)   { animation-delay: 0.55s !important; }
+.s-doca-piso__specs > .s-doca-piso__spec:nth-child(1)   { animation-delay: 0.70s !important; }
+.s-doca-piso__specs > .s-doca-piso__spec:nth-child(2)   { animation-delay: 0.85s !important; }
+.s-doca-piso__specs > .s-doca-piso__spec:nth-child(3)   { animation-delay: 1.00s !important; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   SLIDE 22 · DOCA · Piso — Aplicação (3 imagens)
+   ═══════════════════════════════════════════════════════════════ */
+.slide-section.s-doca-exec {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 110px 96px 60px !important;
+}
+.s-doca-exec__head {
+  text-align: center !important;
+  margin-bottom: 28px;
+}
+.s-doca-exec__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  font-size: 12.5px;
+  letter-spacing: 4.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--brand-blue-deep);
+  margin: 0 0 8px 0;
+}
+.s-doca-exec__eyebrow::before,
+.s-doca-exec__eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--brand-blue-deep) 50%, transparent 100%);
+}
+.s-doca-exec__title {
+  font-size: 38px;
+  font-weight: 800;
+  color: var(--brand-blue-deep);
+  margin: 4px 0 0 0;
+  line-height: 1;
+}
+.s-doca-exec__title::after {
+  content: '';
+  display: block;
+  width: 88px;
+  height: 4px;
+  margin: 12px auto 0;
+  background: linear-gradient(90deg, var(--brand-blue-deep), var(--primary));
+  border-radius: 2px;
+}
+.s-doca-exec__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.s-doca-exec__cell { margin: 0; display: flex; flex-direction: column; gap: 8px; }
+.s-doca-exec__cell img {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 12px 36px rgba(26,52,112,0.18);
+  border: 1px solid rgba(26,52,112,0.10);
+  display: block;
+}
+.s-doca-exec__cell figcaption {
+  font-size: 12px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--brand-blue-deep);
+  font-weight: 700;
+  text-align: center;
+  opacity: 0.78;
+}
+
+.s-doca-exec__head                                      { animation-delay: 0.20s !important; }
+.s-doca-exec__grid > .s-doca-exec__cell:nth-child(1)    { animation-delay: 0.45s !important; }
+.s-doca-exec__grid > .s-doca-exec__cell:nth-child(2)    { animation-delay: 0.65s !important; }
+.s-doca-exec__grid > .s-doca-exec__cell:nth-child(3)    { animation-delay: 0.85s !important; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PACOTE 7B · Slides 23–28 (V11) · DOCA — Pré-moldados, Stormtech, Incêndio
+   Padrão visual herdado de Pacote 6/6.5 (s-serra-ft, s-senior, s-curva)
+   Faixas verticais navy + eyebrow strips + título com bar gradient
+   Animações via keyframes pkg6gFadeUp / pkg6gFadeIn já existentes
+   ═══════════════════════════════════════════════════════════════ */
+
+
+/* ───────────────────────────────────────────────────────────────
+   Base compartilhada (pkg7b) — aplica nos 6 slides
+   Faixas laterais navy + estrutura padrão de head
+   ─────────────────────────────────────────────────────────────── */
+.slide-section.s-doca-portas,
+.slide-section.s-doca-montagem,
+.slide-section.s-doca-storm,
+.slide-section.s-doca-storm-vid,
+.slide-section.s-doca-fogo,
+.slide-section.s-doca-fogo-det {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 90px 96px 60px !important;
+  background: #FFFFFF !important;
+}
+
+/* ── Faixas verticais navy — slides 23, 25, 26, 27 (showcase técnicos) ── */
+.slide-section.s-doca-portas::before,
+.slide-section.s-doca-portas::after,
+.slide-section.s-doca-storm::before,
+.slide-section.s-doca-storm::after,
+.slide-section.s-doca-storm-vid::before,
+.slide-section.s-doca-storm-vid::after,
+.slide-section.s-doca-fogo::before,
+.slide-section.s-doca-fogo::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 38px !important;
+  bottom: 38px !important;
+  width: 6px !important;
+  height: auto !important;
+  border-radius: 3px !important;
+  background: linear-gradient(180deg, var(--brand-blue-deep) 0%, rgba(45,79,158,0.35) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+.slide-section.s-doca-portas::before,
+.slide-section.s-doca-storm::before,
+.slide-section.s-doca-storm-vid::before,
+.slide-section.s-doca-fogo::before { left: 28px !important; right: auto !important; }
+.slide-section.s-doca-portas::after,
+.slide-section.s-doca-storm::after,
+.slide-section.s-doca-storm-vid::after,
+.slide-section.s-doca-fogo::after { right: 28px !important; left: auto !important; }
+
+/* ── Faixas verticais SUTIS — slides 24, 28 (galerias puras) ── */
+.slide-section.s-doca-montagem::before,
+.slide-section.s-doca-montagem::after,
+.slide-section.s-doca-fogo-det::before,
+.slide-section.s-doca-fogo-det::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 60px !important;
+  bottom: 60px !important;
+  width: 4px !important;
+  height: auto !important;
+  border-radius: 2px !important;
+  background: linear-gradient(180deg, rgba(26,52,112,0.55) 0%, rgba(45,79,158,0.18) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+.slide-section.s-doca-montagem::before,
+.slide-section.s-doca-fogo-det::before { left: 30px !important; right: auto !important; }
+.slide-section.s-doca-montagem::after,
+.slide-section.s-doca-fogo-det::after  { right: 30px !important; left: auto !important; }
+
+
+/* ───────────────────────────────────────────────────────────────
+   HEAD — eyebrow + título + bar gradient (compartilhado)
+   ─────────────────────────────────────────────────────────────── */
+.s-doca-portas__head,
+.s-doca-montagem__head,
+.s-doca-storm__head,
+.s-doca-storm-vid__head,
+.s-doca-fogo__head,
+.s-doca-fogo-det__head {
+  text-align: center !important;
+  margin: 0 auto 26px auto !important;
+  padding-top: 4px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Eyebrow com strips horizontais */
+.s-doca-portas__eyebrow,
+.s-doca-montagem__eyebrow,
+.s-doca-storm__eyebrow,
+.s-doca-storm-vid__eyebrow,
+.s-doca-fogo__eyebrow,
+.s-doca-fogo-det__eyebrow {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 12.5px !important;
+  letter-spacing: 4.5px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  color: var(--brand-blue-deep) !important;
+  margin: 0 0 6px 0 !important;
+}
+.s-doca-portas__eyebrow::before,
+.s-doca-portas__eyebrow::after,
+.s-doca-montagem__eyebrow::before,
+.s-doca-montagem__eyebrow::after,
+.s-doca-storm__eyebrow::before,
+.s-doca-storm__eyebrow::after,
+.s-doca-storm-vid__eyebrow::before,
+.s-doca-storm-vid__eyebrow::after,
+.s-doca-fogo__eyebrow::before,
+.s-doca-fogo__eyebrow::after,
+.s-doca-fogo-det__eyebrow::before,
+.s-doca-fogo-det__eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--brand-blue-deep) 50%, transparent 100%);
+}
+
+/* Título grande navy + bar gradient navy→laranja */
+.s-doca-portas__title,
+.s-doca-montagem__title,
+.s-doca-storm__title,
+.s-doca-storm-vid__title,
+.s-doca-fogo__title,
+.s-doca-fogo-det__title {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 38px !important;
+  font-weight: 800 !important;
+  color: var(--brand-blue-deep) !important;
+  margin: 6px 0 0 0 !important;
+  letter-spacing: 0.4px !important;
+  line-height: 1.05 !important;
+}
+.s-doca-portas__title::after,
+.s-doca-montagem__title::after,
+.s-doca-storm__title::after,
+.s-doca-storm-vid__title::after,
+.s-doca-fogo__title::after,
+.s-doca-fogo-det__title::after {
+  content: '';
+  display: block;
+  width: 88px;
+  height: 4px;
+  margin: 12px auto 0 auto;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, var(--primary) 100%);
+  border-radius: 2px;
+}
+
+/* Subtítulo italic (slide 23) */
+.s-doca-portas__sub {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 16px !important;
+  font-style: italic !important;
+  letter-spacing: 0.4px !important;
+  color: var(--ink-2, #4A5568) !important;
+  margin: 14px 0 0 0 !important;
+}
+
+
+/* ───────────────────────────────────────────────────────────────
+   IMAGEM — wrap padrão (border-radius + shadow + border navy)
+   ─────────────────────────────────────────────────────────────── */
+.s-doca-portas__img-wrap,
+.s-doca-montagem__img-wrap,
+.s-doca-storm__img-wrap,
+.s-doca-storm-vid__img-wrap,
+.s-doca-fogo__img-wrap,
+.s-doca-fogo-det__img-wrap {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 12px 36px rgba(26,52,112,0.18);
+  border: 1px solid rgba(26,52,112,0.10);
+  background: #F4F6FA;
+}
+.s-doca-portas__img-wrap img,
+.s-doca-montagem__img-wrap img,
+.s-doca-storm__img-wrap img,
+.s-doca-storm-vid__img-wrap img,
+.s-doca-fogo__img-wrap img,
+.s-doca-fogo-det__img-wrap img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Reset figure (zera margem padrão do browser) */
+.s-doca-portas__card,
+.s-doca-montagem__card,
+.s-doca-storm__card,
+.s-doca-storm-vid__card,
+.s-doca-fogo__card,
+.s-doca-fogo-det__card {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+/* ───────────────────────────────────────────────────────────────
+   SLIDE 23 · s-doca-portas · grid 2 colunas + legendas
+   ─────────────────────────────────────────────────────────────── */
+.s-doca-portas__grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  align-items: stretch;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.s-doca-portas__img-wrap {
+  aspect-ratio: 4 / 3;
+}
+.s-doca-portas__cap {
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 14px;
+  color: var(--ink, #1A1A1A);
+  text-align: center;
+  letter-spacing: 0.2px;
+  margin: 0;
+  padding: 0 8px;
+  line-height: 1.4;
+}
+
+/* Cascade — slide 23 */
+.s-doca-portas__head.cascade-item {
+  animation: pkg6gFadeUp 0.7s ease-out 0.20s both;
+}
+.s-doca-portas__grid > .cascade-item:nth-child(1) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.40s both;
+}
+.s-doca-portas__grid > .cascade-item:nth-child(2) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.60s both;
+}
+
+
+/* ───────────────────────────────────────────────────────────────
+   SLIDE 24 · s-doca-montagem · grid 2 colunas edge-to-edge
+   ─────────────────────────────────────────────────────────────── */
+.s-doca-montagem__grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  align-items: stretch;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+.s-doca-montagem__img-wrap {
+  aspect-ratio: 4 / 3;
+}
+
+/* Cascade — slide 24 */
+.s-doca-montagem__head.cascade-item {
+  animation: pkg6gFadeUp 0.7s ease-out 0.20s both;
+}
+.s-doca-montagem__grid > .cascade-item:nth-child(1) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.40s both;
+}
+.s-doca-montagem__grid > .cascade-item:nth-child(2) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.60s both;
+}
+
+
+/* ───────────────────────────────────────────────────────────────
+   SLIDE 25 · s-doca-storm · grid 3 + chip impacto + 2 chips secundários
+   ─────────────────────────────────────────────────────────────── */
+.s-doca-storm__grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  align-items: stretch;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.s-doca-storm__img-wrap {
+  aspect-ratio: 4 / 3;
+}
+
+.s-doca-storm__impact-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+.s-doca-storm__impact {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 26px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(233,113,50,0.12) 0%, rgba(233,113,50,0.04) 100%);
+  border: 1.5px solid var(--primary);
+  color: var(--brand-blue-deep);
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+}
+
+.s-doca-storm__chips {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+.s-doca-storm__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(26,52,112,0.06);
+  border: 1px solid rgba(26,52,112,0.18);
+  color: var(--brand-blue-deep);
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.4px;
+}
+
+/* Cascade — slide 25 */
+.s-doca-storm__head.cascade-item {
+  animation: pkg6gFadeUp 0.7s ease-out 0.20s both;
+}
+.s-doca-storm__grid > .cascade-item:nth-child(1) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.40s both;
+}
+.s-doca-storm__grid > .cascade-item:nth-child(2) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.55s both;
+}
+.s-doca-storm__grid > .cascade-item:nth-child(3) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.70s both;
+}
+.s-doca-storm__impact-row.cascade-item {
+  animation: pkg6gFadeUp 0.7s ease-out 0.90s both;
+}
+.s-doca-storm__chips.cascade-item {
+  animation: pkg6gFadeIn 0.7s ease-out 1.10s both;
+}
+
+
+/* ───────────────────────────────────────────────────────────────
+   SLIDE 26 · s-doca-storm-vid · vídeo grande à esquerda + 2 fotos à direita
+   ─────────────────────────────────────────────────────────────── */
+.s-doca-storm-vid__grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.55fr 1fr;
+  gap: 26px;
+  align-items: stretch;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.s-doca-storm-vid__video-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.video-card.s-doca-storm-vid__video-card {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 18px 48px rgba(26,52,112,0.20);
+  border: 1px solid rgba(26,52,112,0.20);
+  background: #000;
+}
+.video-card.s-doca-storm-vid__video-card video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #000;
+}
+.s-doca-storm-vid__caption {
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 18px;
+  border-radius: 999px;
+  background: rgba(26,52,112,0.08);
+  border: 1px solid rgba(26,52,112,0.18);
+  color: var(--brand-blue-deep);
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.5px;
+}
+
+.s-doca-storm-vid__photos-col {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 18px;
+}
+.s-doca-storm-vid__img-wrap {
+  height: 100%;
+  min-height: 0;
+}
+.s-doca-storm-vid__photos-col .s-doca-storm-vid__card {
+  height: 100%;
+  min-height: 0;
+}
+
+/* Cascade — slide 26 */
+.s-doca-storm-vid__head.cascade-item {
+  animation: pkg6gFadeUp 0.7s ease-out 0.20s both;
+}
+.s-doca-storm-vid__video-col.cascade-item {
+  animation: pkg6gFadeUp 0.7s ease-out 0.40s both;
+}
+.s-doca-storm-vid__photos-col > .cascade-item:nth-child(1) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.60s both;
+}
+.s-doca-storm-vid__photos-col > .cascade-item:nth-child(2) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.80s both;
+}
+
+
+/* ───────────────────────────────────────────────────────────────
+   SLIDE 27 · s-doca-fogo · grid 3 + chip impacto destacado
+   ─────────────────────────────────────────────────────────────── */
+.s-doca-fogo__grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  align-items: stretch;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+.s-doca-fogo__img-wrap {
+  aspect-ratio: 4 / 3;
+}
+
+.s-doca-fogo__impact-row {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  margin-top: 26px;
+}
+.s-doca-fogo__impact {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(233,113,50,0.14) 0%, rgba(233,113,50,0.04) 100%);
+  border: 1.5px solid var(--primary);
+  color: var(--brand-blue-deep);
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.3px;
+}
+
+/* Cascade — slide 27 */
+.s-doca-fogo__head.cascade-item {
+  animation: pkg6gFadeUp 0.7s ease-out 0.20s both;
+}
+.s-doca-fogo__grid > .cascade-item:nth-child(1) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.40s both;
+}
+.s-doca-fogo__grid > .cascade-item:nth-child(2) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.55s both;
+}
+.s-doca-fogo__grid > .cascade-item:nth-child(3) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.70s both;
+}
+.s-doca-fogo__impact-row.cascade-item {
+  animation: pkg6gFadeUp 0.7s ease-out 0.95s both;
+}
+
+
+/* ───────────────────────────────────────────────────────────────
+   SLIDE 28 · s-doca-fogo-det · grid 2 colunas
+   ─────────────────────────────────────────────────────────────── */
+.s-doca-fogo-det__grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  align-items: stretch;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+.s-doca-fogo-det__img-wrap {
+  aspect-ratio: 4 / 3;
+}
+
+/* Cascade — slide 28 */
+.s-doca-fogo-det__head.cascade-item {
+  animation: pkg6gFadeUp 0.7s ease-out 0.20s both;
+}
+.s-doca-fogo-det__grid > .cascade-item:nth-child(1) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.40s both;
+}
+.s-doca-fogo-det__grid > .cascade-item:nth-child(2) {
+  animation: pkg6gFadeUp 0.7s ease-out 0.60s both;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PACOTE 8 · Slides 29–34 (V11)
+   29–31 · Capítulos divisores 02 / 03 / 04 (reusam .ch-divider-section
+          do theme — sem CSS adicional aqui).
+   32 · Sistema de Pedidos com Fila da Cremalheira (4 imagens + chips)
+   33 · Antes & Depois (split com 2 vídeos + big numbers)
+   34 · Baixa Automática (vídeo destaque)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── 8A · Subtítulo opcional para os divisores 30 e 31 ──────────
+   Não redefine .ch-divider-section nem .ch-divider__title; apenas
+   adiciona um sub minimalista quando a estrutura do divisor exige.
+   ──────────────────────────────────────────────────────────── */
+.ch-divider__sub {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 16px !important;
+  font-style: italic;
+  letter-spacing: 0.6px;
+  color: rgba(255,255,255,0.78) !important;
+  margin: 14px 0 0 0 !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   8B · Faixas verticais navy comuns aos showcase técnicos (32–34)
+   ═══════════════════════════════════════════════════════════════ */
+.slide-section.s-cremalheira-fila,
+.slide-section.s-cremalheira-vid,
+.slide-section.s-cremalheira-baixa {
+  position: relative !important;
+  overflow: hidden !important;
+}
+.slide-section.s-cremalheira-fila::before,
+.slide-section.s-cremalheira-fila::after,
+.slide-section.s-cremalheira-vid::before,
+.slide-section.s-cremalheira-vid::after,
+.slide-section.s-cremalheira-baixa::before,
+.slide-section.s-cremalheira-baixa::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 38px !important;
+  bottom: 38px !important;
+  width: 6px !important;
+  background: linear-gradient(180deg, var(--brand-blue-deep) 0%, rgba(45,79,158,0.35) 100%) !important;
+  z-index: 1 !important;
+  border-radius: 3px;
+}
+.slide-section.s-cremalheira-fila::before,
+.slide-section.s-cremalheira-vid::before,
+.slide-section.s-cremalheira-baixa::before { left: 28px !important; }
+.slide-section.s-cremalheira-fila::after,
+.slide-section.s-cremalheira-vid::after,
+.slide-section.s-cremalheira-baixa::after  { right: 28px !important; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   8C · Padrão comum de head (eyebrow strips + título + barra)
+   ═══════════════════════════════════════════════════════════════ */
+.s-cremalheira-fila__head,
+.s-cremalheira-vid__head,
+.s-cremalheira-baixa__head {
+  position: relative;
+  z-index: 2;
+  text-align: center !important;
+  margin: 8px 0 20px 0 !important;
+}
+.s-cremalheira-fila__eyebrow,
+.s-cremalheira-vid__eyebrow,
+.s-cremalheira-baixa__eyebrow {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 12.5px !important;
+  letter-spacing: 4.5px !important;
+  color: var(--primary) !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  margin: 0 0 6px 0 !important;
+}
+.s-cremalheira-fila__eyebrow::before,
+.s-cremalheira-fila__eyebrow::after,
+.s-cremalheira-vid__eyebrow::before,
+.s-cremalheira-vid__eyebrow::after,
+.s-cremalheira-baixa__eyebrow::before,
+.s-cremalheira-baixa__eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 56px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--brand-blue-deep) 50%, transparent 100%);
+}
+.s-cremalheira-fila__title,
+.s-cremalheira-vid__title,
+.s-cremalheira-baixa__title {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 36px !important;
+  font-weight: 800 !important;
+  color: var(--brand-blue-deep) !important;
+  margin: 4px 0 0 0 !important;
+  letter-spacing: 0.4px !important;
+  line-height: 1 !important;
+}
+.s-cremalheira-fila__title::after,
+.s-cremalheira-vid__title::after,
+.s-cremalheira-baixa__title::after {
+  content: '';
+  display: block;
+  width: 88px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, var(--primary) 100%);
+  border-radius: 2px;
+  margin: 10px auto 0 auto;
+}
+.s-cremalheira-fila__sub,
+.s-cremalheira-baixa__sub {
+  font-size: 14.5px !important;
+  margin: 12px 0 0 0 !important;
+  font-style: italic;
+  color: var(--ink-2, #4A5568) !important;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   8D · Slide 32 · Sistema de Pedidos com Fila (grid 2x2 + chips)
+   ═══════════════════════════════════════════════════════════════ */
+.s-cremalheira-fila {
+  padding: 56px 64px 48px 64px !important;
+}
+.s-cremalheira-fila__grid {
+  position: relative;
+  z-index: 2;
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  grid-auto-rows: 1fr;
+  gap: 18px !important;
+  max-width: 1080px;
+  margin: 0 auto !important;
+}
+.s-cremalheira-fila__cell {
+  margin: 0 !important;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 1px solid rgba(26,52,112,0.18);
+  box-shadow: 0 14px 36px rgba(26,52,112,0.14);
+}
+.s-cremalheira-fila__img-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #F4F6FA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.s-cremalheira-fila__img-wrap img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+}
+.s-cremalheira-fila__chips {
+  position: relative;
+  z-index: 2;
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 22px auto 0 auto !important;
+  max-width: 1080px;
+}
+.s-cremalheira-fila__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px !important;
+  border-radius: 999px !important;
+  background: rgba(26,52,112,0.06);
+  color: var(--brand-blue-deep) !important;
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(26,52,112,0.18);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   8E · Slide 33 · Antes & Depois (split com 2 vídeos)
+   ═══════════════════════════════════════════════════════════════ */
+.s-cremalheira-vid {
+  padding: 56px 64px 48px 64px !important;
+}
+.s-cremalheira-vid__split {
+  position: relative;
+  z-index: 2;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 28px !important;
+  max-width: 1120px;
+  margin: 0 auto !important;
+}
+.s-cremalheira-vid__col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.s-cremalheira-vid__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.s-cremalheira__pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px !important;
+  border-radius: 999px !important;
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  letter-spacing: 2px !important;
+  text-transform: uppercase !important;
+}
+.s-cremalheira__pill--before {
+  background: rgba(26,52,112,0.10);
+  color: var(--brand-blue-deep) !important;
+  border: 1px solid rgba(26,52,112,0.22);
+}
+.s-cremalheira__pill--after {
+  background: linear-gradient(135deg, var(--primary), #FF8C42) !important;
+  color: #FFFFFF !important;
+  border: 1px solid rgba(233,113,50,0.5);
+  box-shadow: 0 6px 18px rgba(233,113,50,0.25);
+}
+.s-cremalheira__stat-num {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 52px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  letter-spacing: 0.5px;
+}
+.s-cremalheira__stat-num--before { color: var(--brand-blue-deep) !important; }
+.s-cremalheira__stat-num--after  { color: var(--primary) !important; }
+.s-cremalheira-vid__stat-label {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 12.5px !important;
+  letter-spacing: 0.4px;
+  color: var(--ink-2, #4A5568) !important;
+}
+.s-cremalheira-vid__video-card,
+.video-card.s-cremalheira-vid__video-card {
+  width: 100% !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(26,52,112,0.20) !important;
+  box-shadow: 0 18px 48px rgba(26,52,112,0.20) !important;
+  background: #000;
+}
+.s-cremalheira-vid__video-card video {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+.s-cremalheira-vid__caption {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 12.5px !important;
+  font-style: italic;
+  color: var(--ink-2, #4A5568) !important;
+  margin: 0 !important;
+  text-align: center;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   8F · Slide 34 · Baixa Automática (vídeo grande centralizado)
+   ═══════════════════════════════════════════════════════════════ */
+.s-cremalheira-baixa {
+  padding: 56px 64px 48px 64px !important;
+}
+.s-cremalheira-baixa__layout {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  max-width: 980px;
+  margin: 0 auto !important;
+}
+.s-cremalheira-baixa__video-card,
+.video-card.s-cremalheira-baixa__video-card {
+  width: 100% !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  border: 1px solid rgba(26,52,112,0.20) !important;
+  box-shadow: 0 18px 48px rgba(26,52,112,0.20) !important;
+  background: #000;
+}
+.s-cremalheira-baixa__video-card video {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+.s-cremalheira-baixa__caption {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 12.5px !important;
+  font-style: italic;
+  color: var(--ink-2, #4A5568) !important;
+  margin: 0 !important;
+  text-align: center;
+}
+.s-cremalheira-baixa__chips {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px !important;
+}
+.s-cremalheira-baixa__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 20px !important;
+  border-radius: 999px !important;
+  background: rgba(26,52,112,0.06);
+  color: var(--brand-blue-deep) !important;
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(26,52,112,0.18);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   8G · Cascade animations (reuso pkg6gFadeUp/pkg6gFadeIn do theme)
+   Delays escalonados 0.20 / 0.40 / 0.60 / 0.80 s.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Slide 32 */
+.s-cremalheira-fila .cascade-item {
+  animation: pkg6gFadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both;
+  opacity: 0;
+}
+.s-cremalheira-fila__head { animation-delay: 0.20s !important; }
+.s-cremalheira-fila__cell:nth-child(1) { animation-delay: 0.40s !important; }
+.s-cremalheira-fila__cell:nth-child(2) { animation-delay: 0.55s !important; }
+.s-cremalheira-fila__cell:nth-child(3) { animation-delay: 0.70s !important; }
+.s-cremalheira-fila__cell:nth-child(4) { animation-delay: 0.85s !important; }
+.s-cremalheira-fila__chips { animation-delay: 1.05s !important; }
+
+/* Slide 33 */
+.s-cremalheira-vid .cascade-item {
+  animation: pkg6gFadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both;
+  opacity: 0;
+}
+.s-cremalheira-vid__head { animation-delay: 0.20s !important; }
+.s-cremalheira-vid__col:nth-of-type(1) { animation-delay: 0.45s !important; }
+.s-cremalheira-vid__col:nth-of-type(2) { animation-delay: 0.65s !important; }
+.s-cremalheira-vid .video-card video.cascade-item {
+  animation: pkg6gFadeIn 0.8s cubic-bezier(0.22,1,0.36,1) 0.95s both;
+  opacity: 0;
+}
+
+/* Slide 34 */
+.s-cremalheira-baixa .cascade-item {
+  animation: pkg6gFadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both;
+  opacity: 0;
+}
+.s-cremalheira-baixa__head { animation-delay: 0.20s !important; }
+.s-cremalheira-baixa__video-card { animation-delay: 0.45s !important; }
+.s-cremalheira-baixa__chips { animation-delay: 0.75s !important; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   PACOTE 9A · Slides 35–38 (V11)
+   - 35: Programa Jornada · capa Experiência do Cliente
+   - 36: Mapeamento e Pontos de Contato (imagem panorâmica)
+   - 37: O Que Já Avançamos (imagem + chip de impacto)
+   - 38: Encerramento · Obrigado (capa simétrica de fechamento)
+   ═══════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────
+   SLIDE 35 · s-jornada-capa
+   Imagem ampla à direita (60%) + bloco texto à esquerda
+   ───────────────────────────────────────────────────────────── */
+.slide-section.s-jornada-capa {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 110px 96px 60px !important;
+  background: #FFFFFF !important;
+}
+.slide-section.s-jornada-capa::before,
+.slide-section.s-jornada-capa::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 38px !important;
+  bottom: 38px !important;
+  width: 6px !important;
+  border-radius: 3px !important;
+  background: linear-gradient(180deg, var(--brand-blue-deep) 0%, rgba(45,79,158,0.35) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+.slide-section.s-jornada-capa::before { left: 28px !important; }
+.slide-section.s-jornada-capa::after  { right: 28px !important; }
+
+.s-jornada-capa__layout {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 38% 1fr;
+  gap: 56px;
+  align-items: center;
+  min-height: 540px;
+}
+
+.s-jornada-capa__text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+.s-jornada-capa__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 4.5px;
+  text-transform: uppercase;
+  color: var(--brand-blue-deep);
+  margin: 0;
+  animation: pkg6gFadeUp 1.0s cubic-bezier(0.22,1,0.36,1) 0.20s both;
+}
+.s-jornada-capa__eyebrow::before,
+.s-jornada-capa__eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--brand-blue-deep) 50%, transparent 100%);
+}
+.s-jornada-capa__title {
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 44px;
+  font-weight: 800;
+  color: var(--brand-blue-deep) !important;
+  margin: 0;
+  letter-spacing: 0.3px;
+  line-height: 1;
+  animation: pkg6gFadeUp 1.0s cubic-bezier(0.22,1,0.36,1) 0.40s both;
+}
+.s-jornada-capa__title::after {
+  content: '';
+  display: block;
+  width: 88px;
+  height: 4px;
+  margin: 14px 0 0 0;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, var(--primary) 100%);
+  border-radius: 2px;
+}
+.s-jornada-capa__lede {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 4px 0 6px 0;
+  line-height: 1.4;
+  max-width: 360px;
+  animation: pkg6gFadeUp 1.0s cubic-bezier(0.22,1,0.36,1) 0.60s both;
+}
+.s-jornada-capa__chip {
+  display: inline-block;
+  background: #F4F6FA;
+  color: var(--brand-blue-deep);
+  border: 1.5px solid rgba(26,52,112,0.22);
+  border-radius: 999px;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  animation: pkg6gFadeUp 1.0s cubic-bezier(0.22,1,0.36,1) 0.80s both;
+}
+
+.s-jornada-capa__media {
+  margin: 0;
+  position: relative;
+  z-index: 2;
+  animation: pkg6gFadeIn 1.1s cubic-bezier(0.22,1,0.36,1) 0.50s both;
+}
+.s-jornada-capa__media img {
+  width: 100%;
+  height: auto;
+  max-height: 540px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(26,52,112,0.20);
+  display: block;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   SLIDE 36 · s-jornada-mapa
+   Imagem panorâmica edge-to-edge + card flutuante navy
+   ───────────────────────────────────────────────────────────── */
+.slide-section.s-jornada-mapa {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 0 !important;
+  background: #FFFFFF !important;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.s-jornada-mapa__media {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  animation: pkg6gFadeIn 1.2s cubic-bezier(0.22,1,0.36,1) 0.20s both;
+}
+.s-jornada-mapa__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.s-jornada-mapa__card {
+  position: absolute;
+  left: 56px;
+  bottom: 56px;
+  z-index: 3;
+  background: rgba(15, 31, 64, 0.92);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+  padding: 22px 28px 24px 28px;
+  max-width: 480px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: pkg6gFadeUp 1.0s cubic-bezier(0.22,1,0.36,1) 0.55s both;
+}
+.s-jornada-mapa__eyebrow {
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 4.5px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0 0 8px 0;
+}
+.s-jornada-mapa__title {
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: #FFFFFF !important;
+  margin: 0;
+  letter-spacing: 0.2px;
+  line-height: 1.1;
+}
+.s-jornada-mapa__title::after {
+  content: '';
+  display: block;
+  width: 64px;
+  height: 3px;
+  margin-top: 12px;
+  background: linear-gradient(90deg, #FFFFFF 0%, var(--primary) 100%);
+  border-radius: 2px;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   SLIDE 37 · s-jornada-avanco
+   Imagem grande + chip de impacto
+   ───────────────────────────────────────────────────────────── */
+.slide-section.s-jornada-avanco {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 100px 96px 60px !important;
+  background: #FFFFFF !important;
+}
+.slide-section.s-jornada-avanco::before,
+.slide-section.s-jornada-avanco::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 38px !important;
+  bottom: 38px !important;
+  width: 6px !important;
+  border-radius: 3px !important;
+  background: linear-gradient(180deg, var(--brand-blue-deep) 0%, rgba(45,79,158,0.35) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+.slide-section.s-jornada-avanco::before { left: 28px !important; }
+.slide-section.s-jornada-avanco::after  { right: 28px !important; }
+
+.s-jornada-avanco__head {
+  text-align: center;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 2;
+}
+.s-jornada-avanco__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: 4.5px;
+  text-transform: uppercase;
+  color: var(--brand-blue-deep);
+  margin: 0 0 8px 0;
+  animation: pkg6gFadeUp 1.0s cubic-bezier(0.22,1,0.36,1) 0.20s both;
+}
+.s-jornada-avanco__eyebrow::before,
+.s-jornada-avanco__eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--brand-blue-deep) 50%, transparent 100%);
+}
+.s-jornada-avanco__title {
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--brand-blue-deep) !important;
+  margin: 0;
+  letter-spacing: 0.3px;
+  line-height: 1;
+  animation: pkg6gFadeUp 1.0s cubic-bezier(0.22,1,0.36,1) 0.40s both;
+}
+.s-jornada-avanco__title::after {
+  content: '';
+  display: block;
+  width: 88px;
+  height: 4px;
+  margin: 12px auto 0 auto;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, var(--primary) 100%);
+  border-radius: 2px;
+}
+
+.s-jornada-avanco__layout {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+.s-jornada-avanco__media {
+  margin: 0;
+  width: 100%;
+  max-width: 980px;
+  animation: pkg6gFadeIn 1.0s cubic-bezier(0.22,1,0.36,1) 0.55s both;
+}
+.s-jornada-avanco__media img {
+  width: 100%;
+  height: auto;
+  max-height: 460px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 16px 40px rgba(26,52,112,0.20);
+  display: block;
+}
+.s-jornada-avanco__side {
+  display: flex;
+  justify-content: center;
+}
+.s-jornada-avanco__chip {
+  display: inline-block;
+  background: #F4F6FA;
+  color: var(--brand-blue-deep);
+  border: 1.5px solid rgba(26,52,112,0.22);
+  border-radius: 999px;
+  padding: 12px 26px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  animation: pkg6gFadeUp 1.0s cubic-bezier(0.22,1,0.36,1) 0.80s both;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   SLIDE 38 · s-encerramento (capa de fechamento)
+   Centralizado vertical/horizontal · fundo navy radial
+   ───────────────────────────────────────────────────────────── */
+.slide-section.s-encerramento {
+  background: radial-gradient(ellipse at center, #0F1F40 0%, #050A1C 100%) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  padding: 80px 96px !important;
+  overflow: hidden !important;
+}
+.s-encerramento__bg-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(233,113,50,0.08) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.s-encerramento__center {
+  text-align: center;
+  max-width: 720px;
+  position: relative;
+  z-index: 2;
+  animation: pkg6gFadeUp 1.2s cubic-bezier(0.22,1,0.36,1) 0.30s both;
+}
+
+.s-encerramento__eyebrow {
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 13px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--primary) !important;
+  margin: 0 0 28px 0;
+}
+
+.s-encerramento__hero {
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 88px;
+  font-weight: 800;
+  color: #FFFFFF !important;
+  margin: 0 0 18px 0;
+  letter-spacing: -2px;
+  line-height: 1;
+}
+
+.s-encerramento__sub {
+  font-size: 22px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.78) !important;
+  margin: 0 0 56px 0;
+  letter-spacing: 0.2px;
+}
+
+.s-encerramento__signature {
+  border-top: 1px solid rgba(255,255,255,0.18);
+  padding-top: 28px;
+  margin-top: 28px;
+  display: inline-block;
+}
+
+.s-encerramento__name {
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  color: #FFFFFF !important;
+  margin: 0 0 4px 0;
+  letter-spacing: 0.5px;
+}
+
+.s-encerramento__role {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.78) !important;
+  margin: 0 0 14px 0;
+  letter-spacing: 1px;
+}
+
+.s-encerramento__project {
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--brand-blue-deep) !important;
+  background: rgba(255,255,255,0.92);
+  padding: 8px 18px;
+  border-radius: 999px;
+  display: inline-block;
+  margin: 4px 0 0 0;
+}
+
+
+
+/* ═══ PKG9B OVERRIDES INTEGRADO ═══ */
+/* ════════════════════════════════════════════════════════════════════
+   PKG9B · OVERRIDES — Parte 2 (slides 39–46) → padrão V11
+   ────────────────────────────────────────────────────────────────────
+   ESCOPO: aplica nos slides Parte 2 atuais (data-slide="02".."09").
+   Após renumeração para "39v11".."46v11" (ver pkg9b-renumber-plan.md
+   e pkg9b-html-tweaks.md), trocar os seletores 1:1 conforme tabela
+   no pkg9b-renumber-plan.md.
+   NÃO MEXE em: slide 09 (memória viva = 46v11 PERFEITO),
+   nem em slides "10".."15" (47–51, brief: próximo round).
+   PRINCÍPIOS (V11 já validado em Parte 1, slides 1-15 doisa-theme.css):
+   - Eyebrow: 12.5px, letter-spacing 4.5px, navy uppercase + strips ::b/::a
+   - Título: 36–46px, color var(--brand-blue-deep), bold + barra 88x4
+     gradient navy→primary
+   - Cores em var(--brand-blue-deep) / var(--primary)
+   - Animações reusam keyframes pkg6gFadeUp / pkg6gFadeIn (NÃO criar novas)
+   - .cascade-item nos elementos animados (shell.js reanima em todo goTo)
+   - Faixas verticais navy laterais em slides showcase (39, 41, 43, 45)
+   ════════════════════════════════════════════════════════════════════ */
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SLIDE 39 (era data-slide="02") — "Inovação Tecnológica · 2A Incorp."
+   Brief: agregar título grande no topo. Pulse neon dos 3 círculos OK.
+   Faixas verticais navy laterais (showcase).
+   ════════════════════════════════════════════════════════════════════ */
+.slide-section[data-slide="39v11"] {
+  position: relative !important;
+  overflow: hidden !important;
+  padding: 110px 96px 60px !important;
+}
+.slide-section[data-slide="39v11"]::before,
+.slide-section[data-slide="39v11"]::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 38px !important; bottom: 38px !important;
+  width: 6px !important;
+  border-radius: 3px !important;
+  background: linear-gradient(180deg, var(--brand-blue-deep) 0%, rgba(45,79,158,0.35) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+.slide-section[data-slide="39v11"]::before { left: 28px !important; }
+.slide-section[data-slide="39v11"]::after  { right: 28px !important; }
+
+/* Título grande novo (HTML tweak adiciona .s02__hero-eyebrow + .s02__hero-title + .s02__hero-bar antes do manifesto) */
+.slide-section[data-slide="39v11"] .s02__hero-eyebrow {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 4.5px !important;
+  text-transform: uppercase !important;
+  color: var(--brand-blue-deep) !important;
+  margin: 0 0 10px 0 !important;
+  position: relative; z-index: 2;
+}
+.slide-section[data-slide="39v11"] .s02__hero-eyebrow::before,
+.slide-section[data-slide="39v11"] .s02__hero-eyebrow::after {
+  content: '';
+  display: inline-block;
+  width: 70px; height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--brand-blue-deep) 50%, transparent 100%);
+}
+.slide-section[data-slide="39v11"] .s02__hero-title {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 46px !important;
+  font-weight: 800 !important;
+  color: var(--brand-blue-deep) !important;
+  letter-spacing: 0.3px !important;
+  line-height: 1.05 !important;
+  margin: 0 0 6px 0 !important;
+  text-align: center;
+  position: relative; z-index: 2;
+}
+.slide-section[data-slide="39v11"] .s02__hero-bar {
+  display: block;
+  margin: 8px auto 24px auto;
+  width: 88px; height: 4px;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, var(--primary) 100%);
+  border-radius: 2px;
+  position: relative; z-index: 2;
+}
+.slide-section[data-slide="39v11"] .s02__manifesto,
+.slide-section[data-slide="39v11"] .s02__manifesto-sub,
+.slide-section[data-slide="39v11"] .s02__icons {
+  position: relative; z-index: 2;
+}
+/* re-entrada via cascade-item (HTML adiciona .cascade-item nos hero-* / manifesto / icons) */
+.slide-section[data-slide="39v11"] .s02__hero-eyebrow.cascade-item {
+  animation: pkg6gFadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.20s both !important;
+}
+.slide-section[data-slide="39v11"] .s02__hero-title.cascade-item {
+  animation: pkg6gFadeUp 1.0s cubic-bezier(0.22,1,0.36,1) 0.40s both !important;
+}
+.slide-section[data-slide="39v11"] .s02__hero-bar.cascade-item {
+  animation: pkg6gFadeIn 0.7s cubic-bezier(0.22,1,0.36,1) 0.75s both !important;
+}
+.slide-section[data-slide="39v11"] .s02__manifesto.cascade-item {
+  animation: pkg6gFadeUp 1.0s cubic-bezier(0.22,1,0.36,1) 0.95s both !important;
+}
+.slide-section[data-slide="39v11"] .s02__manifesto-sub.cascade-item {
+  animation: pkg6gFadeUp 1.0s cubic-bezier(0.22,1,0.36,1) 1.20s both !important;
+}
+.slide-section[data-slide="39v11"] .s02__icons.cascade-item {
+  animation: pkg6gFadeUp 1.0s cubic-bezier(0.22,1,0.36,1) 1.45s both !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SLIDE 40 (era data-slide="03") — Mercado × Dois A
+   Pendência v11: limpar caixa branca atrás dos labels laranja.
+   "Labels laranja" = .s03__label do col--right (laranja por var(--primary)).
+   A "caixa branca" provém de fundo claro herdado em v10.
+   Forçamos labels SEM box: bg/border transparentes, cor navy/primary,
+   tipografia V11. Eyebrow strips opcionais.
+   ════════════════════════════════════════════════════════════════════ */
+.slide-section[data-slide="40v11"] .s03__label {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 12.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 4.5px !important;
+  text-transform: uppercase !important;
+  color: var(--brand-blue-deep) !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 6px !important;
+}
+.slide-section[data-slide="40v11"] .s03__label::before,
+.slide-section[data-slide="40v11"] .s03__label::after {
+  content: '';
+  display: inline-block;
+  width: 50px; height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--brand-blue-deep) 50%, transparent 100%);
+}
+.slide-section[data-slide="40v11"] .s03__col--right .s03__label {
+  color: var(--primary) !important;
+}
+.slide-section[data-slide="40v11"] .s03__col--right .s03__label::before,
+.slide-section[data-slide="40v11"] .s03__col--right .s03__label::after {
+  background: linear-gradient(90deg, transparent 0%, var(--primary) 50%, transparent 100%);
+}
+
+/* Títulos das colunas: tipografia V11 */
+.slide-section[data-slide="40v11"] .s03__title {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 36px !important;
+  font-weight: 800 !important;
+  color: var(--brand-blue-deep) !important;
+  letter-spacing: 0.2px !important;
+  line-height: 1.05 !important;
+  margin: 4px 0 0 0 !important;
+}
+.slide-section[data-slide="40v11"] .s03__col--left .s03__title {
+  color: var(--brand-blue-deep) !important;
+  opacity: 0.85;
+}
+.slide-section[data-slide="40v11"] .s03__col--right .s03__title {
+  color: var(--brand-blue-deep) !important;
+}
+
+/* Barra navy→primary sob título do lado Dois A */
+.slide-section[data-slide="40v11"] .s03__col--right .s03__title::after {
+  content: '';
+  display: block;
+  margin: 10px auto 0 auto;
+  width: 88px; height: 4px;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, var(--primary) 100%);
+  border-radius: 2px;
+}
+
+/* Garante que tiles não tenham caixa branca herdada */
+.slide-section[data-slide="40v11"] .s03-tile__label {
+  background: transparent !important;
+  color: var(--brand-blue-deep) !important;
+  font-weight: 700 !important;
+}
+
+.slide-section[data-slide="40v11"] .s03__legend {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  color: var(--brand-blue-deep) !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SLIDE 41 (era data-slide="04") — A IA assiste o vídeo
+   Brief v11 REFAZER: imagem superior pessoa real Excel devagar +
+   cronômetro; imagem inferior IA Excel rápido + cronômetro;
+   comparativo direto (12min × 8s).
+   AVALIAÇÃO: a coluna direita atual usa mockups SVG genéricos
+   (.s04v7-app · Viabil + Agilean). Para o brief é preciso TROCAR
+   por dois cards de imagem real. Como não existem assets reais
+   para isso em assets/parte1/, o HTML tweak descreve placeholders
+   e marca dependência (ver pkg9b-html-tweaks.md §41).
+   Aqui no CSS preparamos o LAYOUT do par "imagem + cronômetro"
+   reaproveitando a estrutura de coluna direita.
+   Faixas verticais navy laterais (showcase).
+   ════════════════════════════════════════════════════════════════════ */
+.slide-section[data-slide="41v11"] {
+  position: relative !important;
+  overflow: hidden !important;
+}
+.slide-section[data-slide="41v11"]::before,
+.slide-section[data-slide="41v11"]::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 38px !important; bottom: 38px !important;
+  width: 6px !important;
+  border-radius: 3px !important;
+  background: linear-gradient(180deg, var(--brand-blue-deep) 0%, rgba(45,79,158,0.35) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+.slide-section[data-slide="41v11"]::before { left: 28px !important; }
+.slide-section[data-slide="41v11"]::after  { right: 28px !important; }
+
+/* Headline V11: badge → eyebrow strips, h1 navy bold, barra navy→primary */
+.slide-section[data-slide="41v11"] .v5-headline h1 {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 40px !important;
+  font-weight: 800 !important;
+  color: var(--brand-blue-deep) !important;
+  letter-spacing: 0.2px !important;
+  line-height: 1.08 !important;
+}
+.slide-section[data-slide="41v11"] .v5-headline h1 .v5-highlight {
+  color: var(--primary) !important;
+}
+.slide-section[data-slide="41v11"] .v5-headline h1::after {
+  content: '';
+  display: block;
+  margin: 10px 0 12px 0;
+  width: 88px; height: 4px;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, var(--primary) 100%);
+  border-radius: 2px;
+}
+
+/* Par de cards imagem + cronômetro (HTML tweak adiciona .s04v11-pair / .s04v11-card / .s04v11-card__img / .s04v11-card__chrono / .s04v11-card__caption) */
+.slide-section[data-slide="41v11"] .s04v11-pair {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto;
+}
+.slide-section[data-slide="41v11"] .s04v11-card {
+  position: relative;
+  background: rgba(26,52,112,0.04);
+  border: 1px solid rgba(26,52,112,0.18);
+  border-radius: 14px;
+  padding: 14px;
+  overflow: hidden;
+}
+.slide-section[data-slide="41v11"] .s04v11-card--featured {
+  border-color: var(--primary);
+  box-shadow: 0 4px 18px rgba(233,113,50,0.12);
+}
+.slide-section[data-slide="41v11"] .s04v11-card__img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+.slide-section[data-slide="41v11"] .s04v11-card__chrono {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  background: var(--brand-blue-deep);
+  color: #fff;
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 1px;
+  padding: 8px 14px;
+  border-radius: 99px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  z-index: 2;
+}
+.slide-section[data-slide="41v11"] .s04v11-card--featured .s04v11-card__chrono {
+  background: var(--primary);
+}
+.slide-section[data-slide="41v11"] .s04v11-card__caption {
+  display: block;
+  margin-top: 10px;
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--brand-blue-deep);
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.slide-section[data-slide="41v11"] .s04v11-vs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: 'Calibri','Segoe UI',sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--primary);
+  margin: 4px 0;
+}
+.slide-section[data-slide="41v11"] .s04v11-vs::before,
+.slide-section[data-slide="41v11"] .s04v11-vs::after {
+  content: '';
+  flex: 0 0 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--primary) 100%);
+}
+.slide-section[data-slide="41v11"] .s04v11-vs::after {
+  background: linear-gradient(90deg, var(--primary) 0%, transparent 100%);
+}
+
+/* Cascade-item refire na coluna direita */
+.slide-section[data-slide="41v11"] .s04v11-card.cascade-item {
+  opacity: 0;
+  animation: pkg6gFadeUp 0.9s cubic-bezier(0.22,1,0.36,1) both;
+}
+.slide-section[data-slide="41v11"] .s04v11-card.cascade-item:nth-child(1) { animation-delay: 0.30s; }
+.slide-section[data-slide="41v11"] .s04v11-vs.cascade-item              { animation-delay: 0.70s; opacity:0; animation: pkg6gFadeIn 0.6s cubic-bezier(0.22,1,0.36,1) both; }
+.slide-section[data-slide="41v11"] .s04v11-card.cascade-item:nth-child(3) { animation-delay: 1.05s; }
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SLIDE 42 (era data-slide="05") — Luma · padrão Dois A
+   Brief: trigger no foco. Reusar shell.js reanimate via .cascade-item
+   nos elementos .lumaseq (eles já têm animation declarada via --d).
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Headline V11 (badge "Inov. 2 · Luma" → tipografia navy/eyebrow look) */
+.slide-section[data-slide="42v11"] .s05v5-name {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 36px !important;
+  font-weight: 800 !important;
+  color: var(--brand-blue-deep) !important;
+  letter-spacing: 0.6px !important;
+}
+.slide-section[data-slide="42v11"] .s05v5-name::after {
+  content: '';
+  display: block;
+  margin: 10px auto 0 auto;
+  width: 88px; height: 4px;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, var(--primary) 100%);
+  border-radius: 2px;
+}
+.slide-section[data-slide="42v11"] .s05v5-tagline {
+  color: var(--brand-blue-deep) !important;
+}
+
+/* Cascade-item refire das mensagens da sequência Luma.
+   HTML tweak adiciona .cascade-item em cada .lumaseq. As animações
+   declaradas via style="--d:Xs" reexecutam no goTo (shell.js limpa
+   el.style.animation e força reflow). */
+.slide-section[data-slide="42v11"] .lumaseq.cascade-item {
+  /* mantém a animation existente; cascade-item apenas habilita o reanimate */
+  will-change: opacity, transform;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SLIDE 43 (era data-slide="06") — Da sala de reunião → gestão
+   Brief v11: tipografia maior em "áudio capturado em tempo real";
+   cards um pouco maiores.
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Headline V11 */
+.slide-section[data-slide="43v11"] .slide-h1 {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 42px !important;
+  font-weight: 800 !important;
+  color: var(--brand-blue-deep) !important;
+  letter-spacing: 0.2px !important;
+  line-height: 1.08 !important;
+}
+.slide-section[data-slide="43v11"] .slide-h1::after {
+  content: '';
+  display: block;
+  margin: 12px auto 14px auto;
+  width: 88px; height: 4px;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, var(--primary) 100%);
+  border-radius: 2px;
+}
+.slide-section[data-slide="43v11"] .slide-sub {
+  color: var(--brand-blue-deep) !important;
+  opacity: 0.85;
+}
+
+/* Cards (.s06v7-stage) maiores */
+.slide-section[data-slide="43v11"] .s06v7-stage {
+  transform: scale(1.08);
+  transform-origin: center;
+}
+.slide-section[data-slide="43v11"] .s06v7-stage__label {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+  color: var(--brand-blue-deep) !important;
+  letter-spacing: 0.6px !important;
+}
+
+/* "áudio capturado em tempo real" e demais subs maiores */
+.slide-section[data-slide="43v11"] .s06v7-stage__sub {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: var(--brand-blue-deep) !important;
+  line-height: 1.35 !important;
+  opacity: 0.95;
+}
+
+.slide-section[data-slide="43v11"] .slide-foot {
+  color: var(--brand-blue-deep) !important;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SLIDE 44 (era data-slide="07") — Leitura em segundos
+   Brief: OK, sem fix. Apenas alinha tipografia headline ao V11.
+   ════════════════════════════════════════════════════════════════════ */
+.slide-section[data-slide="44v11"] .v5-headline h1 {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 40px !important;
+  font-weight: 800 !important;
+  color: var(--brand-blue-deep) !important;
+  letter-spacing: 0.2px !important;
+  line-height: 1.08 !important;
+}
+.slide-section[data-slide="44v11"] .v5-headline h1 .v5-highlight {
+  color: var(--primary) !important;
+}
+.slide-section[data-slide="44v11"] .v5-headline h1::after {
+  content: '';
+  display: block;
+  margin: 10px 0 12px 0;
+  width: 88px; height: 4px;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, var(--primary) 100%);
+  border-radius: 2px;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SLIDE 45 (era data-slide="08") — Excel REC + IA observando
+   Brief v11: bolhas dinâmicas no foco — reanimate via .cascade-item.
+   Faixas verticais navy laterais (showcase).
+   ════════════════════════════════════════════════════════════════════ */
+.slide-section[data-slide="45v11"] {
+  position: relative !important;
+  overflow: hidden !important;
+}
+.slide-section[data-slide="45v11"]::before,
+.slide-section[data-slide="45v11"]::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  top: 38px !important; bottom: 38px !important;
+  width: 6px !important;
+  border-radius: 3px !important;
+  background: linear-gradient(180deg, var(--brand-blue-deep) 0%, rgba(45,79,158,0.35) 100%) !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+.slide-section[data-slide="45v11"]::before { left: 28px !important; }
+.slide-section[data-slide="45v11"]::after  { right: 28px !important; }
+
+/* Headline V11 */
+.slide-section[data-slide="45v11"] .v5-headline h1 {
+  font-family: 'Calibri','Segoe UI',sans-serif !important;
+  font-size: 40px !important;
+  font-weight: 800 !important;
+  color: var(--brand-blue-deep) !important;
+  letter-spacing: 0.2px !important;
+  line-height: 1.08 !important;
+}
+.slide-section[data-slide="45v11"] .v5-headline h1 .v5-highlight {
+  color: var(--primary) !important;
+}
+.slide-section[data-slide="45v11"] .v5-headline h1::after {
+  content: '';
+  display: block;
+  margin: 10px 0 12px 0;
+  width: 88px; height: 4px;
+  background: linear-gradient(90deg, var(--brand-blue-deep) 0%, var(--primary) 100%);
+  border-radius: 2px;
+}
+
+/* Cascade-item refire das bolhas observação/AI no foco do slide.
+   HTML tweak adiciona .cascade-item em cada .s08v7-chat__bubble.
+   As animações já existem via style="--d:Xs"; cascade-item habilita
+   o reanimate(section) do shell.js no goTo. */
+.slide-section[data-slide="45v11"] .s08v7-chat__bubble.cascade-item {
+  will-change: opacity, transform;
+}
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SLIDE 46 (era data-slide="09") — Memória viva
+   Brief: PERFEITO — NÃO MEXER. Nenhum override aqui por design.
+   ════════════════════════════════════════════════════════════════════ */
+/* (sem regras — proibido tocar) */
+
+
+/* ════════════════════════════════════════════════════════════════════
+   SLIDES 47–51 (eram data-slide="10","11","13","14","15") — NÃO MEXER
+   Brief: manter imagens/estrutura. Conteúdo/estética em próximo round.
+   Nenhum override aqui por design.
+   ════════════════════════════════════════════════════════════════════ */
+/* (sem regras — proibido tocar) */
+
