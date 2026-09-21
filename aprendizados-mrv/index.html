@@ -5300,6 +5300,15 @@
   color: var(--ink-3, #5b6474) !important; margin-top: 14px; max-width: 640px;
 }
 
+/* Achado real (leitura como destinatário, 21/09): o rodapé do divisor de
+   capítulo some da tela em TODO divisor. Causa: o scaffold anima
+   .ch-divider__footer com chRevealLeft, cujo keyframe "to" fixa
+   transform:translateX(0) — isso SUBSTITUI (não soma com) o
+   transform:translateX(-50%) que centraliza o rodapé (junto com left:50%)
+   na regra base do doisa-theme.css. Sem a animação, o rodapé nunca some,
+   fica so sem o efeito de entrada, que é cosmético. */
+.ch-divider__footer { animation: none !important; opacity: 1 !important; transform: translateX(-50%) !important; }
+
 /* ─── tela_item: as 3 camadas numa tela só (pedido do Álvaro, 21/09) ─── */
 .mrv-item-slide { justify-content: flex-start !important; padding-top: 36px !important; }
 .mrv-item-inner { max-width: 1760px !important; }
@@ -5352,6 +5361,29 @@
     overflow: hidden auto !important;
     align-items: flex-start !important;
   }
+}
+
+/* ─── tela_dupla: dois itens numa pagina so (pedido do Alvaro, 21/09:
+   "pode por mais de um tema por pagina") — empilhados, cada metade com o
+   proprio titulo, tudo mais compacto que uma tela de item so. ─── */
+.mrv-dupla-inner { max-width: 1820px !important; }
+.mrv-dupla-inner .mrv-item-inner { max-width: none; }
+.mrv-dupla__metade { display: flex; flex-direction: column; }
+.mrv-dupla__metade .mrv-item { gap: 32px; }
+.mrv-dupla__metade .rgi-slide__eyebrow { font-size: 12px; }
+.mrv-dupla__metade .rgi-slide__title { font-size: 22px; line-height: 1.2; }
+.mrv-dupla__metade .mrv-lead-sm { font-size: 13.5px; line-height: 1.4; }
+.mrv-dupla__metade .mrv-item__label { font-size: 10px; margin-bottom: 6px; }
+.mrv-dupla__metade .mrv-chip-sm.serra-chip { padding: 7px 10px; }
+.mrv-dupla__metade .mrv-chip-sm .serra-chip__label { font-size: 9px; }
+.mrv-dupla__metade .mrv-chip-sm .serra-chip__value { font-size: 14px; }
+.mrv-dupla__metade .mrv-bullets--sm { gap: 6px; }
+.mrv-dupla__metade .mrv-bullets--sm li { font-size: 12.5px; line-height: 1.35; padding-left: 18px; }
+.mrv-dupla__metade .mrv-fonte { font-size: 11px; padding-top: 6px; }
+.mrv-dupla__metade .mrv-item__diagram svg { max-height: 150px; }
+.mrv-dupla__separador { height: 1px; background: rgba(26,52,112,0.14); margin: 18px 0; flex: 0 0 auto; }
+@media (max-width: 480px) {
+  .mrv-dupla__separador { margin: 24px 0; }
 }
 
 </style>
@@ -5420,7 +5452,7 @@
             <h2 class="rgi-slide__title">Cada assunto numa tela, em três blocos</h2>
           </div>
           <p class="mrv-lead cascade-item">Os 26 temas escolhidos para este material — mais três blocos que entraram por decisão do Gustavo — trazem sempre os mesmos três blocos na mesma tela: <strong>o que é</strong>, explicado sem jargão, à esquerda; <strong>o número ou o fato</strong> que prova que aquilo é real, e <strong>o que serve para a Dois A</strong>, à direita.</p>
-          <p class="mrv-lead cascade-item">Ler este material não exige ter visto planilha de obra nem saber o que é RCCP ou IDC — cada termo de gestão é explicado na primeira vez que aparece. É material para todo mundo, da diretoria a quem está na obra.</p>
+          <p class="mrv-lead cascade-item">Ler este material não exige ter visto planilha de obra nem saber o que é RCCP — cada termo de gestão é explicado na primeira vez que aparece. É material para todo mundo, da diretoria a quem está na obra.</p>
           <p class="mrv-lead cascade-item">Um aviso vale para o material inteiro: a MRV é uma empresa muito maior que a Dois A, com regras e estrutura pensadas para essa escala. Nem tudo aqui cabe do jeito que está — cada bloco de "o que serve para a Dois A" já leva isso em conta.</p>
           
           
@@ -5457,7 +5489,7 @@
             <p class="mrv-lead-sm cascade-item">Quem desenha esse programa não é a engenharia. Na MRV o RH é dividido em duas frentes: uma cuida de ponto, admissão e burocracia; a outra, o Desenvolvimento Humano, cuida de performance, retenção e premiação — e desenha os programas de meta, não a engenharia. A separação evita que o programa vire improviso de quem já está sobrecarregado tocando a obra no dia a dia.</p>
             </div>
             <div class="mrv-item__col-b">
-              <div><p class="mrv-item__label cascade-item">O NÚMERO</p><div class="mrv-chips"><div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Lead time do pavimento</p><p class="serra-chip__value">&lt; 100 dias</p></div>
+              <div><p class="mrv-item__label cascade-item">O NÚMERO</p><div class="mrv-chips"><div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Prazo do pavimento</p><p class="serra-chip__value">&lt; 100 dias</p></div>
                 <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Valor por pavimento no prazo</p><p class="serra-chip__value">R$ 2.000</p></div>
                 <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Torre de 15 pavimentos</p><p class="serra-chip__value">R$ 30.000</p></div>
                 <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Meta de medição/caixa</p><p class="serra-chip__value">R$ 500/mês</p></div>
@@ -5474,9 +5506,10 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-006">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+      <section class="slide-section mrv-item-slide mrv-dupla-slide" data-slide="dupla-006">
+        <div class="slide-inner mrv-slide mrv-item-inner mrv-dupla-inner">
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">GENTE · TEMA 2 DE 26</p>
             <h2 class="rgi-slide__title">Quem desenha a premiação não é a engenharia</h2>
           </div>
@@ -5492,19 +5525,16 @@
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:03–00:04.</p>
-        </div>
-      </section>
-
-      <section class="slide-section mrv-item-slide" data-slide="item-007">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+          </div>
+          <div class="mrv-dupla__separador"></div>
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">GENTE · TEMA 3 DE 26</p>
             <h2 class="rgi-slide__title">Um pacote de benefícios pensado item por item</h2>
           </div>
           <div class="mrv-item">
             <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">A MRV oferece um cartão de benefícios próprio, apoio para mãe de recém-nascido nos primeiros seis meses, folga semanal para quem tem filho com deficiência, plano de saúde dividido meio a meio entre empresa e colaborador (com a família incluída), previdência privada com aporte da empresa e desconto na compra de imóvel próprio, que cresce com o tempo de casa.</p>
-            <p class="mrv-lead-sm cascade-item">Também entram dez consultas de psicólogo por ano e uma rede social interna. Nem todo item é para todo mundo — o plano de saúde integral, por exemplo, vale só para quem está na operação (o "capacete branco"), não para toda a empresa.</p>
+              <p class="mrv-lead-sm cascade-item">A MRV oferece um cartão de benefícios próprio, apoio para mãe de recém-nascido nos primeiros seis meses, folga semanal para quem tem filho com deficiência, plano de saúde dividido meio a meio entre empresa e colaborador (com a família incluída), previdência privada com aporte da empresa e desconto na compra de imóvel próprio, que cresce com o tempo de casa. Também entram dez consultas de psicólogo por ano e uma rede social interna. Nem todo item é para todo mundo — o plano de saúde integral, por exemplo, vale só para quem está na operação (o "capacete branco").</p>
             </div>
             <div class="mrv-item__col-b">
               <div><p class="mrv-item__label cascade-item">O NÚMERO</p><div class="mrv-chips"><div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Apoio a mãe de recém-nascido</p><p class="serra-chip__value">R$ 350/mês, 6 meses</p></div>
@@ -5518,12 +5548,14 @@
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:04–00:08.</p>
+          </div>
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-008">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+      <section class="slide-section mrv-item-slide mrv-dupla-slide" data-slide="dupla-007">
+        <div class="slide-inner mrv-slide mrv-item-inner mrv-dupla-inner">
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">GENTE · TEMA 4 DE 26</p>
             <h2 class="rgi-slide__title">Vaga interna antes de contratar fora, sempre</h2>
           </div>
@@ -5539,12 +5571,10 @@
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:53–00:54.</p>
-        </div>
-      </section>
-
-      <section class="slide-section mrv-item-slide" data-slide="item-009">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+          </div>
+          <div class="mrv-dupla__separador"></div>
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">GENTE · TEMA 5 DE 26</p>
             <h2 class="rgi-slide__title">Rotatividade medida, com as causas nomeadas</h2>
           </div>
@@ -5556,15 +5586,16 @@
               <div><p class="mrv-item__label cascade-item">O NÚMERO</p><div class="mrv-chips"><div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Rotatividade — operação</p><p class="serra-chip__value">48% ao semestre</p></div>
                 <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Rotatividade — administrativo</p><p class="serra-chip__value">10% ao semestre</p></div></div><p class="mrv-lead-sm mrv-item__nota cascade-item">O próprio executivo da MRV diz que 48% já foi bem pior — o número existe para acompanhar melhora, não é um problema resolvido.</p></div>
             <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">Hoje ninguém na Dois A sabe esse número. Antes de copiar qualquer solução da MRV para rotatividade, o primeiro passo é simplesmente medir o giro que já existe.</li>
-                <li class="cascade-item">As três causas nomeadas pela MRV servem de roteiro de pergunta, não de diagnóstico pronto: vale checar se as mesmas três valem para a realidade da Dois A antes de agir em cima delas.</li></ul></div>
+                <li class="cascade-item">As três causas nomeadas pela MRV servem de roteiro de pergunta, não de diagnóstico pronto: vale checar se as mesmas três valem para a Dois A antes de agir em cima delas.</li></ul></div>
             </div>
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 1, tema geral citado de novo no áudio 2, 01:19–01:20.</p>
+          </div>
         </div>
       </section>
 
-      <section class="slide-section ch-divider-section" data-slide="div-010" data-capa="true">
+      <section class="slide-section ch-divider-section" data-slide="div-008" data-capa="true">
         <div class="ch-divider">
           <div class="ch-divider__big-num cascade-item">02</div>
           <div class="ch-divider__bracket-tr cascade-item"></div>
@@ -5581,28 +5612,47 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-011">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+      <section class="slide-section mrv-item-slide mrv-dupla-slide" data-slide="dupla-009">
+        <div class="slide-inner mrv-slide mrv-item-inner mrv-dupla-inner">
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">ORGANIZAÇÃO · TEMA 6 DE 26</p>
             <h2 class="rgi-slide__title">O escritório existe para servir a obra, não o contrário</h2>
           </div>
           <div class="mrv-item">
             <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">A frase que resume a filosofia da casa na MRV é direta: "a obra é uma fábrica". Muitas empresas enxugam o escritório para carregar a obra nas costas; na MRV é o inverso — cada coisa que atrapalharia o engenheiro tem alguém no escritório fazendo por ele.</p>
-            <p class="mrv-lead-sm cascade-item">O engenheiro de obra responde só por cinco coisas: obra, custo, medição, prazo e segurança. Mais nada. Tudo que não é isso — legalização, meio ambiente, trâmite, compra — vira trabalho de outra pessoa.</p>
+              <p class="mrv-lead-sm cascade-item">A frase que resume a filosofia da casa na MRV é direta: "a obra é uma fábrica". Muitas empresas enxugam o escritório para carregar a obra nas costas; na MRV é o inverso — cada coisa que atrapalharia o engenheiro tem alguém no escritório fazendo por ele. O engenheiro de obra responde só por cinco coisas: obra, custo, medição, prazo e segurança. Tudo que não é isso — legalização, meio ambiente, trâmite, compra — vira trabalho de outra pessoa.</p>
             </div>
             <div class="mrv-item__col-b">
-              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">Isso não é um item isolado — é a régua por trás de quase todos os outros temas deste capítulo: mestre geral, urbanização separada, despachante interno. Todos nascem da mesma ideia, só aplicada em pedaços diferentes.</li>
-                <li class="cascade-item">Vale como pergunta de auditoria interna, não como meta pronta: hoje, quanto do tempo do engenheiro de obra da Dois A vai para coisa que não é obra, custo, medição, prazo ou segurança?</li></ul></div>
+              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">Isso não é um item isolado — é a régua por trás de quase todos os outros temas deste capítulo: mestre geral, urbanização separada, despachante interno.</li>
+                <li class="cascade-item">Vale como pergunta de auditoria interna: hoje, quanto do tempo do engenheiro de obra da Dois A vai para coisa que não é obra, custo, medição, prazo ou segurança?</li></ul></div>
             </div>
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:13–00:14 e 00:35–00:36; áudio 2, 00:42.</p>
+          </div>
+          <div class="mrv-dupla__separador"></div>
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
+            <p class="rgi-slide__eyebrow">ORGANIZAÇÃO · TEMA 8 DE 26</p>
+            <h2 class="rgi-slide__title">Quem cuida do lado de fora do muro não é o engenheiro da obra</h2>
+          </div>
+          <div class="mrv-item">
+            <div class="mrv-item__col-a">
+              <p class="mrv-lead-sm cascade-item">A incorporação entrega a obra já legalizada e com as condicionantes ambientais atendidas — não é o engenheiro de obra quem corre atrás disso. Drenagem, esgoto, pavimentação e ligação de energia ficam com um analista de urbanização dedicado, formado engenheiro, que cuida só do que está do muro para fora. Plantio de mudas e outras condicionantes ambientais ficam com outra pessoa ainda, especializada só nisso.</p>
+            </div>
+            <div class="mrv-item__col-b">
+              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">É o trabalho que mais consome tempo de quem toca obra e menos tem a ver com o ofício dele — separar isso libera o engenheiro para o que só ele pode decidir.</li>
+                <li class="cascade-item">Não precisa ser uma pessoa de dedicação exclusiva desde o primeiro dia: pode começar como responsabilidade extra de alguém do time de incorporação.</li></ul></div>
+            </div>
+          </div>
+          
+          <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:37–00:43.</p>
+          </div>
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-012">
+      <section class="slide-section mrv-item-slide" data-slide="item-010">
         <div class="slide-inner mrv-slide mrv-item-inner">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">ORGANIZAÇÃO · TEMA 7 DE 26</p>
@@ -5678,49 +5728,47 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-013">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
-            <p class="rgi-slide__eyebrow">ORGANIZAÇÃO · TEMA 8 DE 26</p>
-            <h2 class="rgi-slide__title">Quem cuida do lado de fora do muro não é o engenheiro da obra</h2>
-          </div>
-          <div class="mrv-item">
-            <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">A incorporação entrega a obra já legalizada e com as condicionantes ambientais atendidas — não é o engenheiro de obra quem corre atrás disso. Drenagem, esgoto, pavimentação e ligação de energia ficam com um analista de urbanização dedicado, formado engenheiro, que cuida só do que está do muro para fora.</p>
-            <p class="mrv-lead-sm cascade-item">Plantio de mudas e outras condicionantes ambientais ficam com outra pessoa ainda, especializada só nisso.</p>
-            </div>
-            <div class="mrv-item__col-b">
-              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">É o trabalho que mais consome tempo de quem toca obra e menos tem a ver com o ofício dele — separar isso libera o engenheiro para o que só ele pode decidir.</li>
-                <li class="cascade-item">Não precisa ser uma pessoa de dedicação exclusiva desde o primeiro dia: pode começar como responsabilidade extra de alguém do time de incorporação, até justificar um cargo próprio.</li></ul></div>
-            </div>
-          </div>
-          
-          <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:37–00:43.</p>
-        </div>
-      </section>
-
-      <section class="slide-section mrv-item-slide" data-slide="item-014">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+      <section class="slide-section mrv-item-slide mrv-dupla-slide" data-slide="dupla-011">
+        <div class="slide-inner mrv-slide mrv-item-inner mrv-dupla-inner">
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">ORGANIZAÇÃO · TEMA 9 DE 26</p>
             <h2 class="rgi-slide__title">Despachante interno em vez de terceirizado</h2>
           </div>
           <div class="mrv-item">
             <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">Os trâmites em secretaria são feitos por um funcionário da própria casa, com procuração — não por um despachante terceirizado. A lógica deles: sai mais barato e é mais rápido, porque despachante terceirizado tem interesse em criar dificuldade para justificar o próprio serviço.</p>
-            <p class="mrv-lead-sm cascade-item">O exemplo citado foi uma renovação de viabilidade de água: um despachante cobrava R$ 10 mil por esse trâmite, e o funcionário interno resolve com uma ida ao balcão.</p>
+              <p class="mrv-lead-sm cascade-item">Os trâmites em secretaria são feitos por um funcionário da própria casa, com procuração — não por um despachante terceirizado. A lógica deles: sai mais barato e é mais rápido, porque despachante terceirizado tem interesse em criar dificuldade para justificar o próprio serviço. O exemplo citado foi uma renovação de viabilidade de água: um despachante cobrava R$ 10 mil por esse trâmite, e o funcionário interno resolve com uma ida ao balcão.</p>
             </div>
             <div class="mrv-item__col-b">
               <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">Não exige contratar ninguém novo de cara: dá para testar com um trâmite específico, medindo quanto custaria por despachante contra o custo de fazer internamente.</li>
-                <li class="cascade-item">Se funcionar num trâmite, o próximo passo natural é ampliar aos poucos — sem prometer substituir despachante em tudo de uma vez.</li></ul></div>
+                <li class="cascade-item">Se funcionar num trâmite, o próximo passo natural é ampliar aos poucos.</li></ul></div>
             </div>
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:37–00:43.</p>
+          </div>
+          <div class="mrv-dupla__separador"></div>
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
+            <p class="rgi-slide__eyebrow">ORGANIZAÇÃO · TEMA 11 DE 26</p>
+            <h2 class="rgi-slide__title">O ritual de duas semanas por mês</h2>
+          </div>
+          <div class="mrv-item">
+            <div class="mrv-item__col-a">
+              <p class="mrv-lead-sm cascade-item">Metade do mês, o gestor regional da MRV não sai do escritório: uma semana inteira só de reunião de custo, outra só de prazo e planejamento, passando linha a linha pelo orçamento de cada obra, sem hora marcada para acabar. Todo mundo na empresa sabe que, nessas duas semanas, ele não responde e-mail — e essa orientação vem de cima, da própria matriz da MRV, não é escolha pessoal dele.</p>
+            </div>
+            <div class="mrv-item__col-b">
+              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">É o item que mais provoca discussão de todo o material — porque contraria diretamente o hábito de responder tudo em tempo real.</li>
+                <li class="cascade-item">Revisar orçamento linha a linha, com profundidade, exige tempo protegido, que não cabe entre uma reunião e outra.</li></ul></div>
+            </div>
+          </div>
+          
+          <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:31–00:32.</p>
+          </div>
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-015">
+      <section class="slide-section mrv-item-slide" data-slide="item-012">
         <div class="slide-inner mrv-slide mrv-item-inner">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">ORGANIZAÇÃO · TEMA 10 DE 26</p>
@@ -5744,28 +5792,7 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-016">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
-            <p class="rgi-slide__eyebrow">ORGANIZAÇÃO · TEMA 11 DE 26</p>
-            <h2 class="rgi-slide__title">O ritual de duas semanas por mês</h2>
-          </div>
-          <div class="mrv-item">
-            <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">Metade do mês, o gestor regional da MRV não sai do escritório: uma semana inteira só de reunião de custo, outra só de prazo e planejamento, passando linha a linha pelo orçamento de cada obra, sem hora marcada para acabar.</p>
-            <p class="mrv-lead-sm cascade-item">Todo mundo na empresa sabe que, nessas duas semanas, ele não responde e-mail — e essa orientação de fazer assim vem de cima, da própria matriz da MRV, não é escolha pessoal dele.</p>
-            </div>
-            <div class="mrv-item__col-b">
-              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">É o item que mais provoca discussão de todo o material — porque contraria diretamente o hábito de responder tudo em tempo real.</li>
-                <li class="cascade-item">Revisar orçamento linha a linha, com profundidade, exige tempo protegido, que não cabe entre uma reunião e outra — sem precisar copiar as duas semanas inteiras de agenda bloqueada.</li></ul></div>
-            </div>
-          </div>
-          
-          <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:31–00:32.</p>
-        </div>
-      </section>
-
-      <section class="slide-section mrv-item-slide" data-slide="item-017">
+      <section class="slide-section mrv-item-slide" data-slide="item-013">
         <div class="slide-inner mrv-slide mrv-item-inner">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">ORGANIZAÇÃO · TEMA 12 DE 26</p>
@@ -5786,7 +5813,7 @@
         </div>
       </section>
 
-      <section class="slide-section ch-divider-section" data-slide="div-018" data-capa="true">
+      <section class="slide-section ch-divider-section" data-slide="div-014" data-capa="true">
         <div class="ch-divider">
           <div class="ch-divider__big-num cascade-item">03</div>
           <div class="ch-divider__bracket-tr cascade-item"></div>
@@ -5803,7 +5830,7 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-019">
+      <section class="slide-section mrv-item-slide" data-slide="item-015">
         <div class="slide-inner mrv-slide mrv-item-inner">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">DINHEIRO · TEMA 13 DE 26</p>
@@ -5819,7 +5846,7 @@
               <div><p class="mrv-item__label cascade-item">O NÚMERO</p><div class="mrv-chips"><div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Meta de custo por unidade</p><p class="serra-chip__value">R$ 100 mil</p></div>
                 <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Desembolso real por unidade</p><p class="serra-chip__value">R$ 130 mil</p></div>
                 <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Exemplo citado</p><p class="serra-chip__value">piso a R$ 50/apartamento</p></div></div></div>
-            <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">"Quanto custou este mês" é pergunta de contador; "quanto custa por apartamento" é pergunta que engenheiro, mestre e almoxarife entendem do mesmo jeito, sem precisar saber ler DRE.</li>
+            <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">"Quanto custou este mês" é pergunta de contador; "quanto custa por apartamento" é pergunta que engenheiro, mestre e almoxarife entendem do mesmo jeito, sem precisar saber ler a DRE — a planilha que mostra receita, custo e lucro de um período.</li>
                 <li class="cascade-item">Não depende de sistema novo: depende de escolher, para cada obra, o número de unidades que divide o custo total — e repetir essa régua em toda reunião de acompanhamento.</li></ul></div>
             </div>
           </div>
@@ -5828,9 +5855,10 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-020">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+      <section class="slide-section mrv-item-slide mrv-dupla-slide" data-slide="dupla-016">
+        <div class="slide-inner mrv-slide mrv-item-inner mrv-dupla-inner">
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">DINHEIRO · TEMA 14 DE 26</p>
             <h2 class="rgi-slide__title">O rateio do escritório por unidade, e o efeito que ele provoca</h2>
           </div>
@@ -5840,123 +5868,118 @@
             </div>
             <div class="mrv-item__col-b">
               <div><p class="mrv-item__label cascade-item">O NÚMERO</p><div class="mrv-chips"><div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Produzindo 1.700 unidades</p><p class="serra-chip__value">R$ 4.500/unidade</p></div>
-                <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Produzindo 1.500 unidades</p><p class="serra-chip__value">R$ 5.600/unidade</p></div></div><p class="mrv-lead-sm mrv-item__nota cascade-item">A diferença entre os dois cenários bate direto no resultado de que os sócios vivem — não é efeito abstrato de planilha.</p></div>
-            <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">O rateio, sozinho, já cria o incentivo certo: ninguém precisa convencer ninguém a produzir mais, o próprio custo por unidade mostra o efeito de produzir menos.</li>
-                <li class="cascade-item">Vale simular esse cálculo com a estrutura de retaguarda que a Dois A já tem hoje, mesmo sem adotar o rateio formal — só para ver a curva.</li></ul></div>
+                <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Produzindo 1.500 unidades</p><p class="serra-chip__value">R$ 5.600/unidade</p></div></div><p class="mrv-lead-sm mrv-item__nota cascade-item">A diferença bate direto no resultado de que os sócios vivem.</p></div>
+            <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">O rateio, sozinho, já cria o incentivo certo: o próprio custo por unidade mostra o efeito de produzir menos.</li>
+                <li class="cascade-item">Vale simular esse cálculo com a estrutura de retaguarda que a Dois A já tem hoje.</li></ul></div>
             </div>
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:46–00:51.</p>
-        </div>
-      </section>
-
-      <section class="slide-section mrv-item-slide" data-slide="item-021">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+          </div>
+          <div class="mrv-dupla__separador"></div>
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">DINHEIRO · TEMA 15 DE 26</p>
             <h2 class="rgi-slide__title">Terreno reprovado pelo custo, com um caminho de salvamento antes</h2>
           </div>
           <div class="mrv-item">
             <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">Antes de comprar um terreno, a MRV faz sondagem com verba própria, dentro do próprio desembolso da negociação. A partir daí, a engenharia devolve o custo por unidade daquele terreno específico — e se o número vier acima da meta, começa um processo de corte.</p>
-            <p class="mrv-lead-sm cascade-item">O corte tira o que não mexe na tipologia do produto: piscina, piso de área comum, textura no teto em vez de liso. Se, mesmo depois de cortar, a conta ainda não fecha, o terreno é descartado — não entra forçado.</p>
+              <p class="mrv-lead-sm cascade-item">Antes de comprar um terreno, a MRV faz sondagem com verba própria, dentro do próprio desembolso da negociação. A partir daí, a engenharia devolve o custo por unidade daquele terreno específico — e se o número vier acima da meta, começa um processo de corte: tira o que não mexe na tipologia (piscina, piso de área comum, textura no teto). Se ainda não fecha, o terreno é descartado, não entra forçado.</p>
             </div>
             <div class="mrv-item__col-b">
-              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">É exatamente o tipo de processo que a Dois A está construindo agora para terreno — a sequência sondagem → custo por unidade → corte → descarte é um roteiro pronto para testar.</li>
-                <li class="cascade-item">O ponto mais transportável é a ordem: cortar item de acabamento antes de mexer na tipologia, e só descartar depois de esgotar o corte.</li></ul></div>
+              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">É o tipo de processo que a Dois A está construindo agora para terreno — a sequência sondagem → custo por unidade → corte → descarte é um roteiro pronto para testar.</li>
+                <li class="cascade-item">O ponto mais transportável é a ordem: cortar acabamento antes de mexer na tipologia.</li></ul></div>
             </div>
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:19–00:21; áudio 2, 00:31–00:33.</p>
+          </div>
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-022">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+      <section class="slide-section mrv-item-slide mrv-dupla-slide" data-slide="dupla-017">
+        <div class="slide-inner mrv-slide mrv-item-inner mrv-dupla-inner">
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">DINHEIRO · TEMA 16 DE 26</p>
             <h2 class="rgi-slide__title">Como pagam o terreno</h2>
           </div>
           <div class="mrv-item">
             <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">A preferência da MRV é permuta financeira, sempre que o dono do terreno aceita. Quando há desembolso em dinheiro, o pagamento se divide em três partes: sinal, alvará e velocidade de obra, nas proporções de 30%, 60% e 90%.</p>
-            <p class="mrv-lead-sm cascade-item">Quando conseguem negociar, trocam a parcela ligada à velocidade de obra pela velocidade de venda — e aí o pagamento do terreno fica amarrado ao dinheiro que está entrando de verdade.</p>
+              <p class="mrv-lead-sm cascade-item">A preferência da MRV é permuta financeira, sempre que o dono do terreno aceita. Quando há desembolso em dinheiro, o pagamento se divide em três partes: sinal, alvará e velocidade de obra, nas proporções de 30%, 60% e 90%. Quando conseguem negociar, trocam a parcela ligada à velocidade de obra pela velocidade de venda — e aí o pagamento fica amarrado ao dinheiro que está entrando de verdade.</p>
             </div>
             <div class="mrv-item__col-b">
-              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">A ideia de trocar o gatilho de pagamento — de velocidade de obra para velocidade de venda — é a que vale mais a pena levar para a mesa de negociação de terreno da Dois A.</li>
-                <li class="cascade-item">Não depende de estrutura nova nenhuma: é cláusula de negociação, testável no próximo terreno que entrar em conversa.</li></ul></div>
+              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">A ideia de trocar o gatilho de pagamento — de velocidade de obra para velocidade de venda — é a que vale mais a pena levar para a negociação de terreno da Dois A.</li>
+                <li class="cascade-item">Não depende de estrutura nova: é cláusula de negociação, testável no próximo terreno.</li></ul></div>
             </div>
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:35–00:36; áudio 2, 00:33–00:34.</p>
-        </div>
-      </section>
-
-      <section class="slide-section mrv-item-slide" data-slide="item-023">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+          </div>
+          <div class="mrv-dupla__separador"></div>
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">DINHEIRO · TEMA 17 DE 26</p>
             <h2 class="rgi-slide__title">O dono olha todos os terrenos, e tem gente pesquisando o futuro para ele</h2>
           </div>
           <div class="mrv-item">
             <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">O dono da MRV visita pessoalmente cada regional a cada três meses e passa duas semanas rodando. Nenhum terreno é comprado sem ele ver antes — sondagem, comercial e viabilidade já prontos na mesa quando ele chega.</p>
-            <p class="mrv-lead-sm cascade-item">Além disso, existe uma área de estratégia dentro da empresa dedicada só a alimentar essas decisões com notícia e leitura de economia. Foi essa área que recomendou comprar mais quatro terrenos numa região do Ceará, antecipando um investimento grande de infraestrutura que vai atrair gente e emprego para a região.</p>
+              <p class="mrv-lead-sm cascade-item">O dono da MRV visita pessoalmente cada regional a cada três meses e passa duas semanas rodando. Nenhum terreno é comprado sem ele ver antes. Além disso, existe uma área de estratégia dedicada só a alimentar essas decisões com notícia e leitura de economia — foi essa área que recomendou comprar mais quatro terrenos numa região do Ceará, antecipando um investimento grande de infraestrutura na região.</p>
             </div>
             <div class="mrv-item__col-b">
               <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">A primeira parte — o dono vendo cada terreno pessoalmente — é escala que a MRV tem e a Dois A não precisa replicar do mesmo jeito.</li>
-                <li class="cascade-item">A segunda parte é o que interessa de verdade: montar, mesmo com pouca gente, uma rotina simples de acompanhar o que está mudando na cidade — obra pública grande, investimento anunciado — antes que vire concorrência disputando o mesmo terreno.</li></ul></div>
+                <li class="cascade-item">A segunda parte é o que interessa: montar, mesmo com pouca gente, uma rotina simples de acompanhar o que está mudando na cidade antes que vire concorrência pelo terreno.</li></ul></div>
             </div>
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:26–00:27; áudio 2, 00:35–00:39.</p>
+          </div>
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-024">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+      <section class="slide-section mrv-item-slide mrv-dupla-slide" data-slide="dupla-018">
+        <div class="slide-inner mrv-slide mrv-item-inner mrv-dupla-inner">
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">DINHEIRO · TEMA 18 DE 26</p>
             <h2 class="rgi-slide__title">A régua de decisão é a Selic</h2>
           </div>
           <div class="mrv-item">
             <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">Para um terreno entrar, o resultado operacional mínimo exigido é 35%. E existe uma frase do dono da MRV que resume o critério final: se o resultado esperado for pior que a taxa Selic, a conta se fecha e o dinheiro fica guardado no banco — em vez de virar um empreendimento com risco maior que aplicação sem risco.</p>
+              <p class="mrv-lead-sm cascade-item">Para um terreno entrar, o resultado operacional mínimo exigido é 35%. E existe uma frase do dono da MRV que resume o critério final: se o resultado esperado for pior que a taxa Selic — a taxa básica de juros da economia, o retorno de referência de uma aplicação sem risco — a conta se fecha e o dinheiro fica guardado no banco, em vez de virar um empreendimento com risco maior que aplicação sem risco.</p>
             </div>
             <div class="mrv-item__col-b">
               <div><p class="mrv-item__label cascade-item">O NÚMERO</p><div class="mrv-chips"><div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Resultado operacional mínimo</p><p class="serra-chip__value">35%</p></div>
                 <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Critério final</p><p class="serra-chip__value">acima da Selic, sempre</p></div></div></div>
-            <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">Comparar o resultado esperado de um empreendimento com a Selic do momento da decisão é uma régua simples, pública e que qualquer pessoa da equipe consegue verificar sozinha.</li>
-                <li class="cascade-item">Não substitui a viabilidade completa — funciona como um primeiro filtro, antes de gastar tempo detalhando um terreno que já nasceria perdendo para a renda fixa.</li></ul></div>
+            <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">Comparar o resultado esperado com a Selic do momento da decisão é uma régua simples, pública, que qualquer pessoa da equipe consegue verificar sozinha.</li>
+                <li class="cascade-item">Não substitui a viabilidade completa — funciona como primeiro filtro.</li></ul></div>
             </div>
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 2, 00:35–00:40.</p>
-        </div>
-      </section>
-
-      <section class="slide-section mrv-item-slide" data-slide="item-025">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+          </div>
+          <div class="mrv-dupla__separador"></div>
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">DINHEIRO · TEMA 19 DE 26</p>
             <h2 class="rgi-slide__title">O custo da não qualidade, medido em separado</h2>
           </div>
           <div class="mrv-item">
             <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">A MRV mede quanto custa o retrabalho que passou pela engenharia, pelo checklist e pela assistência técnica — e ainda assim o cliente apontou depois. Não existe verba de retrabalho prevista no orçamento deles: o que acontece é medido e cobrado como desvio, não como custo normal de obra.</p>
-            <p class="mrv-lead-sm cascade-item">Na própria conversa, do lado da Dois A, esse número já foi dito: cerca de 5% da mão de obra e R$ 300 por apartamento — puxado sobretudo por personalização de cliente.</p>
+              <p class="mrv-lead-sm cascade-item">A MRV mede quanto custa o retrabalho que passou pela engenharia, pelo checklist e pela assistência técnica — e ainda assim o cliente apontou depois. Não existe verba de retrabalho prevista no orçamento deles: o que acontece é medido e cobrado como desvio. Na própria conversa, do lado da Dois A, esse número já foi dito: cerca de 5% da mão de obra e R$ 300 por apartamento, puxado sobretudo por personalização.</p>
             </div>
             <div class="mrv-item__col-b">
-              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">A Dois A já sabe o tamanho do problema — 5% da mão de obra, R$ 300 por apartamento — o que falta é transformar esse número solto num indicador acompanhado mês a mês, com dono definido.</li>
-                <li class="cascade-item">Hoje esse número fica diluído dentro do custo geral da obra. Separado, como a MRV faz, dá para comparar mês a mês se está subindo ou caindo.</li></ul></div>
+              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">A Dois A já sabe o tamanho do problema — o que falta é transformar esse número solto num indicador acompanhado mês a mês, com dono definido.</li>
+                <li class="cascade-item">Hoje esse número fica diluído no custo geral da obra. Separado, como a MRV faz, dá para comparar mês a mês se está subindo ou caindo.</li></ul></div>
             </div>
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 2, 01:04–01:06.</p>
+          </div>
         </div>
       </section>
 
-      <section class="slide-section ch-divider-section" data-slide="div-026" data-capa="true">
+      <section class="slide-section ch-divider-section" data-slide="div-019" data-capa="true">
         <div class="ch-divider">
           <div class="ch-divider__big-num cascade-item">04</div>
           <div class="ch-divider__bracket-tr cascade-item"></div>
@@ -5973,7 +5996,7 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-027">
+      <section class="slide-section mrv-item-slide" data-slide="item-020">
         <div class="slide-inner mrv-slide mrv-item-inner">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">COMPRAR · TEMA 20 DE 26</p>
@@ -6057,49 +6080,47 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-028">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+      <section class="slide-section mrv-item-slide mrv-dupla-slide" data-slide="dupla-021">
+        <div class="slide-inner mrv-slide mrv-item-inner mrv-dupla-inner">
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">COMPRAR · TEMA 21 DE 26</p>
             <h2 class="rgi-slide__title">Compra automática quando a obra está planejada</h2>
           </div>
           <div class="mrv-item">
             <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">Se o planejamento da obra está em dia, o sistema da MRV avisa com a antecedência do prazo de entrega — por exemplo, "compre a cerâmica daqui a 60 dias". Havendo saldo de orçamento, a compra sai sem precisar de aprovação humana.</p>
-            <p class="mrv-lead-sm cascade-item">O que sustenta essa automação é um contrato anual por família de material, já negociado com vários fornecedores por região — ninguém fica negociando pedido a pedido, só executando um contrato que já existe.</p>
+              <p class="mrv-lead-sm cascade-item">Se o planejamento da obra está em dia, o sistema da MRV avisa com a antecedência do prazo de entrega — "compre a cerâmica daqui a 60 dias". Havendo saldo de orçamento, a compra sai sem precisar de aprovação humana. O que sustenta isso é um contrato anual por família de material, já negociado com vários fornecedores por região.</p>
             </div>
             <div class="mrv-item__col-b">
-              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">O passo que dá para adotar já, sem sistema nenhum, é o contrato anual por família de material — cerâmica, cimento, ferro — negociado uma vez e executado o ano inteiro.</li>
-                <li class="cascade-item">A compra 100% automática, sem aprovação humana, é o passo seguinte, que só faz sentido depois de o planejamento de obra estar confiável o bastante para disparar pedido sozinho.</li></ul></div>
+              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">O passo que dá para adotar já é o contrato anual por família de material — cerâmica, cimento, ferro — negociado uma vez e executado o ano inteiro.</li>
+                <li class="cascade-item">A compra 100% automática é o passo seguinte, quando o planejamento estiver confiável.</li></ul></div>
             </div>
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 1, 00:19–00:21.</p>
-        </div>
-      </section>
-
-      <section class="slide-section mrv-item-slide" data-slide="item-029">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+          </div>
+          <div class="mrv-dupla__separador"></div>
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">COMPRAR · TEMA 22 DE 26</p>
             <h2 class="rgi-slide__title">Suprimento medido por chamado e por entrega no prazo</h2>
           </div>
           <div class="mrv-item">
             <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">Todo atraso de material na MRV vira chamado formal — mesmo que o engenheiro já tenha resolvido o problema por telefone — porque é o chamado registrado que gera o indicador de pontualidade do fornecedor. Sem chamado, o atraso simplesmente não existe para fins de medição.</p>
-            <p class="mrv-lead-sm cascade-item">Antecipar um pedido fora do calendário normal exige autorização do diretor e um formulário explicando o motivo — que depois vira gráfico: falha de planejamento, mudança de estratégia ou ganho de velocidade de obra.</p>
+              <p class="mrv-lead-sm cascade-item">Todo atraso de material na MRV vira chamado formal — mesmo já resolvido por telefone — porque é o chamado registrado que gera o indicador de pontualidade do fornecedor. Antecipar um pedido fora do calendário exige autorização do diretor e um formulário com o motivo, que vira gráfico: falha de planejamento, mudança de estratégia ou ganho de velocidade.</p>
             </div>
             <div class="mrv-item__col-b">
-              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">Obrigar o registro do chamado, mesmo quando o problema já foi contornado informalmente, é o que transforma "impressão de atraso" em número real, comparável mês a mês.</li>
-                <li class="cascade-item">O formulário de motivo para antecipação de pedido é útil sobretudo para separar dois problemas diferentes — falha de planejamento e mudança de estratégia — que hoje, na Dois A, tendem a virar a mesma reclamação genérica.</li></ul></div>
+              <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">Obrigar o registro do chamado transforma "impressão de atraso" em número real, comparável mês a mês.</li>
+                <li class="cascade-item">O formulário de motivo separa dois problemas que hoje viram a mesma reclamação genérica: falha de planejamento e mudança de estratégia.</li></ul></div>
             </div>
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 2, 00:59–01:03.</p>
+          </div>
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-030">
+      <section class="slide-section mrv-item-slide" data-slide="item-022">
         <div class="slide-inner mrv-slide mrv-item-inner">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">COMPRAR · TEMA 23 DE 26</p>
@@ -6122,7 +6143,7 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-031">
+      <section class="slide-section mrv-item-slide" data-slide="item-023">
         <div class="slide-inner mrv-slide mrv-item-inner">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">COMPRAR · TEMA 24 DE 26</p>
@@ -6143,7 +6164,7 @@
         </div>
       </section>
 
-      <section class="slide-section ch-divider-section" data-slide="div-032" data-capa="true">
+      <section class="slide-section ch-divider-section" data-slide="div-024" data-capa="true">
         <div class="ch-divider">
           <div class="ch-divider__big-num cascade-item">05</div>
           <div class="ch-divider__bracket-tr cascade-item"></div>
@@ -6160,7 +6181,7 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-033">
+      <section class="slide-section mrv-item-slide" data-slide="item-025">
         <div class="slide-inner mrv-slide mrv-item-inner">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">PRODUZIR · TEMA 25 DE 26</p>
@@ -6211,7 +6232,7 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-034">
+      <section class="slide-section mrv-item-slide" data-slide="item-026">
         <div class="slide-inner mrv-slide mrv-item-inner">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">PRODUZIR · TEMA 26 DE 26</p>
@@ -6243,7 +6264,7 @@
         </div>
       </section>
 
-      <section class="slide-section ch-divider-section" data-slide="div-035" data-capa="true">
+      <section class="slide-section ch-divider-section" data-slide="div-027" data-capa="true">
         <div class="ch-divider">
           <div class="ch-divider__big-num cascade-item">06</div>
           <div class="ch-divider__bracket-tr cascade-item"></div>
@@ -6260,7 +6281,7 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-036">
+      <section class="slide-section mrv-item-slide" data-slide="item-028">
         <div class="slide-inner mrv-slide mrv-item-inner">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">COMERCIAL E MARKETING</p>
@@ -6270,7 +6291,7 @@
             <div class="mrv-item__col-a">
               <p class="mrv-lead-sm cascade-item">Na leitura da MRV, o que mais vende é preço — em primeiro lugar, sempre. Só depois entra o marketing: visibilidade de marca, impulsionamento no Instagram, canal de WhatsApp, placa e o entorno do próprio empreendimento. O corretor atende o cliente presencialmente, mas o trabalho pesado de gerar interesse acontece antes dele entrar em cena.</p>
             <p class="mrv-lead-sm cascade-item">O gerente comercial é sócio do engenheiro da obra — as metas dos dois se cruzam, e o resultado de um afeta o do outro. Uma frase dita literalmente aos engenheiros resume a lógica: "quem paga o seu salário é o corretor", para que ninguém dificulte a entrada do corretor e do cliente comprador dentro da obra. Clientes que já compraram visitam a obra em três momentos do cronograma — 30%, 70% e 90% de execução — com horário combinado para não atrapalhar a produção do dia.</p>
-            <p class="mrv-lead-sm cascade-item">Como a PLR de todo mundo sai do mesmo resultado operacional da regional, todo mundo cobra todo mundo dentro da própria empresa: a placa rasgada, o apartamento modelo que não ficou pronto no prazo, a obra suja para receber visita — tudo vira cobrança cruzada entre setores, porque afeta o bolso de todos igual.</p>
+            <p class="mrv-lead-sm cascade-item">Como a PLR — participação nos lucros e resultados — de todo mundo sai do mesmo resultado operacional da regional, todo mundo cobra todo mundo dentro da própria empresa: a placa rasgada, o apartamento modelo que não ficou pronto no prazo, a obra suja para receber visita — tudo vira cobrança cruzada entre setores, porque afeta o bolso de todos igual.</p>
             </div>
             <div class="mrv-item__col-b">
               <div><p class="mrv-item__label cascade-item">O NÚMERO</p><div class="mrv-chips"><div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">O que se mede na agência</p><p class="serra-chip__value">site → busca → visita → venda</p></div>
@@ -6287,7 +6308,7 @@
         </div>
       </section>
 
-      <section class="slide-section ch-divider-section" data-slide="div-037" data-capa="true">
+      <section class="slide-section ch-divider-section" data-slide="div-029" data-capa="true">
         <div class="ch-divider">
           <div class="ch-divider__big-num cascade-item">07</div>
           <div class="ch-divider__bracket-tr cascade-item"></div>
@@ -6304,7 +6325,7 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-038">
+      <section class="slide-section mrv-item-slide" data-slide="item-030">
         <div class="slide-inner mrv-slide mrv-item-inner">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">IA NA OPERAÇÃO</p>
@@ -6314,7 +6335,7 @@
             <div class="mrv-item__col-a">
               <p class="mrv-lead-sm cascade-item">A MRV tem uma plataforma própria de inteligência artificial, com um catálogo que explica para que serve cada assistente disponível. Um exemplo citado na conversa é o assistente de pagamento: o engenheiro pergunta onde está a carreta de um pedido específico, e a resposta vem na hora — porque todo fornecedor que trabalha com a MRV aceita, por contrato, ser rastreado. A plataforma também responde dúvida de procedimento — "como se faz a locação de obra", por exemplo — puxando da própria base de conhecimento interna da empresa.</p>
             <p class="mrv-lead-sm cascade-item">O motivo de a plataforma ser fechada, e não um modelo público direto, é para o dado operacional da empresa não vazar para fora — o modelo fechado aprende com a operação inteira da MRV, e só dela.</p>
-            <p class="mrv-lead-sm cascade-item">Existe ainda uma segunda aplicação, fora do catálogo de assistentes internos: uma IA que varre CNPJ por CNAE, cidade e estado, procurando empreiteiro que ainda não trabalha com a MRV. A abordagem inicial é por mensagem automática; se a empresa responde, o cadastro acontece pelo próprio WhatsApp, e o time de suprimentos agenda a conversa presencial depois.</p>
+            <p class="mrv-lead-sm cascade-item">Existe ainda uma segunda aplicação, fora do catálogo de assistentes internos: uma IA que varre CNPJ por CNAE — o código que classifica o ramo de atividade de uma empresa — cidade e estado, procurando empreiteiro que ainda não trabalha com a MRV. A abordagem inicial é por mensagem automática; se a empresa responde, o cadastro acontece pelo próprio WhatsApp, e o time de suprimentos agenda a conversa presencial depois.</p>
             </div>
             <div class="mrv-item__col-b">
               <div><p class="mrv-item__label cascade-item">O NÚMERO</p><div class="mrv-chips"><div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Pessoas trabalhando com IA</p><p class="serra-chip__value">~400</p></div>
@@ -6330,7 +6351,7 @@
         </div>
       </section>
 
-      <section class="slide-section ch-divider-section" data-slide="div-039" data-capa="true">
+      <section class="slide-section ch-divider-section" data-slide="div-031" data-capa="true">
         <div class="ch-divider">
           <div class="ch-divider__big-num cascade-item">08</div>
           <div class="ch-divider__bracket-tr cascade-item"></div>
@@ -6347,58 +6368,57 @@
         </div>
       </section>
 
-      <section class="slide-section mrv-item-slide" data-slide="item-040">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+      <section class="slide-section mrv-item-slide mrv-dupla-slide" data-slide="dupla-032">
+        <div class="slide-inner mrv-slide mrv-item-inner mrv-dupla-inner">
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">CONSTRUTORA LOCAL · NÃO É MRV</p>
             <h2 class="rgi-slide__title">Faixa 1 empreitado: velocidade, crédito associativo e parede de concreto</h2>
           </div>
           <div class="mrv-item">
             <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">Em 17 de setembro, um dia antes das conversas com a MRV, o Gustavo visitou uma construtora de Fortaleza que trabalha na faixa 1 do Minha Casa Minha Vida, empreitado direto com a Caixa Econômica. É um negócio diferente — parede de concreto, faixa de renda mais baixa, contrato sem reajuste — e este bloco trata só do que essa visita ensinou, sem misturar com o que veio da MRV.</p>
-            <p class="mrv-lead-sm cascade-item">Nesse modelo, o preço é fechado com a Caixa sem reajuste: o preço do começo da obra é o preço do fim, e a inflação do período corre por conta da construtora. A margem é reduzida de propósito — qualquer erro de projeto ou de cálculo de terraplanagem come a margem inteira, porque não existe aditivo que resolva depois. Em compensação, a exposição financeira é baixa: a partir do primeiro mês já entra faturamento por medição, e em três ou quatro meses a obra passa a rodar com o próprio dinheiro gerado.</p>
-            <p class="mrv-lead-sm cascade-item">O financiamento entra como crédito associativo — modelo em que a construtora não precisa do apoio financeiro à produção, o que evita pagar juro sobre isso. Um ponto que a construtora destaca: o cliente que quer desistir do negócio precisa primeiro desfazer o contrato com a própria Caixa — e normalmente não consegue, o que reduz o destrato.</p>
-            <p class="mrv-lead-sm cascade-item">Num projeto de 14 andares que a construtora estava começando, o desvio de prumo virou o risco mais citado da conversa: um desvio pequeno nos primeiros andares compromete tudo o que sobe depois. A resposta operacional é ter um topógrafo aferindo o prumo em toda concretagem, sem exceção.</p>
+              <p class="mrv-lead-sm cascade-item">Em 17 de setembro, um dia antes das conversas com a MRV, o Gustavo visitou uma construtora de Fortaleza que trabalha na faixa 1 do Minha Casa Minha Vida, empreitado direto com a Caixa Econômica — negócio diferente, parede de concreto, contrato sem reajuste. Este bloco trata só do que essa visita ensinou, sem misturar com a MRV.</p>
+            <p class="mrv-lead-sm cascade-item">O preço é fechado com a Caixa sem reajuste: o preço do começo é o preço do fim, e a inflação corre por conta da construtora. A margem é reduzida de propósito — qualquer erro de projeto ou terraplanagem come a margem inteira, porque não existe aditivo que resolva depois. Em compensação, a exposição financeira é baixa: desde o primeiro mês já entra faturamento por medição.</p>
+            <p class="mrv-lead-sm cascade-item">O financiamento entra como crédito associativo, o que evita pagar juro sobre o apoio à produção. O cliente que quer desistir precisa primeiro desfazer o contrato com a própria Caixa — e normalmente não consegue, o que reduz o destrato. E num projeto de 14 andares que a construtora estava começando, o desvio de prumo virou o risco mais citado: a resposta é topógrafo aferindo o prumo em toda concretagem, sem exceção.</p>
             </div>
             <div class="mrv-item__col-b">
               <div><p class="mrv-item__label cascade-item">O NÚMERO</p><div class="mrv-chips"><div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Casas por dia (usina própria, 4 pistas)</p><p class="serra-chip__value">4</p></div>
                 <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Repetições de uma mesma forma</p><p class="serra-chip__value">150 a 186</p></div>
-                <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Folga de forma para esquadria</p><p class="serra-chip__value">1 cm por lado + lixamento</p></div></div><p class="mrv-lead-sm mrv-item__nota cascade-item">Comprar a forma não é só comprar a forma: ela vem com projeto de engenharia próprio, porque os vãos de porta e janela precisam bater exatamente com a esquadria que vai entrar depois.</p></div>
+                <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Folga de forma para esquadria</p><p class="serra-chip__value">1 cm por lado + lixamento</p></div></div><p class="mrv-lead-sm mrv-item__nota cascade-item">A forma vem com projeto de engenharia próprio — os vãos de porta e janela precisam bater com a esquadria que vai entrar depois.</p></div>
             </div>
           </div>
           
-          <p class="mrv-fonte cascade-item">Fonte: áudio 3 (visita à construtora local, 17/09), 00:00–00:10, 00:24–00:26, 00:32–00:34 e 00:37–00:41.</p>
-        </div>
-      </section>
-
-      <section class="slide-section mrv-item-slide" data-slide="item-041">
-        <div class="slide-inner mrv-slide mrv-item-inner">
-          <div class="rgi-slide__head cascade-item">
+          <p class="mrv-fonte cascade-item">Fonte: áudio 3 (17/09), 00:00–00:10, 00:24–00:26, 00:32–00:34 e 00:37–00:41.</p>
+          </div>
+          <div class="mrv-dupla__separador"></div>
+          <div class="mrv-dupla__metade">
+            <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">CONSTRUTORA LOCAL · GENTE E MERCADO</p>
             <h2 class="rgi-slide__title">Mão de obra escassa, o produto mais simples e a leitura do mercado</h2>
           </div>
           <div class="mrv-item">
             <div class="mrv-item__col-a">
-              <p class="mrv-lead-sm cascade-item">Na leitura da construtora, a função que trava a produção é o montador de forma — é ele quem determina o ritmo de toda a equipe. O lado bom, segundo eles, é que treinar um montador novo é relativamente rápido, numa comparação direta com o tempo que levava para formar um bom bloqueiro décadas atrás. O ciclo de produção só fecha com a equipe completa: entre 20 e 24 montadores, de 4 a 5 ferreiros e dois eletricistas. Falta um ferreiro só, e os montadores inteiros não conseguem fechar o ciclo — a própria equipe pede para sair da obra quando isso acontece repetidas vezes, porque sem produção não há ganho.</p>
-            <p class="mrv-lead-sm cascade-item">Construir casa térrea dispensa escada, hall e sistema de proteção contra queda — praticamente não existe trabalho em altura. A única exigência que atrapalha o ritmo é a platibanda, obrigatória pela Caixa, que custa um dia a mais de concreto por casa.</p>
-            <p class="mrv-lead-sm cascade-item">A criação de uma faixa de renda nova no programa habitacional foi bem recebida pela construtora, porque o teto de preço da faixa anterior estava defasado frente à inflação acumulada — e a expectativa deles é de mais inflação pela frente. Na leitura de quem atua nos dois mercados, Natal não tem renda suficiente para sustentar alto padrão hoje, e esse mercado está parado por lá; Fortaleza, ao contrário, segue com movimento.</p>
+              <p class="mrv-lead-sm cascade-item">A função que trava a produção é o montador de forma. Treinar um montador novo é relativamente rápido, mas o ciclo só fecha com a equipe completa — 20 a 24 montadores, 4 a 5 ferreiros, dois eletricistas. Falta um ferreiro, e a equipe inteira não fecha o ciclo, a ponto de pedir para sair da obra.</p>
+            <p class="mrv-lead-sm cascade-item">Casa térrea dispensa escada, hall e proteção contra queda. A única exigência que atrapalha o ritmo é a platibanda, obrigatória pela Caixa, um dia a mais de concreto.</p>
+            <p class="mrv-lead-sm cascade-item">A faixa de renda nova foi bem recebida porque o teto anterior estava defasado frente à inflação. Na leitura de quem atua nos dois mercados, Natal não tem renda para sustentar alto padrão hoje; Fortaleza segue com movimento.</p>
             </div>
             <div class="mrv-item__col-b">
               <div><p class="mrv-item__label cascade-item">O NÚMERO</p><div class="mrv-chips"><div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Viradas garantidas na carteira</p><p class="serra-chip__value">14</p></div>
                 <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Valor por virada extra</p><p class="serra-chip__value">R$ 150</p></div>
                 <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Faixa de viradas por mês</p><p class="serra-chip__value">20 a 24</p></div>
-                <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Renda bruta de um montador</p><p class="serra-chip__value">~R$ 4.000/mês</p></div></div><p class="mrv-lead-sm mrv-item__nota cascade-item">Quando um montador falta, o colega que cobre a vaga faz o próprio turno e o do ausente — e ganha em dobro por isso. A construtora incentiva essa prática de propósito, porque resolve a falta e premia quem produz mais.</p></div>
-            <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">Faixa 1 empreitado não é o negócio da Dois A — a margem reduzida e o preço fechado sem reajuste pedem uma operação com escala e caixa que não é a nossa realidade hoje.</li>
-                <li class="cascade-item">Mas duas peças isoladas valem a pena guardar: o incentivo de pagar em dobro para quem cobre falta de colega, que resolve ausência sem parar produção; e a régua de que prumo é o risco central em qualquer construção industrializada, com ou sem parede de concreto.</li>
-                <li class="cascade-item">A leitura de mercado — Fortaleza com movimento, Natal parado no alto padrão — é opinião de quem está no dia a dia dos dois mercados, não dado fechado; vale como hipótese a checar, não como fato pronto.</li></ul></div>
+                <div class="serra-chip cascade-item mrv-chip-sm"><p class="serra-chip__label">Renda bruta de um montador</p><p class="serra-chip__value">~R$ 4.000/mês</p></div></div><p class="mrv-lead-sm mrv-item__nota cascade-item">Quando um montador falta, o colega que cobre a vaga ganha em dobro — incentivo de propósito, que resolve a falta e premia quem produz mais.</p></div>
+            <div><p class="mrv-item__label cascade-item mrv-item__label--serv">PARA A DOIS A</p><ul class="mrv-bullets mrv-bullets--sm"><li class="cascade-item">Faixa 1 empreitado não é o negócio da Dois A — margem e escala não são a nossa realidade hoje.</li>
+                <li class="cascade-item">Duas peças valem guardar: o incentivo de pagar em dobro por cobrir falta, e a régua de que prumo é risco central em qualquer construção industrializada.</li>
+                <li class="cascade-item">A leitura de mercado é opinião de quem está no dia a dia, não dado fechado — vale como hipótese a checar.</li></ul></div>
             </div>
           </div>
           
           <p class="mrv-fonte cascade-item">Fonte: áudio 3, 00:18–00:19, 00:29–00:32, 00:44, 00:45 e 00:52–00:54.</p>
+          </div>
         </div>
       </section>
 
-      <section class="slide-section ch-divider-section" data-slide="div-042" data-capa="true">
+      <section class="slide-section ch-divider-section" data-slide="div-033" data-capa="true">
         <div class="ch-divider">
           <div class="ch-divider__big-num cascade-item">09</div>
           <div class="ch-divider__bracket-tr cascade-item"></div>
@@ -6415,7 +6435,7 @@
         </div>
       </section>
 
-      <section class="slide-section" data-slide="txt-043">
+      <section class="slide-section" data-slide="txt-034">
         <div class="slide-inner mrv-slide">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">SÍNTESE</p>
@@ -6428,7 +6448,7 @@
         </div>
       </section>
 
-      <section class="slide-section" data-slide="serv-044">
+      <section class="slide-section" data-slide="serv-035">
         <div class="slide-inner mrv-slide">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">O QUE NÃO CABE DO JEITO QUE ESTÁ</p>
@@ -6443,7 +6463,7 @@
         </div>
       </section>
 
-      <section class="slide-section" data-slide="txt-045">
+      <section class="slide-section" data-slide="txt-036">
         <div class="slide-inner mrv-slide">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">DE ONDE VEIO CADA FATO</p>
@@ -6455,7 +6475,7 @@
         </div>
       </section>
 
-      <section class="slide-section ch-divider-section" data-slide="div-046" data-capa="true">
+      <section class="slide-section ch-divider-section" data-slide="div-037" data-capa="true">
         <div class="ch-divider">
           <div class="ch-divider__big-num cascade-item">10</div>
           <div class="ch-divider__bracket-tr cascade-item"></div>
@@ -6472,7 +6492,7 @@
         </div>
       </section>
 
-      <section class="slide-section" data-slide="txt-047">
+      <section class="slide-section" data-slide="txt-038">
         <div class="slide-inner mrv-slide">
           <div class="rgi-slide__head cascade-item">
             <p class="rgi-slide__eyebrow">COMO LER A TABELA</p>
@@ -6485,7 +6505,7 @@
         </div>
       </section>
 
-      <section class="slide-section rgi-slide" data-slide="tab-048">
+      <section class="slide-section rgi-slide" data-slide="tab-039">
         <div class="rgi-slide__head cascade-item">
           <p class="rgi-slide__eyebrow">RASTREIO · ÁUDIO 1</p>
           <h2 class="rgi-slide__title">Conversa de escritório com a MRV (18/09, 55min)</h2>
@@ -6523,7 +6543,7 @@
         
       </section>
 
-      <section class="slide-section rgi-slide" data-slide="tab-049">
+      <section class="slide-section rgi-slide" data-slide="tab-040">
         <div class="rgi-slide__head cascade-item">
           <p class="rgi-slide__eyebrow">RASTREIO · ÁUDIO 2 (1/2)</p>
           <h2 class="rgi-slide__title">Visita à obra de 378 apartamentos (18/09, 1h32min)</h2>
@@ -6558,7 +6578,7 @@
         
       </section>
 
-      <section class="slide-section rgi-slide" data-slide="tab-050">
+      <section class="slide-section rgi-slide" data-slide="tab-041">
         <div class="rgi-slide__head cascade-item">
           <p class="rgi-slide__eyebrow">RASTREIO · ÁUDIO 2 (2/2)</p>
           <h2 class="rgi-slide__title">Visita à obra de 378 apartamentos (18/09, 1h32min)</h2>
@@ -6593,7 +6613,7 @@
         
       </section>
 
-      <section class="slide-section rgi-slide" data-slide="tab-051">
+      <section class="slide-section rgi-slide" data-slide="tab-042">
         <div class="rgi-slide__head cascade-item">
           <p class="rgi-slide__eyebrow">RASTREIO · ÁUDIO 3</p>
           <h2 class="rgi-slide__title">Visita à construtora local — não é MRV (17/09, 59min)</h2>
