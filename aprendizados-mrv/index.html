@@ -5246,21 +5246,21 @@
    paleta/tipografia do tema; nao redefinem nada do frame/cascade) ─── */
 .mrv-slide { display: flex; flex-direction: column; gap: 22px; }
 .mrv-lead {
-  font-family: 'Inter', sans-serif; font-size: 20px; line-height: 1.55;
-  color: var(--ink); max-width: 1040px; margin: 0;
+  font-family: 'Inter', sans-serif; font-size: 26px; line-height: 1.5;
+  color: var(--ink); max-width: 1200px; margin: 0;
 }
 .mrv-lead strong { color: var(--brand-blue-deep); font-weight: 700; }
 .mrv-lead em { font-style: normal; color: var(--primary); font-weight: 700; }
 .mrv-chips { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 4px; }
 .mrv-chips--grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
 .mrv-fonte {
-  font-family: 'Inter', sans-serif; font-size: 13px; color: var(--ink-3, #6b7280);
+  font-family: 'Inter', sans-serif; font-size: 15px; color: var(--ink-3, #6b7280);
   border-top: 1px solid rgba(26,52,112,0.12); padding-top: 10px; margin-top: auto;
 }
-.mrv-bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; max-width: 1080px; }
+.mrv-bullets { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; max-width: 1200px; }
 .mrv-bullets li {
-  font-family: 'Inter', sans-serif; font-size: 19px; line-height: 1.5; color: var(--ink);
-  padding-left: 28px; position: relative;
+  font-family: 'Inter', sans-serif; font-size: 24px; line-height: 1.5; color: var(--ink);
+  padding-left: 32px; position: relative;
 }
 .mrv-bullets li::before {
   content: ''; position: absolute; left: 0; top: 9px; width: 10px; height: 10px;
@@ -5315,26 +5315,26 @@
 .mrv-item { display: grid; grid-template-columns: 1.15fr 1fr; gap: 40px; align-items: start; }
 .mrv-item__col-a, .mrv-item__col-b { display: flex; flex-direction: column; gap: 14px; }
 .mrv-lead-sm {
-  font-family: 'Inter', sans-serif; font-size: 15.5px; line-height: 1.48;
+  font-family: 'Inter', sans-serif; font-size: 20px; line-height: 1.5;
   color: var(--ink); margin: 0;
 }
 .mrv-lead-sm strong { color: var(--brand-blue-deep); font-weight: 700; }
 .mrv-lead-sm em { font-style: normal; color: var(--primary); font-weight: 700; }
 .mrv-item__label {
-  font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 800;
-  letter-spacing: .12em; text-transform: uppercase; color: var(--primary);
+  font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 800;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--primary);
   margin: 0 0 8px;
 }
 .mrv-item__label--serv { color: var(--brand-blue-deep); }
 .mrv-item__nota { margin-top: 8px; font-style: italic; color: var(--ink-3, #5b6474); }
-.mrv-chip-sm.serra-chip { padding: 10px 14px; }
-.mrv-chip-sm .serra-chip__label { font-size: 10px; }
-.mrv-chip-sm .serra-chip__value { font-size: 17px; }
-.mrv-bullets--sm { gap: 10px; }
-.mrv-bullets--sm li { font-size: 14.5px; line-height: 1.42; padding-left: 22px; }
-.mrv-bullets--sm li::before { width: 8px; height: 8px; top: 6px; }
-.mrv-item__table .rgi-table-title { font-size: 12px; padding: 6px 10px; }
-.mrv-item__table .rgi-table td, .mrv-item__table .rgi-table th { padding: 5px 8px; font-size: 12.5px; }
+.mrv-chip-sm.serra-chip { padding: 12px 16px; }
+.mrv-chip-sm .serra-chip__label { font-size: 12.5px; }
+.mrv-chip-sm .serra-chip__value { font-size: 22px; }
+.mrv-bullets--sm { gap: 12px; }
+.mrv-bullets--sm li { font-size: 19px; line-height: 1.42; padding-left: 26px; }
+.mrv-bullets--sm li::before { width: 9px; height: 9px; top: 8px; }
+.mrv-item__table .rgi-table-title { font-size: 14px; padding: 7px 12px; }
+.mrv-item__table .rgi-table td, .mrv-item__table .rgi-table th { padding: 6px 10px; font-size: 15px; }
 .mrv-item__diagram {
   width: 100%; margin-top: 6px;
   display: flex; flex-direction: column; align-items: center; gap: 8px;
@@ -5370,16 +5370,16 @@
 .mrv-dupla-inner .mrv-item-inner { max-width: none; }
 .mrv-dupla__metade { display: flex; flex-direction: column; }
 .mrv-dupla__metade .mrv-item { gap: 32px; }
-.mrv-dupla__metade .rgi-slide__eyebrow { font-size: 12px; }
-.mrv-dupla__metade .rgi-slide__title { font-size: 22px; line-height: 1.2; }
-.mrv-dupla__metade .mrv-lead-sm { font-size: 13.5px; line-height: 1.4; }
-.mrv-dupla__metade .mrv-item__label { font-size: 10px; margin-bottom: 6px; }
-.mrv-dupla__metade .mrv-chip-sm.serra-chip { padding: 7px 10px; }
-.mrv-dupla__metade .mrv-chip-sm .serra-chip__label { font-size: 9px; }
-.mrv-dupla__metade .mrv-chip-sm .serra-chip__value { font-size: 14px; }
-.mrv-dupla__metade .mrv-bullets--sm { gap: 6px; }
-.mrv-dupla__metade .mrv-bullets--sm li { font-size: 12.5px; line-height: 1.35; padding-left: 18px; }
-.mrv-dupla__metade .mrv-fonte { font-size: 11px; padding-top: 6px; }
+.mrv-dupla__metade .rgi-slide__eyebrow { font-size: 16px; }
+.mrv-dupla__metade .rgi-slide__title { font-size: 31px; line-height: 1.18; }
+.mrv-dupla__metade .mrv-lead-sm { font-size: 19.5px; line-height: 1.4; }
+.mrv-dupla__metade .mrv-item__label { font-size: 14px; margin-bottom: 6px; }
+.mrv-dupla__metade .mrv-chip-sm.serra-chip { padding: 10px 14px; }
+.mrv-dupla__metade .mrv-chip-sm .serra-chip__label { font-size: 12.5px; }
+.mrv-dupla__metade .mrv-chip-sm .serra-chip__value { font-size: 19px; }
+.mrv-dupla__metade .mrv-bullets--sm { gap: 9px; }
+.mrv-dupla__metade .mrv-bullets--sm li { font-size: 18px; line-height: 1.32; padding-left: 24px; }
+.mrv-dupla__metade .mrv-fonte { font-size: 15px; padding-top: 6px; }
 .mrv-dupla__metade .mrv-item__diagram svg { max-height: 150px; }
 .mrv-dupla__separador { height: 1px; background: rgba(26,52,112,0.14); margin: 18px 0; flex: 0 0 auto; }
 @media (max-width: 480px) {
