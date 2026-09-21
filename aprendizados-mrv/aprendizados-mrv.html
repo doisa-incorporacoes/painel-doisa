@@ -5267,8 +5267,16 @@
 }
 .mrv-diagram { width: 100%; display: flex; justify-content: center; align-items: center; }
 .mrv-diagram svg { max-width: 100%; max-height: 62vh; }
-/* Mobile: tabelas largas (rastreio) viram roláveis na horizontal em vez de
-   cortar coluna sem aviso — não mexe no desktop, só destrava o overflow. */
+/* !important abaixo: a regra da casa ("nunca !important no tema") mira o
+   doisa-theme.css COMPARTILHADO entre decks (editar lá vaza pra todo mundo).
+   Isto aqui é EXTRA_CSS, escrito uma vez dentro do <style> deste deck (uma
+   copia propria de assets/, nao o arquivo-fonte da skill) — nao alcança
+   nenhum outro deck. O !important é necessario porque .rgi-table-wrap e
+   .ch-divider* já são !important no tema para vencer a regra universal
+   [data-capa="true"] *{color:#FFF}; uma media query com especificidade
+   normal perde esse empate. Mobile: tabelas largas (rastreio) viram
+   roláveis na horizontal em vez de cortar coluna sem aviso — não mexe no
+   desktop, só destrava o overflow. */
 @media (max-width: 480px) {
   .rgi-table-wrap { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
   .rgi-table { min-width: 620px; }
@@ -6976,7 +6984,7 @@
               <tr><td>19</td><td>Recrutamento interno primeiro</td><td>00:53–00:54</td><td>Alta</td></tr>
               <tr><td>20</td><td>Conselho sobre montar incorporação</td><td>00:36–00:41</td><td>Alta</td></tr>
               <tr><td>21</td><td>Prazo de compra a lançamento</td><td>00:22–00:23</td><td>Alta</td></tr>
-              <tr class="rgi-row-current"><td>22</td><td>Inter Home</td><td>00:24–00:26</td><td>Alta</td></tr>
+              <tr><td>22</td><td>Inter Home</td><td>00:24–00:26</td><td>Alta</td></tr>
             </tbody>
           </table>
         </div>
@@ -7011,7 +7019,7 @@
               <tr><td>38</td><td>Por que a ordem mudou</td><td>00:28–00:29</td><td>Alta</td></tr>
               <tr><td>39</td><td>Terreno reprovado pelo custo</td><td>00:31–00:33</td><td>Alta</td></tr>
               <tr><td>40</td><td>Como se paga o terreno</td><td>00:33–00:34</td><td>Alta</td></tr>
-              <tr class="rgi-row-current"><td>41</td><td>O dono olha cada terreno</td><td>00:35–00:39</td><td>Média</td></tr>
+              <tr><td>41</td><td>O dono olha cada terreno</td><td>00:35–00:39</td><td>Média</td></tr>
             </tbody>
           </table>
         </div>
@@ -7046,7 +7054,7 @@
               <tr><td>57</td><td>Conferência cruzada</td><td>01:24</td><td>Alta</td></tr>
               <tr><td>58</td><td>Operador logístico</td><td>01:25–01:26</td><td>Alta</td></tr>
               <tr><td>59</td><td>Laje, manta acústica e norma</td><td>01:26–01:28</td><td>Alta</td></tr>
-              <tr class="rgi-row-current"><td>60</td><td>Números do produto (378 aptos)</td><td>01:28–01:31</td><td>Alta</td></tr>
+              <tr><td>60</td><td>Números do produto (378 aptos)</td><td>01:28–01:31</td><td>Alta</td></tr>
             </tbody>
           </table>
         </div>
@@ -7075,7 +7083,7 @@
               <tr><td>70</td><td>(excluído do material — risco assumido)</td><td>00:46–00:48</td><td>—</td></tr>
               <tr><td>71</td><td>Casa é mais simples que prédio</td><td>00:52–00:54</td><td>Alta</td></tr>
               <tr><td>72</td><td>Faixa 4 e o teto defasado</td><td>00:52</td><td>Alta</td></tr>
-              <tr class="rgi-row-current"><td>73</td><td>Natal vende mal no alto padrão</td><td>00:45; contexto em 00:12–00:14</td><td>Alta (corrigido)</td></tr>
+              <tr><td>73</td><td>Natal vende mal no alto padrão</td><td>00:45; contexto em 00:12–00:14</td><td>Alta (corrigido)</td></tr>
             </tbody>
           </table>
         </div>
