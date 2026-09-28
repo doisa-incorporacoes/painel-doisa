@@ -11602,32 +11602,202 @@ hr, [class*="__divider"], [class*="-divider"] {
           <div class="s-jdp-capa__bar cascade-item"></div>
           <p class="s-jdp-capa__meta cascade-item"><strong>DOIS A</strong>&nbsp;&nbsp;|&nbsp;&nbsp;Confidencial &amp; Proprietary</p>
         </div>
-      </section><section id="tela-03" class="slide-section" data-slide="ps03">
-  <div class="sr-panel">
-    <div class="sr-hdr cascade-item">
-      <div class="sr-proj-title">PIPA <span>| Status Geral e Cronograma</span></div>
-      <div class="sr-meta-line">Slide em preparação</div>
-    </div>
-    <div class="sr-divider"></div>
-    <div class="ph-body cascade-item">
-      <div class="ph-selo">EM PREPARAÇÃO</div>
-      <div class="ph-ref">Corresponde ao slide 03 do RGI de agosto/2026 · ainda não gerado para setembro</div>
-    </div>
-  </div>
-</section>
-
-<style>
-  /* marcador "Em preparacao" — escopo exclusivo data-slide="ps03" (molde: painel branco da casa) */
-  .slide-section[data-slide="ps03"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;}
-  .slide-section[data-slide="ps03"] .sr-proj-title{color:#1A3470;}
-  .slide-section[data-slide="ps03"] .sr-proj-title span{color:#7A8299;}
-  .slide-section[data-slide="ps03"] .sr-meta-line{color:#5A6478;font-size:12.5px;}
-  .slide-section[data-slide="ps03"] .sr-divider{background:rgba(45,79,158,0.12);}
-  .slide-section[data-slide="ps03"] .ph-body{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;padding:0 40px;}
-  .slide-section[data-slide="ps03"] .ph-selo{font-family:'Inter',system-ui,sans-serif;font-size:40px;font-weight:800;letter-spacing:2px;color:#E97132;line-height:1.22;max-width:1320px;}
-  .slide-section[data-slide="ps03"] .ph-ref{font-family:'Inter',system-ui,sans-serif;font-size:20px;font-weight:500;color:#5A6478;letter-spacing:.2px;max-width:1100px;}
-</style>
-<section id="tela-04" class="slide-section" data-slide="v04">
+      </section><section id="tela-03" class="slide-section" data-slide="03">
+  <style>
+    /* ============================================================
+       RGI AGOSTO/2026 — slide 03 (Reserva Pipa) — HTML por pessoa (Lara Soares).
+       Molde: slide 03 do deck EGPAR julho/2026; textos atualizados
+       literalmente do RGI.pptx da Lara (slides 2 e 3, enviado 24/08).
+       Barras do Gantt medidas no render do slide 3 de agosto:
+       1,5/21,0 · 11,5/21,0 · 24,8/55,0 — iguais às de julho dentro do
+       ruído de medição; mantidas.
+       Unifica PPTX julho slides 3 ("Pipa" status por área) + 4
+       ("Pipa | Cronograma e Próximas Etapas") num único slide 03,
+       por pedido do Álvaro ("03 e 04 > 03. A linha do tempo vai
+       unificar com o slide 03").
+       FIX2 (30/07/2026): rubricas reaplicadas literalmente do
+       PPTX-retrato-2026-07-30 (slides 3 e 4) — status das 5 áreas,
+       rótulos internos (Emissão / Em andamento / Concluído /
+       Á iniciar) e textos de cada coluna. Barras do Gantt medidas
+       no render do slide 4 e conferidas (inalteradas).
+       Reaproveita o sistema de componentes sr-* do deck (shell.css
+       / template slide03 de junho): sr-panel escuro (base, sem
+       override para branco — igual ao slide03 de junho), sr-hdr,
+       sr-proj-title, sr-divider, sr-sec-title/sr-sec-num, sr-badge
+       (amarelo/verde), sr-text. Classes novas com prefixo seguro
+       mv03j- (julho) para o layout de área + Gantt + marcos, sem
+       colidir com mv03c- (patch de junho) nem com outros slides.
+       ============================================================ */
+
+    /* ---- base sr-* (dark navy, igual ao componente original) ---- */
+    .slide-section[data-slide="03"] .sr-panel{position:absolute;top:110px;left:56px;right:56px;bottom:54px;background:#0D1B2A;border:1px solid rgba(255,255,255,0.10);border-radius:10px;display:flex;flex-direction:column;padding:16px 26px 12px;box-sizing:border-box;overflow:hidden;font-family:'Inter',system-ui,sans-serif;color:#fff;box-shadow:0 18px 50px rgba(8,11,18,0.32);z-index:1;}
+    .slide-section[data-slide="03"] .sr-hdr{display:flex;flex-direction:column;flex-shrink:0;margin-bottom:6px;}
+    .slide-section[data-slide="03"] .sr-proj-title{font-size:21px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:#fff;line-height:1.1;}
+    .slide-section[data-slide="03"] .sr-proj-title span{color:#B0BEC5;font-weight:400;font-size:14px;margin-left:8px;text-transform:none;letter-spacing:0;}
+    .slide-section[data-slide="03"] .sr-meta-line{font-size:11px;color:#B0BEC5;line-height:1.5;margin-top:3px;}
+    .slide-section[data-slide="03"] .sr-meta-line b{color:#E97132;}
+    .slide-section[data-slide="03"] .sr-divider{height:1px;background:rgba(255,255,255,0.15);flex-shrink:0;margin:0 0 9px;}
+    .slide-section[data-slide="03"] .sr-sec-title{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;gap:7px;color:#fff;flex-shrink:0;margin-bottom:6px;}
+    .slide-section[data-slide="03"] .sr-sec-num{color:#E97132;font-size:16px;font-weight:900;}
+    .slide-section[data-slide="03"] .sr-badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:10.5px;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:0.3px;white-space:nowrap;}
+    .slide-section[data-slide="03"] .sr-badge.verde{background:#16A34A;color:#fff;}
+    .slide-section[data-slide="03"] .sr-badge.amarelo{background:#F59E0B;color:#0D1B2A;}
+    .slide-section[data-slide="03"] .sr-text{font-size:11px;color:#C2CAD4;line-height:1.4;text-align:left;margin:0;}
+    .slide-section[data-slide="03"] .sr-text b{color:#fff;}
+
+    /* ---- layout: 2 seções empilhadas (área / cronograma) ---- */
+    .slide-section[data-slide="03"] .mv03j-stack{flex:1;display:flex;flex-direction:column;gap:8px;min-height:0;overflow:hidden;}
+    .slide-section[data-slide="03"] .mv03j-section{display:flex;flex-direction:column;min-height:0;}
+    .slide-section[data-slide="03"] .mv03j-section--areas{flex:0 0 46%;}
+    .slide-section[data-slide="03"] .mv03j-section--cron{flex:1;min-height:0;}
+    .slide-section[data-slide="03"] .mv03j-hdiv{height:1px;background:rgba(255,255,255,0.10);flex-shrink:0;margin:2px 0 9px;}
+
+    /* ---- 1. status por área (5 cards) ---- */
+    .slide-section[data-slide="03"] .mv03j-areas{display:flex;gap:10px;flex:1;min-height:0;align-items:stretch;}
+    .slide-section[data-slide="03"] .mv03j-area{flex:1;min-width:0;display:flex;flex-direction:column;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.09);border-radius:6px;padding:9px 10px 8px;gap:4px;}
+    .slide-section[data-slide="03"] .mv03j-area-top{display:flex;align-items:baseline;gap:7px;}
+    .slide-section[data-slide="03"] .mv03j-area-num{color:#E97132;font-size:17px;font-weight:900;line-height:1;}
+    .slide-section[data-slide="03"] .mv03j-area-title{font-size:12px;font-weight:800;color:#fff;line-height:1.15;}
+    .slide-section[data-slide="03"] .mv03j-area-badge{margin:2px 0 4px;}
+    .slide-section[data-slide="03"] .mv03j-area-badge .sr-badge{width:100%;box-sizing:border-box;padding:3px 8px;font-size:10.5px;}
+    .slide-section[data-slide="03"] .mv03j-area-body{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:7px;}
+    .slide-section[data-slide="03"] .mv03j-area-body .sr-text{font-size:10.5px;line-height:1.42;}
+    .slide-section[data-slide="03"] .mv03j-area-body .sr-text b{display:block;color:#E97132;font-size:10px;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:2px;}
+
+    /* ---- 2. cronograma: gantt + próximas etapas ---- */
+    .slide-section[data-slide="03"] .mv03j-cron-body{display:flex;gap:18px;flex:1;min-height:0;}
+    .slide-section[data-slide="03"] .mv03j-gantt{flex:1.3;min-width:0;display:flex;flex-direction:column;gap:5px;}
+    .slide-section[data-slide="03"] .mv03j-gantt-header{display:flex;flex-shrink:0;}
+    .slide-section[data-slide="03"] .mv03j-gantt-labelspacer{flex:0 0 208px;}
+    .slide-section[data-slide="03"] .mv03j-gantt-months{flex:1;display:flex;}
+    .slide-section[data-slide="03"] .mv03j-gantt-months span{flex:1;text-align:center;font-size:10.5px;font-weight:800;color:#E97132;letter-spacing:0.5px;}
+    .slide-section[data-slide="03"] .mv03j-gantt-rows{display:flex;flex-direction:column;gap:14px;flex:1;justify-content:center;min-height:0;}
+    .slide-section[data-slide="03"] .mv03j-gantt-row{display:flex;align-items:center;}
+    .slide-section[data-slide="03"] .mv03j-gantt-rowlabel{flex:0 0 208px;font-size:11px;font-weight:700;color:#fff;line-height:1.3;padding-right:10px;box-sizing:border-box;}
+    .slide-section[data-slide="03"] .mv03j-gantt-lane{flex:1;position:relative;height:22px;background:rgba(255,255,255,0.06);border-radius:4px;}
+    .slide-section[data-slide="03"] .mv03j-bar{position:absolute;top:0;bottom:0;border-radius:4px;}
+    .slide-section[data-slide="03"] .mv03j-bar--exec{background:#F5A623;}
+    .slide-section[data-slide="03"] .mv03j-bar--prev{background:#6B5A35;}
+    .slide-section[data-slide="03"] .mv03j-legend{display:flex;gap:18px;flex-shrink:0;margin-top:6px;padding-left:208px;}
+    .slide-section[data-slide="03"] .mv03j-legend-item{display:flex;align-items:center;gap:7px;font-size:11px;color:#B0BEC5;}
+    .slide-section[data-slide="03"] .mv03j-swatch{width:15px;height:9px;border-radius:2px;display:inline-block;flex-shrink:0;}
+    .slide-section[data-slide="03"] .mv03j-swatch--exec{background:#F5A623;}
+    .slide-section[data-slide="03"] .mv03j-swatch--prev{background:#6B5A35;}
+
+    .slide-section[data-slide="03"] .mv03j-marcos{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;overflow:hidden;min-height:0;justify-content:flex-start;}
+    .slide-section[data-slide="03"] .mv03j-marcos-title{color:#E97132;margin-bottom:0;}
+    .slide-section[data-slide="03"] .mv03j-marco{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.09);border-radius:5px;padding:4px 12px;}
+    .slide-section[data-slide="03"] .mv03j-marco-tag{flex:0 0 92px;font-size:10.5px;font-weight:800;letter-spacing:0.3px;color:#E97132;text-transform:uppercase;line-height:1.3;padding-top:1px;}
+    .slide-section[data-slide="03"] .mv03j-marco .sr-text{font-size:11px;line-height:1.38;}
+  </style>
+
+  <div class="sr-panel">
+    <div class="sr-hdr cascade-item">
+      <div class="sr-proj-title">PIPA <span>| Status Geral e Cronograma</span></div>
+      <div class="sr-meta-line">Empreendimento em fase de implantação&nbsp;&nbsp;&middot;&nbsp;&nbsp;Status por área e cronograma de próximas etapas&nbsp;&nbsp;&middot;&nbsp;&nbsp;Data-base&nbsp;<b>set/2026</b></div>
+    </div>
+    <div class="sr-divider"></div>
+
+    <div class="mv03j-stack">
+
+      <div class="mv03j-section mv03j-section--areas cascade-item">
+        <div class="sr-sec-title"><span class="sr-sec-num">1.</span> STATUS POR ÁREA</div>
+        <div class="mv03j-areas">
+
+          <div class="mv03j-area">
+            <div class="mv03j-area-top"><span class="mv03j-area-num">01</span><span class="mv03j-area-title">Projetos</span></div>
+            <div class="mv03j-area-badge"><span class="sr-badge amarelo">Em andamento</span></div>
+            <div class="mv03j-area-body">
+              <p class="sr-text"><b>Concluído:</b>Análise dos projetos executivos de arquitetura das casas e flats concluídas emitidos para revisão e liberação das bases para os demais projetistas.</p>
+              <p class="sr-text"><b>Andamento:</b>Definição dos acabamentos das Casas (piso, bancadas, louças e metais).</p>
+            </div>
+          </div>
+
+          <div class="mv03j-area">
+            <div class="mv03j-area-top"><span class="mv03j-area-num">02</span><span class="mv03j-area-title">Licenciamento</span></div>
+            <div class="mv03j-area-badge"><span class="sr-badge amarelo">Em andamento</span></div>
+            <div class="mv03j-area-body">
+              <p class="sr-text"><b>Em andamento:</b>Acompanhamento das condicionantes ambientais.</p>
+              <p class="sr-text"><b>Concluído:</b>Rerratificação do memorial de incorporação.</p>
+            </div>
+          </div>
+
+          <div class="mv03j-area">
+            <div class="mv03j-area-top"><span class="mv03j-area-num">03</span><span class="mv03j-area-title">Financeiro &amp; adm.</span></div>
+            <div class="mv03j-area-badge"><span class="sr-badge amarelo">Em andamento</span></div>
+            <div class="mv03j-area-body">
+              <p class="sr-text"><b>Em andamento:</b>Acompanhamento para liberação da primeira medição da Caixa.</p>
+              <p class="sr-text"><b>Concluído:</b>Registro do contrato do financiamento bancário no cartório.</p>
+            </div>
+          </div>
+
+          <div class="mv03j-area">
+            <div class="mv03j-area-top"><span class="mv03j-area-num">04</span><span class="mv03j-area-title">Comercial</span></div>
+            <div class="mv03j-area-badge"><span class="sr-badge amarelo">Em andamento</span></div>
+            <div class="mv03j-area-body">
+              <p class="sr-text"><b>Em andamento:</b>Comercialização dos apartamentos.</p>
+              <p class="sr-text"><b>Concluído:</b>Instrumentos para vendas dos Apartamentos.</p>
+            </div>
+          </div>
+
+          <div class="mv03j-area">
+            <div class="mv03j-area-top"><span class="mv03j-area-num">05</span><span class="mv03j-area-title">Planejamento</span></div>
+            <div class="mv03j-area-badge"><span class="sr-badge amarelo">Em andamento</span></div>
+            <div class="mv03j-area-body">
+              <p class="sr-text"><b>Á iniciar:</b>Cotação dos itens de mobiliário, fitness, urbanização e interiores para definição de fornecedores e equalização.</p>
+              <p class="sr-text"><b>Personalização — em andamento:</b>Elaboração da base orçamentária; definição do memorial de acabamentos; elaboração e estruturação do portal personalize.</p>
+              <p class="sr-text"><b>Personalização — concluído:</b>Template; cartilha da personalização; manual da personalização; suspensão da execução unidades personalizadas.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="mv03j-hdiv"></div>
+
+      <div class="mv03j-section mv03j-section--cron cascade-item">
+        <div class="sr-sec-title"><span class="sr-sec-num">2.</span> CRONOGRAMA E PRÓXIMAS ETAPAS</div>
+        <div class="mv03j-cron-body">
+
+          <div class="mv03j-gantt">
+            <div class="mv03j-gantt-header">
+              <div class="mv03j-gantt-labelspacer"></div>
+              <div class="mv03j-gantt-months"><span>SET</span><span>OUT</span><span>NOV</span><span>DEZ</span><span>JAN</span></div>
+            </div>
+            <div class="mv03j-gantt-rows">
+              <div class="mv03j-gantt-row">
+                <div class="mv03j-gantt-rowlabel">Atualização da Incorporação</div>
+                <div class="mv03j-gantt-lane"><div class="mv03j-bar mv03j-bar--exec" style="left:1.3%;width:21.1%;"></div></div>
+              </div>
+              <div class="mv03j-gantt-row">
+                <div class="mv03j-gantt-rowlabel">Registro do Contrato do Financiamento no cartório</div>
+                <div class="mv03j-gantt-lane"><div class="mv03j-bar mv03j-bar--exec" style="left:11.3%;width:21.1%;"></div></div>
+              </div>
+              <div class="mv03j-gantt-row">
+                <div class="mv03j-gantt-rowlabel">Projetos complementares - Executivo (INT+LUM+PAI)</div>
+                <div class="mv03j-gantt-lane"><div class="mv03j-bar mv03j-bar--exec" style="left:24.6%;width:55.0%;"></div></div>
+              </div>
+            </div>
+            <div class="mv03j-legend">
+              <span class="mv03j-legend-item"><i class="mv03j-swatch mv03j-swatch--exec"></i>Previsto / em andamento</span>
+            </div>
+          </div>
+
+          <div class="mv03j-marcos">
+            <div class="sr-sec-title mv03j-marcos-title">PRÓXIMAS ETAPAS</div>
+            <div class="mv03j-marco"><span class="mv03j-marco-tag">Imediato</span><span class="sr-text">Definição da especificação dos materiais das Casas.</span></div>
+            <div class="mv03j-marco"><span class="mv03j-marco-tag">Curto prazo</span><span class="sr-text">Primeira medição da Caixa Econômica.</span></div>
+            <div class="mv03j-marco"><span class="mv03j-marco-tag">Marco</span><span class="sr-text">Registro do contrato de financiamento bancário.</span></div>
+            <div class="mv03j-marco"><span class="mv03j-marco-tag">Médio prazo</span><span class="sr-text">Iniciar projetos executivos (INTERIORES + LUMÍNICO + PAISAGISTICO).</span></div>
+            <div class="mv03j-marco"><span class="mv03j-marco-tag">Data-alvo</span><span class="sr-text">18/09/2026 - Registro do contrato do financiamento no cartório.</span></div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section><section id="tela-04" class="slide-section" data-slide="v04">
   <style>
     /* ============================================================
        EGPAR JULHO/2026 — slide 04 (Reserva Pipa · Comparativo de
@@ -14002,7 +14172,6 @@ hr, [class*="__divider"], [class*="-divider"] {
       'r15': { kicker: 'JARDINS DO POTENGI · OBRA — CUSTO ECONÔMICO X FINANCEIRO', section: '01' },
       '21': { kicker: 'JARDINS DO POTENGI · MASTER PLAN — LINHA DO TEMPO', section: '01' },
       'g02': { kicker: 'JARDINS DO POTENGI \u00b7 PROJETOS, OBRA, FINANCEIRO E FINANCIAMENTO', section: '01' },
-      'ps03': { kicker: 'PIPA · STATUS GERAL E CRONOGRAMA — EM PREPARAÇÃO', section: '01' },
       'ps07': { kicker: 'RESERVA PIPA · PREVISÃO DE DESEMBOLSO · CONSOLIDADO OBRA E INCORPORAÇÃO — EM PREPARAÇÃO', section: '01' },
       'ps06': { kicker: 'RESERVA PIPA · RESULTADOS &MIDDOT; DESEMPENHO DA INCORPORA&CCEDIL;&ATILDE;O (IDC) — EM PREPARAÇÃO', section: '01' },
       'ps09': { kicker: 'RESERVA PIPA · MAPA DE VENDAS &AMP; DISPONIBILIDADE &MIDDOT; FASE DE IMPLANTA&CCEDIL;&ATILDE;O — EM PREPARAÇÃO', section: '01' },
