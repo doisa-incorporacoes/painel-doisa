@@ -26433,31 +26433,208 @@ hr, [class*="__divider"], [class*="-divider"] {
 
   </div>
 
-</section><section id="tela-25" class="slide-section" data-slide="ps21">
+</section><section id="tela-25" class="slide-section" data-slide="pov">
+  <style>
+
+    /* ============================================================
+
+       RGI AGOSTO/2026 — slide 03 (Reserva Pipa) — HTML por pessoa (Lara Soares).
+
+       Molde: slide 03 do deck EGPAR julho/2026; textos atualizados
+
+       literalmente do RGI.pptx da Lara (slides 2 e 3, enviado 24/08).
+
+       Barras do Gantt medidas no render do slide 3 de agosto:
+
+       1,5/21,0 · 11,5/21,0 · 24,8/55,0 — iguais às de julho dentro do
+
+       ruído de medição; mantidas.
+
+       Unifica PPTX julho slides 3 ("Pipa" status por área) + 4
+
+       ("Pipa | Cronograma e Próximas Etapas") num único slide 03,
+
+       por pedido do Álvaro ("03 e 04 > 03. A linha do tempo vai
+
+       unificar com o slide 03").
+
+       FIX2 (30/07/2026): rubricas reaplicadas literalmente do
+
+       PPTX-retrato-2026-07-30 (slides 3 e 4) — status das 5 áreas,
+
+       rótulos internos (Emissão / Em andamento / Concluído /
+
+       Á iniciar) e textos de cada coluna. Barras do Gantt medidas
+
+       no render do slide 4 e conferidas (inalteradas).
+
+       Reaproveita o sistema de componentes sr-* do deck (shell.css
+
+       / template slide03 de junho): sr-panel escuro (base, sem
+
+       override para branco — igual ao slide03 de junho), sr-hdr,
+
+       sr-proj-title, sr-divider, sr-sec-title/sr-sec-num, sr-badge
+
+       (amarelo/verde), sr-text. Classes novas com prefixo seguro
+
+       mv03j- (julho) para o layout de área + Gantt + marcos, sem
+
+       colidir com mv03c- (patch de junho) nem com outros slides.
+
+       ============================================================ */
+
+
+
+    /* ---- base sr-* (dark navy, igual ao componente original) ---- */
+
+    .slide-section[data-slide="pov"] .sr-panel{position:absolute;top:110px;left:56px;right:56px;bottom:54px;background:#0D1B2A;border:1px solid rgba(255,255,255,0.10);border-radius:10px;display:flex;flex-direction:column;padding:16px 26px 12px;box-sizing:border-box;overflow:hidden;font-family:'Inter',system-ui,sans-serif;color:#fff;box-shadow:0 18px 50px rgba(8,11,18,0.32);z-index:1;}
+
+    .slide-section[data-slide="pov"] .sr-hdr{display:flex;flex-direction:column;flex-shrink:0;margin-bottom:6px;}
+
+    .slide-section[data-slide="pov"] .sr-proj-title{font-size:21px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:#fff;line-height:1.1;}
+
+    .slide-section[data-slide="pov"] .sr-proj-title span{color:#B0BEC5;font-weight:400;font-size:14px;margin-left:8px;text-transform:none;letter-spacing:0;}
+
+    .slide-section[data-slide="pov"] .sr-meta-line{font-size:11px;color:#B0BEC5;line-height:1.5;margin-top:3px;}
+
+    .slide-section[data-slide="pov"] .sr-meta-line b{color:#E97132;}
+
+    .slide-section[data-slide="pov"] .sr-divider{height:1px;background:rgba(255,255,255,0.15);flex-shrink:0;margin:0 0 9px;}
+
+    .slide-section[data-slide="pov"] .sr-sec-title{font-size:12.5px;font-weight:800;text-transform:uppercase;letter-spacing:0.5px;display:flex;align-items:center;gap:7px;color:#fff;flex-shrink:0;margin-bottom:6px;}
+
+    .slide-section[data-slide="pov"] .sr-sec-num{color:#E97132;font-size:16px;font-weight:900;}
+
+    .slide-section[data-slide="pov"] .sr-badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:10.5px;font-weight:700;text-align:center;text-transform:uppercase;letter-spacing:0.3px;white-space:nowrap;}
+
+    .slide-section[data-slide="pov"] .sr-badge.verde{background:#16A34A;color:#fff;}
+
+    .slide-section[data-slide="pov"] .sr-badge.amarelo{background:#F59E0B;color:#0D1B2A;}
+
+    .slide-section[data-slide="pov"] .sr-text{font-size:11px;color:#C2CAD4;line-height:1.4;text-align:left;margin:0;}
+
+    .slide-section[data-slide="pov"] .sr-text b{color:#fff;}
+
+
+
+    /* ---- layout: 2 seções empilhadas (área / cronograma) ---- */
+
+    .slide-section[data-slide="pov"] .mv03j-stack{flex:1;display:flex;flex-direction:column;gap:8px;min-height:0;overflow:hidden;}
+
+    .slide-section[data-slide="pov"] .mv03j-section{display:flex;flex-direction:column;min-height:0;}
+
+    .slide-section[data-slide="pov"] .mv03j-section--areas{flex:0 0 46%;}
+
+    .slide-section[data-slide="pov"] .mv03j-section--cron{flex:1;min-height:0;}
+
+    .slide-section[data-slide="pov"] .mv03j-hdiv{height:1px;background:rgba(255,255,255,0.10);flex-shrink:0;margin:2px 0 9px;}
+
+
+
+    /* ---- 1. status por área (5 cards) ---- */
+
+    .slide-section[data-slide="pov"] .mv03j-areas{display:flex;gap:10px;flex:1;min-height:0;align-items:stretch;}
+
+    .slide-section[data-slide="pov"] .mv03j-area{flex:1;min-width:0;display:flex;flex-direction:column;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.09);border-radius:6px;padding:9px 10px 8px;gap:4px;}
+
+    .slide-section[data-slide="pov"] .mv03j-area-top{display:flex;align-items:baseline;gap:7px;}
+
+    .slide-section[data-slide="pov"] .mv03j-area-num{color:#E97132;font-size:17px;font-weight:900;line-height:1;}
+
+    .slide-section[data-slide="pov"] .mv03j-area-title{font-size:12px;font-weight:800;color:#fff;line-height:1.15;}
+
+    .slide-section[data-slide="pov"] .mv03j-area-badge{margin:2px 0 4px;}
+
+    .slide-section[data-slide="pov"] .mv03j-area-badge .sr-badge{width:100%;box-sizing:border-box;padding:3px 8px;font-size:10.5px;}
+
+    .slide-section[data-slide="pov"] .mv03j-area-body{overflow:hidden;min-height:0;display:flex;flex-direction:column;gap:7px;}
+
+    .slide-section[data-slide="pov"] .mv03j-area-body .sr-text{font-size:10.5px;line-height:1.42;}
+
+    .slide-section[data-slide="pov"] .mv03j-area-body .sr-text b{display:block;color:#E97132;font-size:10px;text-transform:uppercase;letter-spacing:0.3px;margin-bottom:2px;}
+
+
+
+    /* ---- 2. cronograma: gantt + próximas etapas ---- */
+
+    .slide-section[data-slide="pov"] .mv03j-cron-body{display:flex;gap:18px;flex:1;min-height:0;}
+
+    .slide-section[data-slide="pov"] .mv03j-gantt{flex:1.3;min-width:0;display:flex;flex-direction:column;gap:5px;}
+
+    .slide-section[data-slide="pov"] .mv03j-gantt-header{display:flex;flex-shrink:0;}
+
+    .slide-section[data-slide="pov"] .mv03j-gantt-labelspacer{flex:0 0 208px;}
+
+    .slide-section[data-slide="pov"] .mv03j-gantt-months{flex:1;display:flex;}
+
+    .slide-section[data-slide="pov"] .mv03j-gantt-months span{flex:1;text-align:center;font-size:10.5px;font-weight:800;color:#E97132;letter-spacing:0.5px;}
+
+    .slide-section[data-slide="pov"] .mv03j-gantt-rows{display:flex;flex-direction:column;gap:14px;flex:1;justify-content:center;min-height:0;}
+
+    .slide-section[data-slide="pov"] .mv03j-gantt-row{display:flex;align-items:center;}
+
+    .slide-section[data-slide="pov"] .mv03j-gantt-rowlabel{flex:0 0 208px;font-size:11px;font-weight:700;color:#fff;line-height:1.3;padding-right:10px;box-sizing:border-box;}
+
+    .slide-section[data-slide="pov"] .mv03j-gantt-lane{flex:1;position:relative;height:22px;background:rgba(255,255,255,0.06);border-radius:4px;}
+
+    .slide-section[data-slide="pov"] .mv03j-bar{position:absolute;top:0;bottom:0;border-radius:4px;}
+
+    .slide-section[data-slide="pov"] .mv03j-bar--exec{background:#F5A623;}
+
+    .slide-section[data-slide="pov"] .mv03j-bar--prev{background:#6B5A35;}
+
+    .slide-section[data-slide="pov"] .mv03j-legend{display:flex;gap:18px;flex-shrink:0;margin-top:6px;padding-left:208px;}
+
+    .slide-section[data-slide="pov"] .mv03j-legend-item{display:flex;align-items:center;gap:7px;font-size:11px;color:#B0BEC5;}
+
+    .slide-section[data-slide="pov"] .mv03j-swatch{width:15px;height:9px;border-radius:2px;display:inline-block;flex-shrink:0;}
+
+    .slide-section[data-slide="pov"] .mv03j-swatch--exec{background:#F5A623;}
+
+    .slide-section[data-slide="pov"] .mv03j-swatch--prev{background:#6B5A35;}
+
+
+
+    .slide-section[data-slide="pov"] .mv03j-marcos{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px;overflow:hidden;min-height:0;justify-content:flex-start;}
+
+    .slide-section[data-slide="pov"] .mv03j-marcos-title{color:#E97132;margin-bottom:0;}
+
+    .slide-section[data-slide="pov"] .mv03j-marco{display:flex;align-items:flex-start;gap:10px;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.09);border-radius:5px;padding:4px 12px;}
+
+    .slide-section[data-slide="pov"] .mv03j-marco-tag{flex:0 0 92px;font-size:10.5px;font-weight:800;letter-spacing:0.3px;color:#E97132;text-transform:uppercase;line-height:1.3;padding-top:1px;}
+
+    .slide-section[data-slide="pov"] .mv03j-marco .sr-text{font-size:11px;line-height:1.38;}
+
+  
+    .slide-section[data-slide="pov"] .mv03j-section--areas{flex:1;}
+    .slide-section[data-slide="pov"] .mv03j-areas{gap:14px;}
+    .slide-section[data-slide="pov"] .mv03j-area{padding:16px 18px 14px;gap:8px;}
+    .slide-section[data-slide="pov"] .mv03j-area-num{font-size:34px;}
+    .slide-section[data-slide="pov"] .mv03j-area-title{font-size:23px;}
+    .slide-section[data-slide="pov"] .mv03j-area-badge .sr-badge{font-size:15px;padding:8px 8px;}
+    .slide-section[data-slide="pov"] .mv03j-area-body{gap:14px;overflow:visible;}
+    .slide-section[data-slide="pov"] .mv03j-area-body .sr-text b{font-size:15px;margin-bottom:4px;}
+    .slide-section[data-slide="pov"] .mv03j-area-body ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;}
+    .slide-section[data-slide="pov"] .mv03j-area-body li{font-size:19px;line-height:1.45;color:#C2CAD4;}
+    @media (max-width:900px){
+      .slide-section[data-slide="pov"] .mv03j-stack{overflow-y:auto;overflow-x:hidden;}
+      .slide-section[data-slide="pov"] .mv03j-areas{flex-direction:column;flex:0 0 auto;}
+      .slide-section[data-slide="pov"] .mv03j-area-body li{font-size:13px;}
+      .slide-section[data-slide="pov"] .mv03j-area-num{font-size:24px;}
+      .slide-section[data-slide="pov"] .mv03j-area-title{font-size:16px;}
+    }
+</style>
   <div class="sr-panel">
     <div class="sr-hdr cascade-item">
-      <div class="sr-proj-title">JARDINS DO POTENGI <span>| Master Plan &middot; Linha do Tempo do Empreendimento</span></div>
-      <div class="sr-meta-line">Slide em preparação</div>
+      <div class="sr-proj-title">JARDINS DO POTENGI <span>| Overview do Projeto</span></div>
+      <div class="sr-meta-line">Empreendimento em fase de implanta&ccedil;&atilde;o&nbsp;&nbsp;&middot;&nbsp;&nbsp;Status por &aacute;rea</div>
     </div>
     <div class="sr-divider"></div>
-    <div class="ph-body cascade-item">
-      <div class="ph-selo">EM PREPARAÇÃO</div>
-      <div class="ph-ref">Corresponde ao slide 25 do RGI de agosto/2026 · ainda não gerado para setembro</div>
-    </div>
+    <div class="mv03j-stack"><div class="mv03j-section mv03j-section--areas cascade-item"><div class="sr-sec-title"><span class="sr-sec-num">1.</span> STATUS POR &Aacute;REA</div><div class="mv03j-areas"><div class="mv03j-area"><div class="mv03j-area-top"><span class="mv03j-area-num">01</span><span class="mv03j-area-title">Projetos e Licenciamento</span></div><div class="mv03j-area-badge"><span class="sr-badge amarelo">Em andamento</span></div><div class="mv03j-area-body"><p class="sr-text"><b>Em andamento:</b></p><ul><li>Aprovação do Projeto de Combate a Incêndio junto ao Corpo de Bombeiros;</li><li>Elaboração do Manual do Proprietário.</li></ul><p class="sr-text"><b>A iniciar:</b></p><ul><li>[NOV/26] Elaboração do projeto "as built" para obtenção do Habite-se e manual do síndico;</li></ul></div></div><div class="mv03j-area"><div class="mv03j-area-top"><span class="mv03j-area-num">02</span><span class="mv03j-area-title">Entrega da Obra</span></div><div class="mv03j-area-badge"><span class="sr-badge amarelo">Em andamento</span></div><div class="mv03j-area-body"><p class="sr-text"><b>Em andamento:</b></p><ul><li>Negociação para aquisição dos equipamentos, mobiliários, eletrodomésticos e objetos de decoração que serão entregues ao condomínio.</li></ul><p class="sr-text"><b>A iniciar:</b></p><ul><li>[DEZ/26] Constituição do CNPJ do condomínio,</li><li>[DEZ/26] Habite-se Torre Comercial</li><li>[JAN/27] Individualização dos IPTUs.</li><li>[JAN/27] Averbação parcial da construção</li></ul></div></div><div class="mv03j-area"><div class="mv03j-area-top"><span class="mv03j-area-num">03</span><span class="mv03j-area-title">Financeiro &amp; adm.</span></div><div class="mv03j-area-badge"><span class="sr-badge amarelo">Em andamento</span></div><div class="mv03j-area-body"><p class="sr-text"><b>Recorrente:</b></p><ul><li>Atualização da Comissão de Representantes da obra.</li></ul><p class="sr-text"><b>Em andamento:</b></p><ul><li>Comunicado clientes –cronograma;</li><li>Ajuste no plano de pagamento das parcelas finais, apenas por solicitação do cliente.</li><li>Cotação com administradoras de condomínio</li></ul></div></div><div class="mv03j-area"><div class="mv03j-area-top"><span class="mv03j-area-num">04</span><span class="mv03j-area-title">Financiamento</span></div><div class="mv03j-area-badge"><span class="sr-badge amarelo">Em andamento</span></div><div class="mv03j-area-body"><p class="sr-text"><b>Em andamento:</b></p><ul><li>Nova contestação sobre avaliação;</li><li>Aprovação para início dos repasses;Comunicação aos clientes sobre o início do financiamento por fração ideal;</li><li>Análise dos clientes;</li></ul></div></div></div></div></div>
   </div>
 </section>
 
-<style>
-  /* marcador "Em preparacao" — escopo exclusivo data-slide="ps21" (molde: painel branco da casa) */
-  .slide-section[data-slide="ps21"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;}
-  .slide-section[data-slide="ps21"] .sr-proj-title{color:#1A3470;}
-  .slide-section[data-slide="ps21"] .sr-proj-title span{color:#7A8299;}
-  .slide-section[data-slide="ps21"] .sr-meta-line{color:#5A6478;font-size:12.5px;}
-  .slide-section[data-slide="ps21"] .sr-divider{background:rgba(45,79,158,0.12);}
-  .slide-section[data-slide="ps21"] .ph-body{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;text-align:center;padding:0 40px;}
-  .slide-section[data-slide="ps21"] .ph-selo{font-family:'Inter',system-ui,sans-serif;font-size:40px;font-weight:800;letter-spacing:2px;color:#E97132;line-height:1.22;max-width:1320px;}
-  .slide-section[data-slide="ps21"] .ph-ref{font-family:'Inter',system-ui,sans-serif;font-size:20px;font-weight:500;color:#5A6478;letter-spacing:.2px;max-width:1100px;}
-</style>
 <section id="tela-26" class="slide-section" data-slide="psg02">
   <div class="sr-panel">
     <div class="sr-hdr cascade-item">
@@ -30056,6 +30233,7 @@ hr, [class*="__divider"], [class*="-divider"] {
       'w09b': { kicker: 'RESERVA PIPA · OBRA — FOTOS DO CANTEIRO', section: '01' },
       'idcc': { kicker: 'RESERVA PIPA · ACOMPANHAMENTO IDC — INDICADORES POR RUBRICA', section: '01' },
       'idcp': { kicker: 'JARDINS DO POTENGI · RESULTADOS — IDC POR RUBRICA (INDICADORES)', section: '01' },
+      'pov': { kicker: 'JARDINS DO POTENGI · OVERVIEW DO PROJETO (STATUS POR ÁREA)', section: '01' },
       'v04': { kicker: 'RESERVA PIPA · COMPARATIVO DE VIABILIDADES — EVOLUÇÃO', section: '01' },
 
       'v05': { kicker: 'RESERVA PIPA · COMPARATIVO DE VIABILIDADES — AGO/26 × SET/26', section: '01' },
