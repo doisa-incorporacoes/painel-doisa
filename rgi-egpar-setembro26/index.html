@@ -27129,224 +27129,272 @@ hr, [class*="__divider"], [class*="-divider"] {
 
 <section id="tela-33" class="slide-section" data-slide="29">
 
-  <style>
+<style>
     .slide-section[data-slide="29"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;}
     .slide-section[data-slide="29"] .sr-proj-title{color:#1A3470;}
     .slide-section[data-slide="29"] .sr-proj-title span{color:#7A8299;}
     .slide-section[data-slide="29"] .sr-meta-line{color:#5A6478;}
     .slide-section[data-slide="29"] .sr-meta-line b{color:#E97132;}
     .slide-section[data-slide="29"] .sr-divider{background:rgba(45,79,158,0.12);}
-    .slide-section[data-slide="29"] .sr-panel .rgi-table-title{padding:5px 14px !important;font-size:13.5px !important;}
 
-    .slide-section[data-slide="29"] .mv29a-main{flex:1;min-height:0;display:flex;gap:16px;align-items:stretch;}
-    .slide-section[data-slide="29"] .mv29a-left{flex:0 0 45%;display:flex;flex-direction:column;min-height:0;overflow:hidden;}
-    .slide-section[data-slide="29"] .mv29a-right{flex:1;display:flex;flex-direction:column;min-height:0;gap:8px;overflow:hidden;}
+    .slide-section[data-slide="29"] .mv29y-grid{flex:1;min-height:0;display:flex;flex-direction:column;}
+    .slide-section[data-slide="29"] .mv29y-body{flex:1;min-height:0;display:flex;gap:22px;align-items:stretch;}
 
-    .slide-section[data-slide="29"] .mv29a-ledger-wrap{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden;}
-    .slide-section[data-slide="29"] .mv29a-scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;border:1px solid rgba(45,79,158,0.12);border-radius:6px;}
-    .slide-section[data-slide="29"] .mv29a-scroll::-webkit-scrollbar{width:9px;}
-    .slide-section[data-slide="29"] .mv29a-scroll::-webkit-scrollbar-thumb{background:rgba(45,79,158,0.32);border-radius:6px;}
-    .slide-section[data-slide="29"] .mv29a-scroll::-webkit-scrollbar-track{background:rgba(45,79,158,0.06);}
-    .slide-section[data-slide="29"] .mv29a-ledger{width:100%;}
+    .slide-section[data-slide="29"] .mv29y-left{flex:0 0 55%;min-width:0;display:flex;flex-direction:column;min-height:0;}
+    .slide-section[data-slide="29"] .mv29y-right{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;min-height:0;}
 
-    .slide-section[data-slide="29"] .mv29a-ledger.rgi-table--compact tbody td,
-    .slide-section[data-slide="29"] .mv29a-ledger.rgi-table--compact tbody td:first-child,
-    .slide-section[data-slide="29"] .mv29a-ledger.rgi-table--compact tbody tr.rgi-row-section td{padding:2px 10px !important;font-size:12.5px !important;line-height:1.16 !important;white-space:normal !important;font-weight:600 !important;}
-    .slide-section[data-slide="29"] .mv29a-ledger.rgi-table--compact thead th{padding:4px 10px !important;font-size:12px !important;line-height:1.2 !important;position:sticky;top:0;z-index:3;}
-    .slide-section[data-slide="29"] .mv29a-ledger.rgi-table--compact tbody tr.rgi-row-section td{font-weight:800 !important;font-size:12.5px !important;background:rgba(45,79,158,0.09) !important;color:#1A3470 !important;}
-    .slide-section[data-slide="29"] .mv29a-ledger td:nth-child(2){width:60px;text-align:center;white-space:nowrap !important;}
-    .slide-section[data-slide="29"] .mv29a-ledger td:nth-child(3){width:106px;white-space:nowrap !important;text-align:right;font-variant-numeric:tabular-nums;}
-    .slide-section[data-slide="29"] .mv29a-total td{background:rgba(45,79,158,0.20) !important;font-weight:800 !important;color:#1A1A1A !important;border-top:2px solid #1A3470 !important;}
-    .slide-section[data-slide="29"] .mv29a-sub{font-weight:400;opacity:0.72;}
+    .slide-section[data-slide="29"] .mv29y-tbl-title{background:#E97132;color:#fff;font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:12.5px;text-align:center;padding:7px 12px;border-radius:6px 6px 0 0;flex-shrink:0;}
 
-    .slide-section[data-slide="29"] .mv29a-pies{flex:0 0 auto;display:flex;gap:14px;}
-    .slide-section[data-slide="29"] .mv29a-pie-card{flex:1 1 0;min-width:0;display:flex;flex-direction:column;}
-    .slide-section[data-slide="29"] .mv29a-pie-box{flex:0 0 auto;display:flex;align-items:center;justify-content:center;padding:4px 0 2px;}
-    .slide-section[data-slide="29"] .mv29a-svg{width:100%;max-width:186px;height:auto;display:block;}
-    .slide-section[data-slide="29"] .mv29a-legend{display:flex;flex-wrap:wrap;gap:2px 10px;justify-content:center;margin-top:2px;}
-    .slide-section[data-slide="29"] .mv29a-leg{display:inline-flex;align-items:center;gap:4px;font-family:'Inter','Calibri',sans-serif;font-size:10.5px;font-weight:600;color:#3A3A3A;white-space:nowrap;}
-    .slide-section[data-slide="29"] .mv29a-leg i{width:9px;height:9px;border-radius:2px;flex:0 0 auto;border:1px solid rgba(0,0,0,0.12);}
-    .slide-section[data-slide="29"] .mv29a-leg b{color:#1A3470;font-weight:800;}
-    .slide-section[data-slide="29"] .mv29a-leg-zero{opacity:0.38;}
+    .slide-section[data-slide="29"] .mv29y-tblwrap{flex:1;min-height:0;display:flex;flex-direction:column;border:1px solid rgba(45,79,158,0.16);border-top:none;border-radius:0 0 6px 6px;overflow:hidden;}
+    .slide-section[data-slide="29"] .mv29y-table{width:100%;height:100%;border-collapse:collapse;table-layout:fixed;font-size:12px;line-height:1.1;}
+    .slide-section[data-slide="29"] .mv29y-table thead tr{background:#1A3470;}
+    .slide-section[data-slide="29"] .mv29y-table thead th{color:#fff;font-weight:700;text-transform:uppercase;letter-spacing:.02em;font-size:11px;padding:4px 9px;border:1px solid #1A3470;}
+    /* padding 1.6px cortava 30px: a linha TOTAL e metade do ultimo cliente ficavam fora
+       do wrap (overflow:hidden, sem rolagem). 0.8px faz as 26 linhas caberem. Nao aumentar. */
+    .slide-section[data-slide="29"] .mv29y-table tbody td{color:#1A1A1A;padding:0.8px 9px;border:1px solid rgba(45,79,158,0.14);vertical-align:middle;}
+    .slide-section[data-slide="29"] .mv29y-table tbody tr:nth-child(even){background:rgba(45,79,158,0.035);}
+    .slide-section[data-slide="29"] .mv29y-table td.mv29y-vend{line-height:1.05;font-size:11px;background:rgba(45,79,158,0.085);font-weight:800;color:#1A3470;text-align:center;font-size:12px;}
+    .slide-section[data-slide="29"] .mv29y-table td.mv29y-cli{text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .slide-section[data-slide="29"] .mv29y-table td.mv29y-ctr{text-align:center;font-variant-numeric:tabular-nums;}
+    .slide-section[data-slide="29"] .mv29y-table td.mv29y-num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+    .slide-section[data-slide="29"] .mv29y-table tbody tr.mv29y-vendlast td{border-bottom:1.5px solid rgba(45,79,158,0.32);}
+    .slide-section[data-slide="29"] .mv29y-cli-mark{color:#C0651A;font-weight:700;}
+    .slide-section[data-slide="29"] .mv29y-table tr.mv29y-total td{background:#1A3470;color:#fff;font-weight:800;border:1px solid #1A3470;padding:4px 9px;font-size:12.5px;}
 
-    .slide-section[data-slide="29"] .mv29a-octo-wrap{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden;}
-    .slide-section[data-slide="29"] .mv29a-octo-scroll{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;border:1px solid rgba(45,79,158,0.12);border-radius:6px;}
-    .slide-section[data-slide="29"] .mv29a-octo-scroll::-webkit-scrollbar{width:8px;}
-    .slide-section[data-slide="29"] .mv29a-octo-scroll::-webkit-scrollbar-thumb{background:rgba(45,79,158,0.32);border-radius:6px;}
-    .slide-section[data-slide="29"] .mv29a-octo.rgi-table--compact tbody td,
-    .slide-section[data-slide="29"] .mv29a-octo.rgi-table--compact tbody td:first-child{padding:2px 10px !important;font-size:12.5px !important;line-height:1.16 !important;}
-    .slide-section[data-slide="29"] .mv29a-octo.rgi-table--compact thead th{padding:4px 10px !important;font-size:12px !important;position:sticky;top:0;z-index:3;}
-    .slide-section[data-slide="29"] .mv29a-octo td:nth-child(2){text-align:center;white-space:nowrap;width:106px;}
-    .slide-section[data-slide="29"] .mv29a-octo td:nth-child(3){text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;width:106px;}
+    .slide-section[data-slide="29"] .mv29y-chart-wrap{display:flex;flex-direction:column;border:1px solid rgba(45,79,158,0.16);border-radius:6px;overflow:hidden;background:#FFFFFF;box-shadow:0 6px 20px rgba(45,79,158,0.07);}
+    .slide-section[data-slide="29"] .mv29y-chart-title{background:#E97132;color:#fff;font-weight:800;text-transform:uppercase;letter-spacing:.04em;font-size:12px;text-align:center;padding:7px 12px;flex-shrink:0;}
+    .slide-section[data-slide="29"] .mv29y-chart-box{height:480px;position:relative;}
+    .slide-section[data-slide="29"] #mv29y-chart-vgv{position:absolute;inset:0;}
 
-    .slide-section[data-slide="29"] .mv29a-foot{flex:0 0 auto;margin-top:5px;font-family:'Inter','Calibri',sans-serif;font-size:10.5px;line-height:1.35;color:#7A8299;}
+    .slide-section[data-slide="29"] .mv29y-tblwrap{overflow-y:auto;overflow-x:hidden;}
+    .slide-section[data-slide="29"] .mv29y-table{height:auto;}
+    .slide-section[data-slide="29"] .mv29y-table thead th{position:sticky;top:0;z-index:3;}
+    .slide-section[data-slide="29"] .mv29y-table tbody td{padding:3px 9px;}
+    .slide-section[data-slide="29"] .mv29y-table td.mv29y-cli{white-space:normal;}
+    .slide-section[data-slide="29"] .mv29y-sub{font-weight:400;opacity:0.72;}
+    .slide-section[data-slide="29"] .mv29y-tblwrap::-webkit-scrollbar{width:9px;}
+    .slide-section[data-slide="29"] .mv29y-tblwrap::-webkit-scrollbar-thumb{background:rgba(45,79,158,0.32);border-radius:6px;}
+    .slide-section[data-slide="29"] .mv29y-hint{flex:0 0 auto;margin-top:4px;text-align:center;font-family:'Inter','Calibri',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.4px;color:#C0651A;text-transform:uppercase;}
 
-    .slide-section[data-slide="29"] .mv29a-hint{flex:0 0 auto;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:7px;font-family:'Inter','Calibri',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.4px;color:#C0651A;text-transform:uppercase;}
-    .slide-section[data-slide="29"] .mv29a-hint .ar{display:inline-block;font-size:13px;line-height:1;animation:mv29aBob 1.4s ease-in-out infinite;}
-    @keyframes mv29aBob{0%,100%{transform:translateY(0);opacity:.65;}50%{transform:translateY(3px);opacity:1;}}
-  
     @media (max-width:900px){
-      .slide-section[data-slide="29"] .mv29a-main{flex-direction:column;overflow-y:auto;overflow-x:hidden;}
-      .slide-section[data-slide="29"] .sr-vdiv{display:none;}
-      .slide-section[data-slide="29"] .mv29a-left{flex:0 0 auto;width:100%;overflow:visible;}
-      .slide-section[data-slide="29"] .mv29a-scroll{max-height:420px;}
-      .slide-section[data-slide="29"] .mv29a-right{flex:0 0 auto;overflow:visible;}
-      .slide-section[data-slide="29"] .mv29a-pies{flex-direction:column;}
-      .slide-section[data-slide="29"] .mv29a-octo-wrap{flex:0 0 auto;}
-      .slide-section[data-slide="29"] .mv29a-octo-scroll{max-height:380px;}
+      .slide-section[data-slide="29"] .mv29y-grid{overflow-y:auto;overflow-x:hidden;}
+      .slide-section[data-slide="29"] .mv29y-body{flex-direction:column;gap:14px;}
+      .slide-section[data-slide="29"] .mv29y-left{flex:0 0 auto;width:100%;}
+      .slide-section[data-slide="29"] .mv29y-tblwrap{overflow-x:auto;flex:0 0 auto;}
+      .slide-section[data-slide="29"] .mv29y-table{height:auto;min-width:560px;}
+      .slide-section[data-slide="29"] .mv29y-table tbody td{padding:5px 8px;}
+      .slide-section[data-slide="29"] .mv29y-right{flex:0 0 auto;width:100%;justify-content:flex-start;}
+      .slide-section[data-slide="29"] .mv29y-chart-box{height:430px;}
     }
 </style>
 
-  <div class="sr-panel">
+<div class="sr-panel">
     <div class="sr-hdr cascade-item">
-      <div class="sr-proj-title">JARDINS DO POTENGI <span>| Vendas por Comercial/Corretor &middot; VGV</span></div>
-      <div class="sr-meta-line">Resultados &middot; Fase de Implanta&ccedil;&atilde;o&nbsp;&nbsp;&middot;&nbsp;&nbsp;VGV total <b>R$ 181.605.106,55</b>&nbsp;&nbsp;&middot;&nbsp;&nbsp;65 vendas &middot; 13 vendedores&nbsp;&nbsp;&middot;&nbsp;&nbsp;Distribui&ccedil;&atilde;o por vendedor (com e sem canal OCTO)</div>
+      <div class="sr-proj-title">JARDINS DO POTENGI <span>| Ranking de Vendas &middot; Cliente a Cliente</span></div>
+      <div class="sr-meta-line">Fase de Implanta&ccedil;&atilde;o&nbsp;&nbsp;&middot;&nbsp;&nbsp;VGV total <b>R$ 181.605.106,55</b>&nbsp;&nbsp;&middot;&nbsp;&nbsp;65 vendas&nbsp;&nbsp;&middot;&nbsp;&nbsp;13 vendedores&nbsp;&nbsp;&middot;&nbsp;&nbsp;* destacado na planilha de origem (repasses e permutas)</div>
     </div>
     <div class="sr-divider"></div>
 
-    <div class="mv29a-main">
+    <div class="mv29y-grid cascade-item">
+      <div class="mv29y-body">
 
-      <div class="mv29a-left cascade-item">
-        <div class="mv29a-ledger-wrap">
-          <div class="rgi-table-title">Vendas por Corretor <span style="font-weight:600;font-size:0.8em;opacity:0.9;">(VGV &middot; R$)</span></div>
-          <div class="mv29a-scroll">
-            <table class="rgi-table rgi-table--compact mv29a-ledger">
-              <thead><tr><th style="text-align:left;">Vendedor / Cliente</th><th>Und.</th><th>Valor da venda</th></tr></thead>
+        <div class="mv29y-left">
+          <div class="mv29y-tbl-title">Vendas por Cliente &mdash; Valor por Unidade</div>
+          <div class="mv29y-tblwrap">
+            <table class="mv29y-table">
+              <colgroup>
+                <col style="width:13%"><col style="width:46%"><col style="width:12%"><col style="width:7%"><col style="width:22%">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th style="text-align:center;">Vend.</th>
+                  <th style="text-align:left;">Cliente</th>
+                  <th style="text-align:center;">Unid.</th>
+                  <th style="text-align:center;">Qtd</th>
+                  <th style="text-align:right;">Valor da Venda</th>
+                </tr>
+              </thead>
               <tbody>
-                <tr class="rgi-row-section"><td>Abreu <span style="font-weight:600;opacity:.8;">(16)</span></td><td colspan="2">VGV R$ 39.361.452,29</td></tr>
-                <tr><td style="text-align:left;">Marcos Freire</td><td>901</td><td>2.039.500,01</td></tr>
-                <tr><td style="text-align:left;">Gustavo Ribeiro</td><td>2701</td><td>3.100.000,00</td></tr>
-                <tr><td style="text-align:left;">Ivo Nilson</td><td>3301</td><td>2.700.000,00</td></tr>
-                <tr><td style="text-align:left;">George Lucena</td><td>3401</td><td>3.200.000,00</td></tr>
-                <tr><td style="text-align:left;">Madson Vidal</td><td>3501</td><td>2.950.000,00</td></tr>
-                <tr><td style="text-align:left;">Francisco Edson</td><td>2402</td><td>2.850.000,00</td></tr>
-                <tr><td style="text-align:left;">Fernando Laffite</td><td>1802</td><td>2.850.000,00</td></tr>
-                <tr><td style="text-align:left;">Carlos Jatoba</td><td>902</td><td>2.530.000,00</td></tr>
-                <tr><td style="text-align:left;">Valdinei</td><td>3902</td><td>2.760.000,00</td></tr>
-                <tr><td style="text-align:left;">Fernanda</td><td>3502</td><td>3.099.850,00</td></tr>
-                <tr><td style="text-align:left;">Ivone Clarice Barbosa Trigueiro</td><td>802</td><td>2.311.557,86</td></tr>
-                <tr><td style="text-align:left;">Gilberto</td><td>2702</td><td>3.177.828,85</td></tr>
-                <tr><td style="text-align:left;">Ricardo Abreu <span class="mv29a-sub">(3 salas: 602; 603 e 605)</span></td><td>602 B</td><td>1.048.005,57</td></tr>
-                <tr><td style="text-align:left;">Edson Faustino <span class="mv29a-sub">(2 salas: 801 e 804)</span></td><td>801 B</td><td>1.421.280,00</td></tr>
-                <tr><td style="text-align:left;">Arthur Cavalcanti <span class="mv29a-sub">(2 salas: 601 e 604)</span></td><td>601 B</td><td>1.257.930,00</td></tr>
-                <tr><td style="text-align:left;">Gleydson Kleber <span class="mv29a-sub">(3 salas: 802; 803 e 805)</span></td><td>802 B</td><td>2.065.500,00</td></tr>
-                <tr class="rgi-row-section"><td>Kaca <span style="font-weight:600;opacity:.8;">(5)</span></td><td colspan="2">VGV R$ 14.550.000,00</td></tr>
-                <tr><td style="text-align:left;">M&aacute;rcio Brito*</td><td>&mdash;</td><td>2.905.000,00</td></tr>
-                <tr><td style="text-align:left;">Djalma Diniz* <span class="mv29a-sub">(Repasse Eudson)</span></td><td>2902</td><td>2.800.000,00</td></tr>
-                <tr><td style="text-align:left;">Fernando Mariz</td><td>3002</td><td>2.800.000,00</td></tr>
-                <tr><td style="text-align:left;">Thays Maria de Andrade*</td><td>2201</td><td>3.245.000,00</td></tr>
-                <tr><td style="text-align:left;">Cesar Mariz</td><td>3102</td><td>2.800.000,00</td></tr>
-                <tr class="rgi-row-section"><td>Vanessa <span style="font-weight:600;opacity:.8;">(1)</span></td><td colspan="2">VGV R$ 2.810.000,00</td></tr>
-                <tr><td style="text-align:left;">David Cachina</td><td>2802</td><td>2.810.000,00</td></tr>
-                <tr class="rgi-row-section"><td>Gabriel <span style="font-weight:600;opacity:.8;">(2)</span></td><td colspan="2">VGV R$ 7.169.000,00</td></tr>
-                <tr><td style="text-align:left;">Jos&eacute; Pereira</td><td>4001</td><td>3.350.000,00</td></tr>
-                <tr><td style="text-align:left;">Pedro Henrique Moura Cabral</td><td>3901</td><td>3.819.000,00</td></tr>
-                <tr class="rgi-row-section"><td>Gustavo Pires <span style="font-weight:600;opacity:.8;">(1)</span></td><td colspan="2">VGV R$ 3.042.282,02</td></tr>
-                <tr><td style="text-align:left;">Leonardo Barbosa <span class="mv29a-sub">(Mental Help)</span></td><td>1201</td><td>3.042.282,02</td></tr>
-                <tr class="rgi-row-section"><td>Jo&atilde;o Olimpo <span style="font-weight:600;opacity:.8;">(1)</span></td><td colspan="2">VGV R$ 3.738.000,00</td></tr>
-                <tr><td style="text-align:left;">Hindenburg Gomes</td><td>3001</td><td>3.738.000,00</td></tr>
-                <tr class="rgi-row-section"><td>George <span style="font-weight:600;opacity:.8;">(1)</span></td><td colspan="2">VGV R$ 3.670.000,00</td></tr>
-                <tr><td style="text-align:left;">Pitagoras Souza</td><td>3201</td><td>3.670.000,00</td></tr>
-                <tr class="rgi-row-section"><td>Gigio <span style="font-weight:600;opacity:.8;">(1)</span></td><td colspan="2">VGV R$ 3.000.000,00</td></tr>
-                <tr><td style="text-align:left;">Raphael Lima</td><td>3402</td><td>3.000.000,00</td></tr>
-                <tr class="rgi-row-section"><td>Cristiano <span style="font-weight:600;opacity:.8;">(1)</span></td><td colspan="2">VGV R$ 1.700.000,00</td></tr>
-                <tr><td style="text-align:left;">Carlos Marques <span class="mv29a-sub">(2 salas: 1103 e 1105)</span></td><td>1103</td><td>1.700.000,00</td></tr>
-                <tr class="rgi-row-section"><td>Fred Salsa <span style="font-weight:600;opacity:.8;">(1)</span></td><td colspan="2">VGV R$ 3.485.000,00</td></tr>
-                <tr><td style="text-align:left;">Ricardo Junior</td><td>2102</td><td>3.485.000,00</td></tr>
-                <tr class="rgi-row-section"><td>Sergio <span style="font-weight:600;opacity:.8;">(1)</span></td><td colspan="2">VGV R$ 2.664.858,18</td></tr>
-                <tr><td style="text-align:left;">Paulo Costa</td><td>1001</td><td>2.664.858,18</td></tr>
-                <tr class="rgi-row-section"><td>Edmar <span style="font-weight:600;opacity:.8;">(8)</span></td><td colspan="2">VGV R$ 19.871.218,50</td></tr>
-                <tr><td style="text-align:left;">Lu&iacute;s Eduardo</td><td>2001</td><td>2.650.000,00</td></tr>
-                <tr><td style="text-align:left;">Alex Farinas <span class="mv29a-sub">(Reserva Pipa)*</span></td><td>&mdash;</td><td>3.250.000,00</td></tr>
-                <tr><td style="text-align:left;">Glauber Rego</td><td>1702</td><td>2.500.000,00</td></tr>
-                <tr><td style="text-align:left;">Demila Rodrigues</td><td>2101</td><td>3.197.000,00</td></tr>
-                <tr><td style="text-align:left;">Rodrigo Freire <span class="mv29a-sub">(3 salas: 701; 702 e 704)</span></td><td>704 B</td><td>1.735.858,86</td></tr>
-                <tr><td style="text-align:left;">Flavio Melo* <span class="mv29a-sub">(2 salas: 703 e 705 · Repasse Edvaldo)</span></td><td>703 B</td><td>1.190.141,14</td></tr>
-                <tr><td style="text-align:left;">Hugo Freire</td><td>1901</td><td>2.948.218,50</td></tr>
-                <tr><td style="text-align:left;">Gessione Soares</td><td>1602</td><td>2.400.000,00</td></tr>
-                <tr class="rgi-row-section"><td>Dois A <span style="font-weight:600;opacity:.8;">(26)</span></td><td colspan="2">VGV R$ 76.543.295,56</td></tr>
-                <tr><td style="text-align:left;">Dehuel Diniz <span class="mv29a-sub">(Cinco S)</span></td><td>1101</td><td>2.602.100,00</td></tr>
-                <tr><td style="text-align:left;">Eliton</td><td>2601</td><td>3.041.150,00</td></tr>
-                <tr><td style="text-align:left;">Murilo Diniz* <span class="mv29a-sub">(Repasse Leonardo Diniz)</span></td><td>4201</td><td>5.760.000,00</td></tr>
-                <tr><td style="text-align:left;">Alexandre Duarte</td><td>3701</td><td>3.280.000,00</td></tr>
-                <tr><td style="text-align:left;">Jaerton de Lima</td><td>1201</td><td>2.815.000,00</td></tr>
-                <tr><td style="text-align:left;">Herculano</td><td>4002</td><td>3.063.000,00</td></tr>
-                <tr><td style="text-align:left;">Jos&eacute; Luis Arantes Horto</td><td>1202</td><td>2.710.000,00</td></tr>
-                <tr><td style="text-align:left;">Felipe Bezerra <span class="mv29a-sub">(resd. + 2 salas: 903; 905)</span></td><td>2602</td><td>3.988.145,42</td></tr>
-                <tr><td style="text-align:left;">Luis Flor</td><td>2002</td><td>2.655.000,00</td></tr>
-                <tr><td style="text-align:left;">Keyson</td><td>3202</td><td>3.150.000,00</td></tr>
-                <tr><td style="text-align:left;">Amando Lula</td><td>801</td><td>2.500.000,00</td></tr>
-                <tr><td style="text-align:left;">Perales</td><td>2502</td><td>3.080.000,00</td></tr>
-                <tr><td style="text-align:left;">Rainel</td><td>2301</td><td>2.980.633,01</td></tr>
-                <tr><td style="text-align:left;">Rogerio Marinho</td><td>2801</td><td>3.211.649,84</td></tr>
-                <tr><td style="text-align:left;">Corn&eacute;lio Soares</td><td>3702</td><td>3.460.000,00</td></tr>
-                <tr><td style="text-align:left;">Columbia <span class="mv29a-sub">(5 salas: 1001; 1002; 1003; 1004 e 1005)</span></td><td>1001 B</td><td>3.070.000,00</td></tr>
-                <tr><td style="text-align:left;">Jos&eacute; Luis Horto <span class="mv29a-sub">(Octo)</span></td><td>701</td><td>3.300.000,00</td></tr>
-                <tr><td style="text-align:left;">LL Investimentos <span class="mv29a-sub">(Octo, sala)</span></td><td>1104 B</td><td>819.436,16</td></tr>
-                <tr><td style="text-align:left;">Fabio Saraiva <span class="mv29a-sub">(Octo, sala)</span></td><td>1101 B</td><td>819.436,16</td></tr>
-                <tr><td style="text-align:left;">Marcos Borges <span class="mv29a-sub">(Octo)</span></td><td>2401</td><td>1.876.000,00</td></tr>
-                <tr><td style="text-align:left;">George Maranh&atilde;o <span class="mv29a-sub">(Octo)</span></td><td>2501</td><td>2.200.000,00</td></tr>
-                <tr><td style="text-align:left;">Cesar Veloso</td><td>3302</td><td>3.755.000,00</td></tr>
-                <tr><td style="text-align:left;">Ziim Investimentos <span class="mv29a-sub">(loja)</span></td><td>01 e 02</td><td>5.000.000,00</td></tr>
-                <tr><td style="text-align:left;">Max Torquato <span class="mv29a-sub">(sala)</span></td><td>1102 B</td><td>754.206,97</td></tr>
-                <tr><td style="text-align:left;">Yuri <span class="mv29a-sub">(Octo)</span></td><td>1301</td><td>2.802.538,00</td></tr>
-                <tr><td style="text-align:left;">Roberto Shelman <span class="mv29a-sub">(Octo)</span></td><td>4202</td><td>3.850.000,00</td></tr>
-                <tr class="mv29a-total"><td style="text-align:left;">TOTAL <span style="font-weight:600;opacity:.8;">(65)</span></td><td>&nbsp;</td><td>181.605.106,55</td></tr>
+<tr><td class="mv29y-vend" rowspan="16">Abreu</td><td class="mv29y-cli">Marcos Freire</td><td class="mv29y-ctr">901</td><td class="mv29y-ctr" rowspan="16">16</td><td class="mv29y-num">2.039.500,01</td></tr>
+<tr><td class="mv29y-cli">Gustavo Ribeiro</td><td class="mv29y-ctr">2701</td><td class="mv29y-num">3.100.000,00</td></tr>
+<tr><td class="mv29y-cli">Ivo Nilson</td><td class="mv29y-ctr">3301</td><td class="mv29y-num">2.700.000,00</td></tr>
+<tr><td class="mv29y-cli">George Lucena</td><td class="mv29y-ctr">3401</td><td class="mv29y-num">3.200.000,00</td></tr>
+<tr><td class="mv29y-cli">Madson Vidal</td><td class="mv29y-ctr">3501</td><td class="mv29y-num">2.950.000,00</td></tr>
+<tr><td class="mv29y-cli">Francisco Edson</td><td class="mv29y-ctr">2402</td><td class="mv29y-num">2.850.000,00</td></tr>
+<tr><td class="mv29y-cli">Fernando Laffite</td><td class="mv29y-ctr">1802</td><td class="mv29y-num">2.850.000,00</td></tr>
+<tr><td class="mv29y-cli">Carlos Jatoba</td><td class="mv29y-ctr">902</td><td class="mv29y-num">2.530.000,00</td></tr>
+<tr><td class="mv29y-cli">Valdinei</td><td class="mv29y-ctr">3902</td><td class="mv29y-num">2.760.000,00</td></tr>
+<tr><td class="mv29y-cli">Fernanda</td><td class="mv29y-ctr">3502</td><td class="mv29y-num">3.099.850,00</td></tr>
+<tr><td class="mv29y-cli">Ivone Clarice Barbosa Trigueiro</td><td class="mv29y-ctr">802</td><td class="mv29y-num">2.311.557,86</td></tr>
+<tr><td class="mv29y-cli">Gilberto</td><td class="mv29y-ctr">2702</td><td class="mv29y-num">3.177.828,85</td></tr>
+<tr><td class="mv29y-cli">Ricardo Abreu <span class="mv29y-sub">(3 salas: 602; 603 e 605)</span></td><td class="mv29y-ctr">602 B</td><td class="mv29y-num">1.048.005,57</td></tr>
+<tr><td class="mv29y-cli">Edson Faustino <span class="mv29y-sub">(2 salas: 801 e 804)</span></td><td class="mv29y-ctr">801 B</td><td class="mv29y-num">1.421.280,00</td></tr>
+<tr><td class="mv29y-cli">Arthur Cavalcanti <span class="mv29y-sub">(2 salas: 601 e 604)</span></td><td class="mv29y-ctr">601 B</td><td class="mv29y-num">1.257.930,00</td></tr>
+<tr class="mv29y-vendlast"><td class="mv29y-cli">Gleydson Kleber <span class="mv29y-sub">(3 salas: 802; 803 e 805)</span></td><td class="mv29y-ctr">802 B</td><td class="mv29y-num">2.065.500,00</td></tr>
+<tr><td class="mv29y-vend" rowspan="5">Kaca</td><td class="mv29y-cli"><span class="mv29y-cli-mark">M&aacute;rcio Brito*</span></td><td class="mv29y-ctr">&mdash;</td><td class="mv29y-ctr" rowspan="5">5</td><td class="mv29y-num">2.905.000,00</td></tr>
+<tr><td class="mv29y-cli"><span class="mv29y-cli-mark">Djalma Diniz* <span class="mv29y-sub">(Repasse Eudson)</span></span></td><td class="mv29y-ctr">2902</td><td class="mv29y-num">2.800.000,00</td></tr>
+<tr><td class="mv29y-cli">Fernando Mariz</td><td class="mv29y-ctr">3002</td><td class="mv29y-num">2.800.000,00</td></tr>
+<tr><td class="mv29y-cli"><span class="mv29y-cli-mark">Thays Maria de Andrade*</span></td><td class="mv29y-ctr">2201</td><td class="mv29y-num">3.245.000,00</td></tr>
+<tr class="mv29y-vendlast"><td class="mv29y-cli">Cesar Mariz</td><td class="mv29y-ctr">3102</td><td class="mv29y-num">2.800.000,00</td></tr>
+<tr class="mv29y-vendlast"><td class="mv29y-vend" rowspan="1">Vanessa</td><td class="mv29y-cli">David Cachina</td><td class="mv29y-ctr">2802</td><td class="mv29y-ctr" rowspan="1">1</td><td class="mv29y-num">2.810.000,00</td></tr>
+<tr><td class="mv29y-vend" rowspan="2">Gabriel</td><td class="mv29y-cli">Jos&eacute; Pereira</td><td class="mv29y-ctr">4001</td><td class="mv29y-ctr" rowspan="2">2</td><td class="mv29y-num">3.350.000,00</td></tr>
+<tr class="mv29y-vendlast"><td class="mv29y-cli">Pedro Henrique Moura Cabral</td><td class="mv29y-ctr">3901</td><td class="mv29y-num">3.819.000,00</td></tr>
+<tr class="mv29y-vendlast"><td class="mv29y-vend" rowspan="1">Gustavo Pires</td><td class="mv29y-cli">Leonardo Barbosa <span class="mv29y-sub">(Mental Help)</span></td><td class="mv29y-ctr">1201</td><td class="mv29y-ctr" rowspan="1">1</td><td class="mv29y-num">3.042.282,02</td></tr>
+<tr class="mv29y-vendlast"><td class="mv29y-vend" rowspan="1">Jo&atilde;o Olimpo</td><td class="mv29y-cli">Hindenburg Gomes</td><td class="mv29y-ctr">3001</td><td class="mv29y-ctr" rowspan="1">1</td><td class="mv29y-num">3.738.000,00</td></tr>
+<tr class="mv29y-vendlast"><td class="mv29y-vend" rowspan="1">George</td><td class="mv29y-cli">Pitagoras Souza</td><td class="mv29y-ctr">3201</td><td class="mv29y-ctr" rowspan="1">1</td><td class="mv29y-num">3.670.000,00</td></tr>
+<tr class="mv29y-vendlast"><td class="mv29y-vend" rowspan="1">Gigio</td><td class="mv29y-cli">Raphael Lima</td><td class="mv29y-ctr">3402</td><td class="mv29y-ctr" rowspan="1">1</td><td class="mv29y-num">3.000.000,00</td></tr>
+<tr class="mv29y-vendlast"><td class="mv29y-vend" rowspan="1">Cristiano</td><td class="mv29y-cli">Carlos Marques <span class="mv29y-sub">(2 salas: 1103 e 1105)</span></td><td class="mv29y-ctr">1103</td><td class="mv29y-ctr" rowspan="1">1</td><td class="mv29y-num">1.700.000,00</td></tr>
+<tr class="mv29y-vendlast"><td class="mv29y-vend" rowspan="1">Fred Salsa</td><td class="mv29y-cli">Ricardo Junior</td><td class="mv29y-ctr">2102</td><td class="mv29y-ctr" rowspan="1">1</td><td class="mv29y-num">3.485.000,00</td></tr>
+<tr class="mv29y-vendlast"><td class="mv29y-vend" rowspan="1">Sergio</td><td class="mv29y-cli">Paulo Costa</td><td class="mv29y-ctr">1001</td><td class="mv29y-ctr" rowspan="1">1</td><td class="mv29y-num">2.664.858,18</td></tr>
+<tr><td class="mv29y-vend" rowspan="8">Edmar</td><td class="mv29y-cli">Lu&iacute;s Eduardo</td><td class="mv29y-ctr">2001</td><td class="mv29y-ctr" rowspan="8">8</td><td class="mv29y-num">2.650.000,00</td></tr>
+<tr><td class="mv29y-cli"><span class="mv29y-cli-mark">Alex Farinas <span class="mv29y-sub">(Reserva Pipa)*</span></span></td><td class="mv29y-ctr">&mdash;</td><td class="mv29y-num">3.250.000,00</td></tr>
+<tr><td class="mv29y-cli">Glauber Rego</td><td class="mv29y-ctr">1702</td><td class="mv29y-num">2.500.000,00</td></tr>
+<tr><td class="mv29y-cli">Demila Rodrigues</td><td class="mv29y-ctr">2101</td><td class="mv29y-num">3.197.000,00</td></tr>
+<tr><td class="mv29y-cli">Rodrigo Freire <span class="mv29y-sub">(3 salas: 701; 702 e 704)</span></td><td class="mv29y-ctr">704 B</td><td class="mv29y-num">1.735.858,86</td></tr>
+<tr><td class="mv29y-cli"><span class="mv29y-cli-mark">Flavio Melo* <span class="mv29y-sub">(2 salas: 703 e 705 · Repasse Edvaldo)</span></span></td><td class="mv29y-ctr">703 B</td><td class="mv29y-num">1.190.141,14</td></tr>
+<tr><td class="mv29y-cli">Hugo Freire</td><td class="mv29y-ctr">1901</td><td class="mv29y-num">2.948.218,50</td></tr>
+<tr class="mv29y-vendlast"><td class="mv29y-cli">Gessione Soares</td><td class="mv29y-ctr">1602</td><td class="mv29y-num">2.400.000,00</td></tr>
+<tr><td class="mv29y-vend" rowspan="26">Dois A</td><td class="mv29y-cli">Dehuel Diniz <span class="mv29y-sub">(Cinco S)</span></td><td class="mv29y-ctr">1101</td><td class="mv29y-ctr" rowspan="26">26</td><td class="mv29y-num">2.602.100,00</td></tr>
+<tr><td class="mv29y-cli">Eliton</td><td class="mv29y-ctr">2601</td><td class="mv29y-num">3.041.150,00</td></tr>
+<tr><td class="mv29y-cli"><span class="mv29y-cli-mark">Murilo Diniz* <span class="mv29y-sub">(Repasse Leonardo Diniz)</span></span></td><td class="mv29y-ctr">4201</td><td class="mv29y-num">5.760.000,00</td></tr>
+<tr><td class="mv29y-cli">Alexandre Duarte</td><td class="mv29y-ctr">3701</td><td class="mv29y-num">3.280.000,00</td></tr>
+<tr><td class="mv29y-cli">Jaerton de Lima</td><td class="mv29y-ctr">1201</td><td class="mv29y-num">2.815.000,00</td></tr>
+<tr><td class="mv29y-cli">Herculano</td><td class="mv29y-ctr">4002</td><td class="mv29y-num">3.063.000,00</td></tr>
+<tr><td class="mv29y-cli">Jos&eacute; Luis Arantes Horto</td><td class="mv29y-ctr">1202</td><td class="mv29y-num">2.710.000,00</td></tr>
+<tr><td class="mv29y-cli">Felipe Bezerra <span class="mv29y-sub">(resd. + 2 salas: 903; 905)</span></td><td class="mv29y-ctr">2602</td><td class="mv29y-num">3.988.145,42</td></tr>
+<tr><td class="mv29y-cli">Luis Flor</td><td class="mv29y-ctr">2002</td><td class="mv29y-num">2.655.000,00</td></tr>
+<tr><td class="mv29y-cli">Keyson</td><td class="mv29y-ctr">3202</td><td class="mv29y-num">3.150.000,00</td></tr>
+<tr><td class="mv29y-cli">Amando Lula</td><td class="mv29y-ctr">801</td><td class="mv29y-num">2.500.000,00</td></tr>
+<tr><td class="mv29y-cli">Perales</td><td class="mv29y-ctr">2502</td><td class="mv29y-num">3.080.000,00</td></tr>
+<tr><td class="mv29y-cli">Rainel</td><td class="mv29y-ctr">2301</td><td class="mv29y-num">2.980.633,01</td></tr>
+<tr><td class="mv29y-cli">Rogerio Marinho</td><td class="mv29y-ctr">2801</td><td class="mv29y-num">3.211.649,84</td></tr>
+<tr><td class="mv29y-cli">Corn&eacute;lio Soares</td><td class="mv29y-ctr">3702</td><td class="mv29y-num">3.460.000,00</td></tr>
+<tr><td class="mv29y-cli">Columbia <span class="mv29y-sub">(5 salas: 1001; 1002; 1003; 1004 e 1005)</span></td><td class="mv29y-ctr">1001 B</td><td class="mv29y-num">3.070.000,00</td></tr>
+<tr><td class="mv29y-cli">Jos&eacute; Luis Horto <span class="mv29y-sub">(Octo)</span></td><td class="mv29y-ctr">701</td><td class="mv29y-num">3.300.000,00</td></tr>
+<tr><td class="mv29y-cli">LL Investimentos <span class="mv29y-sub">(Octo, sala)</span></td><td class="mv29y-ctr">1104 B</td><td class="mv29y-num">819.436,16</td></tr>
+<tr><td class="mv29y-cli">Fabio Saraiva <span class="mv29y-sub">(Octo, sala)</span></td><td class="mv29y-ctr">1101 B</td><td class="mv29y-num">819.436,16</td></tr>
+<tr><td class="mv29y-cli">Marcos Borges <span class="mv29y-sub">(Octo)</span></td><td class="mv29y-ctr">2401</td><td class="mv29y-num">1.876.000,00</td></tr>
+<tr><td class="mv29y-cli">George Maranh&atilde;o <span class="mv29y-sub">(Octo)</span></td><td class="mv29y-ctr">2501</td><td class="mv29y-num">2.200.000,00</td></tr>
+<tr><td class="mv29y-cli">Cesar Veloso</td><td class="mv29y-ctr">3302</td><td class="mv29y-num">3.755.000,00</td></tr>
+<tr><td class="mv29y-cli">Ziim Investimentos <span class="mv29y-sub">(loja)</span></td><td class="mv29y-ctr">01 e 02</td><td class="mv29y-num">5.000.000,00</td></tr>
+<tr><td class="mv29y-cli">Max Torquato <span class="mv29y-sub">(sala)</span></td><td class="mv29y-ctr">1102 B</td><td class="mv29y-num">754.206,97</td></tr>
+<tr><td class="mv29y-cli">Yuri <span class="mv29y-sub">(Octo)</span></td><td class="mv29y-ctr">1301</td><td class="mv29y-num">2.802.538,00</td></tr>
+<tr class="mv29y-vendlast"><td class="mv29y-cli">Roberto Shelman <span class="mv29y-sub">(Octo)</span></td><td class="mv29y-ctr">4202</td><td class="mv29y-num">3.850.000,00</td></tr>
+<tr class="mv29y-total"><td colspan="3" style="text-align:right;">TOTAL</td><td class="mv29y-ctr">&nbsp;</td><td style="text-align:right;">181.605.106,55</td></tr>
               </tbody>
             </table>
           </div>
-          <div class="mv29a-hint"><span class="ar">&#9660;</span> Role para ver mais <span class="ar">&#9660;</span></div>
-        </div>
-      </div>
-
-      <div class="sr-vdiv"></div>
-
-      <div class="mv29a-right cascade-item">
-
-        <div class="mv29a-pies">
-          <div class="mv29a-pie-card">
-            <div class="rgi-table-title">VGV por Vendedor &mdash; SEM OCTO</div>
-            <div class="mv29a-pie-box"><svg class="mv29a-svg" viewBox="0 0 200 200" role="img" aria-label="Distribuicao de VGV por vendedor"><path d="M 100.00 100.00 L 100.00 14.00 A 86.00 86.00 0 0 1 185.97 102.37 Z" fill="#2E6E8E" stroke="#FFFFFF" stroke-width="1.4"></path><text x="138.21" y="62.83" text-anchor="middle" dominant-baseline="central" fill="#FFFFFF" font-size="13" font-weight="800" font-family="Inter, Calibri, sans-serif">25%</text><path d="M 100.00 100.00 L 185.97 102.37 A 86.00 86.00 0 0 1 170.07 149.86 Z" fill="#E97132" stroke="#FFFFFF" stroke-width="1.4"></path><text x="150.54" y="116.92" text-anchor="middle" dominant-baseline="central" fill="#FFFFFF" font-size="13" font-weight="800" font-family="Inter, Calibri, sans-serif">9%</text><path d="M 100.00 100.00 L 170.07 149.86 A 86.00 86.00 0 0 1 163.94 157.51 Z" fill="#3F7A2E" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 163.94 157.51 A 86.00 86.00 0 0 1 144.74 173.45 Z" fill="#2BA3D6" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 144.74 173.45 A 86.00 86.00 0 0 1 135.35 178.40 Z" fill="#C9922B" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 135.35 178.40 A 86.00 86.00 0 0 1 123.09 182.84 Z" fill="#1A3470" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 123.09 182.84 A 86.00 86.00 0 0 1 110.53 185.35 Z" fill="#7CB342" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 110.53 185.35 A 86.00 86.00 0 0 1 100.08 186.00 Z" fill="#9C4DA0" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 100.08 186.00 A 86.00 86.00 0 0 1 87.95 185.15 Z" fill="#B5527A" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 87.95 185.15 A 86.00 86.00 0 0 1 78.83 183.35 Z" fill="#2D4F9E" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 78.83 183.35 A 86.00 86.00 0 0 1 25.16 142.36 Z" fill="#0E6E7E" stroke="#FFFFFF" stroke-width="1.4"></path><text x="67.65" y="142.36" text-anchor="middle" dominant-baseline="central" fill="#FFFFFF" font-size="13" font-weight="800" font-family="Inter, Calibri, sans-serif">13%</text><path d="M 100.00 100.00 L 25.16 142.36 A 86.00 86.00 0 0 1 100.00 14.00 Z" fill="#6B2C5F" stroke="#FFFFFF" stroke-width="1.4"></path><text x="53.95" y="73.15" text-anchor="middle" dominant-baseline="central" fill="#FFFFFF" font-size="13" font-weight="800" font-family="Inter, Calibri, sans-serif">33%</text></svg></div>
-            <div class="mv29a-legend"><span class="mv29a-leg"><i style="background:#2E6E8E"></i>Abreu<b>25%</b></span><span class="mv29a-leg"><i style="background:#E97132"></i>Kaca<b>9%</b></span><span class="mv29a-leg"><i style="background:#3F7A2E"></i>Vanessa<b>2%</b></span><span class="mv29a-leg"><i style="background:#2BA3D6"></i>Gabriel<b>5%</b></span><span class="mv29a-leg"><i style="background:#C9922B"></i>Gustavo Pires<b>2%</b></span><span class="mv29a-leg"><i style="background:#1A3470"></i>Jo&atilde;o Olimpo<b>2%</b></span><span class="mv29a-leg"><i style="background:#7CB342"></i>George<b>2%</b></span><span class="mv29a-leg"><i style="background:#9C4DA0"></i>Gigio<b>2%</b></span><span class="mv29a-leg mv29a-leg-zero"><i style="background:#B0641A"></i>Cristiano<b>0%</b></span><span class="mv29a-leg"><i style="background:#B5527A"></i>Fred Salsa<b>2%</b></span><span class="mv29a-leg"><i style="background:#2D4F9E"></i>Sergio<b>2%</b></span><span class="mv29a-leg"><i style="background:#0E6E7E"></i>Edmar<b>13%</b></span><span class="mv29a-leg"><i style="background:#6B2C5F"></i>Dois A<b>33%</b></span></div>
-          </div>
-          <div class="mv29a-pie-card">
-            <div class="rgi-table-title">VGV por Vendedor &mdash; COM OCTO</div>
-            <div class="mv29a-pie-box"><svg class="mv29a-svg" viewBox="0 0 200 200" role="img" aria-label="Distribuicao de VGV por vendedor"><path d="M 100.00 100.00 L 100.00 14.00 A 86.00 86.00 0 0 1 184.13 82.16 Z" fill="#2E6E8E" stroke="#FFFFFF" stroke-width="1.4"></path><text x="133.55" y="58.59" text-anchor="middle" dominant-baseline="central" fill="#FFFFFF" font-size="13" font-weight="800" font-family="Inter, Calibri, sans-serif">22%</text><path d="M 100.00 100.00 L 184.13 82.16 A 86.00 86.00 0 0 1 182.30 124.96 Z" fill="#E97132" stroke="#FFFFFF" stroke-width="1.4"></path><text x="153.25" y="102.28" text-anchor="middle" dominant-baseline="central" fill="#FFFFFF" font-size="13" font-weight="800" font-family="Inter, Calibri, sans-serif">8%</text><path d="M 100.00 100.00 L 182.30 124.96 A 86.00 86.00 0 0 1 179.49 132.83 Z" fill="#3F7A2E" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 179.49 132.83 A 86.00 86.00 0 0 1 169.00 151.34 Z" fill="#2BA3D6" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 169.00 151.34 A 86.00 86.00 0 0 1 163.22 158.30 Z" fill="#C9922B" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 163.22 158.30 A 86.00 86.00 0 0 1 155.17 165.97 Z" fill="#1A3470" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 155.17 165.97 A 86.00 86.00 0 0 1 146.38 172.42 Z" fill="#7CB342" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 146.38 172.42 A 86.00 86.00 0 0 1 138.62 176.84 Z" fill="#9C4DA0" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 138.62 176.84 A 86.00 86.00 0 0 1 134.04 178.98 Z" fill="#B0641A" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 134.04 178.98 A 86.00 86.00 0 0 1 124.29 182.50 Z" fill="#B5527A" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 124.29 182.50 A 86.00 86.00 0 0 1 116.59 184.38 Z" fill="#2D4F9E" stroke="#FFFFFF" stroke-width="1.4"></path><path d="M 100.00 100.00 L 116.59 184.38 A 86.00 86.00 0 0 1 59.27 175.74 Z" fill="#0E6E7E" stroke="#FFFFFF" stroke-width="1.4"></path><text x="92.06" y="152.70" text-anchor="middle" dominant-baseline="central" fill="#FFFFFF" font-size="13" font-weight="800" font-family="Inter, Calibri, sans-serif">11%</text><path d="M 100.00 100.00 L 59.27 175.74 A 86.00 86.00 0 0 1 100.00 14.00 Z" fill="#6B2C5F" stroke="#FFFFFF" stroke-width="1.4"></path><text x="48.31" y="86.99" text-anchor="middle" dominant-baseline="central" fill="#FFFFFF" font-size="13" font-weight="800" font-family="Inter, Calibri, sans-serif">42%</text></svg></div>
-            <div class="mv29a-legend"><span class="mv29a-leg"><i style="background:#2E6E8E"></i>Abreu<b>22%</b></span><span class="mv29a-leg"><i style="background:#E97132"></i>Kaca<b>8%</b></span><span class="mv29a-leg"><i style="background:#3F7A2E"></i>Vanessa<b>2%</b></span><span class="mv29a-leg"><i style="background:#2BA3D6"></i>Gabriel<b>4%</b></span><span class="mv29a-leg"><i style="background:#C9922B"></i>Gustavo Pires<b>2%</b></span><span class="mv29a-leg"><i style="background:#1A3470"></i>Jo&atilde;o Olimpo<b>2%</b></span><span class="mv29a-leg"><i style="background:#7CB342"></i>George<b>2%</b></span><span class="mv29a-leg"><i style="background:#9C4DA0"></i>Gigio<b>2%</b></span><span class="mv29a-leg"><i style="background:#B0641A"></i>Cristiano<b>1%</b></span><span class="mv29a-leg"><i style="background:#B5527A"></i>Fred Salsa<b>2%</b></span><span class="mv29a-leg"><i style="background:#2D4F9E"></i>Sergio<b>1%</b></span><span class="mv29a-leg"><i style="background:#0E6E7E"></i>Edmar<b>11%</b></span><span class="mv29a-leg"><i style="background:#6B2C5F"></i>Dois A<b>42%</b></span></div>
-          </div>
+          <div class="mv29y-hint">&#9660; Role para ver mais &#9660;</div>
         </div>
 
-        <div class="mv29a-octo-wrap">
-          <div class="rgi-table-title">Vendas OCTO <span style="font-weight:600;font-size:0.8em;opacity:0.9;">(R$)</span></div>
-          <div class="mv29a-octo-scroll">
-            <table class="rgi-table rgi-table--compact mv29a-octo">
-              <thead><tr><th style="text-align:left;">Cliente</th><th>Und.</th><th>Valor</th></tr></thead>
-              <tbody>
-                <tr><td style="text-align:left;">Jos&eacute; Luis Horto</td><td>701</td><td>3.300.000,00</td></tr>
-                <tr><td style="text-align:left;">Ziim Investimentos <span class="mv29a-sub">(loja)</span></td><td>01 e 02</td><td>5.000.000,00</td></tr>
-                <tr><td style="text-align:left;">LL Investimentos <span class="mv29a-sub">(sala)</span></td><td>1104 B</td><td>819.436,16</td></tr>
-                <tr><td style="text-align:left;">Fabio Saraiva <span class="mv29a-sub">(sala)</span></td><td>1101 B</td><td>819.436,16</td></tr>
-                <tr><td style="text-align:left;">Carlos Marques <span class="mv29a-sub">(2 salas)</span></td><td>1103 e 1105 B</td><td>1.632.000,00</td></tr>
-                <tr><td style="text-align:left;">Max Torquato <span class="mv29a-sub">(sala)</span></td><td>1102 B</td><td>754.206,97</td></tr>
-                <tr><td style="text-align:left;">Marcos Borges</td><td>2401</td><td>1.876.000,00</td></tr>
-                <tr><td style="text-align:left;">George Maranh&atilde;o</td><td>2501</td><td>2.200.000,00</td></tr>
-                <tr><td style="text-align:left;">Yuri</td><td>1301</td><td>2.802.538,00</td></tr>
-                <tr><td style="text-align:left;">Cesar Veloso</td><td>3302</td><td>3.755.000,00</td></tr>
-                <tr><td style="text-align:left;">Roberto Shelman</td><td>4202</td><td>3.850.000,00</td></tr>
-                <tr class="mv29a-total"><td style="text-align:left;">Total</td><td>&nbsp;</td><td>26.808.617,29</td></tr>
-              </tbody>
-            </table>
+        <div class="mv29y-right">
+          <div class="mv29y-chart-wrap">
+            <div class="mv29y-chart-title">VGV por Vendedor &middot; participa&ccedil;&atilde;o %</div>
+            <div class="mv29y-chart-box">
+              <div id="mv29y-chart-vgv"></div>
+            </div>
           </div>
         </div>
-
-        <div class="mv29a-foot">* Linhas destacadas na planilha de origem (repasses e permutas). Base dos percentuais: SEM OCTO = R$ 154.728.489,26 &middot; COM OCTO = R$ 181.605.106,55.</div>
 
       </div>
 
+      
     </div>
-
   </div>
+
+  <script>
+    (function bootMv29yChartVGV(){
+      function ready(fn){
+        if (document.readyState === 'complete') { setTimeout(fn, 0); }
+        else { window.addEventListener('load', fn); }
+      }
+      function tryInit(attempt){
+        if (typeof window.echarts === 'undefined') {
+          if (attempt < 50) { setTimeout(function(){ tryInit(attempt+1); }, 60); }
+          return;
+        }
+        initMv29yChartVGV();
+      }
+      ready(function(){ tryInit(0); });
+    })();
+
+    function initMv29yChartVGV(){
+      if (window.__mv29yChartVGV) return;
+      var el = document.getElementById('mv29y-chart-vgv');
+      if (!el || typeof window.echarts === 'undefined') return;
+
+      var INK = '#1A1A1A';
+      var dados = [
+        { name: 'Abreu', value: 39361452.29, pct: 22, itemStyle: { color: '#2E6E8E' } },
+        { name: 'Kaca', value: 14550000.00, pct: 8, itemStyle: { color: '#E97132' } },
+        { name: 'Vanessa', value: 2810000.00, pct: 2, itemStyle: { color: '#3F7A2E' } },
+        { name: 'Gabriel', value: 7169000.00, pct: 4, itemStyle: { color: '#2BA3D6' } },
+        { name: 'Gustavo Pires', value: 3042282.02, pct: 2, itemStyle: { color: '#C9922B' } },
+        { name: 'João Olimpo', value: 3738000.00, pct: 2, itemStyle: { color: '#1A3470' } },
+        { name: 'George', value: 3670000.00, pct: 2, itemStyle: { color: '#7CB342' } },
+        { name: 'Gigio', value: 3000000.00, pct: 2, itemStyle: { color: '#9C4DA0' } },
+        { name: 'Cristiano', value: 1700000.00, pct: 1, itemStyle: { color: '#B0641A' } },
+        { name: 'Fred Salsa', value: 3485000.00, pct: 2, itemStyle: { color: '#B5527A' } },
+        { name: 'Sergio', value: 2664858.18, pct: 1, itemStyle: { color: '#2D4F9E' } },
+        { name: 'Edmar', value: 19871218.50, pct: 11, itemStyle: { color: '#0E6E7E' } },
+        { name: 'Dois A', value: 76543295.56, pct: 42, itemStyle: { color: '#6B2C5F' } }
+      ];
+      var pctMap = {}, valMap = {};
+      dados.forEach(function(d){ pctMap[d.name] = d.pct; valMap[d.name] = d.value; });
+
+      function brl(v){ return 'R$ ' + v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+      var M = window.innerWidth <= 900;
+      var chart = window.echarts.init(el, null, {renderer:'canvas'});
+      var option = {
+        animationDuration: 700,
+        textStyle: { fontFamily: 'Inter, Calibri, system-ui, sans-serif', color: INK },
+        tooltip: {
+          trigger: 'item',
+          backgroundColor: 'rgba(255,255,255,0.97)', borderColor: 'rgba(45,79,158,0.25)', borderWidth: 1,
+          textStyle: { color: INK, fontSize: 12 },
+          formatter: function(p){ return '<b>' + p.name + '</b><br/>' + p.marker + ' ' + brl(p.value) + ' &nbsp;(' + pctMap[p.name] + '%)'; }
+        },
+        legend: {
+          type: 'plain',
+          orient: 'vertical',
+          right: M ? null : '3%', left: M ? 'center' : null,
+          top: M ? null : 'middle', bottom: M ? 4 : null,
+          itemWidth: 14, itemHeight: 14, itemGap: 11,
+          textStyle: { color: INK, fontSize: 12, fontWeight: 600 },
+          formatter: function(name){ return M ? name + ' (' + pctMap[name] + '%)' : name + '   ' + brl(valMap[name]) + '   (' + pctMap[name] + '%)'; }
+        },
+        series: [{
+          type: 'pie',
+          radius: M ? ['26%','48%'] : ['34%','64%'],
+          center: M ? ['50%','30%'] : ['24%','50%'],
+          startAngle: 90,
+          clockwise: true,
+          avoidLabelOverlap: true,
+          itemStyle: { borderColor: '#fff', borderWidth: 2 },
+          label: {
+            show: true,
+            position: 'inside',
+            formatter: function(p){ return pctMap[p.name] + '%'; },
+            color: '#fff',
+            fontSize: 12.5,
+            fontWeight: 800,
+            textBorderColor: 'rgba(0,0,0,0.50)',
+            textBorderWidth: 2.2
+          },
+          labelLine: { show: false },
+          data: dados
+        }]
+      };
+      chart.setOption(option);
+      window.__mv29yChartVGV = chart;
+      window.addEventListener('resize', function(){ chart.resize(); });
+      if (window.shell && window.shell.on) { window.shell.on('slidechange', function(){ setTimeout(function(){ chart.resize(); }, 90); }); }
+    }
+  </script>
 </section>
+
+
 
 <section id="tela-34" class="slide-section" data-slide="30">
   <style>
@@ -29736,7 +29784,7 @@ hr, [class*="__divider"], [class*="-divider"] {
       'p0': { kicker: 'JARDINS DO POTENGI · OBRA — ATUALIZAÇÃO DO P0 PELO INCC-DI', section: '01' },
       'pra1': { kicker: 'JARDINS DO POTENGI · OBRA — ATUALIZAÇÃO DO PRA1 PELO INCC-DI', section: '01' },
       '28': { kicker: 'JARDINS DO POTENGI · RESULTADOS · FASE DE IMPLANTAÇÃO', section: '01' },
-      '29': { kicker: 'JARDINS DO POTENGI · VENDAS POR COMERCIAL/CORRETOR · VGV', section: '01' },
+      '29': { kicker: 'JARDINS DO POTENGI · RANKING DE VENDAS', section: '01' },
       '29b': { kicker: 'JARDINS DO POTENGI · VENDAS POR COMERCIAL/CORRETOR · CLIENTE A CLIENTE', section: '01' },
       '30': { kicker: 'JARDINS DO POTENGI · PLANEJAMENTO VERBA DE MARKETING', section: '01' },
       'idc18': { kicker: 'JARDINS DO POTENGI · OBRA — IDC E IDP (ANÁLISE ECONÔMICA E FINANCEIRA)', section: '01' },
