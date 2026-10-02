@@ -12234,73 +12234,47 @@ hr, [class*="__divider"], [class*="-divider"] {
 </section>
 <section class="slide-section" data-slide="19">
   <style>
-    .slide-section[data-slide="19"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;display:flex;flex-direction:column;overflow:hidden;}
-    .slide-section[data-slide="19"] .sr-proj-title{margin:0 0 16px 0;color:#1A3470;}
+    .slide-section[data-slide="19"] .sr-panel{background:#FFFFFF;border:1px solid rgba(45,79,158,0.14);box-shadow:0 14px 40px rgba(45,79,158,0.10);color:#1A1A1A;display:flex;flex-direction:column;overflow:hidden;font-size:clamp(9px,1.48vh,13.5px);}
+    .slide-section[data-slide="19"] .pp-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-shrink:0;}
+    .slide-section[data-slide="19"] .sr-proj-title{margin:0 0 8px 0;color:#1A3470;}
     .slide-section[data-slide="19"] .sr-proj-title span{color:#7A8299;}
-    .slide-section[data-slide="19"] .ppc-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;flex-shrink:0;}
-    .slide-section[data-slide="19"] .ppc-kpi{background:#F6F8FC;border:1px solid rgba(45,79,158,0.14);border-left:4px solid #E97132;border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:7px;}
-    .slide-section[data-slide="19"] .ppc-kpi__icon{width:26px;height:26px;color:#E97132;}
-    .slide-section[data-slide="19"] .ppc-kpi__label{font-size:11px;font-weight:700;letter-spacing:0.4px;text-transform:uppercase;color:#7A8299;}
-    .slide-section[data-slide="19"] .ppc-kpi__value{font-size:25px;font-weight:800;color:#1A3470;letter-spacing:-0.3px;line-height:1.05;font-family:'Inter',system-ui,sans-serif;}
-    .slide-section[data-slide="19"] .ppc-kpi__sub{font-size:11.5px;color:#5A6478;line-height:1.35;}
-    .slide-section[data-slide="19"] .ppc-table-heading{font-size:13px;font-weight:800;letter-spacing:0.3px;text-transform:uppercase;color:#1A3470;margin:0 0 10px 0;flex-shrink:0;}
-    .slide-section[data-slide="19"] .ppc-table-wrap{overflow:auto;border-radius:8px;border:1px solid rgba(45,79,158,0.22);flex-shrink:0;}
-    .slide-section[data-slide="19"] .ppc-body{flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;gap:2px;}
-    .slide-section[data-slide="19"] table.ppc-table{border-collapse:collapse;font-family:'Inter',system-ui,sans-serif;font-size:13px;width:100%;}
-    .slide-section[data-slide="19"] table.ppc-table thead tr{background:#1A3470;color:#FFFFFF;}
-    .slide-section[data-slide="19"] table.ppc-table thead th{padding:11px 14px;font-weight:700;text-align:center;color:#FFFFFF;border-right:1px solid rgba(255,255,255,0.16);}
-    .slide-section[data-slide="19"] table.ppc-table tbody td{padding:10px 14px;text-align:center;color:#1A1A1A;font-variant-numeric:tabular-nums;}
-    .slide-section[data-slide="19"] table.ppc-table tbody td:nth-child(3){color:#7A8299;}
-    .slide-section[data-slide="19"] table.ppc-table tbody tr:nth-child(even) td{background:rgba(45,79,158,0.04);}
-    .slide-section[data-slide="19"] .ppc-note{margin-top:10px;font-size:11px;color:#7A8299;flex-shrink:0;}
+    .slide-section[data-slide="19"] a.pp-btn{display:inline-flex;align-items:center;gap:8px;background:#E97132;color:#FFFFFF !important;text-decoration:none;font-weight:800;font-size:1.02em;letter-spacing:0.3px;text-transform:uppercase;padding:0.7em 1.3em;border-radius:6px;box-shadow:0 6px 16px rgba(233,113,50,0.30);white-space:nowrap;transition:transform .15s ease,box-shadow .15s ease;}
+    .slide-section[data-slide="19"] a.pp-btn:hover{transform:translateY(-1px);box-shadow:0 9px 20px rgba(233,113,50,0.38);}
+    .slide-section[data-slide="19"] a.pp-btn svg{width:1.2em;height:1.2em;}
+    .slide-section[data-slide="19"] .pp-body{flex:1;min-height:0;display:flex;flex-direction:column;gap:0.9em;overflow:auto;}
+    .slide-section[data-slide="19"] .pp-info{display:grid;grid-template-columns:repeat(5,1fr) 1.25fr;gap:0.7em;flex-shrink:0;}
+    .slide-section[data-slide="19"] .pp-chip{background:#F6F8FC;border:1px solid rgba(45,79,158,0.14);border-left:4px solid #E97132;border-radius:6px;padding:0.55em 0.8em;display:flex;flex-direction:column;gap:0.25em;}
+    .slide-section[data-slide="19"] .pp-chip b{font-size:0.78em;font-weight:700;letter-spacing:0.3px;text-transform:uppercase;color:#7A8299;line-height:1.25;}
+    .slide-section[data-slide="19"] .pp-chip span{font-size:1.28em;font-weight:800;color:#1A3470;font-variant-numeric:tabular-nums;white-space:nowrap;}
+    .slide-section[data-slide="19"] .pp-chip.pp-link{border-left-color:#1A3470;justify-content:center;}
+    .slide-section[data-slide="19"] .pp-chip.pp-link a{color:#1A3470;font-weight:800;font-size:1.02em;text-decoration:underline;}
+    .slide-section[data-slide="19"] .pp-bar{background:#595959;color:#FFFFFF;font-weight:800;letter-spacing:0.4px;text-transform:uppercase;padding:0.45em 0.9em;border-radius:5px 5px 0 0;font-size:1.02em;}
+    .slide-section[data-slide="19"] table.pp-t{border-collapse:collapse;width:100%;font-family:'Calibri','Segoe UI',sans-serif;font-size:1em;}
+    .slide-section[data-slide="19"] table.pp-t th,.slide-section[data-slide="19"] table.pp-t td{padding:0.28em 0.7em;border:1px solid rgba(45,79,158,0.16);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap;}
+    .slide-section[data-slide="19"] table.pp-t td.pp-l,.slide-section[data-slide="19"] table.pp-t th.pp-l{text-align:left;background:#E8E8E8;font-weight:700;color:#262626;}
+    .slide-section[data-slide="19"] table.pp-t th.pp-g{text-align:center;color:#FFFFFF;font-weight:800;letter-spacing:0.3px;font-size:1.04em;}
+    .slide-section[data-slide="19"] table.pp-t tr.pp-sub th,.slide-section[data-slide="19"] table.pp-t tr.pp-sub td{font-weight:700;}
+    .slide-section[data-slide="19"] table.pp-t td.pp-u{color:#4A5568;}
+    .slide-section[data-slide="19"] table.pp-t td.pp-c,.slide-section[data-slide="19"] table.pp-t th.pp-c{text-align:center;}
+    .slide-section[data-slide="19"] table.pp-t td.pp-vf{font-weight:800;color:#1A3470;background:rgba(45,79,158,0.07);}
+    .slide-section[data-slide="19"] .pp-nota{font-size:0.82em;color:#7A8299;margin-top:0.35em;}
+    .slide-section[data-slide="19"] .pp-2{width:72%;}
     @media (max-width:1100px){
-      .slide-section[data-slide="19"] .sr-panel{overflow-y:auto;}
-      .slide-section[data-slide="19"] .ppc-body{justify-content:flex-start;}
-      .slide-section[data-slide="19"] .ppc-kpis{grid-template-columns:1fr;}
-    }
-    @media (max-width:600px){
-      .slide-section[data-slide="19"] .ppc-table-wrap{overflow-x:auto;}
-      .slide-section[data-slide="19"] table.ppc-table{min-width:640px;}
+      .slide-section[data-slide="19"] .sr-panel{overflow-y:auto;font-size:12px;}
+      .slide-section[data-slide="19"] .pp-body{overflow:visible;flex:none;}
+      .slide-section[data-slide="19"] .pp-info{grid-template-columns:1fr 1fr;}
+      .slide-section[data-slide="19"] .pp-top{flex-direction:column;}
+      .slide-section[data-slide="19"] .pp-tw{overflow-x:auto;}
+      .slide-section[data-slide="19"] .pp-2{width:100%;}
+      .slide-section[data-slide="19"] table.pp-t{min-width:760px;}
     }
   </style>
   <div class="sr-panel">
-    <div class="sr-proj-title">PROPOSTA &middot; TERRENO 02 <span>| Pipa Centro</span></div>
-    <div class="ppc-body">
-    <div class="ppc-kpis">
-      <div class="ppc-kpi">
-        <svg class="ppc-kpi__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg>
-        <div class="ppc-kpi__label">Proposta permuta</div>
-        <div class="ppc-kpi__value">R$ 46.695.289,28</div>
-        <div class="ppc-kpi__sub">VGV total em permuta para o propriet&aacute;rio do Terreno 02</div>
-      </div>
-      <div class="ppc-kpi">
-        <svg class="ppc-kpi__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        <div class="ppc-kpi__label">&Aacute;rea do terreno</div>
-        <div class="ppc-kpi__value">31.435 m&sup2;</div>
-        <div class="ppc-kpi__sub">Terreno 02 &mdash; Pipa Centro</div>
-      </div>
-      <div class="ppc-kpi">
-        <svg class="ppc-kpi__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M17 5.5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        <div class="ppc-kpi__label">Pre&ccedil;o por m&sup2;</div>
-        <div class="ppc-kpi__value">R$ 1.747,50</div>
-        <div class="ppc-kpi__sub">De &aacute;rea &uacute;til do terreno (sem &aacute;rea de preserva&ccedil;&atilde;o de 15%)</div>
-      </div>
-    </div>
-    <div class="ppc-table-heading">Alternativa em dinheiro &mdash; valor presente por prazo e taxa</div>
-    <div class="ppc-table-wrap">
-      <table class="ppc-table">
-        <thead>
-          <tr><th>Prazo</th><th>Taxa a.a.</th><th>Refer&ecirc;ncia</th><th>Valor presente</th><th>Valor unit. terreno (&uacute;til)</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>5 anos</td><td>14%</td><td>SELIC atual</td><td>R$ 24.252.070,03</td><td>R$ 907,65</td></tr>
-          <tr><td>5 anos</td><td>17%</td><td>&mdash;</td><td>R$ 21.298.242,20</td><td>R$ 797,10</td></tr>
-          <tr><td>6 anos</td><td>14%</td><td>SELIC atual</td><td>R$ 21.273.745,64</td><td>R$ 796,18</td></tr>
-          <tr><td>6 anos</td><td>17%</td><td>&mdash;</td><td>R$ 18.203.625,81</td><td>R$ 681,28</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="ppc-note">&Aacute;rea &uacute;til considerada: 26.719,75 m&sup2; (&aacute;rea do terreno menos 15% de preserva&ccedil;&atilde;o).</div>
+    <div class="pp-top"><div class="sr-proj-title">PROPOSTA &middot; TERRENO 02 <span>| Pipa Centro</span></div><a class="pp-btn" href="https://doisa0.sharepoint.com/:x:/r/sites/Incorporacoes-Sede/Incorporaes/04.%20Em%20Estudo/066.%20Pipa-%20Centro/06.%20Apresenta%C3%A7%C3%A3o/SIMULA%C3%87%C3%83O%20PERMUTA%20R01.xlsx?d=w964bb8a624b04da4b733db7679c9722f&csf=1&web=1&e=ngGFnC" target="_blank" rel="noopener noreferrer">Abrir a planilha <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg></a></div>
+    <div class="pp-body">
+      <div class="pp-info"><div class="pp-chip"><b>ÁREA DO TERRENO (m²)</b><span>31435,00</span></div><div class="pp-chip"><b>ÁREA DO TERRENO (m²) - 85%</b><span>26719,75</span></div><div class="pp-chip"><b>ÁREA PRIVATIVA (m²) - 100% PERMUTA</b><span>2668,30</span></div><div class="pp-chip"><b>ÁREA PRIVATIVA (m²) - 50% PERMUTA</b><span>1334,15</span></div><div class="pp-chip"><b>TICKET MÉDIO ESTIMADO (R$/m²)</b><span>R$ 17.500,00</span></div><div class="pp-chip pp-link"><b>Link de acesso a base de dados das taxas de juros:</b><a href="https://www.bcb.gov.br/estatisticas/reporttxjuros/?codigoSegmento=2&codigoModalidade=211101&tipoModalidade=D&InicioPeriodo=2026-08-26" target="_blank" rel="noopener noreferrer">Taxa de juros (taxas anuais)</a></div></div>
+      <div class="pp-tw"><div class="pp-bar">PROPOSTA - PAGAMENTO À VISTA</div><table class="pp-t"><thead><tr><th colspan="2" class="pp-l" style="background:#E8E8E8"></th><th colspan="2" class="pp-g" style="background:#153D64">DOIS A</th><th colspan="2" class="pp-g" style="background:#BE5014">BCO SANTANDER (BRASIL) S.A.</th><th colspan="2" class="pp-g" style="background:#782170">ITAÚ UNIBANCO S.A.</th><th colspan="2" class="pp-g" style="background:#3C7D22">BCO BRADESCO S.A.</th></tr><tr class="pp-sub"><th colspan="2" class="pp-l" style="background:#ADADAD">TAXA DE DESCONTO (A.A.)</th><th class="pp-c" style="background:#A6C9EC">20,00%</th><th style="background:#A6C9EC">VALOR UNIT. DO TERRENO (R$/m²)</th><th class="pp-c" style="background:#F1A983">27,16%</th><th style="background:#F1A983">VALOR UNIT. DO TERRENO (R$/m²)</th><th class="pp-c" style="background:#E49EDD">26,03%</th><th style="background:#E49EDD">VALOR UNIT. DO TERRENO (R$/m²)</th><th class="pp-c" style="background:#8ED973">28,40%</th><th style="background:#8ED973">VALOR UNIT. DO TERRENO (R$/m²)</th></tr></thead><tbody><tr><td colspan="2" class="pp-l" style="background:#E8E8E8">VALOR ORIGINAL</td><td style="background:#DAE9F8">R$ 46.695.289,28</td><td class="pp-u" style="background:#DAE9F8">R$ 1.747,59</td><td style="background:#FBE2D5">R$ 46.695.289,28</td><td class="pp-u" style="background:#FBE2D5">R$ 1.747,59</td><td style="background:#F2CEEF">R$ 46.695.289,28</td><td class="pp-u" style="background:#F2CEEF">R$ 1.747,59</td><td style="background:#DAF2D0">R$ 46.695.289,28</td><td class="pp-u" style="background:#DAF2D0">R$ 1.747,59</td></tr><tr><td colspan="2" class="pp-l" style="background:#E8E8E8">ANO 1</td><td>R$ 38.912.741,07</td><td class="pp-u">R$ 1.456,33</td><td>R$ 36.721.680,78</td><td class="pp-u">R$ 1.374,33</td><td>R$ 37.050.931,75</td><td class="pp-u">R$ 1.386,65</td><td>R$ 36.367.047,73</td><td class="pp-u">R$ 1.361,05</td></tr><tr><td colspan="2" class="pp-l" style="background:#E8E8E8">ANO 2</td><td>R$ 32.427.284,22</td><td class="pp-u">R$ 1.213,61</td><td>R$ 28.878.327,13</td><td class="pp-u">R$ 1.080,79</td><td>R$ 29.398.501,74</td><td class="pp-u">R$ 1.100,25</td><td>R$ 28.323.245,89</td><td class="pp-u">R$ 1.060,01</td></tr><tr><td colspan="2" class="pp-l" style="background:#E8E8E8">ANO 3</td><td>R$ 27.022.736,85</td><td class="pp-u">R$ 1.011,34</td><td>R$ 22.710.228,95</td><td class="pp-u">R$ 849,94</td><td>R$ 23.326.590,29</td><td class="pp-u">R$ 873,01</td><td>R$ 22.058.602,72</td><td class="pp-u">R$ 825,55</td></tr><tr><td colspan="2" class="pp-l" style="background:#E8E8E8">ANO 4</td><td>R$ 22.518.947,38</td><td class="pp-u">R$ 842,78</td><td>R$ 17.859.569,79</td><td class="pp-u">R$ 668,40</td><td>R$ 18.508.760,05</td><td class="pp-u">R$ 692,70</td><td>R$ 17.179.597,13</td><td class="pp-u">R$ 642,96</td></tr><tr><td colspan="2" class="pp-l" style="background:#E8E8E8">VP - ANO 5</td><td>R$ 18.765.789,48</td><td class="pp-u">R$ 702,32</td><td>R$ 14.044.958,94</td><td class="pp-u">R$ 525,64</td><td>R$ 14.685.995,44</td><td class="pp-u">R$ 549,63</td><td>R$ 13.379.748,55</td><td class="pp-u">R$ 500,74</td></tr><tr><td colspan="2" class="pp-l" style="background:#E8E8E8">ANO 6</td><td>R$ 15.638.157,90</td><td class="pp-u">R$ 585,27</td><td>R$ 11.045.107,69</td><td class="pp-u">R$ 413,37</td><td>R$ 11.652.777,46</td><td class="pp-u">R$ 436,11</td><td>R$ 10.420.364,91</td><td class="pp-u">R$ 389,99</td></tr></tbody></table><div class="pp-nota">Escolha 3 bancos para comparativo</div></div>
+      <div class="pp-tw pp-2"><div class="pp-bar">PROPOSTA - 50% DINHEIRO 50% PERMUTA</div><table class="pp-t"><thead><tr class="pp-sub"><th colspan="2" class="pp-l" style="background:#ADADAD">TAXA DE DESCONTO (A.A.)</th><th class="pp-c" style="background:#A6C9EC">20,00%</th><th style="background:#A6C9EC">VALOR UNIT. DO TERRENO (R$/m²)</th><th style="background:#A6C9EC">VALOR (EQ. PERMUTA) (R$)</th><th style="background:#A6C9EC">VALOR FINAL</th></tr></thead><tbody><tr><td colspan="2" class="pp-l">VALOR ORIGINAL</td><td style="background:#DAE9F8">R$ 23.347.644,64</td><td class="pp-u" style="background:#DAE9F8">R$ 1.747,59</td><td style="background:#DAE9F8">R$ 23.347.625,00</td><td class="pp-vf">R$ 46.695.269,64</td></tr><tr><td colspan="2" class="pp-l">ANO 1</td><td>R$ 19.456.370,53</td><td class="pp-u">R$ 1.601,96</td><td>R$ 23.347.625,00</td><td class="pp-vf">R$ 42.803.995,53</td></tr><tr><td colspan="2" class="pp-l">ANO 2</td><td>R$ 16.213.642,11</td><td class="pp-u">R$ 1.480,60</td><td>R$ 23.347.625,00</td><td class="pp-vf">R$ 39.561.267,11</td></tr><tr><td colspan="2" class="pp-l">ANO 3</td><td>R$ 13.511.368,43</td><td class="pp-u">R$ 1.379,47</td><td>R$ 23.347.625,00</td><td class="pp-vf">R$ 36.858.993,43</td></tr><tr><td colspan="2" class="pp-l">ANO 4</td><td>R$ 11.259.473,69</td><td class="pp-u">R$ 1.295,19</td><td>R$ 23.347.625,00</td><td class="pp-vf">R$ 34.607.098,69</td></tr><tr><td colspan="2" class="pp-l">ANO 5</td><td>R$ 9.382.894,74</td><td class="pp-u">R$ 1.224,96</td><td>R$ 23.347.625,00</td><td class="pp-vf">R$ 32.730.519,74</td></tr><tr><td colspan="2" class="pp-l">ANO 6</td><td>R$ 7.819.078,95</td><td class="pp-u">R$ 1.166,43</td><td>R$ 23.347.625,00</td><td class="pp-vf">R$ 31.166.703,95</td></tr></tbody></table></div>
     </div>
   </div>
 </section>
