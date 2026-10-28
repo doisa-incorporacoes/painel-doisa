@@ -268,12 +268,12 @@ html.dk, html.dk body { margin: 0; height: 100%; background: #0B1530; overflow: 
 .dk-dv-foot strong { font-weight: 800; color: #fff; }
 
 /* respeito a quem pediu menos movimento */
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (min-width: 100000px) {
   .dk-bar-v::before, .dk-sep::before, .dk-cv-line::before, .dk-ph-bar::before, .dk-dv-line::before, .dk-cv-edge::before, .dk-dv-edge::before { animation: none; }
   .dk-slide.is-enter-fwd, .dk-slide.is-enter-back, .dk-slide.is-leaving.is-leave-fwd, .dk-slide.is-leaving.is-leave-back, .dk-slide.is-cur .dk-ph-bg, .dk-slide.is-cur .dk-dv-photo img, .dk-btn.is-pop, .dk-btn.is-pop::after, .dk-kicker.is-swap { animation: none; }
   .dk-band, .dk-foot, .dk-prog > i { transition: none; }
 }
-@media (prefers-reduced-transparency: reduce) { .dk-band canvas.dk-silk, .dk-cover canvas.dk-silk-big, .dk-div canvas.dk-silk-big { display: none; } }
+@media (prefers-reduced-transparency: reduce) and (min-width: 100000px) { .dk-band canvas.dk-silk, .dk-cover canvas.dk-silk-big, .dk-div canvas.dk-silk-big { display: none; } }
 
 /* ============================================================================
    DOIS A · deck v2 · animações de entrada
@@ -317,7 +317,7 @@ html.dk, html.dk body { margin: 0; height: 100%; background: #0B1530; overflow: 
 .dk-slide .dk-rule { opacity: 0; }
 .dk-slide.is-leaving .dk-rule { opacity: 1; }
 
-@media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) and (min-width: 100000px) {
   .dk-slide .cascade-item, .dk-slide .dk-rule { opacity: 1; }
   .dk-slide.is-cur .cascade-item, .dk-slide.is-cur .dk-tablewrap tbody tr, .dk-slide.is-cur .dk-tablewrap thead th::after, .dk-slide.is-cur .dk-tt::after, .dk-slide.is-cur .dk-rule, .dk-slide.is-cur .dk-cv-card::after { animation: none; }
 }
@@ -419,7 +419,7 @@ html.dk, html.dk body { margin: 0; height: 100%; background: #0B1530; overflow: 
 [data-tip], [data-ficha] { cursor: default; }
 /* inclinação mínima e luz que segue o mouse (no máximo 0,4 grau, como no cartão da plataforma de licitação) */
 .dk-kpi, .dk-card, .dk-fcard { transform: perspective(3000px) rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg)); transition: transform .16s ease-out, box-shadow .25s ease, border-color .25s ease; }
-@media (prefers-reduced-motion: reduce) { .dk-kpi, .dk-card, .dk-fcard { transform: none; } .dk-tip, .dk-ficha { transition: none; } }
+@media (prefers-reduced-motion: reduce) and (min-width: 100000px) { .dk-kpi, .dk-card, .dk-fcard { transform: none; } .dk-tip, .dk-ficha { transition: none; } }
 
 /* ---------- faróis (cor semântica por estado) ---------- */
 .f-ok { --f: var(--dk-ok); --fbg: var(--dk-ok-bg); --fln: var(--dk-ok-line); }
@@ -901,7 +901,7 @@ html.dk, html.dk body { margin: 0; height: 100%; background: #0B1530; overflow: 
 .dk-mt-g li { margin: 1px 0; }
 .dk-mt-g li::marker { color: var(--f); }
 
-@media (prefers-reduced-motion: reduce) { .dk-slide.is-cur .dk-ph-selo::after { animation: none; } }
+@media (prefers-reduced-motion: reduce) and (min-width: 100000px) { .dk-slide.is-cur .dk-ph-selo::after { animation: none; } }
 
 /* Reservas e Obs do mapa de vendas: uma linha, maior, espaço livre embaixo */
 .dk-notes.dk-notes-1l { grid-auto-rows: auto; align-content: start; }
@@ -928,7 +928,7 @@ html.dk, html.dk body { margin: 0; height: 100%; background: #0B1530; overflow: 
 @keyframes dk-sect-pop { from { transform: rotate(45deg) scale(0); } to { transform: rotate(45deg) scale(1); } }
 @keyframes dk-sect-sheen { from { transform: translateX(-110%); } to { transform: translateX(110%); } }
 @keyframes dk-sect-sub { from { opacity: 0; transform: translateX(-10px); } to { opacity: 1; transform: none; } }
-@media (prefers-reduced-motion: reduce) { .dk-slide.is-cur .dk-sect, .dk-slide.is-cur .dk-sect::before, .dk-slide.is-cur .dk-sect::after, .dk-slide.is-cur .dk-sect small { animation: none; } }
+@media (prefers-reduced-motion: reduce) and (min-width: 100000px) { .dk-slide.is-cur .dk-sect, .dk-slide.is-cur .dk-sect::before, .dk-slide.is-cur .dk-sect::after, .dk-slide.is-cur .dk-sect small { animation: none; } }
 
 /* Ranking de vendas: a rosca ocupa o espaço livre do cartão e a legenda desce para o pé, em letra maior */
 .dk-rank .dk-donutbox { gap: 14px; padding: 14px 18px 18px; }
@@ -993,7 +993,7 @@ html.dk, html.dk body { margin: 0; height: 100%; background: #0B1530; overflow: 
 .dk-tr-p li::marker { color: var(--pc); font-weight: 800; }
 .dk-slide.is-cur .dk-tr-p.is-run .dk-tr-i svg { animation: dk-tr-gira 2.4s linear infinite; }
 @keyframes dk-tr-gira { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .dk-slide.is-cur .dk-tr-p.is-run .dk-tr-i svg { animation: none; } }
+@media (prefers-reduced-motion: reduce) and (min-width: 100000px) { .dk-slide.is-cur .dk-tr-p.is-run .dk-tr-i svg { animation: none; } }
 
 /* colunas e linha (matriz e detalhamento do Potengi) */
 .dk-blcard { flex: 1; min-height: 0; display: flex; flex-direction: column; padding: 14px 18px 10px; }
@@ -1181,7 +1181,10 @@ var Fr={},Gr={};var Wr,Hr=function(){function t(t,e,n){var i=this;this._sleepAft
   'use strict';
   var DK = (window.DK = window.DK || {});
   var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-  DK.reduz = function () { return mq.matches; };
+  /* o deck e apresentado em reuniao, em maquinas com "efeitos de animacao" desligados (RDP, VM, economia de energia): a opcao do sistema
+     nao desliga mais nada. Quem quiser o deck parado abre o endereco com ?calmo */
+  var calmo = /[?&]calmo\b/.test(location.search);
+  DK.reduz = function () { return calmo; };
 
   /* seda: c = canvas, cores = [[r,g,b] x3] de 0 a 1, PR = fração da resolução */
   DK.seda = function (c, cores, PR) {
@@ -1228,7 +1231,7 @@ var Fr={},Gr={};var Wr,Hr=function(){function t(t,e,n){var i=this;this._sleepAft
     new ResizeObserver(tam).observe(c); tam();
     new IntersectionObserver(function (e) { vis = e[e.length - 1].isIntersecting; liga(); }).observe(c);
     document.addEventListener('visibilitychange', liga);
-    mq.addEventListener('change', function () { if (DK.reduz()) desenha(T0 + 4000); else liga(); });
+    
     c.addEventListener('webglcontextlost', function (e) { e.preventDefault(); vis = false; });
     if (DK.reduz()) desenha(T0 + 4000); else liga();
     /* quem esconde o palco (capa) pode pausar a seda da faixa */
