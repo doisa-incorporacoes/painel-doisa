@@ -1,0 +1,2323 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GESTÃO · AÇÕES · ATA · DUO</title>
+<link rel="icon" type="image/png" href="logo-doisa.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --primary:      #1B3464;
+    --primary-rgb:  27, 52, 100;
+    --primary-dark: #0F1F3D;
+    --accent:       #E87B1E;
+    --accent-rgb:   232, 123, 30;
+    --accent-light: #F5A849;
+    --amber:        #FBBF24;
+    --ruby:         #F87171;
+    --purple:       #A78BFA;
+    --teal:         #2DD4BF;
+    --dim:          #6E7E9E;
+    --text:         #FFFFFF;
+    --text-muted:   rgba(255,255,255,0.62);
+    --text-faint:   rgba(255,255,255,0.38);
+    --glass-bg:     rgba(255,255,255,0.05);
+    --glass-bg-strong: rgba(255,255,255,0.085);
+    --glass-border: rgba(255,255,255,0.09);
+    --glass-border-strong: rgba(255,255,255,0.16);
+    --ok:     #34D399;
+    --warn:   #FBBF24;
+    --danger: #F87171;
+    --info:   #60A5FA;
+    --col-pend: var(--amber);
+    --col-pend-rgb: 251, 191, 36;
+    --col-acomp: var(--accent);
+    --col-acomp-rgb: 232, 123, 30;
+  }
+
+  html, body {
+    width: 100%; min-height: 100vh;
+    font-family: 'Inter', sans-serif;
+    background: var(--primary-dark);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: 'cv02','cv03','cv04','cv11';
+  }
+
+  body {
+    background:
+      radial-gradient(ellipse 70% 50% at 18% 8%,
+        rgba(var(--col-pend-rgb), 0.10) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 50% at 82% 92%,
+        rgba(var(--col-acomp-rgb), 0.13) 0%, transparent 55%),
+      radial-gradient(ellipse 90% 70% at 50% 50%,
+        rgba(var(--primary-rgb), 0.55) 0%, var(--primary-dark) 70%);
+    background-attachment: fixed;
+    animation: atmosphericBreathe 16s ease-in-out infinite;
+    overflow-x: hidden;
+  }
+
+  @keyframes atmosphericBreathe {
+    0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+    50%      { background-position: 3% 2%, 97% 98%, 50% 50%; }
+  }
+
+  /* Vagalumes — partículas suaves no fundo */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background-image:
+      radial-gradient(1.4px 1.4px at 12% 22%, rgba(245,168,73,0.5), transparent 60%),
+      radial-gradient(1px 1px at 78% 14%, rgba(255,255,255,0.45), transparent 60%),
+      radial-gradient(1.2px 1.2px at 32% 78%, rgba(167,139,250,0.4), transparent 60%),
+      radial-gradient(1px 1px at 62% 68%, rgba(232,123,30,0.55), transparent 60%),
+      radial-gradient(1.6px 1.6px at 88% 48%, rgba(255,255,255,0.35), transparent 60%),
+      radial-gradient(1px 1px at 18% 56%, rgba(251,191,36,0.45), transparent 60%),
+      radial-gradient(1.2px 1.2px at 48% 24%, rgba(255,255,255,0.3), transparent 60%),
+      radial-gradient(1px 1px at 92% 80%, rgba(45,212,191,0.4), transparent 60%);
+    animation: fireflies 18s ease-in-out infinite;
+  }
+  @keyframes fireflies {
+    0%, 100% { opacity: 0.55; transform: translate(0, 0); }
+    33%      { opacity: 0.85; transform: translate(4px, -3px); }
+    66%      { opacity: 0.45; transform: translate(-3px, 4px); }
+  }
+
+  /* ─── Header ───────────────────────────────────────────── */
+  .header {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 0 32px;
+    border-bottom: 1px solid var(--glass-border);
+    background: rgba(15,31,61,0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    position: sticky; top: 0; z-index: 30;
+  }
+  .header img { height: 28px; width: auto; }
+  .header-brand { font-size: 14px; font-weight: 800; letter-spacing: 0.16em; color: var(--text); }
+  .header-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.18); margin: 0 4px; }
+  .header-title {
+    font-size: 13.5px; font-weight: 700; color: var(--text);
+    letter-spacing: 0.22em; text-transform: uppercase;
+  }
+  .header-title .accent { color: var(--accent); }
+  .header-spacer { flex: 1; }
+  .header-meta {
+    text-align: right; font-size: 11px; color: var(--text-muted); line-height: 1.5;
+  }
+  .header-meta strong { color: var(--accent); font-weight: 600; }
+  .refresh-btn {
+    font-size: 11px; font-weight: 600; color: var(--accent);
+    border: 1px solid rgba(var(--accent-rgb), 0.45); border-radius: 8px;
+    padding: 7px 14px; cursor: pointer; background: transparent;
+    font-family: inherit; transition: all 0.2s;
+    margin-left: 14px;
+  }
+  .refresh-btn:hover { background: rgba(var(--accent-rgb), 0.14); border-color: var(--accent); }
+
+  /* ─── Two-column shell ───────────────────────────────────── */
+  .shell {
+    position: relative; z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: calc(100vh - 64px - 48px);
+  }
+  .col {
+    padding: 26px 28px 32px;
+    min-width: 0;
+    display: flex; flex-direction: column; gap: 20px;
+    position: relative;
+  }
+  .col + .col {
+    border-left: 1px solid var(--glass-border);
+  }
+  /* Faixa colorida superior por coluna */
+  .col::before {
+    content: '';
+    position: absolute; left: 0; right: 0; top: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--col-tint), transparent);
+    opacity: 0.55;
+  }
+  .col.pend  { --col-tint: var(--col-pend);  --col-tint-rgb: var(--col-pend-rgb); }
+  .col.acomp { --col-tint: var(--col-acomp); --col-tint-rgb: var(--col-acomp-rgb); }
+
+  /* Cabeçalho da coluna — centralizado, com separador */
+  .col-header {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 10px;
+    padding: 4px 0 14px;
+    position: relative;
+  }
+  .col-header h2 {
+    font-size: 22px; font-weight: 800; color: var(--text);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    text-shadow: 0 0 24px rgba(var(--col-tint-rgb), 0.35);
+    display: flex; align-items: center; gap: 14px;
+  }
+  .col-header h2 .glyph {
+    color: var(--col-tint);
+    font-size: 18px;
+    opacity: 0.85;
+    filter: drop-shadow(0 0 8px rgba(var(--col-tint-rgb),0.6));
+  }
+  .col-header .separator {
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px;
+    width: 80%; max-width: 360px;
+  }
+  .col-header .separator .line {
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(var(--col-tint-rgb),0.55), transparent);
+  }
+  .col-header .separator .diamond {
+    width: 6px; height: 6px;
+    transform: rotate(45deg);
+    background: var(--col-tint);
+    box-shadow: 0 0 10px var(--col-tint);
+  }
+  .col-header .count-pill {
+    font-size: 11px; font-weight: 700;
+    padding: 5px 14px; border-radius: 99px;
+    background: rgba(var(--col-tint-rgb), 0.14);
+    color: var(--col-tint);
+    border: 1px solid rgba(var(--col-tint-rgb), 0.40);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    box-shadow: 0 0 16px rgba(var(--col-tint-rgb),0.18);
+  }
+
+  /* ─── KPI mini cards ───────────────────────────────────── */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .kpi {
+    position: relative;
+    background:
+      radial-gradient(ellipse 100% 80% at 50% 110%,
+        rgba(var(--kpi-rgb, var(--col-tint-rgb)), 0.18) 0%,
+        transparent 60%),
+      var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 14px 16px 13px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    overflow: hidden;
+    transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), border-color 0.25s, box-shadow 0.25s;
+    /* Garante mesma altura mínima em ambas as colunas, independente do texto do sub */
+    min-height: 112px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .kpi::before {
+    /* Glow neon de baixo, animado */
+    content: '';
+    position: absolute; left: 50%; bottom: -20px;
+    width: 140%; height: 60px;
+    transform: translateX(-50%);
+    background: radial-gradient(ellipse at center,
+      rgba(var(--kpi-rgb, var(--col-tint-rgb)), 0.55) 0%,
+      transparent 70%);
+    filter: blur(18px);
+    opacity: 0.55;
+    animation: kpiGlowPulse 4.2s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .kpi::after {
+    content: '';
+    position: absolute; left: 0; right: 0; top: 0; height: 2px;
+    background: var(--kpi-color, var(--col-tint));
+    opacity: 0.9;
+    box-shadow: 0 0 12px var(--kpi-color, var(--col-tint));
+  }
+  @keyframes kpiGlowPulse {
+    0%, 100% { opacity: 0.42; transform: translateX(-50%) scaleX(0.92); }
+    50%      { opacity: 0.72; transform: translateX(-50%) scaleX(1.05); }
+  }
+  .kpi:hover {
+    transform: translateY(-2px);
+    border-color: var(--glass-border-strong);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.30);
+  }
+  .kpi .label {
+    font-size: 9.5px; font-weight: 700; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 10px;
+    position: relative; z-index: 1;
+  }
+  .kpi .value {
+    font-size: 32px; font-weight: 900; line-height: 1;
+    letter-spacing: -0.025em; color: var(--text);
+    font-feature-settings: 'tnum';
+    position: relative; z-index: 1;
+    text-shadow: 0 0 20px rgba(var(--kpi-rgb, var(--col-tint-rgb)), 0.35);
+  }
+  .kpi .sub {
+    font-size: 10.5px; color: var(--text-faint);
+    margin-top: 6px; font-weight: 500;
+    position: relative; z-index: 1;
+    line-height: 1.3;
+    min-height: 28px;
+    display: flex; align-items: flex-end;
+  }
+  .kpi .delta-row {
+    display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap;
+    position: relative; z-index: 1;
+  }
+  .kpi-delta {
+    font-size: 10px; font-weight: 700;
+    padding: 3px 8px; border-radius: 99px;
+    display: inline-flex; align-items: center; gap: 4px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.78);
+    letter-spacing: 0.02em;
+    font-feature-settings: 'tnum';
+  }
+  .kpi-delta.up-bad   { color: #FF8A85; background: rgba(255,107,107,0.10); border-color: rgba(255,107,107,0.30); }
+  .kpi-delta.down-good{ color: #5EEAD4; background: rgba(94,234,212,0.10); border-color: rgba(94,234,212,0.30); }
+  .kpi-delta.up-good  { color: #5EEAD4; background: rgba(94,234,212,0.10); border-color: rgba(94,234,212,0.30); }
+  .kpi-delta.down-bad { color: #FF8A85; background: rgba(255,107,107,0.10); border-color: rgba(255,107,107,0.30); }
+  .kpi-delta.neutral  { color: rgba(255,255,255,0.70); }
+  .kpi-delta .arrow   { font-size: 9px; opacity: 0.9; }
+
+  /* ─── Filter (dropdown estilo Excel) ───────────────────── */
+  .filter-strip {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    padding: 4px 0 12px;
+    align-items: center;
+  }
+  .filter-strip .f-label {
+    font-size: 9.5px; color: var(--text-faint);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-right: 2px; font-weight: 700;
+  }
+  .filter-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background: rgba(255,255,255,0.05) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='%23ffffffaa' d='M0 0l5 6 5-6z'/></svg>") no-repeat right 10px center;
+    border: 1px solid rgba(255,255,255,0.10);
+    color: var(--text);
+    font-family: inherit;
+    font-size: 12px; font-weight: 600;
+    padding: 6px 28px 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    min-width: 220px;
+    transition: border-color 0.18s, background-color 0.18s, box-shadow 0.18s;
+    outline: none;
+  }
+  .filter-select:hover { border-color: rgba(var(--col-tint-rgb), 0.45); }
+  .filter-select:focus { border-color: rgba(var(--col-tint-rgb), 0.75); box-shadow: 0 0 0 3px rgba(var(--col-tint-rgb), 0.18); }
+  .filter-select option { background: #11131A; color: var(--text); }
+  .filter-clear {
+    font-size: 10px; padding: 5px 10px; border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: transparent; color: rgba(255,255,255,0.55);
+    cursor: pointer; transition: color 0.18s, border-color 0.18s;
+  }
+  .filter-clear:hover { color: var(--text); border-color: rgba(255,255,255,0.30); }
+  .filter-clear[hidden] { display: none; }
+
+  /* Filtro por coluna — só o ícone ▼, sem texto ocupando largura */
+  th .col-filter-wrap { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px; line-height: 1.1; }
+  th .col-filter-wrap > .col-filter-row { display: inline-flex; align-items: center; gap: 4px; }
+  th .col-filter {
+    appearance: none; -webkit-appearance: none;
+    background: rgba(255,255,255,0.04) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'><path fill='%23ffffffaa' d='M0 0l4 5 4-5z'/></svg>") no-repeat center center;
+    background-size: 8px 5px;
+    border: 1px solid rgba(255,255,255,0.10);
+    color: transparent;
+    text-shadow: 0 0 0 transparent;
+    font-family: inherit; font-size: 0;
+    width: 22px; height: 18px;
+    padding: 0;
+    border-radius: 4px; cursor: pointer; outline: none;
+    transition: border-color 0.15s, background-color 0.15s;
+  }
+  th .col-filter:hover { border-color: rgba(var(--col-tint-rgb), 0.55); background-color: rgba(var(--col-tint-rgb), 0.10); }
+  th .col-filter.active {
+    background-color: rgba(var(--col-tint-rgb), 0.22);
+    border-color: rgba(var(--col-tint-rgb), 0.65);
+  }
+  th .col-filter option {
+    background: #11131A; color: var(--text);
+    font-size: 11px; font-weight: 500;
+  }
+  th .col-filter-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 9px; font-weight: 600;
+    padding: 1px 5px 1px 6px;
+    border-radius: 3px;
+    background: rgba(var(--col-tint-rgb), 0.18);
+    border: 1px solid rgba(var(--col-tint-rgb), 0.40);
+    color: var(--col-tint);
+    text-transform: none; letter-spacing: 0;
+    max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    cursor: pointer;
+  }
+  th .col-filter-tag:hover { background: rgba(var(--col-tint-rgb), 0.30); }
+  th .col-filter-tag .x { opacity: 0.7; font-weight: 700; }
+
+  /* Task code (substitui colunas Sugestão de Lista e Onde Está) */
+  .task-code {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px; font-weight: 600;
+    color: rgba(255,255,255,0.80);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.10);
+    padding: 3px 8px; border-radius: 5px;
+    letter-spacing: 0.02em;
+    cursor: pointer; user-select: all;
+    transition: background 0.15s, border-color 0.15s, color 0.15s;
+    display: inline-block;
+  }
+  .task-code:hover { background: rgba(var(--col-tint-rgb), 0.15); border-color: rgba(var(--col-tint-rgb), 0.45); color: var(--col-tint); }
+  .task-code a { color: inherit; text-decoration: none; }
+
+  /* S19: sugestao de destino da acao (roteador deterministico) */
+  .sug-lista { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.72); }
+  .sug-lista.forte { color: var(--col-tint); }
+  .sug-lista.nenhuma { color: rgba(255,255,255,0.34); font-weight: 500; }
+
+  /* Botão Triagem manual (substitui badge italic) */
+  .btn-triagem {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+    padding: 5px 10px; border-radius: 6px;
+    border: 1px dashed rgba(255,255,255,0.30);
+    background: rgba(255,255,255,0.04);
+    color: rgba(255,255,255,0.78);
+    cursor: pointer; text-transform: uppercase;
+    transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.15s;
+  }
+  .btn-triagem:hover {
+    background: rgba(var(--col-tint-rgb), 0.15);
+    border-color: rgba(var(--col-tint-rgb), 0.55);
+    border-style: solid;
+    color: var(--col-tint);
+    transform: translateY(-1px);
+  }
+
+  /* Botão Recusar (vermelho) — coluna Ações */
+  .btn-reject {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+    padding: 5px 11px; border-radius: 6px;
+    border: 1px solid rgba(255,107,107,0.40);
+    background: rgba(255,107,107,0.10);
+    color: #FF8A85;
+    cursor: pointer; text-transform: uppercase;
+    transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
+  }
+  .btn-reject:hover {
+    background: rgba(255,107,107,0.22);
+    box-shadow: 0 0 12px rgba(255,107,107,0.30);
+    transform: translateY(-1px);
+  }
+  .btn-approve {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+    padding: 5px 11px; border-radius: 6px;
+    border: 1px solid rgba(94,234,212,0.45);
+    background: rgba(94,234,212,0.12);
+    color: #5EEAD4;
+    cursor: pointer; text-transform: uppercase;
+    transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
+  }
+  .btn-approve:hover {
+    background: rgba(94,234,212,0.22);
+    box-shadow: 0 0 12px rgba(94,234,212,0.30);
+    transform: translateY(-1px);
+  }
+  .btn-icon {
+    text-transform: none;
+    padding: 4px 8px;
+    font-size: 14px;
+    line-height: 1;
+    letter-spacing: 0;
+    min-width: 32px;
+  }
+  /* Aprovar como dropdown inline (substitui modal — picker igual filtro Responsável) */
+  .btn-approve-select {
+    appearance: none; -webkit-appearance: none;
+    background: rgba(94,234,212,0.12) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'><path fill='%235EEAD4' d='M0 0l4 5 4-5z'/></svg>") no-repeat right 5px center;
+    background-size: 8px 5px;
+    border: 1px solid rgba(94,234,212,0.45);
+    color: #5EEAD4;
+    font-size: 14px; font-weight: 700; line-height: 1;
+    text-align: center; text-align-last: center;
+    padding: 0 14px 0 6px;
+    width: 50px; height: 30px;
+    border-radius: 6px; cursor: pointer; outline: none;
+    transition: background 0.18s, box-shadow 0.18s, transform 0.15s;
+    font-family: inherit;
+  }
+  .btn-approve-select:hover {
+    background-color: rgba(94,234,212,0.22);
+    box-shadow: 0 0 12px rgba(94,234,212,0.30);
+    transform: translateY(-1px);
+  }
+  .btn-approve-select option {
+    background: #0b1220; color: var(--text);
+    font-size: 12px; font-weight: 500;
+  }
+  .btn-approve-select option:disabled {
+    color: var(--text-faint);
+    font-style: italic;
+  }
+  .filter-chip {
+    /* legado — mantido pra compatibilidade visual em qualquer canto que ainda use */
+    display: none;
+  }
+  .filter-chip-legacy {
+    font-size: 11px; font-weight: 600;
+    padding: 5px 11px; border-radius: 99px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.09);
+    color: rgba(255,255,255,0.78);
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.15s;
+    user-select: none;
+  }
+  .filter-strip-x {
+    font-size: 9.5px; color: var(--text-faint);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-right: 2px; font-weight: 700;
+  }
+
+  /* ─── Mutation actions (F3) ────────────────────────────── */
+  .row-actions { display: flex; gap: 6px; justify-content: center; }
+  .btn-action {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.04em;
+    padding: 5px 11px; border-radius: 6px;
+    border: 1px solid rgba(var(--col-tint-rgb), 0.40);
+    background: rgba(var(--col-tint-rgb), 0.12);
+    color: var(--col-tint);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 0.18s, transform 0.15s, box-shadow 0.18s;
+  }
+  .btn-action:hover {
+    background: rgba(var(--col-tint-rgb), 0.25);
+    box-shadow: 0 0 12px rgba(var(--col-tint-rgb), 0.35);
+    transform: translateY(-1px);
+  }
+  .btn-action.btn-ghost {
+    background: transparent;
+    color: rgba(255,255,255,0.6);
+    border-color: rgba(255,255,255,0.18);
+  }
+  .btn-action.btn-ghost:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--text);
+  }
+  .cell-clickable {
+    cursor: pointer;
+    position: relative;
+    transition: background 0.15s;
+    border-radius: 4px;
+  }
+  .cell-clickable:hover {
+    background: rgba(var(--col-tint-rgb), 0.10);
+    outline: 1px dashed rgba(var(--col-tint-rgb), 0.35);
+    outline-offset: -2px;
+  }
+  .cell-clickable::after {
+    content: '✎'; position: absolute; right: 4px; top: 50%;
+    transform: translateY(-50%); font-size: 9px;
+    opacity: 0; color: var(--col-tint); transition: opacity 0.15s;
+  }
+  .cell-clickable:hover::after { opacity: 0.65; }
+
+  /* Overlay + Modal */
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(8, 11, 18, 0.78);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: none; align-items: center; justify-content: center;
+    z-index: 1000;
+    animation: overlayIn 0.18s ease-out;
+  }
+  .overlay.open { display: flex; }
+  @keyframes overlayIn { from { opacity: 0; } to { opacity: 1; } }
+
+  .modal {
+    background: linear-gradient(180deg, rgba(27,52,100,0.96), rgba(15,31,61,0.96));
+    border: 1px solid rgba(232,123,30, 0.40);
+    border-radius: 14px;
+    padding: 22px 26px;
+    width: min(440px, 92vw);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 30px rgba(232,123,30, 0.20);
+    color: var(--text);
+    animation: modalIn 0.22s cubic-bezier(0.4,0,0.2,1);
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to   { opacity: 1; transform: translateY(0)    scale(1); }
+  }
+  .modal h3 {
+    font-size: 14px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: var(--accent); margin: 0 0 4px;
+  }
+  .modal .modal-sub {
+    font-size: 12px; color: rgba(255,255,255,0.65);
+    margin-bottom: 16px; line-height: 1.4;
+  }
+  .modal label {
+    display: block; font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.10em;
+    color: rgba(255,255,255,0.70); margin: 12px 0 6px;
+  }
+  .modal select, .modal input[type="date"], .modal input[type="text"] {
+    width: 100%; padding: 9px 11px;
+    background: rgba(0,0,0,0.30);
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 8px;
+    font-size: 13px; font-family: inherit;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .modal select:focus, .modal input:focus {
+    outline: none;
+    border-color: rgba(232,123,30, 0.70);
+    background: rgba(0,0,0,0.45);
+  }
+  .modal .modal-actions {
+    display: flex; gap: 10px; justify-content: flex-end;
+    margin-top: 22px;
+  }
+  .modal button {
+    padding: 9px 18px; border-radius: 7px;
+    font-size: 12px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    cursor: pointer; transition: all 0.15s;
+    font-family: inherit;
+  }
+  .modal .btn-cancel {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.20);
+    color: rgba(255,255,255,0.70);
+  }
+  .modal .btn-cancel:hover { background: rgba(255,255,255,0.06); color: var(--text); }
+  .modal .btn-confirm {
+    background: linear-gradient(180deg, #E87B1E, #C26715);
+    border: 1px solid rgba(232,123,30, 0.80);
+    color: white;
+    box-shadow: 0 4px 14px rgba(232,123,30, 0.40);
+  }
+  .modal .btn-confirm:hover {
+    box-shadow: 0 6px 22px rgba(232,123,30, 0.60);
+    transform: translateY(-1px);
+  }
+  .modal .btn-confirm:disabled {
+    opacity: 0.55; cursor: wait; transform: none; box-shadow: none;
+  }
+
+  /* Multi-assignee picker (checkboxes scrollable) */
+  .assignee-picker {
+    max-height: 280px; overflow-y: auto;
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 8px; padding: 6px;
+    background: rgba(0,0,0,0.20);
+  }
+  .assignee-picker label {
+    display: flex; align-items: center; gap: 9px;
+    padding: 7px 10px; border-radius: 6px;
+    margin: 0; text-transform: none; letter-spacing: 0;
+    font-size: 13px; font-weight: 500;
+    color: var(--text); cursor: pointer;
+    transition: background 0.12s;
+  }
+  .assignee-picker label:hover { background: rgba(232,123,30, 0.10); }
+  .assignee-picker input[type="checkbox"] {
+    width: 16px; height: 16px; accent-color: #E87B1E;
+    cursor: pointer;
+  }
+
+  /* Toast */
+  #toast-stack {
+    position: fixed; bottom: 80px; right: 24px;
+    display: flex; flex-direction: column; gap: 8px;
+    z-index: 1100; pointer-events: none;
+  }
+  .toast {
+    padding: 11px 18px;
+    background: linear-gradient(180deg, rgba(15,31,61,0.96), rgba(8,11,18,0.96));
+    border-left: 3px solid var(--accent);
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    color: var(--text);
+    font-size: 13px; font-weight: 500;
+    max-width: 380px;
+    pointer-events: auto;
+    animation: toastIn 0.22s cubic-bezier(0.4,0,0.2,1);
+  }
+  .toast.ok      { border-left-color: #34D399; }
+  .toast.err     { border-left-color: #FF6B6B; }
+  .toast.info    { border-left-color: #60A5FA; }
+  @keyframes toastIn {
+    from { opacity: 0; transform: translateX(16px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+  .kpi.featured {
+    background:
+      radial-gradient(ellipse 100% 80% at 50% 110%,
+        rgba(var(--col-tint-rgb), 0.32) 0%,
+        transparent 65%),
+      linear-gradient(180deg, rgba(var(--col-tint-rgb),0.12), var(--glass-bg) 70%);
+    border-color: rgba(var(--col-tint-rgb), 0.35);
+  }
+  .kpi.featured .value {
+    font-size: 38px; font-weight: 900;
+    color: var(--col-tint);
+    animation: valueBreathe 4.2s ease-in-out infinite;
+  }
+  @keyframes valueBreathe {
+    0%, 100% { text-shadow: 0 0 18px rgba(var(--col-tint-rgb), 0.45); }
+    50%      { text-shadow: 0 0 32px rgba(var(--col-tint-rgb), 0.85), 0 0 8px rgba(var(--col-tint-rgb), 0.55); }
+  }
+  .kpi .value.ok     { color: #34D399; }
+  .kpi .value.warn   { color: #FFD56B; }
+  .kpi .value.danger { color: #FF6B6B; }
+  .kpi .value.info   { color: #60A5FA; }
+  .kpi .value.purple { color: #C77DFF; }
+  .kpi.tone-ok     { --kpi-color: #34D399; --kpi-rgb: 52,211,153; }
+  .kpi.tone-warn   { --kpi-color: #FFD56B; --kpi-rgb: 255,213,107; }
+  .kpi.tone-danger { --kpi-color: #FF6B6B; --kpi-rgb: 255,107,107; }
+  .kpi.tone-info   { --kpi-color: #60A5FA; --kpi-rgb: 96,165,250; }
+  .kpi.tone-purple { --kpi-color: #C77DFF; --kpi-rgb: 199,125,255; }
+
+  /* ─── Chart cards ──────────────────────────────────────── */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: 10px;
+  }
+  .card {
+    position: relative;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    overflow: hidden;
+    transition: transform 0.25s cubic-bezier(0.4,0,0.2,1), border-color 0.25s, box-shadow 0.25s;
+  }
+  .card::after {
+    content: '';
+    position: absolute; left: 0; right: 0; top: 0; height: 2px;
+    background: var(--col-tint);
+    opacity: 0.85;
+    box-shadow: 0 0 10px var(--col-tint);
+    pointer-events: none;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: var(--glass-border-strong);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.30);
+  }
+  .card > * { position: relative; z-index: 1; }
+  .card-title {
+    font-size: 10px; font-weight: 700; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card-title .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--col-tint);
+    box-shadow: 0 0 8px var(--col-tint);
+  }
+  .chart-body { position: relative; height: 178px; display: flex; align-items: center; justify-content: center; }
+  .chart-body canvas { max-width: 100%; max-height: 100%; }
+  .chart-empty { color: var(--text-faint); font-size: 12px; text-align: center; padding: 20px; }
+
+  /* Bar list (horizontal bars) */
+  .bars { display: flex; flex-direction: column; gap: 9px; width: 100%; padding: 4px 0; }
+  .bar-row {
+    display: grid; grid-template-columns: minmax(140px, 1.4fr) minmax(60px, 1fr) 32px;
+    align-items: center; gap: 12px; font-size: 11.5px;
+  }
+  .bar-name {
+    color: var(--text);
+    white-space: nowrap;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+  }
+  .bar-track {
+    height: 7px; background: rgba(255,255,255,0.06);
+    border-radius: 99px; overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--col-tint), rgba(var(--col-tint-rgb),0.55));
+    border-radius: 99px;
+    transition: width 0.6s ease;
+    box-shadow: 0 0 8px rgba(var(--col-tint-rgb),0.4);
+  }
+  .bar-value {
+    color: var(--col-tint); font-weight: 700;
+    text-align: right; font-size: 12px;
+    font-feature-settings: 'tnum';
+  }
+
+  /* ─── Table ────────────────────────────────────────────── */
+  .table-card {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    overflow: hidden;
+    flex: 1; min-height: 200px;
+    display: flex; flex-direction: column;
+  }
+  .table-header {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--glass-border);
+    background: rgba(0,0,0,0.18);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .table-header .t-title {
+    font-size: 10.5px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--text-muted);
+  }
+  .table-header .t-meta {
+    font-size: 10.5px; color: var(--text-faint); font-weight: 500;
+  }
+  .table-scroll {
+    overflow-y: auto;
+    max-height: 560px;
+  }
+  .table-scroll::-webkit-scrollbar { width: 6px; }
+  .table-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 99px; }
+  .table-scroll::-webkit-scrollbar-track { background: transparent; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  thead th {
+    padding: 13px 14px;
+    text-align: center;
+    font-size: 10px; font-weight: 800; text-transform: uppercase;
+    letter-spacing: 0.12em; color: rgba(255,255,255,0.92);
+    border-bottom: 1px solid rgba(var(--col-tint-rgb), 0.30);
+    /* Opaco por baixo do gradiente. So' o gradiente (alfa 0,10/0,18) deixava a
+       linha rolada aparecer POR TRAS do rotulo da coluna -- com 231 linhas, sempre.
+       #1B2A47 e' o composto real: #0F1F3D (--primary-dark) sob o vidro do card. */
+    background-color: #1B2A47;
+    background-image: linear-gradient(180deg, rgba(var(--col-tint-rgb),0.10), rgba(0,0,0,0.18));
+    position: sticky; top: 0; z-index: 2;
+  }
+  thead th:first-child { text-align: left; padding-left: 18px; }
+  tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.18s;
+    position: relative;
+  }
+  /* Faixa lateral colorida tipo Aurora */
+  tbody tr td:first-child {
+    border-left: 3px solid rgba(var(--col-tint-rgb), 0.35);
+    transition: border-color 0.18s, padding 0.18s, box-shadow 0.18s;
+    padding-left: 18px;
+  }
+  tbody tr:hover td:first-child {
+    border-left-color: var(--col-tint);
+    box-shadow: inset 4px 0 12px rgba(var(--col-tint-rgb), 0.20);
+  }
+  tbody tr:hover { background: rgba(var(--col-tint-rgb), 0.06); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody td {
+    padding: 13px 14px; color: rgba(255,255,255,0.95); vertical-align: middle;
+    font-size: 12.5px;
+    text-align: center;
+  }
+  tbody td:first-child { text-align: left; }
+  .task-name {
+    font-weight: 600; max-width: 200px;
+    color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .assignee { color: rgba(255,255,255,0.85); font-size: 12px; font-weight: 500; }
+  .due-date { font-size: 11.5px; white-space: nowrap; font-weight: 500; font-feature-settings: 'tnum'; }
+  .due-overdue { color: var(--danger); font-weight: 700; }
+  .due-today   { color: var(--warn); font-weight: 700; }
+  .due-ok      { color: var(--text-muted); }
+  .due-none    { color: var(--text-faint); font-style: italic; }
+
+  /* Pills */
+  .pill {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 99px;
+    font-size: 10.5px; font-weight: 600;
+    white-space: nowrap;
+  }
+  .pill-urgent { background: rgba(248,113,113,0.18); color: var(--danger); }
+  .pill-high   { background: rgba(251,191,36,0.18); color: var(--warn); }
+  .pill-normal { background: rgba(255,255,255,0.07); color: var(--text-muted); }
+  .pill-low    { background: rgba(255,255,255,0.04); color: var(--text-faint); }
+  .pill-age-warn     { background: rgba(251,191,36,0.14); color: var(--warn); }
+  .pill-age-critical { background: rgba(248,113,113,0.16); color: var(--danger); }
+
+  .sug {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 3px 9px;
+    border-radius: 99px;
+    font-size: 10.5px; font-weight: 600;
+    white-space: nowrap; max-width: 180px;
+    overflow: hidden; text-overflow: ellipsis;
+    border: 1px solid transparent;
+  }
+  .sug-high {
+    background: rgba(var(--accent-rgb), 0.16);
+    color: var(--accent-light);
+    border-color: rgba(var(--accent-rgb), 0.40);
+  }
+  .sug-med {
+    background: rgba(167,139,250, 0.14);
+    color: var(--purple);
+    border-color: rgba(167,139,250, 0.36);
+  }
+  .sug-none {
+    background: rgba(255,255,255,0.05);
+    color: var(--text-faint);
+    font-style: italic;
+    font-weight: 500;
+  }
+  .sug-conf {
+    font-size: 9px; font-weight: 700;
+    padding: 1px 5px; border-radius: 99px;
+    background: rgba(255,255,255,0.14);
+    color: inherit;
+  }
+  .dest-badge {
+    font-size: 10.5px;
+    padding: 3px 9px;
+    border-radius: 99px;
+    background: rgba(var(--accent-rgb), 0.14);
+    color: var(--accent-light);
+    border: 1px solid rgba(var(--accent-rgb), 0.30);
+    white-space: nowrap; max-width: 170px; display: inline-block;
+    overflow: hidden; text-overflow: ellipsis; vertical-align: middle;
+    font-weight: 600;
+  }
+
+  /* Status pills */
+  .status-done      { background: rgba(52,211,153,0.18); color: var(--ok); }
+  .status-doing     { background: rgba(var(--accent-rgb),0.16); color: var(--accent-light); }
+  .status-todo      { background: rgba(255,255,255,0.06); color: var(--text-muted); }
+  .status-validating{ background: rgba(167,139,250,0.16); color: var(--purple); }
+  .status-cancelled { background: rgba(248,113,113,0.10); color: rgba(248,113,113,0.7); }
+
+  .empty {
+    padding: 56px 24px;
+    text-align: center;
+    color: var(--text-faint);
+    font-size: 12.5px;
+  }
+  .loading {
+    text-align: center; padding: 60px 24px;
+    color: var(--text-muted); font-size: 13px;
+  }
+  .spinner {
+    display: inline-block; width: 20px; height: 20px;
+    border: 2px solid rgba(var(--accent-rgb),0.2);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 10px; vertical-align: middle;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ─── Footer ───────────────────────────────────────────── */
+  .footer {
+    height: 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px;
+    border-top: 1px solid var(--glass-border);
+    background: rgba(15,31,61,0.78);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    font-size: 11px; color: var(--text-muted);
+    position: relative; z-index: 2;
+  }
+  .footer strong { color: var(--accent); font-weight: 600; }
+  .footer .live-dot {
+    display: inline-block; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--ok);
+    margin-right: 6px; vertical-align: middle;
+    animation: livePulse 2.4s ease-in-out infinite;
+    box-shadow: 0 0 6px var(--ok);
+  }
+  @keyframes livePulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  /* ─── Responsividade ───────────────────────────────────── */
+  @media (max-width: 1280px) {
+    .charts-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 1100px) {
+    .shell { grid-template-columns: 1fr; }
+    .col + .col { border-left: none; border-top: 1px solid var(--glass-border); }
+    .kpi-strip { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .header { padding: 0 14px; gap: 10px; }
+    .header img { height: 22px; }
+    .header-title { font-size: 11px; letter-spacing: 0.16em; }
+    .header-meta { display: none; }
+    .col { padding: 18px 14px 26px; gap: 14px; }
+    .kpi-strip { grid-template-columns: repeat(2, 1fr); }
+    .kpi .value { font-size: 24px; }
+    .kpi.featured .value { font-size: 28px; }
+    .task-name { max-width: 140px; }
+    .footer { padding: 0 14px; font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <img src="logo-doisa.png" alt="DOIS A">
+  <div class="header-brand">DOIS A</div>
+  <div class="header-divider"></div>
+  <div class="header-title">GESTÃO <span class="accent">·</span> AÇÕES <span class="accent">·</span> ATA <span class="accent">·</span> DUO</div>
+  <div class="header-spacer"></div>
+  <div class="header-meta">
+    <div id="update-time">Carregando…</div>
+    <div>Atualização <strong>automática a cada 5 min</strong></div>
+  </div>
+  <button class="refresh-btn" onclick="load()">↻ Atualizar</button>
+</header>
+
+<div class="shell" id="shell">
+  <section class="col pend" id="col-pend">
+    <div class="loading"><span class="spinner"></span>Carregando pendentes…</div>
+  </section>
+  <section class="col acomp" id="col-acomp">
+    <div class="loading"><span class="spinner"></span>Carregando acompanhamento…</div>
+  </section>
+</div>
+
+<footer class="footer">
+  <span><span class="live-dot"></span>INCO, sistema de gestão e aperfeiçoamento <strong>DOIS A</strong> · DUO</span>
+  <span id="footer-count">—</span>
+</footer>
+
+<div class="overlay" id="overlay" onclick="if (event.target.id==='overlay') closeModal()">
+  <div class="modal" id="modal-body"></div>
+</div>
+<div id="toast-stack"></div>
+
+<script>
+const WORKER_URL = 'https://srv1430902.hstgr.cloud/gestion-proxy';
+const BACKLOG_LIST = '901715519091';   // Acoes - Confidencial (DUO)
+// Item 9c: o painel le as DUAS listas (aditivo). A antiga continua sendo a primeira;
+// a nova ('DUO - Acoes') entra por ultimo. Escrita nao manda lista: o proxy resolve pela tarefa.
+const LISTA_NOVA = '901718122727';
+const BACKLOG_LISTS = [BACKLOG_LIST, LISTA_NOVA];
+const TEAM_ID     = '90171115290';
+
+const PALETTE = {
+  primary:      '#1B3464',
+  accent:       '#E87B1E',
+  accentLight:  '#F5A849',
+  text:         '#FFFFFF',
+  textMuted:    'rgba(255,255,255,0.62)',
+  ok:           '#34D399',
+  warn:         '#FFD56B',
+  danger:       '#FF6B6B',
+  info:         '#60A5FA',
+  dim:          '#6E7E9E',
+};
+
+// Paleta rica estilo Aurora — vibrante, com gradiente de tons
+const AURORA = [
+  '#E87B1E', // laranja DOIS A (ouro queimado)
+  '#FFD56B', // âmbar dourado
+  '#C77DFF', // roxo Aurora vibrante
+  '#FF6B9D', // rosa magenta
+  '#5EEAD4', // teal aurora
+  '#60A5FA', // azul céu
+  '#FF8A65', // coral
+  '#A78BFA', // violeta
+  '#FFC857', // dourado claro
+  '#34D399', // verde menta
+];
+
+const LIST_NAMES = {
+  '901718122727': 'DUO - Ações',
+  '901713574304': 'Backlog - Ações ATAs',
+  '901712739243': 'Administrativo',
+  '901712739247': 'RGI',
+  '901712739152': 'Planejamento Estratégico',
+  '901712739153': 'Controle de Licenças',
+  '901712739230': 'Financiamentos',
+  '901712739182': 'Suprimentos',
+  '901713024319': 'NuPE',
+  '901712739803': 'DAJP · Emp. Potengi',
+  '901712739833': 'DARP · Emp. Pipa',
+  '901712739480': 'DAAP · Emp. Areia Preta',
+  '901712739276': 'DATS · Emp. Tibau do Sul',
+  '901712739277': 'Emp. Serra de São Bento',
+  '901712739955': 'Emp. Ecobonfim',
+  '901712739727': 'Emp. Comercial Potengi',
+  '901712739562': 'Emp. Modelo',
+  '901712739452': 'Caraúbas',
+  '901712739425': 'Maracajaú',
+  '901712739337': 'Gestão Comercial',
+  '901712739564': 'BackOffice Financeiro',
+  '901712739563': 'Lean Construction',
+};
+
+const ROUTER_EMPREENDIMENTO = [
+  ['potengi',              '901712739803', 'Emp. Potengi'],
+  ['pipa',                 '901712739833', 'Emp. Pipa'],
+  ['areia preta',          '901712739480', 'Emp. Areia Preta'],
+  ['areiapreta',           '901712739480', 'Emp. Areia Preta'],
+  ['tibau',                '901712739276', 'Emp. Tibau do Sul'],
+  ['serra de são bento',   '901712739277', 'Emp. Serra de São Bento'],
+  ['ecobonfim',            '901712739955', 'Emp. Ecobonfim'],
+  ['comercial potengi',    '901712739727', 'Emp. Comercial Potengi'],
+  // 'modelo' sozinho sequestrava 96 acoes que falam de modelo de
+  // contrato/orcamento para uma lista vazia -- e vencia a camada de area,
+  // porque empreendimento roda primeiro.
+  ['empreendimento modelo', '901712739562', 'Emp. Modelo'],
+  ['caraúbas',             '901712739452', 'Caraúbas'],
+  ['caraubas',             '901712739452', 'Caraúbas'],
+  ['maracajaú',            '901712739425', 'Maracajaú'],
+  ['maracajau',            '901712739425', 'Maracajaú'],
+];
+const ROUTER_AREA = [
+  ['rgi',                       '901712739247', 'RGI'],
+  ['administrativo',            '901712739243', 'Administrativo'],
+  ['planejamento estratégico',  '901712739152', 'Planejamento Estratégico'],
+  ['licença',                   '901712739153', 'Controle de Licenças'],
+  ['licenca',                   '901712739153', 'Controle de Licenças'],
+  ['financiamento',             '901712739230', 'Financiamentos'],
+  ['suprimentos',               '901712739182', 'Suprimentos'],
+  ['nupe',                      '901713024319', 'NuPE'],
+  ['comercial',                 '901712739337', 'Gestão Comercial'],
+  ['marketing',                 '901712739337', 'Gestão Comercial'],
+  ['backoffice',                '901712739564', 'BackOffice Financeiro'],
+  ['financeiro',                '901712739564', 'BackOffice Financeiro'],
+  ['lean',                      '901712739563', 'Lean Construction'],
+];
+
+function extractContext(desc) {
+  if (!desc) return '';
+  const m = desc.match(/📝 Contexto:\s*([\s\S]*?)(?:━━|👤|$)/);
+  return m ? m[1].trim() : '';
+}
+function routeAction(name, description) {
+  const hay = ((name||'') + ' | ' + (description||'')).toLowerCase();
+  for (const [kw, lid, lname] of ROUTER_EMPREENDIMENTO) {
+    if (hay.includes(kw)) return {list_id: lid, list_name: lname, confidence: 0.9, level: 'high'};
+  }
+  for (const [kw, lid, lname] of ROUTER_AREA) {
+    if (hay.includes(kw)) return {list_id: lid, list_name: lname, confidence: 0.7, level: 'med'};
+  }
+  return {list_id: null, list_name: 'Triagem manual', confidence: 0.0, level: 'none'};
+}
+function listName(id) { return LIST_NAMES[id] || `Lista ${id}`; }
+
+async function fetchPaged(url) {
+  let all = [], page = 0;
+  while (page < 20) {
+    const sep = url.includes('?') ? '&' : '?';
+    const r = await fetch(`${url}${sep}page=${page}&subtasks=false`);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const d = await r.json();
+    const batch = d.tasks || [];
+    all = all.concat(batch);
+    if (batch.length < 100) break;
+    page++;
+  }
+  return all;
+}
+async function fetchBacklog()    {
+  // DUO: une as duas listas por id de tarefa e marca de qual lista cada uma veio
+  const porLista = await Promise.all(BACKLOG_LISTS.map(async lid => {
+    const ts = await fetchPaged(`${WORKER_URL}/list/${lid}/task?include_closed=true`);
+    return ts.map(t => Object.assign(t, { _lista_origem: lid }));
+  }));
+  const vistos = new Map();
+  for (const t of porLista.flat()) if (!vistos.has(t.id)) vistos.set(t.id, t);
+  return [...vistos.values()];
+}
+async function fetchGestionAll() { return []; }   // DUO: as 2 colunas saem da lista confidencial
+async function fetchMembers()    {
+  const vistos = new Map();
+  for (const lid of BACKLOG_LISTS) {
+    try {
+      const r = await fetch(`${WORKER_URL}/workspace-members?list_id=${lid}`);
+      if (!r.ok) continue;
+      const d = await r.json();
+      for (const m of (d.members || [])) { const k = (m.username || m.email || m.id || '').toString().toLowerCase(); if (!vistos.has(k)) vistos.set(k, m); }
+    } catch { /* lista sem membros nao derruba o painel */ }
+  }
+  return [...vistos.values()];
+}
+async function fetchDeltas()     {
+  return null;   // DUO: o snapshot /deltas cobre so a lista publica
+  try { const r = await fetch(`${WORKER_URL}/deltas`); if (!r.ok) return null; return await r.json(); }
+  catch { return null; }
+}
+
+// ─── Estado global ─────────────────────────────────────────
+const state = {
+  backlog: [],
+  moved: [],
+  members: [],
+  deltas: { today: null, yesterday: null, week_ago: null },
+  filterPend: null,    // null = Todos · 'user.name' (lowercase username) · '__none__' = Sem responsável
+  filterAcomp: null,
+  // Filtros por coluna (dropdowns em cada cabeçalho de tabela)
+  colPend:  { tarefa:null, responsavel:null, prazo:null, idade:null },
+  colAcomp: { tarefa:null, responsavel:null, status:null, prazo:null },
+  alvosTriagem: [],
+  alvosPorLista: {},
+};
+
+// ─── Helpers de filtro por coluna ──────────────────────────
+// ─── Triagem da DUO: a coluna de status e a DATA DA ATA de origem ───
+// Enquanto a acao esta numa coluna com nome de data (dd/mm/aaaa), ela chegou
+// da ata e ainda NAO foi triada. Sair da coluna-data = entrar em acompanhamento.
+const RE_STATUS_DATA = /^\s*\d{2}\/\d{2}\/\d{4}\s*$/;
+function isPendenteTriagem(t) { return RE_STATUS_DATA.test(t.status?.status || ''); }
+function dataDaAta(t) { return String(t.status?.status || '').trim(); }
+
+function prazoBucket(due) {
+  if (!due) return 'sem-prazo';
+  const d = Number(due), now = Date.now();
+  if (d < now) return 'vencido';
+  const days = (d - now) / 86400000;
+  if (days < 1) return 'hoje';
+  if (days < 7) return 'semana';
+  return 'futuro';
+}
+const PRAZO_LABEL = { 'vencido':'⚠ Vencido', 'hoje':'Hoje', 'semana':'Esta semana', 'futuro':'Mais de 7 dias', 'sem-prazo':'Sem prazo' };
+
+function idadeBucket(created) {
+  if (!created) return 'sem-data';
+  const days = Math.floor((Date.now() - Number(created)) / 86400000);
+  if (days < 1) return 'hoje';
+  if (days < 3) return '1-3';
+  return '3+';
+}
+const IDADE_LABEL = { 'hoje':'Hoje', '1-3':'1–3 dias', '3+':'3+ dias', 'sem-data':'Sem data' };
+
+function applyColFilters(tasks, which) {
+  const cf = state[which === 'pend' ? 'colPend' : 'colAcomp'];
+  return tasks.filter(t => {
+    if (cf.tarefa && t.name !== cf.tarefa) return false;
+    if (cf.responsavel) {
+      const has = (t.assignees||[]).some(u => (u.username||u.email||'').toLowerCase() === cf.responsavel);
+      const isNone = !(t.assignees||[]).length && cf.responsavel === '__none__';
+      if (!has && !isNone) return false;
+    }
+    if (cf.prazo && prazoBucket(t.due_date) !== cf.prazo) return false;
+    if (cf.idade && dataDaAta(t) !== cf.idade) return false;
+    if (cf.status && (t.status?.status||'').toLowerCase() !== cf.status) return false;
+    return true;
+  });
+}
+
+function uniqueSorted(arr) {
+  return Array.from(new Set(arr.filter(x => x != null && x !== ''))).sort((a,b) => String(a).localeCompare(String(b), 'pt-BR'));
+}
+
+function colSelectHTML(label, which, col, options, current) {
+  const opts = options.map(o => {
+    const val = typeof o === 'string' ? o : o.value;
+    const lab = typeof o === 'string' ? o : o.label;
+    const sel = current === val ? 'selected' : '';
+    return `<option value="${escHTML(val)}" ${sel}>${escHTML(lab)}</option>`;
+  }).join('');
+  const activeCls = current ? 'active' : '';
+  const currentObj = current ? options.find(o => (typeof o === 'string' ? o : o.value) === current) : null;
+  const tagText = currentObj ? (typeof currentObj === 'string' ? currentObj : currentObj.label) : '';
+  const tagSafe = tagText.length > 18 ? tagText.slice(0,18) + '…' : tagText;
+  const tagHTML = current
+    ? `<span class="col-filter-tag" onclick="clearOneColFilter('${which}','${col}')" title="Limpar filtro">${escHTML(tagSafe)} <span class="x">×</span></span>`
+    : '';
+  return `<span class="col-filter-wrap">
+    <span class="col-filter-row">${escHTML(label)}<select class="col-filter ${activeCls}" data-which="${which}" data-col="${col}" title="Filtrar por ${escHTML(label)}${current ? ` (atual: ${escHTML(tagText)})` : ''}"><option value="">▼</option>${opts}</select></span>
+    ${tagHTML}
+  </span>`;
+}
+
+// Filtra tasks por seleção de assignee (lowercase username)
+function applyAssigneeFilter(tasks, filter) {
+  if (!filter) return tasks;
+  if (filter === '__none__') return tasks.filter(t => !(t.assignees||[]).length);
+  return tasks.filter(t => (t.assignees||[]).some(u =>
+    (u.username || u.email || '').toLowerCase() === filter
+  ));
+}
+
+// Constrói lista de chips de colaboradores (apenas membros do workspace que aparecem nas tasks)
+function buildAssigneeChips(tasks, members) {
+  const counts = {};
+  let noneCount = 0;
+  for (const t of tasks) {
+    const a = t.assignees || [];
+    if (!a.length) { noneCount++; continue; }
+    for (const u of a) {
+      const key = (u.username || u.email || '').toLowerCase();
+      counts[key] = (counts[key] || 0) + 1;
+    }
+  }
+  // Mapa: username lowercase → first name
+  const memberByKey = new Map();
+  for (const m of members) {
+    const k = (m.username || m.email || '').toLowerCase();
+    memberByKey.set(k, m);
+  }
+  // Só mostra usuário que está nas tasks E é membro do workspace
+  const chips = Object.entries(counts)
+    .filter(([key]) => memberByKey.has(key))
+    .map(([key, count]) => {
+      const m = memberByKey.get(key);
+      const raw = (m.username || m.email || '').split('@')[0];
+      const first = (raw.split(/[.\s_-]/).filter(Boolean)[0] || raw);
+      return {
+        key,
+        label: first.charAt(0).toUpperCase() + first.slice(1).toLowerCase(),
+        count,
+      };
+    })
+    .sort((a,b) => b.count - a.count);
+  if (noneCount > 0) chips.push({ key: '__none__', label: 'Sem responsável', count: noneCount });
+  // Somar os chips conta 2x quem tem 2 responsaveis. O total verdadeiro e o
+  // numero de ACOES -- que e o que a tabela mostra quando 'Todos' e escolhido.
+  chips.totalTarefas = tasks.length;
+  return chips;
+}
+
+function renderFilterStrip(currentFilter, chips, onSelect) {
+  const totalCount = chips.totalTarefas ?? chips.reduce((s,c) => s + c.count, 0);
+  const allSel = currentFilter == null ? 'selected' : '';
+  const allOpt = `<option value="" ${allSel}>Todos (${totalCount})</option>`;
+  const rest = chips.map(c => {
+    const sel = currentFilter === c.key ? 'selected' : '';
+    return `<option value="${escHTML(c.key)}" ${sel}>${escHTML(c.label)} (${c.count})</option>`;
+  }).join('');
+  const clearHidden = currentFilter == null ? 'hidden' : '';
+  return `<div class="filter-strip">
+    <span class="f-label">Filtrar por pessoa:</span>
+    <select class="filter-select" data-onselect="${onSelect}">${allOpt}${rest}</select>
+    <button type="button" class="filter-clear" data-onselect="${onSelect}" ${clearHidden}>Limpar</button>
+  </div>`;
+}
+
+// ─── Deltas helpers ─────────────────────────────────────────
+function computeDelta(field, todaySnap, yesterdaySnap, filterKey) {
+  if (!todaySnap || !yesterdaySnap) return null;
+  const get = (snap) => {
+    if (filterKey === '__none__') {
+      if (field === 'total') return snap.by_assignee?.__none__ || 0;
+      return null; // sub-deltas por (filter+field) ainda não cacheados
+    }
+    if (filterKey) {
+      if (field === 'total') return snap.by_assignee?.[filterKey] || 0;
+      return null;
+    }
+    if (field === 'total')        return snap.total;
+    if (field === 'overdue')      return snap.overdue;
+    if (field === 'no_assignee')  return snap.no_assignee;
+    return null;
+  };
+  const a = get(todaySnap), b = get(yesterdaySnap);
+  if (a == null || b == null) return null;
+  return a - b;
+}
+
+// Renderiza um chip de delta. `goodWhen`: 'down' = bom se desceu, 'up' = bom se subiu
+function deltaChip(delta, goodWhen) {
+  if (delta == null) return '';
+  if (delta === 0) return `<span class="kpi-delta neutral">— sem mudança</span>`;
+  const sign = delta > 0 ? '+' : '';
+  const arrow = delta > 0 ? '▲' : '▼';
+  let cls = 'neutral';
+  if (goodWhen === 'down') cls = delta > 0 ? 'up-bad'  : 'down-good';
+  if (goodWhen === 'up')   cls = delta > 0 ? 'up-good' : 'down-bad';
+  return `<span class="kpi-delta ${cls}"><span class="arrow">${arrow}</span>${sign}${delta} vs ontem</span>`;
+}
+
+function escHTML(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function assigneeName(t) {
+  const a = t.assignees || [];
+  if (!a.length) return '—';
+  return a.map(u => (u.username || u.email || '?').split('@')[0]).join(', ');
+}
+function dueClass(due_date) {
+  if (!due_date) return 'due-none';
+  const d = Number(due_date);
+  const today = new Date(); today.setHours(0,0,0,0);
+  const tomorrow = new Date(today); tomorrow.setDate(today.getDate()+1);
+  if (d < today.getTime()) return 'due-overdue';
+  if (d < tomorrow.getTime()) return 'due-today';
+  return 'due-ok';
+}
+function dueText(due_date) {
+  if (!due_date) return 'Sem prazo';
+  const dc = dueClass(due_date);
+  if (dc === 'due-today') return 'Hoje';
+  const d = new Date(Number(due_date));
+  const fmt = d.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'});
+  return dc === 'due-overdue' ? '⚠ ' + fmt : fmt;
+}
+function ageText(date_created) {
+  if (!date_created) return '—';
+  const days = Math.floor((Date.now() - Number(date_created)) / 86400000);
+  if (days === 0) return 'Hoje';
+  if (days === 1) return '1 dia';
+  return `${days} dias`;
+}
+function ageClass(date_created) {
+  if (!date_created) return 'pill pill-normal';
+  const days = Math.floor((Date.now() - Number(date_created)) / 86400000);
+  if (days >= 7) return 'pill pill-age-critical';
+  if (days >= 3) return 'pill pill-age-warn';
+  return 'pill pill-normal';
+}
+function prioText(p) {
+  const map = {urgent:'Urgente', high:'Alta', normal:'Normal', low:'Baixa'};
+  return map[p?.priority] || 'Normal';
+}
+function prioClass(p) {
+  const map = {urgent:'pill pill-urgent', high:'pill pill-high', normal:'pill pill-normal', low:'pill pill-low'};
+  return map[p?.priority] || 'pill pill-normal';
+}
+function isTaskDone(t) {
+  const typ = (t.status?.type   || '').toLowerCase();
+  const nam = (t.status?.status || '').toLowerCase();
+  return ['done','closed'].includes(typ) ||
+         ['done','complete','concluído','concluido','closed','feito','arquivo fechado'].includes(nam);
+}
+function statusClass(s) {
+  const n   = (s?.status || '').toLowerCase();
+  const typ = (s?.type   || '').toLowerCase();
+  if (['done','closed'].includes(typ) || ['done','complete','concluído','concluido','closed','feito','arquivo fechado'].includes(n)) return 'pill status-done';
+  if (['validando','em aprovação','em aprovacao'].includes(n)) return 'pill status-validating';
+  if (['in progress','em andamento','doing','active','fazendo'].includes(n)) return 'pill status-doing';
+  if (['cancelado','arquivado fechado','não se aplica','nao se aplica'].includes(n)) return 'pill status-cancelled';
+  return 'pill status-todo';
+}
+function statusText(s) {
+  const map = {
+    backlog:'Backlog', standby:'Standby', fazendo:'Fazendo', 'in progress':'Fazendo',
+    validando:'Validando', 'em aprovação':'Em aprovação', 'em aprovacao':'Em aprovação',
+    concluído:'Concluído', concluido:'Concluído', done:'Concluído', complete:'Concluído',
+    'não se aplica':'Não se aplica', 'nao se aplica':'Não se aplica',
+    cancelado:'Cancelado', closed:'Cancelado', 'arquivado fechado':'Arquivado',
+  };
+  const n = (s?.status || '').toLowerCase();
+  return map[n] || (s?.status ? s.status.charAt(0).toUpperCase() + s.status.slice(1) : 'A fazer');
+}
+function sugClass(level) {
+  return 'sug ' + ({high:'sug-high', med:'sug-med', none:'sug-none'}[level] || 'sug-none');
+}
+
+function kpi(label, value, opts = {}) {
+  const featured = opts.featured ? ' featured' : '';
+  const tone     = opts.tone ? ` tone-${opts.tone}` : '';
+  const valTone  = opts.tone && !opts.featured ? ` ${opts.tone}` : '';
+  const sub      = opts.sub ? `<div class="sub">${opts.sub}</div>` : '';
+  const delta    = opts.deltaChip ? `<div class="delta-row">${opts.deltaChip}</div>` : '';
+  return `<div class="kpi${featured}${tone}">
+    <div class="label">${label}</div>
+    <div class="value${valTone}">${value}</div>
+    ${sub}
+    ${delta}
+  </div>`;
+}
+
+// ─── Charts ────────────────────────────────────────────────
+const charts = {};
+function destroyChart(key) { if (charts[key]) { charts[key].destroy(); delete charts[key]; } }
+
+function donutOptions(opts = {}) {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '70%',
+    layout: { padding: { top: 4, bottom: 4, left: 4, right: 4 } },
+    animation: { animateRotate: true, animateScale: true, duration: 900, easing: 'easeOutQuart' },
+    onClick: opts.onSliceClick ? (evt, elements, chart) => {
+      if (!elements || !elements.length) return;
+      const idx = elements[0].index;
+      const label = chart.data.labels[idx];
+      opts.onSliceClick(label, idx);
+    } : undefined,
+    onHover: opts.onSliceClick ? (evt) => { evt.native && (evt.native.target.style.cursor = 'pointer'); } : undefined,
+    plugins: {
+      centerTotal: { rotulo: opts.rotuloCentro },
+      legend: {
+        // Caixa estreita: a legenda a direita quebra em 2 colunas e o
+        // Chart.js corta o nome no meio ('Alvar - 8'). Embaixo ela usa a
+        // largura inteira do card. 420 px e o ponto onde 'Micaele - 5'
+        // ainda cabe ao lado da rosca; abaixo disso, nao cabe.
+        position: ((opts.larguraCaixa || 9999) < 420 ? 'bottom' : 'right'),
+        align: 'center',
+        labels: {
+          color: PALETTE.text,
+          font: { family: 'Inter', size: 11, weight: '500' },
+          boxWidth: 10, padding: 9, usePointStyle: true, pointStyle: 'circle',
+          generateLabels: (chart) => {
+            const data = chart.data;
+            return data.labels.map((label, i) => {
+              const value = data.datasets[0].data[i];
+              return {
+                text: `${label}  ·  ${value}`,
+                fillStyle: data.datasets[0].backgroundColor[i],
+                strokeStyle: data.datasets[0].backgroundColor[i],
+                lineWidth: 0,
+                hidden: false,
+                index: i,
+                pointStyle: 'circle',
+                fontColor: PALETTE.text,
+              };
+            });
+          },
+        }
+      },
+      tooltip: {
+        backgroundColor: 'rgba(15,31,61,0.95)',
+        titleColor: PALETTE.text, bodyColor: PALETTE.text,
+        padding: 10, cornerRadius: 8,
+        borderColor: 'rgba(255,255,255,0.12)', borderWidth: 1,
+        titleFont: { family: 'Inter', size: 11, weight: '600' },
+        bodyFont: { family: 'Inter', size: 11 },
+      }
+    }
+  };
+}
+
+// Plugin: total no centro do donut
+const centerTotalPlugin = {
+  id: 'centerTotal',
+  afterDatasetsDraw(chart, args, opts) {
+    const total = chart.data.datasets[0].data.reduce((a,b)=>a+b, 0);
+    const {ctx, chartArea: {left, right, top, bottom}} = chart;
+    const cx = (left + right) / 2;
+    const cy = (top + bottom) / 2;
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = PALETTE.text;
+    ctx.font = '800 26px Inter';
+    ctx.shadowColor = 'rgba(232,123,30,0.45)';
+    ctx.shadowBlur = 18;
+    ctx.fillText(String(total), cx, cy - 6);
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = PALETTE.textMuted;
+    ctx.font = '600 9px Inter';
+    ctx.fillText(opts.rotulo || 'TOTAL', cx, cy + 14);
+    ctx.restore();
+  }
+};
+
+// Helper: extrai só o primeiro nome (Álvaro, Gustavo, Lara), capitalizado
+function firstName(user) {
+  const raw = (user.username || user.email || '?').split('@')[0];
+  const token = raw.split(/[.\s_-]/).filter(Boolean)[0] || raw;
+  return token.charAt(0).toUpperCase() + token.slice(1).toLowerCase();
+}
+
+// LEFT — Donut: por Responsável (apenas primeiro nome)
+function renderResponsavelDonut(canvas, backlog) {
+  const counts = {};
+  // labelKeys: label visível → key real (username lowercase ou __none__)
+  const labelKeys = {};
+  for (const t of backlog) {
+    const a = t.assignees || [];
+    if (!a.length) {
+      counts['Sem responsável'] = (counts['Sem responsável']||0) + 1;
+      labelKeys['Sem responsável'] = '__none__';
+      continue;
+    }
+    for (const u of a) {
+      const n = firstName(u);
+      counts[n] = (counts[n]||0) + 1;
+      labelKeys[n] = (u.username || u.email || '').toLowerCase();
+    }
+  }
+  // Ordena com "Sem responsável" no final
+  const entries = Object.entries(counts);
+  entries.sort((a,b) => {
+    if (a[0] === 'Sem responsável') return 1;
+    if (b[0] === 'Sem responsável') return -1;
+    return b[1] - a[1];
+  });
+  const labels = entries.map(e => e[0]);
+  const values = entries.map(e => e[1]);
+  const colors = labels.map((l,i) => l === 'Sem responsável' ? PALETTE.dim : AURORA[i % AURORA.length]);
+
+  // Legenda embaixo (caixa estreita) come ~80 px; sem folga o anel encolhe
+  // ate o rotulo central transbordar. So este card cresce.
+  canvas.parentElement.style.height =
+    canvas.parentElement.clientWidth < 420 ? '268px' : '';
+  destroyChart('respDonut');
+  charts.respDonut = new Chart(canvas, {
+    type: 'doughnut',
+    data: {
+      labels,
+      datasets: [{
+        data: values,
+        backgroundColor: colors,
+        borderColor: '#0F1F3D',
+        borderWidth: 2,
+        hoverOffset: 12,
+        hoverBorderColor: 'rgba(255,255,255,0.4)',
+      }]
+    },
+    options: donutOptions({
+      // Soma das fatias, nao numero de acoes: quem divide uma acao aparece
+      // na fatia dos dois. Chamar de TOTAL contradizia o cabecalho da tabela.
+      rotuloCentro: 'ATRIBUIÇÕES',
+      larguraCaixa: canvas.parentElement.clientWidth,
+      onSliceClick: (label) => {
+        const key = labelKeys[label];
+        if (key) setFilter('pend', state.filterPend === key ? null : key);
+      }
+    }),
+    plugins: [centerTotalPlugin]
+  });
+}
+
+// LEFT — Bar list: por Empreendimento
+function renderTopEmpreendimentos(container, backlog) {
+  const counts = {};
+  for (const t of backlog) {
+    const hay = ((t.name||'') + ' | ' + (t.description||'')).toLowerCase();
+    let matched = null;
+    for (const [kw, , lname] of ROUTER_EMPREENDIMENTO) {
+      if (hay.includes(kw)) { matched = lname.replace(/^Emp\.\s*/, ''); break; }
+    }
+    const key = matched || 'Sem empreendimento';
+    counts[key] = (counts[key] || 0) + 1;
+  }
+  const items = Object.entries(counts)
+    .map(([label, value]) => ({label, value}))
+    .sort((a,b) => {
+      if (a.label === 'Sem empreendimento') return 1;
+      if (b.label === 'Sem empreendimento') return -1;
+      return b.value - a.value;
+    })
+    .slice(0, 6);
+  renderBars(container, items, true);
+}
+
+// RIGHT — Donut: status das triadas
+function renderStatusDonut(canvas, moved) {
+  const b = { 'A fazer':0, 'Em andamento':0, 'Validação':0, 'Concluído':0 };
+  for (const t of moved) {
+    const s = (t.status?.status || '').toLowerCase();
+    if (['done','closed'].includes((t.status?.type||'').toLowerCase()) || ['done','complete','concluído','concluido','closed','feito','arquivo fechado'].includes(s)) b['Concluído']++;
+    else if (['validando','em aprovação','em aprovacao'].includes(s)) b['Validação']++;
+    else if (['in progress','em andamento','doing','active','fazendo'].includes(s)) b['Em andamento']++;
+    else b['A fazer']++;
+  }
+  destroyChart('statusDonut');
+  charts.statusDonut = new Chart(canvas, {
+    type: 'doughnut',
+    data: {
+      labels: Object.keys(b),
+      datasets: [{
+        data: Object.values(b),
+        backgroundColor: ['#6E7E9E', '#E87B1E', '#C77DFF', '#34D399'],
+        borderColor: '#0F1F3D',
+        borderWidth: 2,
+        hoverOffset: 12,
+        hoverBorderColor: 'rgba(255,255,255,0.4)',
+      }]
+    },
+    options: donutOptions(),
+    plugins: [centerTotalPlugin]
+  });
+}
+
+// RIGHT — Bar list: top 5 responsáveis (apenas primeiro nome)
+function renderTopAssignees(container, moved) {
+  const open = moved.filter(t => !isTaskDone(t));
+  const counts = {};
+  for (const t of open) {
+    const a = t.assignees || [];
+    if (!a.length) { counts['Sem responsável'] = (counts['Sem responsável']||0) + 1; continue; }
+    for (const u of a) {
+      const n = firstName(u);
+      counts[n] = (counts[n]||0) + 1;
+    }
+  }
+  const items = Object.entries(counts)
+    .map(([label, value]) => ({label, value}))
+    .sort((a,b) => {
+      if (a.label === 'Sem responsável') return 1;
+      if (b.label === 'Sem responsável') return -1;
+      return b.value - a.value;
+    }).slice(0, 6);
+  renderBars(container, items, true);
+}
+
+function renderBars(container, items, vibrant) {
+  if (!items.length) { container.innerHTML = `<div class="chart-empty">Sem dados</div>`; return; }
+  const M = Math.max(...items.map(i => i.value), 1);
+  container.innerHTML = `<div class="bars">${items.map((i, idx) => {
+    const c = vibrant ? (i.label.startsWith('Sem ') ? '#6E7E9E' : AURORA[idx % AURORA.length]) : null;
+    const fillStyle = c
+      ? `background:linear-gradient(90deg, ${c}, ${c}cc);box-shadow:0 0 10px ${c}66`
+      : '';
+    const valColor = c ? `color:${c}` : '';
+    return `<div class="bar-row">
+      <div class="bar-name" title="${escHTML(i.label)}">${escHTML(i.label)}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${(i.value/M*100).toFixed(1)}%;${fillStyle}"></div></div>
+      <div class="bar-value" style="${valColor}">${i.value}</div>
+    </div>`;
+  }).join('')}</div>`;
+}
+
+// ─── Tables ────────────────────────────────────────────────
+function renderBacklogTable(tasks) {
+  const fullSet = tasks; // antes do filtro por coluna — usado para popular dropdowns
+  const filtered = applyColFilters(tasks, 'pend');
+  if (!fullSet.length) return `<div class="table-card"><div class="empty">Sem ações pendentes — tudo triado</div></div>`;
+  const sorted = [...filtered].sort((a,b) => Number(a.date_created) - Number(b.date_created));
+  const rows = sorted.map(t => {
+    const code = shortCode(t.id);
+    const taskCell = `<a class="task-code" href="https://app.clickup.com/t/${escHTML(t.id)}" target="_blank" rel="noopener" title="${escHTML(t.name)} — abrir no ClickUp">${escHTML(code)}</a>`;
+    const listOpts = (state.alvosPorLista[t.list?.id || t.list_id || t._lista_origem] || state.alvosTriagem || []).map(s =>
+      `<option value="${escHTML(s.status)}">${escHTML(statusText({status: s.status}))}</option>`
+    ).join('');
+    return `<tr>
+      <td><div class="task-name" title="${escHTML(t.name)}">${escHTML(t.name)}</div></td>
+      <td class="cell-clickable" onclick="openAssigneeModal('${t.id}')" title="Clique para alterar"><span class="assignee">${assigneeName(t)}</span></td>
+      <td>${taskCell}</td>
+      <td class="cell-clickable" onclick="openDueDateModal('${t.id}')" title="Clique para alterar"><span class="due-date ${dueClass(t.due_date)}">${dueText(t.due_date)}</span></td>
+      <td><span class="${ageClass(t.date_created)}">${escHTML(dataDaAta(t))}</span></td>
+      <td><div class="row-actions">
+        <select class="btn-approve-select" onchange="doTriarInline(this, '${t.id}')" title="Triar: tirar da data da ATA e pôr em acompanhamento">
+          <option value="">✅</option>
+          <option value="" disabled>— Triar para —</option>
+          ${listOpts}
+        </select>
+      </div></td>
+    </tr>`;
+  }).join('');
+  // Opções únicas para os dropdowns dos cabeçalhos (a partir do conjunto completo da tabela)
+  const cf = state.colPend;
+  const tarefaOpts = uniqueSorted(fullSet.map(t => t.name));
+  const respSet = new Set();
+  let respHasNone = false;
+  for (const t of fullSet) {
+    const a = t.assignees||[];
+    if (!a.length) respHasNone = true;
+    for (const u of a) respSet.add((u.username||u.email||'').toLowerCase());
+  }
+  const respOpts = Array.from(respSet).filter(Boolean).sort((a,b)=>a.localeCompare(b,'pt-BR')).map(k => ({ value: k, label: k }));
+  if (respHasNone) respOpts.push({ value:'__none__', label:'(sem responsável)' });
+  const prazoBucketsSet = new Set(fullSet.map(t => prazoBucket(t.due_date)));
+  const prazoOpts = ['vencido','hoje','semana','futuro','sem-prazo'].filter(b => prazoBucketsSet.has(b)).map(b => ({ value:b, label: PRAZO_LABEL[b] }));
+  const idadeOpts = uniqueSorted(fullSet.map(t => dataDaAta(t)));
+
+  const activeCount = Object.values(cf).filter(v => v).length;
+  const filtNote = activeCount ? ` · <span style="color:var(--col-tint)">${activeCount} filtro${activeCount>1?'s':''} de coluna ativo${activeCount>1?'s':''}</span> <button type="button" class="filter-clear" onclick="clearColFilters('pend')">Limpar colunas</button>` : '';
+
+  return `<div class="table-card">
+    <div class="table-header">
+      <span class="t-title">Triagem da DUO</span>
+      <span class="t-meta">${sorted.length}${activeCount?` de ${fullSet.length}`:''} ${sorted.length===1?'ação':'ações'} · ordem por chegada · clique nas células para editar${filtNote}</span>
+    </div>
+    <div class="table-scroll"><table>
+      <thead><tr>
+        <th>${colSelectHTML('Tarefa','pend','tarefa',tarefaOpts,cf.tarefa)}</th>
+        <th>${colSelectHTML('Responsável','pend','responsavel',respOpts,cf.responsavel)}</th>
+        <th>Task</th>
+        <th>${colSelectHTML('Prazo','pend','prazo',prazoOpts,cf.prazo)}</th>
+        <th>${colSelectHTML('Data da ATA','pend','idade',idadeOpts,cf.idade)}</th>
+        <th>Ações</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+  </div>`;
+}
+
+function renderMovedTable(moved) {
+  const fullSet = moved;
+  const filtered = applyColFilters(moved, 'acomp');
+  if (!fullSet.length) return `<div class="table-card"><div class="empty">Nenhuma ação da DUO triada ainda</div></div>`;
+  const sorted = [...filtered].sort((a,b) => Number(b.date_updated||0) - Number(a.date_updated||0));
+  const rows = sorted.map(t => {
+    const code = shortCode(t.id);
+    const listId = t.list?.id || t.list_id || '';
+    const taskCell = `<a class="task-code" href="https://app.clickup.com/t/${escHTML(t.id)}" target="_blank" rel="noopener" title="${escHTML(t.name)} — em ${escHTML(listName(listId))} — abrir no ClickUp">${escHTML(code)}</a>`;
+    return `<tr>
+      <td><div class="task-name" title="${escHTML(t.name)}">${escHTML(t.name)}</div></td>
+      <td class="cell-clickable" onclick="openAssigneeModal('${t.id}')" title="Clique para alterar"><span class="assignee">${assigneeName(t)}</span></td>
+      <td>${taskCell}</td>
+      <td class="cell-clickable" onclick="openStatusModal('${t.id}')" title="Clique para alterar"><span class="${statusClass(t.status)}">${statusText(t.status)}</span></td>
+      <td class="cell-clickable" onclick="openDueDateModal('${t.id}')" title="Clique para alterar"><span class="due-date ${dueClass(t.due_date)}">${dueText(t.due_date)}</span></td>
+    </tr>`;
+  }).join('');
+  const cf = state.colAcomp;
+  const tarefaOpts = uniqueSorted(fullSet.map(t => t.name));
+  const respSet = new Set(); let respHasNone = false;
+  for (const t of fullSet) {
+    const a = t.assignees||[];
+    if (!a.length) respHasNone = true;
+    for (const u of a) respSet.add((u.username||u.email||'').toLowerCase());
+  }
+  const respOpts = Array.from(respSet).filter(Boolean).sort((a,b)=>a.localeCompare(b,'pt-BR')).map(k => ({ value:k, label:k }));
+  if (respHasNone) respOpts.push({ value:'__none__', label:'(sem responsável)' });
+  const statusOpts = uniqueSorted(fullSet.map(t => (t.status?.status||'').toLowerCase()).filter(Boolean)).map(s => ({ value:s, label:s }));
+  const prazoBucketsSet = new Set(fullSet.map(t => prazoBucket(t.due_date)));
+  const prazoOpts = ['vencido','hoje','semana','futuro','sem-prazo'].filter(b => prazoBucketsSet.has(b)).map(b => ({ value:b, label: PRAZO_LABEL[b] }));
+
+  const activeCount = Object.values(cf).filter(v => v).length;
+  const filtNote = activeCount ? ` · <span style="color:var(--col-tint)">${activeCount} filtro${activeCount>1?'s':''} de coluna ativo${activeCount>1?'s':''}</span> <button type="button" class="filter-clear" onclick="clearColFilters('acomp')">Limpar colunas</button>` : '';
+
+  return `<div class="table-card">
+    <div class="table-header">
+      <span class="t-title">Ações da DUO</span>
+      <span class="t-meta">${sorted.length}${activeCount?` de ${fullSet.length}`:''} ${sorted.length===1?'ação':'ações'} · ordem por atualização${filtNote}</span>
+    </div>
+    <div class="table-scroll"><table>
+      <thead><tr>
+        <th>${colSelectHTML('Tarefa','acomp','tarefa',tarefaOpts,cf.tarefa)}</th>
+        <th>${colSelectHTML('Responsável','acomp','responsavel',respOpts,cf.responsavel)}</th>
+        <th>Task</th>
+        <th>${colSelectHTML('Status','acomp','status',statusOpts,cf.status)}</th>
+        <th>${colSelectHTML('Prazo','acomp','prazo',prazoOpts,cf.prazo)}</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+  </div>`;
+}
+
+// Pega últimos 6 chars do ID — suficiente pra distinguir e curto pra ler
+function shortCode(taskId) {
+  if (!taskId) return '—';
+  const s = String(taskId);
+  return s.length > 7 ? s.slice(-7) : s;
+}
+
+// ─── Renderers das colunas ─────────────────────────────────
+function renderColPend() {
+  const fullBacklog = state.backlog;
+  const backlog     = applyAssigneeFilter(fullBacklog, state.filterPend);
+  const totalFull   = fullBacklog.length;
+  const total       = backlog.length;
+  const overdue     = backlog.filter(t => t.due_date && Number(t.due_date) < Date.now()).length;
+  const noAssign    = backlog.filter(t => !(t.assignees||[]).length).length;
+  const stale       = backlog.filter(t => {
+    if (!t.date_created) return false;
+    const days = Math.floor((Date.now() - Number(t.date_created))/86400000);
+    return days >= 3;
+  }).length;
+
+  const chips = buildAssigneeChips(fullBacklog, state.members);
+  const filterStrip = renderFilterStrip(state.filterPend, chips, 'pend');
+
+  // Delta chips
+  const dToday = state.deltas?.today, dYest = state.deltas?.yesterday;
+  const dTotal    = computeDelta('total',       dToday, dYest, state.filterPend);
+  const dNoAssign = state.filterPend ? null : computeDelta('no_assignee', dToday, dYest, null);
+  const dOverdue  = state.filterPend ? null : computeDelta('overdue',     dToday, dYest, null);
+
+  const kpis = `<div class="kpi-strip">
+    ${kpi('Ações Totais',         total,    { featured: true, sub: 'na data da ATA, aguardando triagem',
+        deltaChip: deltaChip(dTotal, 'down') })}
+    ${kpi('ATAs Sem Responsáveis', noAssign, { tone: noAssign ? 'danger' : 'ok', sub: noAssign ? 'precisam de dono' : 'todas com dono',
+        deltaChip: deltaChip(dNoAssign, 'down') })}
+    ${kpi('Há mais de 3 dias',     stale,    { tone: stale ? 'warn' : 'ok', sub: 'sem triagem' })}
+    ${kpi('Quantidade Vencidas',   overdue,  { tone: overdue ? 'danger' : 'ok', sub: 'prazo no passado',
+        deltaChip: deltaChip(dOverdue, 'down') })}
+  </div>`;
+
+  const charts = `<div class="charts-grid">
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>Distribuição por Responsável</div>
+      <div class="chart-body"><canvas id="ch-sug-donut"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>Top empreendimentos</div>
+      <div class="chart-body" id="ch-sug-bars"></div>
+    </div>
+  </div>`;
+
+  const filtered = state.filterPend
+    ? `<span class="count-pill">${total} de ${totalFull} ${totalFull===1?'ação':'ações'}</span>`
+    : `<span class="count-pill">${total} ${total===1?'ação':'ações'}</span>`;
+
+  document.getElementById('col-pend').innerHTML = `
+    <div class="col-header">
+      <h2>Pendentes de Triagem ${filtered}</h2>
+      <div class="separator"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    </div>
+    ${filterStrip}
+    ${kpis}
+    ${charts}
+    ${renderBacklogTable(backlog)}
+  `;
+
+  renderResponsavelDonut(document.getElementById('ch-sug-donut'), backlog);
+  renderTopEmpreendimentos(document.getElementById('ch-sug-bars'), backlog);
+}
+
+function renderColAcomp() {
+  const fullMoved = state.moved;
+  const moved     = applyAssigneeFilter(fullMoved, state.filterAcomp);
+  const totalFull = fullMoved.length;
+  const total     = moved.length;
+  const open      = moved.filter(t => !isTaskDone(t));
+  const done      = total - open.length;
+  const overdue   = open.filter(t => t.due_date && Number(t.due_date) < Date.now()).length;
+  const people    = new Set(open.flatMap(t => (t.assignees||[]).map(a=>a.username||a.email||'?'))).size;
+
+  const chips = buildAssigneeChips(fullMoved, state.members);
+  const filterStrip = renderFilterStrip(state.filterAcomp, chips, 'acomp');
+
+  const kpis = `<div class="kpi-strip">
+    ${kpi('Em Acompanhamento', open.length, { featured: true, sub: 'tasks abertas' })}
+    ${kpi('Em Atraso',         overdue,     { tone: overdue ? 'danger' : 'ok', sub: 'vencidas em aberto' })}
+    ${kpi('Concluídas',        done,        { tone: 'ok', sub: 'já entregues' })}
+    ${kpi('Pessoas Ativas',    people,      { tone: 'purple', sub: 'com tasks abertas' })}
+  </div>`;
+
+  const charts = `<div class="charts-grid">
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>Distribuição por status</div>
+      <div class="chart-body"><canvas id="ch-status-donut"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title"><span class="dot"></span>Top 5 responsáveis</div>
+      <div class="chart-body" id="ch-assignees-bars"></div>
+    </div>
+  </div>`;
+
+  const filtered = state.filterAcomp
+    ? `<span class="count-pill">${total} de ${totalFull} ${totalFull===1?'ação':'ações'}</span>`
+    : `<span class="count-pill">${total} ${total===1?'ação':'ações'}</span>`;
+
+  document.getElementById('col-acomp').innerHTML = `
+    <div class="col-header">
+      <h2>Em Acompanhamento ${filtered}</h2>
+      <div class="separator"><span class="line"></span><span class="diamond"></span><span class="line"></span></div>
+    </div>
+    ${filterStrip}
+    ${kpis}
+    ${charts}
+    ${renderMovedTable(moved)}
+  `;
+
+  renderStatusDonut(document.getElementById('ch-status-donut'), moved);
+  renderTopAssignees(document.getElementById('ch-assignees-bars'), moved);
+}
+
+// Aplica filtro vindo de chip ou click no donut, e re-renderiza
+function setFilter(which, key) {
+  if (which === 'pend') {
+    state.filterPend = (key === '' || key == null) ? null : key;
+    renderColPend();
+  } else if (which === 'acomp') {
+    state.filterAcomp = (key === '' || key == null) ? null : key;
+    renderColAcomp();
+  }
+}
+
+// Delegação: change no dropdown de filtro + click no botão "Limpar"
+document.addEventListener('change', (ev) => {
+  const sel = ev.target.closest('.filter-select');
+  if (!sel) return;
+  const which = sel.dataset.onselect;
+  setFilter(which, sel.value);
+});
+document.addEventListener('click', (ev) => {
+  const btn = ev.target.closest('.filter-clear[data-onselect]');
+  if (!btn) return;
+  const which = btn.dataset.onselect;
+  setFilter(which, '');
+});
+
+// Filtros por coluna nos cabeçalhos das tabelas
+document.addEventListener('change', (ev) => {
+  const sel = ev.target.closest('.col-filter');
+  if (!sel) return;
+  const which = sel.dataset.which; // 'pend' | 'acomp'
+  const col   = sel.dataset.col;
+  const val   = sel.value || null;
+  state[which === 'pend' ? 'colPend' : 'colAcomp'][col] = val;
+  which === 'pend' ? renderColPend() : renderColAcomp();
+});
+window.clearColFilters = function(which) {
+  const obj = state[which === 'pend' ? 'colPend' : 'colAcomp'];
+  for (const k of Object.keys(obj)) obj[k] = null;
+  which === 'pend' ? renderColPend() : renderColAcomp();
+};
+window.clearOneColFilter = function(which, col) {
+  state[which === 'pend' ? 'colPend' : 'colAcomp'][col] = null;
+  which === 'pend' ? renderColPend() : renderColAcomp();
+};
+
+// ─── F3: Mutações + Modal + Toast ──────────────────────────
+const ALL_LISTS = [
+  ['901712739803', 'DAJP · Emp. Potengi'],
+  ['901712739833', 'DARP · Emp. Pipa'],
+  ['901712739480', 'DAAP · Emp. Areia Preta'],
+  ['901712739276', 'DATS · Emp. Tibau do Sul'],
+  ['901712739955', 'Emp. Ecobonfim'],
+  ['901712739727', 'Emp. Comercial Potengi'],
+  ['901712739452', 'Caraúbas'],
+  ['901712739425', 'Maracajaú'],
+  ['901712739247', 'RGI'],
+  ['901712739243', 'Administrativo'],
+  ['901712739152', 'Planejamento Estratégico'],
+  ['901712739153', 'Controle de Licenças'],
+  ['901713024319', 'NuPE'],
+  ['901715836091', 'Jurídico'],
+  ['901715836093', 'Projetos'],
+];
+
+const STATUS_OPTIONS = ['a fazer', 'fazendo', 'validando', 'concluído', 'cancelado'];
+
+function showToast(text, kind = 'info', timeout = 4200) {
+  const t = document.createElement('div');
+  t.className = `toast ${kind}`;
+  t.textContent = text;
+  document.getElementById('toast-stack').appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, timeout);
+}
+
+function openModal(html) {
+  document.getElementById('modal-body').innerHTML = html;
+  document.getElementById('overlay').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('modal-body').innerHTML = '';
+}
+
+async function apiMutate(taskId, action, body) {
+  const r = await fetch(`${WORKER_URL}/task/${taskId}/${action}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(data.error || `Erro ${r.status}`);
+  return data;
+}
+
+// Encontra task por id em backlog ou moved
+function findTask(taskId) {
+  return state.backlog.find(t => t.id === taskId) || state.moved.find(t => t.id === taskId);
+}
+
+// ─── Modal: Aprovar (status "Em Acompanhamento", não move de lista) ──
+window.openApproveModal = function(taskId) {
+  const task = findTask(taskId);
+  if (!task) return;
+  const sug = routeAction(task.name, task.description || '');
+  const options = ALL_LISTS.map(([id, name]) =>
+    `<option value="${id}" ${id === sug.list_id ? 'selected' : ''}>${escHTML(name)}${id === sug.list_id ? ' · sugestão' : ''}</option>`
+  ).join('');
+  openModal(`
+    <h3>Aprovar (Em Acompanhamento)</h3>
+    <div class="modal-sub"><b>${escHTML(task.name)}</b><br>Esta ação muda o status pra "Em Acompanhamento" (a task continua no Backlog); a lista escolhida fica registrada como comentário, mesmo efeito do "Aprovar" no Telegram.</div>
+    ${extractContext(task.description) ? `<div class="modal-context" style="margin:10px 0;padding:10px 12px;background:rgba(255,255,255,0.04);border-radius:6px;font-size:12px;color:rgba(255,255,255,0.6);white-space:pre-wrap;max-height:120px;overflow-y:auto"><span style="color:rgba(255,255,255,0.4);font-size:11px">📝 Contexto da reunião</span><br>${escHTML(extractContext(task.description))}</div>` : ''}
+    <label>Lista de referência (registrada em comentário)</label>
+    <select id="m-list">${options}</select>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-confirm" id="m-go" onclick="doApprove('${taskId}')">Aprovar</button>
+    </div>
+  `);
+};
+window.doApprove = async function(taskId) {
+  const btn = document.getElementById('m-go');
+  const listId = document.getElementById('m-list').value;
+  const task = findTask(taskId);
+  const listName = (ALL_LISTS.find(([id]) => id === listId) || [])[1] || null;
+  btn.disabled = true; btn.textContent = 'Aprovando…';
+  try {
+    await apiMutate(taskId, 'move', {
+      list_id: listId,
+      list_name: listName,
+      task_title: task?.name || null,
+      approved_by: 'painel',
+    });
+    showToast('✅ Aprovado — em acompanhamento', 'ok');
+    closeModal();
+    await load();
+  } catch (e) {
+    showToast(`Falha: ${e.message}`, 'err', 7000);
+    btn.disabled = false; btn.textContent = 'Aprovar';
+  }
+};
+
+// ─── Modal: Trocar responsável ─────────────────────────────
+window.openAssigneeModal = function(taskId) {
+  const task = findTask(taskId); if (!task) return;
+  const current = new Set((task.assignees||[]).map(a => a.id));
+  const opts = state.members.map(m => `
+    <label>
+      <input type="checkbox" value="${m.id}" ${current.has(m.id) ? 'checked' : ''}>
+      <span>${escHTML(m.username)}</span>
+    </label>`).join('');
+  openModal(`
+    <h3>Definir responsável(eis)</h3>
+    <div class="modal-sub"><b>${escHTML(task.name)}</b><br>Selecione um ou mais membros do workspace.</div>
+    <div class="assignee-picker">${opts}</div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-confirm" id="m-go" onclick="doAssignee('${taskId}')">Salvar</button>
+    </div>
+  `);
+};
+window.doAssignee = async function(taskId) {
+  const btn = document.getElementById('m-go');
+  const task = findTask(taskId);
+  const before = new Set((task.assignees||[]).map(a => a.id));
+  const after = new Set(Array.from(document.querySelectorAll('.assignee-picker input:checked')).map(i => Number(i.value)));
+  const add = [...after].filter(x => !before.has(x));
+  const rem = [...before].filter(x => !after.has(x));
+  if (!add.length && !rem.length) { closeModal(); return; }
+  btn.disabled = true; btn.textContent = 'Salvando…';
+  try {
+    await apiMutate(taskId, 'assignee', { add, rem, task_title: task?.name || null, approved_by: 'painel' });
+    showToast('✅ Responsáveis atualizados', 'ok');
+    closeModal();
+    await load();
+  } catch (e) {
+    showToast(`Falha: ${e.message}`, 'err', 7000);
+    btn.disabled = false; btn.textContent = 'Salvar';
+  }
+};
+
+// ─── Modal: Mudar prazo ────────────────────────────────────
+window.openDueDateModal = function(taskId) {
+  const task = findTask(taskId); if (!task) return;
+  const cur = task.due_date ? new Date(Number(task.due_date)).toISOString().slice(0,10) : '';
+  openModal(`
+    <h3>Definir prazo</h3>
+    <div class="modal-sub"><b>${escHTML(task.name)}</b></div>
+    <label>Data (deixe em branco para remover)</label>
+    <input type="date" id="m-date" value="${cur}">
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-confirm" id="m-go" onclick="doDueDate('${taskId}')">Salvar prazo</button>
+    </div>
+  `);
+};
+window.doDueDate = async function(taskId) {
+  const btn = document.getElementById('m-go');
+  const val = document.getElementById('m-date').value;
+  const due = val ? new Date(val + 'T17:00:00-03:00').getTime() : null;
+  const task = findTask(taskId);
+  btn.disabled = true; btn.textContent = 'Salvando…';
+  try {
+    await apiMutate(taskId, 'due_date', { due_date: due, task_title: task?.name || null, approved_by: 'painel' });
+    showToast('✅ Prazo atualizado', 'ok');
+    closeModal();
+    await load();
+  } catch (e) {
+    showToast(`Falha: ${e.message}`, 'err', 7000);
+    btn.disabled = false; btn.textContent = 'Salvar prazo';
+  }
+};
+
+// Cache local de statuses por list_id (TTL 1h)
+const statusCache = new Map(); // list_id → { fetched_at, statuses:[{status,color}] }
+async function getStatusesForList(listId) {
+  const hit = statusCache.get(listId);
+  if (hit && (Date.now() - hit.fetched_at) < 3600 * 1000) return hit.statuses;
+  try {
+    const r = await fetch(`${WORKER_URL}/list/${listId}/statuses`);
+    const d = await r.json();
+    const statuses = d.statuses || [];
+    statusCache.set(listId, { fetched_at: Date.now(), statuses });
+    return statuses;
+  } catch (e) {
+    return [];
+  }
+}
+
+// ─── Modal: Mudar status (Em Acompanhamento) — status reais do ClickUp ───
+window.openStatusModal = async function(taskId) {
+  const task = findTask(taskId); if (!task) return;
+  const cur = (task.status?.status || '').toLowerCase();
+  const listId = task.list?.id || task.list_id;
+  openModal(`
+    <h3>Mudar status</h3>
+    <div class="modal-sub"><b>${escHTML(task.name)}</b></div>
+    <label>Status (carregando…)</label>
+    <select id="m-status" disabled><option>…</option></select>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="btn-confirm" id="m-go" disabled>Salvar</button>
+    </div>
+  `);
+  // Busca status reais da lista da task
+  const statuses = await getStatusesForList(listId);
+  if (!statuses.length) {
+    document.querySelector('#modal-body label').textContent = 'Status (não foi possível carregar — usando padrão)';
+    const fallback = STATUS_OPTIONS;
+    const opts = fallback.map(s => `<option value="${s}" ${s===cur ? 'selected':''}>${escHTML(s)}</option>`).join('');
+    document.getElementById('m-status').innerHTML = opts;
+  } else {
+    const opts = statuses.map(s => {
+      const sel = s.status.toLowerCase() === cur ? 'selected' : '';
+      return `<option value="${escHTML(s.status)}" ${sel}>${escHTML(s.status)}</option>`;
+    }).join('');
+    document.getElementById('m-status').innerHTML = opts;
+    document.querySelector('#modal-body label').textContent = `Status (${statuses.length} disponíveis nessa lista)`;
+  }
+  document.getElementById('m-status').disabled = false;
+  const btn = document.getElementById('m-go');
+  btn.disabled = false;
+  btn.textContent = 'Salvar';
+  btn.onclick = () => doStatus(taskId);
+};
+window.doStatus = async function(taskId) {
+  const btn = document.getElementById('m-go');
+  const s = document.getElementById('m-status').value;
+  const task = findTask(taskId);
+  btn.disabled = true; btn.textContent = 'Salvando…';
+  try {
+    await apiMutate(taskId, 'status', { status: s, task_title: task?.name || null, approved_by: 'painel' });
+    showToast('✅ Status atualizado', 'ok');
+    closeModal();
+    await load();
+  } catch (e) {
+    showToast(`Falha: ${e.message}`, 'err', 7000);
+    btn.disabled = false; btn.textContent = 'Salvar';
+  }
+};
+
+// ─── Aprovar inline (substitui modal — picker direto no select) ────
+// Triagem da DUO: sai da coluna-data e entra em acompanhamento, SEM sair da
+// lista confidencial (mover para lista publica vazaria a acao).
+window.doTriarInline = async function(sel, taskId) {
+  const novo = sel.value;
+  if (!novo) return;
+  const task = findTask(taskId);
+  sel.disabled = true;
+  try {
+    await apiMutate(taskId, 'status', { status: novo, task_title: task?.name || null, approved_by: 'painel-duo' });
+    showToast('✅ Triada — agora em acompanhamento', 'ok');
+    await load();
+  } catch (e) {
+    showToast(`Falha: ${e.message}`, 'err', 7000);
+    sel.disabled = false; sel.value = '';
+  }
+};
+
+window.doApproveInline = async function(sel, taskId) {
+  const listId = sel.value;
+  if (!listId) return;
+  const task = findTask(taskId);
+  const listName = (ALL_LISTS.find(([id]) => id === listId) || [])[1] || listId;
+  const ok = confirm(`Aprovar?\n\n"${task?.name || taskId}"\n\n→ ${listName} (registrado em comentário)\n\nA task entra em "Em Acompanhamento", sem sair do Backlog.`);
+  if (!ok) { sel.value = ''; return; }
+  sel.disabled = true;
+  try {
+    await apiMutate(taskId, 'move', {
+      list_id: listId,
+      list_name: listName,
+      task_title: task?.name || null,
+      approved_by: 'painel',
+    });
+    showToast(`✅ Em acompanhamento (ref.: ${listName})`, 'ok');
+    await load();
+  } catch (e) {
+    showToast(`Falha: ${e.message}`, 'err', 7000);
+    sel.disabled = false;
+    sel.value = '';
+  }
+};
+
+// ─── Recusar (cancela a task) ──────────────────────────────
+window.doReject = async function(taskId) {
+  const task = findTask(taskId);
+  if (!task) return;
+  const ok = confirm(`Recusar a ação?\n\n"${task.name}"\n\nA task será marcada como CANCELADA no ClickUp (reversível).`);
+  if (!ok) return;
+  try {
+    await apiMutate(taskId, 'reject', { task_title: task.name || null, approved_by: 'painel' });
+    showToast('❌ Ação recusada (cancelada)', 'ok');
+    await load();
+  } catch (e) {
+    showToast(`Falha: ${e.message}`, 'err', 7000);
+  }
+};
+
+// ─── Loader principal ──────────────────────────────────────
+let isLoading = false;
+async function load() {
+  if (isLoading) return;
+  isLoading = true;
+  document.getElementById('col-pend').innerHTML  = '<div class="loading"><span class="spinner"></span>Carregando pendentes…</div>';
+  document.getElementById('col-acomp').innerHTML = '<div class="loading"><span class="spinner"></span>Carregando acompanhamento…</div>';
+  document.getElementById('update-time').textContent = 'Atualizando…';
+
+  try {
+    const [backlog, gestionAll, members, deltas, statusesPorLista] = await Promise.all([
+      fetchBacklog(), fetchGestionAll(), fetchMembers(), fetchDeltas(),
+      Promise.all(BACKLOG_LISTS.map(async lid => [lid, await getStatusesForList(lid)]))
+    ]);
+    // Alvos de triagem = os status da lista que NAO sao data (a data e a origem, nao o destino);
+    // cada lista tem os seus, e a tarefa so pode ir para um status da lista dona dela
+    state.alvosPorLista = {};
+    for (const [lid, sts] of statusesPorLista) state.alvosPorLista[lid] = (sts || []).filter(s => !RE_STATUS_DATA.test(s.status || ''));
+    state.alvosTriagem = state.alvosPorLista[BACKLOG_LIST] || [];
+    const isCancelled = (t) => {
+      const s = (t.status?.status || '').toLowerCase();
+      return s === 'cancelado' || s === 'cancelled' || s === 'canceled'
+        || s === '🗑 excluir' || s === '🗑 excluídas';
+    };
+    // Uma lista so, particionada pela etapa de triagem (a coluna-data).
+    const vivas = backlog.filter(t => !isCancelled(t));
+    state.backlog = vivas.filter(isPendenteTriagem);
+    state.moved   = vivas.filter(t => !isPendenteTriagem(t));
+    state.members = members;
+    state.deltas  = deltas || state.deltas;
+
+    renderColPend();
+    renderColAcomp();
+
+    const nowStr = new Date().toLocaleString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'America/Recife'});
+    document.getElementById('update-time').textContent = `Atualizado ${nowStr} BRT`;
+    const open = state.moved.filter(t => !isTaskDone(t));
+    document.getElementById('footer-count').textContent =
+      `${state.backlog.length} pendentes · ${open.length} em acompanhamento`;
+  } catch (e) {
+    document.getElementById('col-pend').innerHTML = `<div class="loading">Erro ao carregar: ${escHTML(e.message)}</div>`;
+    document.getElementById('col-acomp').innerHTML = '';
+    document.getElementById('update-time').textContent = 'Erro';
+  } finally {
+    isLoading = false;
+  }
+}
+
+load();
+setInterval(load, 5 * 60 * 1000);
+</script>
+</body>
+</html>
