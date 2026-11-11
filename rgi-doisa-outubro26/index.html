@@ -1149,18 +1149,21 @@ var Fr={},Gr={};var Wr,Hr=function(){function t(t,e,n){var i=this;this._sleepAft
 (function () {
   'use strict';
   var DK = (window.DK = window.DK || {});
-  var mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-  /* o deck e apresentado em reuniao, em maquinas com "efeitos de animacao" desligados (RDP, VM, economia de energia): a opcao do sistema
-     nao desliga mais nada. Quem quiser o deck parado abre o endereco com ?calmo */
-  var calmo = /[?&]calmo\b/.test(location.search);
-  DK.reduz = function () { return calmo; };
+  var DK_CALMO = /[?&]calmo\b/.test(location.search);
+  /* decisão do Álvaro (11/11/2026): o deck anima em qualquer computador e navegador. A opção "reduzir movimento" do sistema
+     (Windows liga sozinho em área de trabalho remota, VM e economia de energia) não desliga nada. Quem quiser o deck parado
+     abre o endereço com ?calmo. */
+  DK.reduz = function () { return DK_CALMO; };
 
-  /* seda: c = canvas, cores = [[r,g,b] x3] de 0 a 1, PR = fração da resolução */
-  DK.seda = function (c, cores, PR) {
-    PR = PR || 0.5;
-    var g = c.getContext('webgl2', { premultipliedAlpha: true, antialias: true });
-    if (!g) { c.classList.add('sem-gl'); return null; }
-    cores = cores || [[0.055, 0.115, 0.29], [0.19, 0.32, 0.64], [0.78, 0.84, 0.95]];
+  /* Seda em três degraus, nesta ordem, sem o espectador perceber a troca:
+     1. WebGL2 (o visual completo);
+     2. se o computador não tem WebGL2, perdeu o contexto da placa ou o desenho está lento (placa por software), a mesma
+        fórmula roda em canvas 2D num quadro pequeno, esticado pelo navegador (a seda é suave, não perde nada);
+     3. se nem canvas 2D abrir, o fundo fica no degradê do CSS. */
+  function sedaGL(c, cores, PR, desiste) {
+    var g = null;
+    try { g = c.getContext('webgl2', { premultipliedAlpha: true, antialias: true }); } catch (e) { g = null; }
+    if (!g) return null;
     var VS = '#version 300 es\nin vec4 a;void main(){gl_Position=a;}';
     var FS = '#version 300 es\nprecision highp float;uniform float t;uniform vec2 res,virt;uniform vec3 c1,c2,c3;out vec4 o;' +
       'vec2 rot(vec2 u,float th){return mat2(cos(th),sin(th),-sin(th),cos(th))*u;}' +
@@ -1172,9 +1175,9 @@ var Fr={},Gr={};var Wr,Hr=function(){function t(t,e,n){var i=this;this._sleepAft
       'vec3 col=mix(mix(c1,c2,r1),c3,r2);col=mix(c1,col,.85);o=vec4(col,1.);}';
     function sh(t, s) { var x = g.createShader(t); g.shaderSource(x, s); g.compileShader(x); return g.getShaderParameter(x, g.COMPILE_STATUS) ? x : null; }
     var v = sh(g.VERTEX_SHADER, VS), f = sh(g.FRAGMENT_SHADER, FS);
-    if (!v || !f) { c.classList.add('sem-gl'); return null; }
+    if (!v || !f) return null;
     var p = g.createProgram(); g.attachShader(p, v); g.attachShader(p, f); g.linkProgram(p);
-    if (!g.getProgramParameter(p, g.LINK_STATUS)) { c.classList.add('sem-gl'); return null; }
+    if (!g.getProgramParameter(p, g.LINK_STATUS)) return null;
     g.useProgram(p);
     g.bindBuffer(g.ARRAY_BUFFER, g.createBuffer());
     g.bufferData(g.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), g.STATIC_DRAW);
@@ -1182,29 +1185,101 @@ var Fr={},Gr={};var Wr,Hr=function(){function t(t,e,n){var i=this;this._sleepAft
     function U(n) { return g.getUniformLocation(p, n); }
     var ut = U('t'), ur = U('res'), uv = U('virt');
     cores.forEach(function (k, i) { g.uniform3f(U('c' + (i + 1)), k[0], k[1], k[2]); });
-    var T0 = performance.now(), vis = true, raf = 0, ult = 0, ativo = true;
+    var T0 = performance.now(), vis = true, raf = 0, ult = 0, ativo = true, morto = false, medidos = 0, lentos = 0;
     function desenha(t) { g.uniform1f(ut, (t - T0) / 1000 * 1.5 - 2.99); g.drawArrays(g.TRIANGLES, 0, 6); c.classList.add('on'); }
     function tam() {
-      var w = c.clientWidth, h = c.clientHeight; if (!w || !h) return;
+      var w = c.clientWidth, h = c.clientHeight; if (morto || !w || !h) return;
       c.width = Math.max(2, Math.round(w * PR)); c.height = Math.max(2, Math.round(h * PR));
       g.viewport(0, 0, c.width, c.height); g.uniform2f(ur, c.width, c.height); g.uniform2f(uv, 2800 * PR, 2800 * PR * h / w);
-      if (DK.reduz() || !raf) desenha(T0 + 4000);
+      if (!raf) desenha(T0 + 4000);
+    }
+    function desistir() { if (morto) return; morto = true; vis = false; if (raf) cancelAnimationFrame(raf); raf = 0; desiste(); }
+    function laco(t) {
+      raf = 0;
+      if (morto || !vis || !ativo || document.hidden || DK.reduz()) return;
+      if (t - ult >= 32) {
+        ult = t;
+        if (medidos < 14) {                       /* placa por software: o desenho trava a página, passa para o canvas 2D */
+          var a = performance.now(); desenha(t); g.finish(); medidos++;
+          if (performance.now() - a > 45) lentos++;
+          if (medidos >= 8 && lentos >= 5) { desistir(); return; }
+        } else desenha(t);
+      }
+      raf = requestAnimationFrame(laco);
+    }
+    function liga() { if (!morto && !DK.reduz() && vis && ativo && !document.hidden && !raf) raf = requestAnimationFrame(laco); }
+    new ResizeObserver(tam).observe(c); tam();
+    new IntersectionObserver(function (e) { vis = e[e.length - 1].isIntersecting; liga(); }).observe(c);
+    document.addEventListener('visibilitychange', liga);
+    c.addEventListener('webglcontextlost', function (e) { e.preventDefault(); desistir(); });
+    if (DK.reduz()) desenha(T0 + 4000); else liga();
+    return { pausa: function (b) { ativo = !b; if (!b) liga(); } };
+  }
+
+  /* mesma fórmula do shader, em JS, num quadro de no máximo 240 colunas; o navegador estica com suavização */
+  function seda2D(c, cores, PR) {
+    var ctx = null;
+    try { ctx = c.getContext('2d'); } catch (e) { ctx = null; }
+    if (!ctx) return null;
+    var K = cores.map(function (k) { return [k[0] * 255, k[1] * 255, k[2] * 255]; }), c1 = K[0], c2 = K[1], c3 = K[2];
+    var T0 = performance.now(), vis = true, raf = 0, ult = 0, ativo = true, W = 0, H = 0, img = null, hw = 1, larg = 240, N = 12;
+    var th = (-50 * Math.PI / 180) * .5 * Math.PI, co = Math.cos(th), si = Math.sin(th);
+    function ss(a, b, x) { var u = (x - a) / (b - a); u = u < 0 ? 0 : u > 1 ? 1 : u; return u * u * (3 - 2 * u); }
+    function desenha(t) {
+      if (!img) return;
+      var tt = .5 * ((t - T0) / 1000 * 1.5 - 2.99), sx = (.0005 + .006 * .01) * 2800 * PR, sy = sx * hw, d = img.data, o = 0;
+      for (var py = 0; py < H; py++) {
+        var uy0 = ((H - py - .5) / H - .5) * sy;
+        for (var px = 0; px < W; px++) {
+          var ux = ((px + .5) / W - .5) * sx;
+          var x = (co * ux - si * uy0) / PR + .5, y = (si * ux + co * uy0) / PR + .5;
+          for (var i = 1; i <= N; i++) { x += .5 / i * Math.cos(tt + i * 1.5 * y); y += .5 / i * Math.cos(tt + i * x); }
+          var mx = .5 + .5 * Math.sin(x * 2.075) * Math.cos(y * 2.075) - .336;
+          var r1 = ss(.1855, .5155 + .00505, mx), r2 = ss(.4855, .8145 + .0101, mx);
+          for (var q = 0; q < 3; q++) {
+            var m = c1[q] + (c2[q] - c1[q]) * r1; m = m + (c3[q] - m) * r2; d[o++] = c1[q] + (m - c1[q]) * .85;
+          }
+          d[o++] = 255;
+        }
+      }
+      ctx.putImageData(img, 0, 0); c.classList.add('on');
+    }
+    function tam() {
+      var w = c.clientWidth, h = c.clientHeight; if (!w || !h) return;
+      W = Math.max(48, Math.round(Math.min(larg, w / 8))); H = Math.max(6, Math.round(W * h / w)); hw = h / w;
+      c.width = W; c.height = H; img = ctx.createImageData(W, H); if (!raf) desenha(T0 + 4000);
     }
     function laco(t) {
       raf = 0;
       if (!vis || !ativo || document.hidden || DK.reduz()) return;
-      if (t - ult >= 32) { ult = t; desenha(t); }
+      if (t - ult >= 50) {
+        ult = t; var a = performance.now(); desenha(t); var gasto = performance.now() - a;
+        if (gasto > 28 && larg > 64) { larg = Math.round(larg * .7); tam(); }      /* máquina fraca: quadro menor */
+      }
       raf = requestAnimationFrame(laco);
     }
     function liga() { if (!DK.reduz() && vis && ativo && !document.hidden && !raf) raf = requestAnimationFrame(laco); }
     new ResizeObserver(tam).observe(c); tam();
     new IntersectionObserver(function (e) { vis = e[e.length - 1].isIntersecting; liga(); }).observe(c);
     document.addEventListener('visibilitychange', liga);
-    
-    c.addEventListener('webglcontextlost', function (e) { e.preventDefault(); vis = false; });
     if (DK.reduz()) desenha(T0 + 4000); else liga();
-    /* quem esconde o palco (capa) pode pausar a seda da faixa */
     return { pausa: function (b) { ativo = !b; if (!b) liga(); } };
+  }
+
+  /* seda: c = canvas, cores = [[r,g,b] x3] de 0 a 1, PR = fração da resolução do WebGL */
+  DK.seda = function (c, cores, PR) {
+    PR = PR || 0.5;
+    cores = cores || [[0.055, 0.115, 0.29], [0.19, 0.32, 0.64], [0.78, 0.84, 0.95]];
+    var impl = null, pausado = false, mudo = { pausa: function () {} };
+    function troca() {                                   /* canvas que já teve WebGL não aceita 2D: entra um novo no lugar */
+      var n = c.cloneNode(false); n.classList.remove('on');
+      if (c.parentNode) c.parentNode.replaceChild(n, c);
+      c = n; return n;
+    }
+    function para2D(cv) { impl = seda2D(cv, cores, PR) || seda2D(troca(), cores, PR) || mudo; if (pausado) impl.pausa(true); }
+    impl = sedaGL(c, cores, PR, function () { troca(); para2D(c); });   /* WebGL morreu no meio da apresentação */
+    if (!impl) para2D(c);
+    return { pausa: function (b) { pausado = b; impl.pausa(b); } };
   };
 
 })();
